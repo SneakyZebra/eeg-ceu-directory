@@ -1,16 +1,33 @@
 {
-  "last_checked": "2026-10-29T04:29:59.734558+00:00",
+  "last_checked": "2026-10-29T08:15:48.883825+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
     "Next Gen Neuro",
-    "ASET Member Resources",
-    "ASET Webinars",
     "American Epilepsy Society",
     "ACNS",
     "ILAE",
     "EpiCARE"
   ],
+  "discovery_searches": [
+    {
+      "query": "\"neurodiagnostic\" \"education\" \"credits\" course",
+      "results": 0
+    },
+    {
+      "query": "\"seizure\" \"EEG\" \"free\" educational webinar",
+      "results": 0
+    },
+    {
+      "query": "\"EEG\" \"continuing education\" \"free\" webinar",
+      "results": 0
+    },
+    {
+      "query": "\"neurodiagnostic\" \"CEU\" \"free\"",
+      "results": 0
+    }
+  ],
+  "discovery_candidates_added": 0,
   "items": [
     {
       "title": "College Credit for Credentials",
