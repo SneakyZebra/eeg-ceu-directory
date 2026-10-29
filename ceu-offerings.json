@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T08:58:38.213786+00:00",
+  "last_checked": "2026-10-29T09:02:50.365947+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -47,7 +47,7 @@
     {
       "query": "EEG technologist webinar",
       "engine": "google_news",
-      "results": 1,
+      "results": 6,
       "relevant": 0
     },
     {
@@ -71,8 +71,8 @@
     {
       "query": "EEG continuing education",
       "engine": "google_news",
-      "results": 25,
-      "relevant": 9
+      "results": 13,
+      "relevant": 7
     },
     {
       "query": "ASET CEU webinar",
