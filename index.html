@@ -1,6 +1,365 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>EEG CEU Directory</title><style>body{margin:0;background:#051829;color:#eff7fa;font:15px Arial,sans-serif}header{padding:35px 5%;background:#06233b;border-bottom:2px solid #69be28}h1{font-size:clamp(32px,5vw,58px);margin:0}header p{color:#cbd8e1;max-width:850px;line-height:1.6}main{max-width:1400px;margin:30px auto;padding:0 20px}.cols{display:grid;grid-template-columns:1fr 1fr;gap:28px}h2{color:#8de451;font-size:25px}.card{display:flex;align-items:center;justify-content:space-between;gap:15px;background:#0d283d;border:1px solid #29475b;padding:15px;border-radius:9px;margin:10px 0}.card p{color:#c3d1dd;font-size:12px;line-height:1.5}.card a{border:1px solid #69be28;color:#b9ef9c;padding:9px 12px;border-radius:6px;white-space:nowrap;text-decoration:none}.note{color:#b9cbd6}small{color:#b9cbd6}@media(max-width:750px){.cols{grid-template-columns:1fr}}</style></head><body><header><h1>EEG CEU DIRECTORY</h1><p>Before enrolling, confirm the course awards continuing education credits accepted by ABRET for your credential and retain completion documentation.</p><small id="checked">Daily checks available when hosted on GitHub Pages</small></header><main><div class="cols"><section><h2>FREE CEU RESOURCES</h2><div id="free"></div></section><section><h2>PAID / MEMBERSHIP CEU RESOURCES</h2><div id="paid"></div></section></div><p class="note">Newly discovered links are candidates, not verified CEU awards. Confirm provider approval, fees, and credit type before enrolling.</p><p><a style="color:#a5e875" href="https://abret.org/">ABRET continuing education information</a></p></main><script>
-const seed=[['Stratus EEG U','https://www.stratusneuro.com/eeg-u','free'],['Neuro Pathway','https://myneuropathway.com/ceus/','free'],['Next Gen Neuro','https://www.teamngn.com/ngngivesback-sponsor','free'],['ASET Member Resources','https://www.aset.org/free-and-exclusive-member-resources/','paid'],['ASET Webinars','https://www.aset.org/events/webinars/','paid'],['American Epilepsy Society','https://learn.aesnet.org/','free'],['ACNS','https://www.acns.org/meetings/fall-courses/principles-of-clinical-neurophysiology/cme--ceu-information','paid'],['ILAE','https://www.ilae.org/education','free'],['EpiCARE','https://epi-care.eu/webinars/','free']];
-function draw(list){for(const group of ['free','paid'])document.getElementById(group).replaceChildren();const seen=new Set();for(const x of list){if(!x.url||seen.has(x.url))continue;seen.add(x.url);const cat=x.category==='paid'?'paid':'free';const row=document.createElement('article');row.className='card';const info=document.createElement('div');const title=document.createElement('strong');title.textContent=x.title;const sub=document.createElement('p');sub.textContent=x.status||'Verify credit availability with provider';info.append(title,sub);const a=document.createElement('a');a.textContent='Visit Site';a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';row.append(info,a);document.getElementById(cat).append(row)}}
-draw(seed.map(([title,url,category])=>({title,url,category,status:'Provider resource — verify current CEU offerings'})));
-fetch('./ceu-offerings.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.json():Promise.reject()).then(data=>{if(data.last_checked)document.getElementById('checked').textContent='Last provider check: '+new Date(data.last_checked).toLocaleString();draw([...seed.map(([title,url,category])=>({title,url,category,status:'Provider resource — verify current CEU offerings'})),...(data.items||[])]);}).catch(()=>{});
-</script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EEG CEU Directory</title>
+<style>
+:root {
+  --navy:#002244;
+  --green:#69be28;
+  --panel:#0b2b45;
+  --border:#29516a;
+}
+* {box-sizing:border-box}
+body {
+  margin:0;
+  background:#061b30;
+  color:white;
+  font-family:Arial,Helvetica,sans-serif;
+}
+header {
+  background:linear-gradient(120deg,#002244,#103c52);
+  border-bottom:4px solid var(--green);
+  padding:35px 5%;
+}
+.header {
+  max-width:1350px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
+}
+h1 {
+  font-size:clamp(32px,5vw,60px);
+  margin:0 0 10px;
+  letter-spacing:1px;
+}
+.subtitle {color:#b8d3e0;font-size:17px}
+.study {
+  text-align:center;
+  font-weight:bold;
+  color:var(--green);
+  font-size:24px;
+  min-width:140px;
+}
+.study span {font-size:70px;display:block}
+.notice {
+  max-width:1350px;
+  margin:22px auto;
+  padding:16px;
+  border:1px solid var(--green);
+  border-radius:9px;
+  background:#0b2b45;
+  line-height:1.6;
+}
+main {max-width:1390px;margin:auto;padding:0 20px}
+.columns {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+section {
+  background:#092238;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:20px;
+}
+h2 {
+  color:var(--green);
+  font-size:22px;
+  margin:0 0 8px;
+}
+.count {color:#9cb7c8;margin-bottom:20px;font-size:13px}
+.card {
+  display:flex;
+  align-items:center;
+  gap:13px;
+  background:#102f48;
+  border:1px solid #31516a;
+  border-radius:9px;
+  padding:13px;
+  margin-bottom:11px;
+}
+.logo {
+  width:52px;
+  height:52px;
+  flex-shrink:0;
+  display:grid;
+  place-items:center;
+  background:#e9f1f5;
+  color:#002244;
+  border-radius:7px;
+  font-weight:900;
+  font-size:15px;
+}
+.details {flex:1;min-width:0}
+.details strong {display:block;font-size:15px}
+.details p {
+  color:#b8cbd8;
+  font-size:12px;
+  line-height:1.5;
+  margin:6px 0;
+}
+.tag {
+  color:#b2f18c;
+  font-size:11px;
+  font-weight:bold;
+}
+.visit {
+  color:#002244;
+  background:var(--green);
+  padding:10px 12px;
+  text-decoration:none;
+  border-radius:6px;
+  font-weight:bold;
+  font-size:12px;
+  white-space:nowrap;
+}
+footer {
+  text-align:center;
+  color:#a8bdcc;
+  padding:30px;
+  font-size:13px;
+}
+footer a {color:#a9ec81}
+@media(max-width:800px) {
+  .columns {grid-template-columns:1fr}
+  .header {align-items:flex-start}
+  .study {min-width:90px;font-size:16px}
+  .study span {font-size:45px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header">
+    <div>
+      <h1>EEG CEU DIRECTORY</h1>
+      <div class="subtitle">
+        Continuing education resources for our
+        awesome EEG technologists
+      </div>
+    </div>
+    <div class="study">
+      <span>👶📚</span>
+      STUDY TIME!
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="notice">
+Before enrolling, verify that the specific course
+offers continuing education credits accepted by
+ABRET for your credential, and save your certificate.
+</div>
+
+<div class="columns">
+<section>
+<h2>FREE CEU RESOURCES</h2>
+<div class="count">Free educational opportunities</div>
+<div id="free"></div>
+</section>
+
+<section>
+<h2>PAID / MEMBERSHIP CEU RESOURCES</h2>
+<div class="count">Paid courses and member resources</div>
+<div id="paid"></div>
+</section>
+</div>
+</main>
+
+<footer>
+  <p id="updated">Checking CEU listings...</p>
+  <a href="https://abret.org/" target="_blank">
+    ABRET Continuing Education Information
+  </a>
+</footer>
+
+<script>
+const resources = [
+{
+ name:"Stratus EEG U",
+ logo:"SU",
+ type:"free",
+ url:"https://www.stratusneuro.com/eeg-u",
+ desc:"EEG educational webinars. ASET CEUs may be available for qualifying sessions."
+},
+{
+ name:"Neuro Pathway",
+ logo:"NP",
+ type:"free",
+ url:"https://myneuropathway.com/ceus/",
+ desc:"Free neurodiagnostic CEU opportunities. Check availability and eligibility."
+},
+{
+ name:"Next Gen Neuro Gives Back",
+ logo:"NGN",
+ type:"free",
+ url:"https://www.teamngn.com/ngngivesback-sponsor",
+ desc:"Sponsored neurodiagnostic education opportunities. Verify CEU availability."
+},
+{
+ name:"American Epilepsy Society",
+ logo:"AES",
+ type:"free",
+ url:"https://www.aesnet.org/",
+ desc:"Epilepsy education and selected free learning resources. Credit eligibility varies."
+},
+{
+ name:"TeleSpecialists",
+ logo:"TS",
+ type:"free",
+ url:"https://tstelemed.com/",
+ desc:"Neurodiagnostic and epilepsy education. Check current CEU events."
+},
+{
+ name:"Cadwell Learning Center",
+ logo:"C",
+ type:"free",
+ url:"https://www.cadwell.com/",
+ desc:"Neurodiagnostic education and selected webinars. Verify ASET CEU eligibility."
+},
+{
+ name:"NeuroEnlight",
+ logo:"NE",
+ type:"free",
+ url:"https://neuroenlight.com/",
+ desc:"EEG educational content and selected continuing education opportunities."
+},
+{
+ name:"EpiCARE",
+ logo:"EC",
+ type:"free",
+ url:"https://epi-care.eu/webinars/",
+ desc:"Free epilepsy webinars. Attendance certificates may not qualify as ABRET CEUs."
+},
+{
+ name:"ILAE Education",
+ logo:"ILAE",
+ type:"free",
+ url:"https://www.ilae.org/education",
+ desc:"International epilepsy education. CEU recognition varies by course."
+},
+{
+ name:"ASET Member Resources",
+ logo:"ASET",
+ type:"paid",
+ url:"https://www.aset.org/free-and-exclusive-member-resources/",
+ desc:"Member-exclusive neurodiagnostic continuing education resources."
+},
+{
+ name:"ASET EEG Education",
+ logo:"ASET",
+ type:"paid",
+ url:"https://www.aset.org/",
+ desc:"EEG courses, webinars and continuing education for neurodiagnostic professionals."
+},
+{
+ name:"ACNS Education",
+ logo:"ACNS",
+ type:"paid",
+ url:"https://www.acns.org/",
+ desc:"Clinical neurophysiology courses and professional education."
+},
+{
+ name:"Pocket NeuroDiagnostics",
+ logo:"PN",
+ type:"paid",
+ url:"https://pocketneurodiagnostics.com/",
+ desc:"EEG and long-term monitoring training. Verify credits for individual courses."
+},
+{
+ name:"ASNM Education",
+ logo:"ASNM",
+ type:"paid",
+ url:"https://www.asnm.org/",
+ desc:"Neurophysiology professional education and selected continuing education."
+},
+{
+ name:"NowYouKnowMed",
+ logo:"NYK",
+ type:"paid",
+ url:"https://nowyouknowmed.com/",
+ desc:"Neurodiagnostic continuing education and subscription learning resources."
+}
+];
+
+function addCard(item) {
+ const card=document.createElement("article");
+ card.className="card";
+
+ const logo=document.createElement("div");
+ logo.className="logo";
+ logo.textContent=item.logo||"EEG";
+
+ const details=document.createElement("div");
+ details.className="details";
+
+ const name=document.createElement("strong");
+ name.textContent=item.name||item.title;
+
+ const description=document.createElement("p");
+ description.textContent=item.desc||
+   item.status||"Verify credit eligibility with provider.";
+
+ const tag=document.createElement("div");
+ tag.className="tag";
+ tag.textContent=item.status||
+   "VERIFY COURSE CEU ELIGIBILITY";
+
+ details.append(name,description,tag);
+
+ const link=document.createElement("a");
+ link.className="visit";
+ link.href=item.url;
+ link.target="_blank";
+ link.rel="noopener noreferrer";
+ link.textContent="Visit Site";
+
+ card.append(logo,details,link);
+ document.getElementById(
+   item.type==="paid"||item.category==="paid"
+   ?"paid":"free"
+ ).appendChild(card);
+}
+
+function render(items) {
+ document.getElementById("free").replaceChildren();
+ document.getElementById("paid").replaceChildren();
+ const urls=new Set();
+ items.forEach(item=>{
+   if(!item.url||urls.has(item.url))return;
+   urls.add(item.url);
+   addCard(item);
+ });
+}
+
+render(resources);
+
+fetch("./ceu-offerings.json?t="+Date.now(),
+      {cache:"no-store"})
+.then(response=>{
+ if(!response.ok)throw Error("Unavailable");
+ return response.json();
+})
+.then(data=>{
+ render([...resources,...(data.items||[])]);
+ document.getElementById("updated").textContent=
+ data.last_checked
+ ?"Last provider check: "+
+   new Date(data.last_checked).toLocaleString()
+ :"Daily provider monitoring enabled";
+})
+.catch(()=>{
+ document.getElementById("updated").textContent=
+ "Provider directory";
+});
+</script>
+
+</body>
+</html>
