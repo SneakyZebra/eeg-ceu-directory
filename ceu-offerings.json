@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T08:28:06.621339+00:00",
+  "last_checked": "2026-10-29T08:47:59.404515+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -16,7 +16,7 @@
     {
       "query": "neurodiagnostic conference CEU",
       "engine": "bing",
-      "results": 10,
+      "results": 7,
       "relevant": 0
     },
     {
@@ -35,7 +35,7 @@
       "query": "seizure monitoring education",
       "engine": "google_news",
       "results": 25,
-      "relevant": 1
+      "relevant": 2
     },
     {
       "query": "EEG technologist webinar",
@@ -46,13 +46,13 @@
     {
       "query": "EEG technologist webinar",
       "engine": "google_news",
-      "results": 6,
+      "results": 1,
       "relevant": 0
     },
     {
       "query": "neurodiagnostic CEU",
       "engine": "bing",
-      "results": 1,
+      "results": 10,
       "relevant": 0
     },
     {
@@ -77,7 +77,7 @@
       "query": "ASET CEU webinar",
       "engine": "bing",
       "results": 10,
-      "relevant": 5
+      "relevant": 6
     },
     {
       "query": "ASET CEU webinar",
@@ -86,7 +86,7 @@
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 2,
+  "discovery_candidates_added": 4,
   "items": [
     {
       "title": "EEG Tech Training",
@@ -537,6 +537,56 @@
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Education Research: Shaping the Future of Epilepsy Fellowship Training in Canada - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE41SjJFeXNuX3ZGa1NRR2RUUTdZT3ZZN2JDcHc0NVVheERvUnc3SjFONlZoVWJsQ0NVQWFNVXRydTA0TWRvUVMxRnpLTUVLVHFHVEZBaTVDWFZmLXdHc1NNdVVuMzg0Q2xMSFE?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Home - ASET - The Neurodiagnostic Society",
+      "provider": "www.aset.org",
+      "url": "https://www.aset.org/",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "ASET - Wikipedia",
+      "provider": "en.m.wikipedia.org",
+      "url": "https://en.m.wikipedia.org/wiki/ASET",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "About our Organization - ASET Foundation",
+      "provider": "asetfoundation.org",
+      "url": "https://asetfoundation.org/about",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "Neonatal and Pediatric Epilepsy Syndromes",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/neonatal-and-pediatric-epilepsy-syndromes",
+      "category": "free",
+      "status": "Verified free credit",
+      "credits": 1.0,
+      "credit_type": "ASET CEU",
+      "cost": 0,
+      "expires": "2026-11-01",
+      "verified_on": "2026-10-29",
+      "date_added": "2026-10-29",
+      "discovery_source": "Manually verified course allowlist"
     },
     {
       "title": "College Credit for Credentials",
