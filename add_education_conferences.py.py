@@ -19,3 +19,116 @@ css='<style>.conference-grid{max-width:1280px;margin:auto;display:grid;grid-temp
 if '.conference-grid{' not in s:s=s.replace('</head><body>',css+'</head><body>')
 s=s.replace('General Education — No Credits Offered','General Education — Learn Beyond CEUs').replace('These resources provide educational information but do not award continuing education credits for the listed offerings. They are useful for learning and professional development, but should not be counted toward ASET CEU or ABRET recertification requirements. Only resources explicitly confirmed as offering no credits appear here; unknown credit status stays in Verify Cost and Credit.','Curated learning platforms, EEG case libraries, clinical guidelines and professional development. ASET CEU credit has not been confirmed for these linked activities. Do not count them toward recertification; some providers offer separate credit bearing courses.').replace('Educational resources with no continuing education credits offered','High value learning resources without confirmed CEUs')
 p.write_text(s,encoding='utf-8');print('Updated',len(edu),'education resources and',len(conf),'organization listings')
+
+
+# Website logo and wording improvements
+from pathlib import Path
+
+page = Path("index.html")
+html = page.read_text(encoding="utf-8")
+
+start_marker = "<!-- BRANDING UPDATE START -->"
+end_marker = "<!-- BRANDING UPDATE END -->"
+
+branding = r"""
+<!-- BRANDING UPDATE START -->
+<style>
+.entry .logo {
+  overflow: hidden;
+  padding: 5px;
+}
+.entry .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.conference-card .conference-logo {
+  width: 49px;
+  height: 49px;
+  border-radius: 7px;
+  background: #eef5f8;
+  padding: 6px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+</style>
+<script>
+(function () {
+  function improve() {
+    document.querySelectorAll(".entry").forEach(card => {
+      const square = card.querySelector(".logo");
+      const link = card.querySelector("a[href]");
+      if (!square || !link || square.dataset.updated) return;
+
+      square.dataset.updated = "yes";
+      const initials = square.textContent.trim();
+      const domain = new URL(link.href).hostname;
+      const img = document.createElement("img");
+      img.alt = "Organization icon";
+      img.loading = "lazy";
+      img.src = "https://www.google.com/s2/favicons?domain=" +
+        encodeURIComponent(domain) + "&sz=128";
+      img.onerror = () => {
+        img.remove();
+        square.textContent = initials === "?" ? "EEG" : initials;
+      };
+      square.replaceChildren(img);
+    });
+
+    document.querySelectorAll(".conference-card").forEach(card => {
+      if (card.dataset.updated) return;
+      const link = card.querySelector("a[href]");
+      if (!link) return;
+
+      card.dataset.updated = "yes";
+      const img = document.createElement("img");
+      img.className = "conference-logo";
+      img.alt = "Organization icon";
+      img.loading = "lazy";
+      img.src = "https://www.google.com/s2/favicons?domain=" +
+        encodeURIComponent(new URL(link.href).hostname) +
+        "&sz=128";
+      img.onerror = () => img.remove();
+      card.prepend(img);
+    });
+
+    const sections = document.querySelectorAll(
+      ".entry .info, .conference-card, .general-education-note, .footer"
+    );
+    sections.forEach(section => {
+      const walker = document.createTreeWalker(
+        section, NodeFilter.SHOW_TEXT
+      );
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const original = node.nodeValue;
+        const revised = original
+          .replace(/\s*[—–]\s*/g, ", ")
+          .replace(/\s+-\s+/g, ", ");
+        if (original !== revised) node.nodeValue = revised;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    improve();
+    const observer = new MutationObserver(improve);
+    ["free", "paid", "unknown", "general", "conference-list"]
+      .forEach(id => {
+        const element = document.getElementById(id);
+        if (element) observer.observe(element, {childList: true});
+      });
+  });
+})();
+</script>
+<!-- BRANDING UPDATE END -->
+"""
+
+if start_marker in html and end_marker in html:
+    beginning = html.index(start_marker)
+    ending = html.index(end_marker) + len(end_marker)
+    html = html[:beginning] + html[ending:]
+
+html = html.replace("</body>", branding + "\n</body>")
+page.write_text(html, encoding="utf-8")
+print("Branding and wording improvements applied")
