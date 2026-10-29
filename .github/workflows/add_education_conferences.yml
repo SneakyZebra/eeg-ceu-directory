@@ -2,6 +2,8 @@
 name: Add Education and Conferences Tabs
 
 on:
+  schedule:
+    - cron: '43 14 * * *'
   workflow_dispatch:
 
 permissions:
