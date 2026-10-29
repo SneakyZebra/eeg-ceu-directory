@@ -427,3 +427,58 @@ page_html = page_html.replace("</head>", script + "\n</head>", 1)
 website.write_text(page_html, encoding="utf-8")
 print("Daily logo scan:", jsonmod.dumps(results))
 print("Official website logo images are used only when confidently detected. Otherwise a distinct brain illustration is shown.")
+
+
+# Fix logos across all EEG CEU Directory tabs
+from pathlib import Path
+
+page = Path("index.html")
+html = page.read_text(encoding="utf-8")
+
+start = html.find("function add(item,unverified=false)")
+end = html.find("const curatedEducation=", start)
+
+if start == -1 or end == -1:
+    raise RuntimeError("Could not find the CEU card renderer.")
+
+section = html[start:end]
+
+old_start = section.find("const initials = item.title.split")
+old_end = section.find(
+    "const info=document.createElement('div');",
+    old_start
+)
+
+if old_start == -1 or old_end == -1:
+    raise RuntimeError("Could not find the old logo code.")
+
+replacement = """
+const image=document.createElement('img');
+image.alt=item.title+' logo or brain illustration';
+image.loading='eager';
+image.decoding='async';
+image.style.width='100%';
+image.style.height='100%';
+image.style.objectFit='contain';
+image.style.objectPosition='center';
+
+image.onerror=function(){
+  this.onerror=null;
+  this.src=window.eegBrainFor(item.url);
+};
+
+image.src=window.eegLogoFor(item.url);
+logo.replaceChildren(image);
+"""
+
+section = (
+    section[:old_start]
+    + replacement
+    + section[old_end:]
+)
+
+html = html[:start] + section + html[end:]
+
+page.write_text(html, encoding="utf-8")
+
+print("All EEG directory logos updated successfully.")
