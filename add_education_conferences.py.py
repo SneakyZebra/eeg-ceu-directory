@@ -482,3 +482,96 @@ html = html[:start] + section + html[end:]
 page.write_text(html, encoding="utf-8")
 
 print("All EEG directory logos updated successfully.")
+
+
+# Display six CEU resources with expandable sections
+from pathlib import Path
+
+page = Path("index.html")
+html = page.read_text(encoding="utf-8")
+
+start = "<!-- CEU SIX CARD LIMIT START -->"
+end = "<!-- CEU SIX CARD LIMIT END -->"
+
+if start in html and end in html:
+    html = html.split(start, 1)[0] + html.split(end, 1)[1]
+
+feature = """
+<!-- CEU SIX CARD LIMIT START -->
+<style>
+.ceu-show-toggle {
+  display:block;
+  width:100%;
+  margin:14px 0;
+  padding:12px;
+  background:#0d3048;
+  color:#c9f6a8;
+  border:1px solid #69be28;
+  border-radius:9px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+</style>
+<script>
+(function(){
+  const limit=6;
+
+  function setup(id){
+    const host=document.getElementById(id);
+    if(!host)return;
+
+    const button=document.createElement('button');
+    button.className='ceu-show-toggle';
+    button.type='button';
+    button.dataset.expanded='false';
+    host.after(button);
+
+    function update(){
+      const cards=Array.from(host.children)
+        .filter(el=>el.classList.contains('entry'));
+      const expanded=button.dataset.expanded==='true';
+
+      cards.forEach((card,i)=>{
+        card.style.display=expanded||i<limit?'':'none';
+      });
+
+      const extra=Math.max(0,cards.length-limit);
+      button.style.display=extra?'block':'none';
+      button.textContent=expanded
+        ? 'Show Less'
+        : 'Show More ('+extra+' additional resources)';
+      button.setAttribute('aria-expanded',String(expanded));
+    }
+
+    button.addEventListener('click',()=>{
+      button.dataset.expanded=String(
+        button.dataset.expanded!=='true'
+      );
+      update();
+    });
+
+    new MutationObserver(update)
+      .observe(host,{childList:true});
+
+    update();
+  }
+
+  function init(){
+    ['free','paid','unknown'].forEach(setup);
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  }else{
+    init();
+  }
+})();
+</script>
+<!-- CEU SIX CARD LIMIT END -->
+"""
+
+html = html.replace("</body>", feature + "\n</body>", 1)
+page.write_text(html, encoding="utf-8")
+
+print("CEU directory expansion controls installed.")
