@@ -10,6 +10,7 @@ import re
 import time
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from collections import deque
 from urllib.parse import urljoin, urlparse, urlencode, parse_qsl, urlunparse
 import requests
 from bs4 import BeautifulSoup
@@ -22,7 +23,9 @@ SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 MAX_ITEMS = 500
 MAX_NEW = 45
-MAX_VERIFY_PER_RUN = 45
+MAX_VERIFY_PER_RUN = 80
+MAX_CATALOG_PAGES_PER_RUN = 65
+MAX_CATALOG_DEPTH = 2
 
 # The original nine sources remain. New sites provide additional entry points.
 SOURCES = [
@@ -170,6 +173,16 @@ def monitor_sources(items):
 # Add a course here only after confirming BOTH $0 cost and eligible CEU credit.
 # The expiry date automatically removes it when the credit period ends.
 VERIFIED_FREE_COURSES = [
+    {
+        "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+        "provider": "American Epilepsy Society",
+        "url": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+        "credits": 3.5,
+        "credit_type": "ASET CEU",
+        "cost": 0,
+        "expires": "2027-12-31",
+        "verified_on": "2026-10-29",
+    },
     {
         "title": "Neonatal and Pediatric Epilepsy Syndromes",
         "provider": "TeleSpecialists",
@@ -330,6 +343,76 @@ def verify_discovered_courses(items):
                 item.pop(field, None)
     return checked, verified
 
+# Provider catalog exploration, bounded to a small set of trusted domains.
+# Discover course pages first; the separate verifier makes the free-credit decision.
+CATALOG_SEEDS = [
+    ("American Epilepsy Society", "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?Criteria=166&Option=585&SearchMode=1"),
+    ("American Epilepsy Society", "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?Criteria=165&Option=633&SearchMode=1"),
+    ("American Epilepsy Society", "https://learn.aesnet.org/"),
+    ("ASET", "https://www.aset.org/education/"),
+    ("ASET", "https://www.aset.org/events/webinars/"),
+    ("Stratus EEG U", "https://www.stratusneuro.com/eeg-u"),
+    ("Neuro Pathway", "https://myneuropathway.com/ceus/"),
+    ("Next Gen Neuro", "https://www.teamngn.com/ngngivesback-sponsor"),
+    ("TeleSpecialists", "https://learning.tstelemed.com/"),
+    ("Cadwell", "https://www.cadwell.com/"),
+    ("NeuroEnlight", "https://neuroenlight.com/"),
+]
+CATALOG_HOSTS = {
+    "learn.aesnet.org", "www.aset.org", "aset.org", "www.stratusneuro.com",
+    "stratusneuro.com", "myneuropathway.com", "www.myneuropathway.com",
+    "www.teamngn.com", "teamngn.com", "learning.tstelemed.com",
+    "www.cadwell.com", "cadwell.com", "neuroenlight.com", "www.neuroenlight.com",
+}
+COURSE_LINK = re.compile(r"/(?:Listing|Public/Catalog/Details|content|courses?|webinars?|sessions?|events?)/|(?:[?&](?:id|LearningActivityID)=)", re.I)
+CRAWL_LINK = re.compile(r"catalog|course|webinar|education|ceu|learn|training|epilepsy|eeg|neuro|event", re.I)
+SKIP_LINK = re.compile(r"(?:login|sign.?in|logout|cart|checkout|account|privacy|terms|contact|donate|subscribe|\.pdf(?:$|\?)|\.zip(?:$|\?))", re.I)
+
+def discover_catalog_courses(items):
+    """Explore a rotating, bounded set of catalog pages without third-party APIs."""
+    seen = set()
+    queue = deque((provider, url, 0) for provider, url in CATALOG_SEEDS)
+    added = 0
+    scanned = 0
+    # Seed pages are all visited first; deeper pages rotate across days.
+    while queue and scanned < MAX_CATALOG_PAGES_PER_RUN and len(items) < MAX_ITEMS:
+        provider, url, depth = queue.popleft()
+        key = normalize(url)
+        if not key or key in seen or urlparse(key).hostname not in CATALOG_HOSTS:
+            continue
+        seen.add(key)
+        try:
+            r = SESSION.get(url, timeout=13)
+            r.raise_for_status()
+            if 'text/html' not in r.headers.get('Content-Type', 'text/html').lower() or len(r.content) > 1_500_000:
+                continue
+            scanned += 1
+            soup = BeautifulSoup(r.text, 'html.parser')
+            links = []
+            for a in soup.select('a[href]'):
+                target = normalize(urljoin(r.url, a.get('href', '')))
+                if not target or urlparse(target).hostname not in CATALOG_HOSTS or SKIP_LINK.search(target):
+                    continue
+                title = tidy(a.get_text(' ', strip=True) or a.get('title') or '')
+                context = tidy(a.parent.get_text(' ', strip=True) if a.parent else title)
+                if COURSE_LINK.search(target) and target != key and len(title) >= 8:
+                    # The actual page must still independently prove free ASET credit.
+                    if add(items, title, provider, target, 'unknown', 'Deep catalog discovery'):
+                        added += 1
+                if depth < MAX_CATALOG_DEPTH and CRAWL_LINK.search(title+' '+target):
+                    if target not in seen and target != key:
+                        links.append((provider, target, depth+1))
+            # Prioritize specific courses and vary remaining exploration each day.
+            links.sort(key=lambda x: (not bool(COURSE_LINK.search(x[1])), x[1]))
+            if links:
+                offset = NOW.date().toordinal() % len(links)
+                links = links[offset:] + links[:offset]
+            queue.extend(links[:35])
+        except requests.RequestException as e:
+            print(f'Catalog unavailable ({provider}, {url}): {str(e)[:90]}')
+        time.sleep(0.1)
+    return scanned, added
+
 def main():
     try:
         old = json.loads(PATH.read_text(encoding="utf-8")) if PATH.exists() else {}
@@ -352,6 +435,7 @@ def main():
             corrected += 1
     checked, provider_added = monitor_sources(items)
     searches, discovered = search_discovery(items)
+    catalog_pages, catalog_added = discover_catalog_courses(items)
     verified_free = sync_verified_free(items)
     checked_courses, auto_verified = verify_discovered_courses(items)
     payload = {
@@ -359,11 +443,14 @@ def main():
         "providers_checked": checked,
         "discovery_searches": searches,
         "discovery_candidates_added": discovered,
+        "catalog_pages_scanned": catalog_pages,
+        "catalog_candidates_added": catalog_added,
         "items": sorted(items.values(), key=lambda x: x.get("date_added", ""), reverse=True)[:MAX_ITEMS],
     }
     PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Providers checked: {len(checked)}; new provider leads: {provider_added}; "
           f"RSS queries: {len(searches)}; new search leads: {discovered}.")
+    print(f"Catalog pages scanned: {catalog_pages}; new course candidates: {catalog_added}.")
     print(f"Corrected {corrected} previously misclassified free listings; {verified_free} curated verified free course(s) active; {checked_courses} course pages reviewed; {auto_verified} automatically verified.")
     print("New leads are unverified. Free access does not necessarily mean approved CEU credit.")
 
