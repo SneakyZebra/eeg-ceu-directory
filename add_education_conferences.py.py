@@ -218,3 +218,212 @@ html = html.replace(" – ", ", ")
 
 page.write_text(html, encoding="utf-8")
 print("Logo and wording corrections saved")
+
+# Automated organization logos and distinct brain artwork
+# Paste this section at the end of add_education_conferences.py.py.
+import base64
+import hashlib
+import html as htmlmod
+import json as jsonmod
+import re as regex
+from html.parser import HTMLParser
+from urllib.parse import urljoin, urlparse
+from urllib.request import Request, urlopen
+from pathlib import Path as FilePath
+
+website = FilePath("index.html")
+page_html = website.read_text(encoding="utf-8")
+BEGIN = "<!-- EEG LOGO LIBRARY START -->"
+END = "<!-- EEG LOGO LIBRARY END -->"
+
+# Read the previous library to preserve working logos if a site is temporarily offline.
+old_library = {}
+if BEGIN in page_html and END in page_html:
+    previous = page_html.split(BEGIN, 1)[1].split(END, 1)[0]
+    match = regex.search(r'<script id="eeg-logo-data" type="application/json">(.*?)</script>', previous, regex.S)
+    if match:
+        try:
+            old_library = jsonmod.loads(match.group(1))
+        except (ValueError, TypeError):
+            pass
+    page_html = page_html.split(BEGIN, 1)[0] + page_html.split(END, 1)[1]
+
+class LogoFinder(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.candidates = []
+    def handle_starttag(self, tag, attrs):
+        a = dict(attrs)
+        if tag != "img":
+            return
+        src = a.get("src") or a.get("data-src") or ""
+        if not src or src.startswith("data:"):
+            return
+        clues = " ".join(str(a.get(k, "")) for k in ("alt", "class", "id", "title", "src")).lower()
+        if "logo" not in clues:
+            return
+        if any(x in clues for x in ("partner-logo", "sponsor-logo", "footer-logo", "advert", "testimonial")):
+            return
+        score = (4 if "logo" in str(a.get("alt", "")).lower() else 0)
+        score += (3 if "logo" in str(a.get("class", "")).lower() else 0)
+        score += (2 if "logo" in src.lower() else 0)
+        score += (2 if "header" in clues or "brand" in clues else 0)
+        self.candidates.append((score, src))
+
+def fetch(url, limit=1500000):
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0 (compatible; EEGDirectoryLogoBot/1.0)"})
+    with urlopen(req, timeout=6) as response:
+        if response.status != 200:
+            return None, None
+        content_type = response.headers.get("Content-Type", "").split(";")[0].strip().lower()
+        data = response.read(limit + 1)
+        if len(data) > limit:
+            return None, None
+        return data, content_type
+
+def image_type(data):
+    if data.startswith(b"\x89PNG\r\n\x1a\n"): return "image/png"
+    if data.startswith(b"\xff\xd8\xff"): return "image/jpeg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP": return "image/webp"
+    if data.startswith((b"GIF87a", b"GIF89a")): return "image/gif"
+    return None
+
+def find_official_logo(address):
+    parsed = urlparse(address)
+    root = parsed.scheme + "://" + parsed.netloc + "/"
+    body, _ = fetch(root, 450000)
+    if not body:
+        return None
+    parser = LogoFinder()
+    parser.feed(body.decode("utf-8", "replace"))
+    # Require the image to come from the same website or a subdomain.
+    host = (parsed.hostname or "").lower()
+    for _, relative in sorted(parser.candidates, reverse=True)[:8]:
+        url = urljoin(root, relative)
+        asset_host = (urlparse(url).hostname or "").lower()
+        if not (asset_host == host or asset_host.endswith("." + host)):
+            continue
+        if urlparse(url).scheme != "https":
+            continue
+        raw, _ = fetch(url, 400000)
+        mime = image_type(raw or b"")
+        if mime:
+            return "data:" + mime + ";base64," + base64.b64encode(raw).decode("ascii")
+    return None
+
+# Collect organization websites from the directory's source lists.
+sources = {}
+for name, url, *_ in edu:
+    sources[urlparse(url).hostname or ""] = url
+for name, org, url in conf:
+    sources[urlparse(url).hostname or ""] = url
+
+# Include CEU cards, using the real provider domain.
+for match in regex.finditer(r'"url"\s*:\s*"(https?[^"]+)"', page_html):
+    url = match.group(1).replace("\\/", "/")
+    host = urlparse(url).hostname
+    if host and host not in sources:
+        sources[host] = url
+
+library = dict(old_library)
+results = {"official_site_logos": 0, "brain_fallbacks": 0, "cached": 0}
+for host, url in sorted(sources.items()):
+    if not host:
+        continue
+    try:
+        discovered = find_official_logo(url)
+    except Exception:
+        discovered = None
+    if discovered:
+        library[host] = discovered
+        results["official_site_logos"] += 1
+    elif host in library:
+        results["cached"] += 1
+    else:
+        results["brain_fallbacks"] += 1
+
+# Create eight distinct, original SVG brain icons with EEG waveforms.
+colors = [
+    ("#a4e7d0", "#176b6c"), ("#b5c9ff", "#3e4e9d"),
+    ("#f8ce94", "#9b5b26"), ("#eeb8da", "#954976"),
+    ("#c6eaa5", "#527d2c"), ("#a9e1ed", "#286e86"),
+    ("#d7baf4", "#75529a"), ("#f0d98f", "#8c7330")
+]
+brain_icons = []
+for i, (fill, line) in enumerate(colors):
+    rotation = [-8, 5, 0, 10, -5, 8, -10, 3][i]
+    svg = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+<rect width="64" height="64" rx="10" fill="#f0f6f8"/>
+<g transform="rotate({rotation} 32 30)">
+<path d="M32 13C24 6 14 10 13 19 5 22 5 32 11 37c-3 8 4 15 12 13 4 5 9 3 9-2 0 5 6 7 10 2 9 2 15-6 11-14 7-6 4-16-3-18-2-9-13-12-18-5Z" fill="{fill}" stroke="{line}" stroke-width="2.3"/>
+<path d="M32 14v29M20 19q8 4 6 11M14 33q8-3 12 7M45 19q-8 4-6 11M50 33q-8-3-12 7" fill="none" stroke="{line}" stroke-width="2" stroke-linecap="round"/>
+</g><path d="M8 {48+i%3}h11l4-8 5 15 6-11 4 4h18" fill="none" stroke="{line}" stroke-width="2.2" stroke-linejoin="round"/></svg>"""
+    brain_icons.append("data:image/svg+xml;base64," + base64.b64encode(svg.encode()).decode("ascii"))
+
+# The old card renderer must use the library instead of a favicon.
+page_html = regex.sub(
+    r"image\.src\s*=\s*'https://www\.google\.com/s2/favicons\?domain='\s*\+\s*encodeURIComponent\(new URL\(item\.url\)\.hostname\)\s*\+\s*'&sz=128';",
+    "image.src = window.eegLogoFor(item.url);",
+    page_html,
+    count=1,
+)
+page_html = page_html.replace(
+    "logo.textContent = initials;\n};\n\nimage.src = window.eegLogoFor(item.url);",
+    "logo.replaceChildren();\n  const fallback = document.createElement('img');\n"
+    "  fallback.src = window.eegBrainFor(item.url);\n"
+    "  fallback.alt = 'Illustrated brain icon';\n"
+    "  logo.append(fallback);\n};\n\nimage.src = window.eegLogoFor(item.url);"
+)
+# In case this is the first run and the original renderer is still present.
+page_html = page_html.replace(
+    "logo.textContent=item.logo||item.title.split(' ').map(w=>w[0]).slice(0,3).join('');",
+    "const image=document.createElement('img');"
+    "image.alt=item.title+' logo';"
+    "image.src=window.eegLogoFor(item.url);"
+    "image.onerror=()=>{image.src=window.eegBrainFor(item.url);image.onerror=null};"
+    "logo.replaceChildren(image);"
+)
+
+library_json = jsonmod.dumps(library, separators=(",", ":")).replace("<", "\\u003c")
+brains_json = jsonmod.dumps(brain_icons, separators=(",", ":"))
+script = f"""
+{BEGIN}
+<style>
+.entry .logo {{ overflow:hidden; padding:2px; }}
+.entry .logo img {{ display:block; width:100%; height:100%; object-fit:contain; object-position:center; }}
+.conference-card .conference-logo {{ width:52px; height:52px; display:block; object-fit:contain; object-position:center; border-radius:7px; background:#eef5f8; padding:2px; margin-bottom:12px; }}
+</style>
+<script id="eeg-logo-data" type="application/json">{library_json}</script>
+<script>
+window.eegBrainIcons = {brains_json};
+window.eegLogoLibrary = JSON.parse(document.getElementById('eeg-logo-data').textContent);
+window.eegBrainFor = function(url) {{
+  let hash=0;
+  for (const c of url) hash=(hash*31+c.charCodeAt(0))>>>0;
+  return window.eegBrainIcons[hash % window.eegBrainIcons.length];
+}};
+window.eegLogoFor = function(url) {{
+  const host=new URL(url).hostname;
+  return window.eegLogoLibrary[host] || window.eegBrainFor(url);
+}};
+document.addEventListener('DOMContentLoaded', function() {{
+  document.querySelectorAll('.conference-card').forEach(card => {{
+    const link=card.querySelector('a[href]');
+    if (!link) return;
+    const img=document.createElement('img');
+    img.className='conference-logo';
+    img.alt='Organization logo or brain illustration';
+    img.src=window.eegLogoFor(link.href);
+    img.onerror=()=>{{img.onerror=null;img.src=window.eegBrainFor(link.href)}};
+    card.prepend(img);
+  }});
+}});
+</script>
+<!-- Logo scan report: {htmlmod.escape(jsonmod.dumps(results))} -->
+{END}
+"""
+# Insert before other scripts, so the logo functions exist when cards are created.
+page_html = page_html.replace("</head>", script + "\n</head>", 1)
+website.write_text(page_html, encoding="utf-8")
+print("Daily logo scan:", jsonmod.dumps(results))
+print("Official website logo images are used only when confidently detected. Otherwise a distinct brain illustration is shown.")
