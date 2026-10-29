@@ -132,3 +132,89 @@ if start_marker in html and end_marker in html:
 html = html.replace("</body>", branding + "\n</body>")
 page.write_text(html, encoding="utf-8")
 print("Branding and wording improvements applied")
+
+
+# Fix organization icons directly in the website card renderer
+
+from pathlib import Path
+
+page = Path("index.html")
+html = page.read_text(encoding="utf-8")
+
+# Remove the previous logo replacement script
+start = "<!-- BRANDING UPDATE START -->"
+end = "<!-- BRANDING UPDATE END -->"
+
+if start in html and end in html:
+    a = html.index(start)
+    b = html.index(end) + len(end)
+    html = html[:a] + html[b:]
+
+old = (
+    "logo.textContent=item.logo||item.title.split(' ')"
+    ".map(w=>w[0]).slice(0,3).join('');"
+)
+
+new = """
+const initials = item.title.split(' ')
+  .filter(w => w.length)
+  .map(w => w[0])
+  .slice(0,3)
+  .join('')
+  .toUpperCase();
+
+logo.textContent = initials;
+
+const image = document.createElement('img');
+image.alt = item.title + ' logo';
+image.loading = 'lazy';
+image.style.width = '100%';
+image.style.height = '100%';
+image.style.objectFit = 'contain';
+
+image.onload = () => {
+  logo.replaceChildren(image);
+};
+
+image.onerror = () => {
+  logo.textContent = initials;
+};
+
+image.src = 'https://www.google.com/s2/favicons?domain='
+  + encodeURIComponent(new URL(item.url).hostname)
+  + '&sz=128';
+"""
+
+if old in html:
+    html = html.replace(old, new, 1)
+    print("Card logo renderer updated")
+elif "const initials = item.title.split" in html:
+    print("Card logo renderer already updated")
+else:
+    raise RuntimeError("Could not find the card logo renderer")
+
+# Preserve the square logo styling
+css = """
+<style>
+.entry .logo {
+  overflow: hidden;
+  padding: 5px;
+}
+.entry .logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+</style>
+"""
+
+if ".entry .logo img {" not in html:
+    html = html.replace("</head>", css + "</head>")
+
+# Clean up unnecessary dashes in displayed descriptions
+html = html.replace(" — ", ", ")
+html = html.replace(" – ", ", ")
+
+page.write_text(html, encoding="utf-8")
+print("Logo and wording corrections saved")
