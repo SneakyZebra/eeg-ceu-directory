@@ -22,6 +22,7 @@ SESSION = requests.Session()
 SESSION.headers.update(HEADERS)
 MAX_ITEMS = 500
 MAX_NEW = 45
+MAX_VERIFY_PER_RUN = 45
 
 # The original nine sources remain. New sites provide additional entry points.
 SOURCES = [
@@ -31,6 +32,7 @@ SOURCES = [
     ("ASET Member Resources", "https://www.aset.org/free-and-exclusive-member-resources/", "paid"),
     ("ASET Webinars", "https://www.aset.org/events/webinars/", "paid"),
     ("American Epilepsy Society", "https://learn.aesnet.org/", "unknown"),
+    ("American Epilepsy Society Courses", "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333", "unknown"),
     ("ACNS", "https://www.acns.org/meetings/fall-courses/principles-of-clinical-neurophysiology/cme--ceu-information", "paid"),
     ("ILAE", "https://www.ilae.org/education", "unknown"),
     ("EpiCARE", "https://epi-care.eu/webinars/", "unknown"),
@@ -207,6 +209,106 @@ def sync_verified_free(items):
             del items[url]
     return len(allowed)
 
+
+# Automated course-level checks use a deliberately strict evidence standard.
+# A course is published only when the *same course page* explicitly says that
+# both participation AND credit are free, names ASET CEUs, and gives an amount.
+# Ambiguous listings remain in Verify Cost and Credit.
+FREE_CREDIT_PHRASE = re.compile(
+    r"(?:no (?:registration |participation )?fee (?:to participate|for participation)"
+    r".{0,100}(?:receive|obtain|claim|earn).{0,35}credit"
+    r"|(?:participation|registration).{0,35}(?:and|&).{0,35}"
+    r"(?:ceu|continuing education|credit).{0,45}(?:free|no (?:additional )?fee)"
+    r"|free.{0,35}(?:aset ceus?|aset continuing education).{0,35}"
+    r"(?:including|with|and).{0,30}(?:free|no.cost|no fee).{0,25}certificat)",
+    re.I | re.S,
+)
+ASET_AMOUNT = (
+    re.compile(r"\b(\d+(?:\.\d+)?)\s*(?:ASET\s*)?(?:CEUs?|continuing education units?)\b", re.I),
+    re.compile(r"\bASET.{0,75}?\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?|units?)\b", re.I),
+)
+NEGATIVE = re.compile(
+    r"\b(?:no (?:ceu|credit)s? (?:are |is )?(?:available|offered|provided|awarded)"
+    r"|does not (?:offer|provide|award) (?:ceu|credit)"
+    r"|not eligible for (?:aset|ceu)|purchase (?:a |the )?certificate"
+    r"|fee (?:is )?required (?:for|to receive) (?:ceu|credit))\b", re.I
+)
+PRICE = re.compile(r"(?:\$\s*[1-9]\d*(?:\.\d+)?|\b(?:member|non.member) price\b)", re.I)
+
+def verify_course_page(url):
+    """Return strong evidence only, never infer free credit from a provider page."""
+    try:
+        response = SESSION.get(url, timeout=18)
+        response.raise_for_status()
+        if "text/html" not in response.headers.get("Content-Type", "text/html").lower():
+            return None
+        if len(response.content) > 1_500_000:
+            return None
+        soup = BeautifulSoup(response.text, "html.parser")
+        for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
+            tag.decompose()
+        text = " ".join(soup.stripped_strings)
+        text = re.sub(r"\s+", " ", text)[:90000]
+        if not re.search(r"\bASET\b", text, re.I) or NEGATIVE.search(text):
+            return None
+        # Avoid catalog pages with multiple prices and courses.
+        if PRICE.search(text):
+            return None
+        evidence = FREE_CREDIT_PHRASE.search(text)
+        if not evidence:
+            return None
+        amounts = []
+        for pattern in ASET_AMOUNT:
+            for match in pattern.finditer(text):
+                if "aset" in text[max(0, match.start()-110):match.end()+50].lower():
+                    amount = float(match.group(1))
+                    if 0 < amount <= 30:
+                        amounts.append(amount)
+        if not amounts:
+            return None
+        title = tidy((soup.title.get_text(" ", strip=True) if soup.title else "") or urlparse(url).path.rsplit("/", 1)[-1])
+        # Conservative expiry: recheck each day and withdraw on failed recheck.
+        return {"title": title, "credits": min(amounts),
+                "evidence": tidy(text[max(0, evidence.start()-75):evidence.end()+75])}
+    except (requests.RequestException, ValueError, TypeError) as exc:
+        print(f"Verification unavailable ({url}): {exc}")
+        return None
+
+def verify_discovered_courses(items):
+    # Always recheck previously automatically verified courses first.
+    previously = [(url, item) for url, item in items.items()
+                  if item.get("discovery_source") == "Automated course verification"]
+    pending = [(url, item) for url, item in items.items()
+               if item.get("category") == "unknown" and
+               item.get("discovery_source") != "Manually verified course allowlist"]
+    # Rotate candidates daily so the same first 45 are not checked forever.
+    pending.sort(key=lambda pair: pair[0])
+    if pending:
+        offset = NOW.date().toordinal() % len(pending)
+        pending = pending[offset:] + pending[:offset]
+    checked = 0
+    verified = 0
+    for url, item in previously + pending[:max(0, MAX_VERIFY_PER_RUN-len(previously))]:
+        # Only examine course-like pages; don't turn broad provider homepages into courses.
+        if not re.search(r"/(?:listing|content|course|learn|webinar|session|event)/|course|webinar", url, re.I):
+            continue
+        result = verify_course_page(url)
+        checked += 1
+        if result:
+            item.update(category="free", status="Verified free credit", cost=0,
+                        credits=result["credits"], credit_type="ASET CEU",
+                        expires=(NOW.date()+dt.timedelta(days=2)).isoformat(),
+                        verified_on=TODAY, verification_evidence=result["evidence"],
+                        discovery_source="Automated course verification")
+            verified += 1
+        elif item.get("discovery_source") == "Automated course verification":
+            # Fail closed when evidence is gone or a provider cannot be reached.
+            item.update(category="unknown", status="Needs verification",
+                        discovery_source="Automated verification withdrawn")
+            for field in ("cost", "credits", "credit_type", "expires", "verified_on", "verification_evidence"):
+                item.pop(field, None)
+    return checked, verified
+
 def main():
     try:
         old = json.loads(PATH.read_text(encoding="utf-8")) if PATH.exists() else {}
@@ -230,6 +332,7 @@ def main():
     checked, provider_added = monitor_sources(items)
     searches, discovered = search_discovery(items)
     verified_free = sync_verified_free(items)
+    checked_courses, auto_verified = verify_discovered_courses(items)
     payload = {
         "last_checked": NOW.isoformat(),
         "providers_checked": checked,
@@ -240,7 +343,7 @@ def main():
     PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Providers checked: {len(checked)}; new provider leads: {provider_added}; "
           f"RSS queries: {len(searches)}; new search leads: {discovered}.")
-    print(f"Corrected {corrected} previously misclassified free listings; {verified_free} verified free course(s) active.")
+    print(f"Corrected {corrected} previously misclassified free listings; {verified_free} curated verified free course(s) active; {checked_courses} course pages reviewed; {auto_verified} automatically verified.")
     print("New leads are unverified. Free access does not necessarily mean approved CEU credit.")
 
 if __name__ == "__main__":
