@@ -214,30 +214,46 @@ def sync_verified_free(items):
 # A course is published only when the *same course page* explicitly says that
 # both participation AND credit are free, names ASET CEUs, and gives an amount.
 # Ambiguous listings remain in Verify Cost and Credit.
-FREE_CREDIT_PHRASE = re.compile(
-    r"(?:no (?:registration |participation )?fee (?:to participate|for participation)"
-    r".{0,100}(?:receive|obtain|claim|earn).{0,35}credit"
-    r"|(?:participation|registration).{0,35}(?:and|&).{0,35}"
-    r"(?:ceu|continuing education|credit).{0,45}(?:free|no (?:additional )?fee)"
-    r"|free.{0,35}(?:aset ceus?|aset continuing education).{0,35}"
-    r"(?:including|with|and).{0,30}(?:free|no.cost|no fee).{0,25}certificat)",
-    re.I | re.S,
-)
-ASET_AMOUNT = (
-    re.compile(r"\b(\d+(?:\.\d+)?)\s*(?:ASET\s*)?(?:CEUs?|continuing education units?)\b", re.I),
-    re.compile(r"\bASET.{0,75}?\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?|units?)\b", re.I),
-)
-NEGATIVE = re.compile(
-    r"\b(?:no (?:ceu|credit)s? (?:are |is )?(?:available|offered|provided|awarded)"
-    r"|does not (?:offer|provide|award) (?:ceu|credit)"
-    r"|not eligible for (?:aset|ceu)|purchase (?:a |the )?certificate"
-    r"|fee (?:is )?required (?:for|to receive) (?:ceu|credit))\b", re.I
-)
-PRICE = re.compile(r"(?:\$\s*[1-9]\d*(?:\.\d+)?|\b(?:member|non.member) price\b)", re.I)
+
+# ASET evidence and cost evidence must both be present on the individual
+# course page. Merely mentioning ASET or saying a webinar is free is not enough.
+ASET_CREDIT_PATTERNS = [
+    re.compile(r"\b(\d+(?:\.\d+)?)\s*(?:approved\s*)?ASET\s*(?:CEUs?|credits?|continuing education units?)\b", re.I),
+    re.compile(r"\bASET\b.{0,100}?\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?|continuing education units?)\b", re.I),
+    re.compile(r"\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?)\b.{0,90}?\bASET\b", re.I),
+]
+ASET_APPROVAL = re.compile(r"\b(?:ASET\s*(?:approved|accredited|recognized|CEUs?|credits?)|(?:approved|accredited|recognized)\s+by\s+ASET)\b", re.I)
+NO_COST_PHRASES = [
+    re.compile(r"\b(?:free|complimentary|no.cost|zero.cost|at no charge)\b.{0,85}?\b(?:ASET\s*)?(?:CEUs?|continuing education credits?|credits?|certificates?)\b", re.I),
+    re.compile(r"\b(?:ASET\s*)?(?:CEUs?|continuing education credits?|credits?|certificates?)\b.{0,85}?\b(?:free|complimentary|no.cost|at no charge)\b", re.I),
+    re.compile(r"\b(?:no (?:registration|participation|enrollment|course) fee|free registration|registration is free|register for free|no.cost registration)\b", re.I),
+    re.compile(r"\b(?:no fee (?:to|for) (?:participate|register|enroll|receive|claim|earn)|free (?:to attend|to enroll|to register))\b", re.I),
+    re.compile(r"\b(?:price|cost|registration fee|course fee)\s*[:\-]?\s*\$?\s*0(?:\.00)?\b", re.I),
+]
+FREE_CREDIT_EXPLICIT = re.compile(
+    r"(?:no (?:fee|charge|cost).{0,85}(?:receive|claim|earn|obtain).{0,45}(?:credit|CEU|certificate)"
+    r"|(?:credit|CEU|certificate).{0,60}(?:no (?:additional )?(?:fee|charge|cost)|free of charge))", re.I)
+NO_CREDIT = re.compile(
+    r"\b(?:no (?:CEUs?|credits?) (?:are |is )?(?:available|offered|provided|awarded)"
+    r"|does not (?:offer|provide|award) (?:CEUs?|credits?)"
+    r"|not eligible for (?:ASET|CEUs?)"
+    r"|(?:CEUs?|credits?) (?:are |is )?not (?:available|offered|provided))\b", re.I)
+CHARGE = re.compile(
+    r"(?:\$\s*[1-9]\d*(?:\.\d+)?\b"
+    r"|(?:CEU|credit|certificate).{0,55}(?:additional fee|fee required|purchase required|separate purchase)"
+    r"|(?:additional fee|fee required|purchase required).{0,55}(?:CEU|credit|certificate))", re.I)
+GENERIC_CATALOG = re.compile(r"/(?:catalog|search|browse|all-courses|courses/?$|webinars/?$|education/?$)", re.I)
 
 def verify_course_page(url):
-    """Return strong evidence only, never infer free credit from a provider page."""
+    """Conservative, course-specific verification using public HTML evidence.
+
+    Free registration alone never proves a free CEU. Require ASET approval,
+    an amount, a free-cost signal, and an explicit indication the credit or
+    certificate itself is free. Pages with ambiguity remain unverified.
+    """
     try:
+        if GENERIC_CATALOG.search(urlparse(url).path):
+            return None
         response = SESSION.get(url, timeout=18)
         response.raise_for_status()
         if "text/html" not in response.headers.get("Content-Type", "text/html").lower():
@@ -247,29 +263,34 @@ def verify_course_page(url):
         soup = BeautifulSoup(response.text, "html.parser")
         for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
             tag.decompose()
-        text = " ".join(soup.stripped_strings)
-        text = re.sub(r"\s+", " ", text)[:90000]
-        if not re.search(r"\bASET\b", text, re.I) or NEGATIVE.search(text):
+        body = soup.select_one("main, article, [role=main]") or soup.body or soup
+        text = re.sub(r"\s+", " ", body.get_text(" ", strip=True))[:90000]
+        if not ASET_APPROVAL.search(text) or NO_CREDIT.search(text) or CHARGE.search(text):
             return None
-        # Avoid catalog pages with multiple prices and courses.
-        if PRICE.search(text):
-            return None
-        evidence = FREE_CREDIT_PHRASE.search(text)
-        if not evidence:
-            return None
-        amounts = []
-        for pattern in ASET_AMOUNT:
+        credit_amounts = []
+        for pattern in ASET_CREDIT_PATTERNS:
             for match in pattern.finditer(text):
-                if "aset" in text[max(0, match.start()-110):match.end()+50].lower():
-                    amount = float(match.group(1))
-                    if 0 < amount <= 30:
-                        amounts.append(amount)
-        if not amounts:
+                amount = float(match.group(1))
+                if 0 < amount <= 30:
+                    credit_amounts.append(amount)
+        if not credit_amounts:
             return None
-        title = tidy((soup.title.get_text(" ", strip=True) if soup.title else "") or urlparse(url).path.rsplit("/", 1)[-1])
-        # Conservative expiry: recheck each day and withdraw on failed recheck.
-        return {"title": title, "credits": min(amounts),
-                "evidence": tidy(text[max(0, evidence.start()-75):evidence.end()+75])}
+        if not any(p.search(text) for p in NO_COST_PHRASES):
+            return None
+        # Critical second check: free entry alone is not free credit.
+        if not FREE_CREDIT_EXPLICIT.search(text) and not any(
+            p.search(text) for p in NO_COST_PHRASES[:2]
+        ):
+            return None
+        title = tidy((soup.find("h1").get_text(" ", strip=True)
+                      if soup.find("h1") else
+                      soup.title.get_text(" ", strip=True) if soup.title else
+                      urlparse(url).path.rsplit("/", 1)[-1]))
+        evidence = FREE_CREDIT_EXPLICIT.search(text)
+        if not evidence:
+            evidence = next((p.search(text) for p in NO_COST_PHRASES[:2] if p.search(text)), None)
+        return {"title": title, "credits": min(credit_amounts),
+                "evidence": tidy(text[max(0, evidence.start()-65):evidence.end()+65])}
     except (requests.RequestException, ValueError, TypeError) as exc:
         print(f"Verification unavailable ({url}): {exc}")
         return None
