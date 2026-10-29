@@ -1,10 +1,11 @@
 {
-  "last_checked": "2026-10-29T08:47:59.404515+00:00",
+  "last_checked": "2026-10-29T08:58:38.213786+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
     "Next Gen Neuro",
     "American Epilepsy Society",
+    "American Epilepsy Society Courses",
     "ACNS",
     "ILAE",
     "EpiCARE",
@@ -16,7 +17,7 @@
     {
       "query": "neurodiagnostic conference CEU",
       "engine": "bing",
-      "results": 7,
+      "results": 10,
       "relevant": 0
     },
     {
@@ -35,7 +36,7 @@
       "query": "seizure monitoring education",
       "engine": "google_news",
       "results": 25,
-      "relevant": 2
+      "relevant": 1
     },
     {
       "query": "EEG technologist webinar",
@@ -77,7 +78,7 @@
       "query": "ASET CEU webinar",
       "engine": "bing",
       "results": 10,
-      "relevant": 6
+      "relevant": 5
     },
     {
       "query": "ASET CEU webinar",
@@ -86,7 +87,7 @@
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 4,
+  "discovery_candidates_added": 0,
   "items": [
     {
       "title": "EEG Tech Training",
