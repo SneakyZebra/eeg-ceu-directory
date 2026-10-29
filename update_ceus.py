@@ -163,6 +163,50 @@ def monitor_sources(items):
             print(f"Provider unavailable ({provider}): {e}")
     return checked, added
 
+
+# Only specific courses with separately checked evidence may enter the Free list.
+# Add a course here only after confirming BOTH $0 cost and eligible CEU credit.
+# The expiry date automatically removes it when the credit period ends.
+VERIFIED_FREE_COURSES = [
+    {
+        "title": "Neonatal and Pediatric Epilepsy Syndromes",
+        "provider": "TeleSpecialists",
+        "url": "https://learning.tstelemed.com/content/neonatal-and-pediatric-epilepsy-syndromes",
+        "credits": 1.0,
+        "credit_type": "ASET CEU",
+        "cost": 0,
+        "expires": "2026-11-01",
+        "verified_on": "2026-10-29",
+    },
+]
+
+def sync_verified_free(items):
+    """Fail closed: only allowlisted courses with a valid expiry and $0 credit."""
+    allowed = set()
+    today = NOW.date()
+    for course in VERIFIED_FREE_COURSES:
+        url = normalize(course.get("url", ""))
+        try:
+            expires = dt.date.fromisoformat(course["expires"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not url or expires < today or course.get("cost") != 0 or not course.get("credits", 0) > 0:
+            continue
+        allowed.add(url)
+        items[url] = {
+            "title": course["title"], "provider": course["provider"], "url": url,
+            "category": "free", "status": "Verified free credit",
+            "credits": course["credits"], "credit_type": course["credit_type"],
+            "cost": 0, "expires": course["expires"],
+            "verified_on": course["verified_on"], "date_added": course["verified_on"],
+            "discovery_source": "Manually verified course allowlist",
+        }
+    # Expired or withdrawn entries are not shown as free.
+    for url, item in list(items.items()):
+        if item.get("discovery_source") == "Manually verified course allowlist" and url not in allowed:
+            del items[url]
+    return len(allowed)
+
 def main():
     try:
         old = json.loads(PATH.read_text(encoding="utf-8")) if PATH.exists() else {}
@@ -185,6 +229,7 @@ def main():
             corrected += 1
     checked, provider_added = monitor_sources(items)
     searches, discovered = search_discovery(items)
+    verified_free = sync_verified_free(items)
     payload = {
         "last_checked": NOW.isoformat(),
         "providers_checked": checked,
@@ -195,7 +240,7 @@ def main():
     PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Providers checked: {len(checked)}; new provider leads: {provider_added}; "
           f"RSS queries: {len(searches)}; new search leads: {discovered}.")
-    print(f"Corrected {corrected} previously misclassified free listings.")
+    print(f"Corrected {corrected} previously misclassified free listings; {verified_free} verified free course(s) active.")
     print("New leads are unverified. Free access does not necessarily mean approved CEU credit.")
 
 if __name__ == "__main__":
