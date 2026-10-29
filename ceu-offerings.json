@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T08:21:37.684326+00:00",
+  "last_checked": "2026-10-29T08:28:06.621339+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -52,7 +52,7 @@
     {
       "query": "neurodiagnostic CEU",
       "engine": "bing",
-      "results": 10,
+      "results": 1,
       "relevant": 0
     },
     {
@@ -70,8 +70,8 @@
     {
       "query": "EEG continuing education",
       "engine": "google_news",
-      "results": 13,
-      "relevant": 7
+      "results": 25,
+      "relevant": 9
     },
     {
       "query": "ASET CEU webinar",
@@ -86,13 +86,13 @@
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 13,
+  "discovery_candidates_added": 2,
   "items": [
     {
       "title": "EEG Tech Training",
       "provider": "Stratus EEG U",
       "url": "https://www.stratusneuro.com/eeg-tech-training",
-      "category": "free",
+      "category": "unknown",
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "Provider monitoring"
@@ -101,7 +101,7 @@
       "title": "Physician Education",
       "provider": "Stratus EEG U",
       "url": "https://www.stratusneuro.com/physician-education",
-      "category": "free",
+      "category": "unknown",
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "Provider monitoring"
@@ -110,7 +110,7 @@
       "title": "Register Now",
       "provider": "Stratus EEG U",
       "url": "https://stratusneuro.zoom.us/webinar/register/WN_uCIu9F4SQUeOJJZ-Avzr1w",
-      "category": "free",
+      "category": "unknown",
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "Provider monitoring"
@@ -119,7 +119,7 @@
       "title": "Register Now",
       "provider": "Stratus EEG U",
       "url": "https://stratusneuro.zoom.us/webinar/register/WN_tLyditlITtqytwVgGec0Xw",
-      "category": "free",
+      "category": "unknown",
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "Provider monitoring"
@@ -519,6 +519,24 @@
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "bing RSS"
+    },
+    {
+      "title": "Education Research: EEG Instruction - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE93YUtlcmhmV2JmemhNSi1QVTFkdkJmNTJ5WFdFcGF3dUhpb0xuMG9oU01nRk1nb2RUMGs3TkZEUzhZMVppNFluOTNleEtXYXJoTWVyZTBNcUF0cm9KcThFbTYxcG4zTmduc2c?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Addressing Gaps in Competency-Based Medical Education in EEG Instruction, Virtual Learning, and High-Quality Peer Review in Medical Education - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE10bDFacEpBM08wSm03MVVHczdFUnNRUXdZbkMyd2h4TnJJRWVDOXR3V1BydXFfaU9KeHkyLWFQOGQtd0ZxdXFCdlM1eG8xNG9YLWstS0o0OWNNdk82ZE9fSV83M2lsNmZtNlE?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
     },
     {
       "title": "College Credit for Credentials",
