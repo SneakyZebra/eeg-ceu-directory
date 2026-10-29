@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T09:02:50.365947+00:00",
+  "last_checked": "2026-10-29T09:07:35.116199+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -17,7 +17,7 @@
     {
       "query": "neurodiagnostic conference CEU",
       "engine": "bing",
-      "results": 10,
+      "results": 1,
       "relevant": 0
     },
     {
@@ -36,7 +36,7 @@
       "query": "seizure monitoring education",
       "engine": "google_news",
       "results": 25,
-      "relevant": 1
+      "relevant": 2
     },
     {
       "query": "EEG technologist webinar",
@@ -47,7 +47,7 @@
     {
       "query": "EEG technologist webinar",
       "engine": "google_news",
-      "results": 6,
+      "results": 1,
       "relevant": 0
     },
     {
@@ -88,6 +88,8 @@
     }
   ],
   "discovery_candidates_added": 0,
+  "catalog_pages_scanned": 65,
+  "catalog_candidates_added": 50,
   "items": [
     {
       "title": "EEG Tech Training",
@@ -585,6 +587,470 @@
       "credit_type": "ASET CEU",
       "cost": 0,
       "expires": "2026-11-01",
+      "verified_on": "2026-10-29",
+      "date_added": "2026-10-29",
+      "discovery_source": "Manually verified course allowlist"
+    },
+    {
+      "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=aep%2F%2BGr8OlBAZ%2FnXC9Y9Wg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - Stroke Mimics - Register Now",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/stroke-mimics",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - Bi-Annual Psychiatry Updates - Register Now",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/bi-annual-updates-psychiatry-research",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - Thrombolytics AIS - Watch Now - 2026",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/thrombolytics-acute-ischemic-stroke-1",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - New Stroke Guidelines - Watch Now",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/acute-ischemic-stroke-new-guidelines",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - Unraveling Brain Vascular Malformations: From Cavernoma to AVM - Watch Now",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/unraveling-brain-vascular-malformations-cavernoma-avm",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Banner - Depression in Cancer 2026",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/depression-cancer-patients-diagnosis-and-treatment",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EEG Essentials: Advanced Curriculum",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=JC1rAiuh2RoQtJLRuHrYag%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EEG Essentials: Fundamental Curriculum",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=Rq1sEzHKt%2F1IkwFbFFcObg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EEG Essentials: Intermediate Curriculum",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=AzNvUf%2BbL3Umt5NVxhWFcg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Background Electroclinical Syndromes",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=dotCUCQeLAlFeOt2Rcdh%2FQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Background Special Populations",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=pkHepYwuFNlZmWa61b0BEQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Background: General",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=D1I%2FA4RHcuZfsF3D1Z5T4A%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - EEG",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=XX3q4sesJtRnUjFpdtlk6w%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Management",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=UK93z9n9DRDrFvCikNFZEA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Other/Miscellaneous",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=I7y4MUn0qe8IcRTJ5hEP8A%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES - Core Curriculum - Surgical",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=M57cDXcOUpR0jFnOZEHriw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES – Fellowship - Core Curriculum - Comorbidities",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=g9gfrR5OyD7w%2BYz%2BirqcEQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "PI CME: Seizure Frequency Process and Outcome: Standardizing Capture of Seizure Frequency, Type, and Time Since Last Seizure",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=Dd5DWJ%2Bo1WO0h5P4eM4ZlQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "PI CME: Seizure Rescue Medications for Persons with Epilepsy: Population Dosing Choices",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=QXz%2BFHmKYukR1VMw%2FgsWiQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "PI CME: Family Planning for People with Epilepsy with Childbearing Potential (PWECP) Performance Improvement Project",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=dP7SlRO9iRnrQFVvsE6D7g%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "PI CME: In-Patient Epilepsy Monitoring Unit: Ictal and Post-Ictal Awareness and Localization Testing in Focal Seizures",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=%2BzDvwKKpddg%2BD6Is9WLOmQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "PI CME: Outpatient Clinic: Screening for Quality of Life in Patients with Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=B%2BUZVYIqfrZQx35uw285rQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Self Assessment in Epilepsy, Volume 11",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=%2BUkd0RSY0H0PHZDAnu3bIQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Self Assessment in Epilepsy, Volume 10",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=lmySbFgtP26RJly1jnh1rw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Self Assessment in Epilepsy, Volume 9",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=bEpDOfKnhxXW7O%2B3nMM6VA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "2026 AES Digital Select",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=uSL62ea8IH5EAkxiPwSX2A%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "2026 AES Early Career Grants Application FAQ",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=a%2BDxt3DrHsWs34hksKZOLg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "2026 Epilepsy Fellowship In-Service Training Examination (EpiFITE)",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=mWilfipTGiQLpDczc2UkDw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES DEI Committee On Demand Webinar Series: Understanding Social Determinants of Health in Epilepsy Care",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=WP9GqvLA30T8uP8Rkkdkdw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "AES On Demand Webinar: Early Intervention & Evolving Evidence: New Guidelines in Infantile Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=WI6ZJYflHUvaN2cXAujb8Q%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Expert On Demand Webinar: Caring for All - LGBTQ+ Informed Care in Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=3WrMv9tt5gYXjtpv0S70Tg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Expert On Demand Webinar: Do We Need REMS?",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=oMLJJzYsKDdTIEN%2B3K1hAA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask The Expert On Demand Webinar: Making Sense of the Alphabet Soup: Practical Tips on Genetic Testing in Pediatric and Adult Patients with Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=6nz%2Fn1Jq9WkiypKPF57jwQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Experts On Demand Webinar: Epilepsy and Pregnancy: Review of Clinician and Patient Resources with an Emphasis on Planning for the Postpartum Period and Breastfeeding",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=mzbMLL%2BHOg1UAN6j7a17zA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Experts On Demand Webinar: How Do We Know We Have Missed the SEEG Seizure Onset Zone?",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=coBKJQnMuhQj5rL54PHuDg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Experts On Demand Webinar: Lifting the Veil: Recognizing and Mitigating Suicide Risks",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=AR%2B3r19mpCDkl5L%2BfEJh6g%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask The Experts On Demand Webinar: SEEG Interpretation from Interictal to Ictal: Navigating the Path to Surgical Decision-Making in Temporal Lobe Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=eCJHzQe05dZ7wXxruq6f%2BQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask the Experts On-Demand Webinar: Preventing Epilepsy Deaths - Clinicians Toolkit",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=2%2BSDZ6AiVfzp4IwMpfsyGg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Ask The Experts Webinar On Demand: From Seizure Semiology to SEEG Hypothesis: Navigating Challenges and Caveats in Temporal Lobe Epilepsy Surgery Planning",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=cFruHILcVrB1CGdp5JUKUw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Empowering Epilepsy Patients: Standardized Self-Management Programs in Your Clinic",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=T2O8zWpgNY%2FLFBrsT5Jh0g%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EPI Talk On Demand: Veterans' Health: The impact of Post-Traumatic Epilepsy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=ecY2i6ck2ta%2F1S56ii6C%2FA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EPI Talks: Seizure Clusters: The Role of Immediate Use Therapy",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=RsLkMREByyaGF4QrHRlRrA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "On Demand Webinar: Practicing Cultural Competence and Cultural Humility in Epilepsy Care Settings",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=9SXpTHe3D5fOG3DzOIfKCQ%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Recognizing and Managing Mental Health Comorbidities in Children and Adults with Epilepsy: A free CME webinar for multilevel primary and behavioral care providers (OnDemand)",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=tcAZAiJDw%2BXw5RjLfrH9Ig%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "The Path to Equitable Care in Epilepsy: A Review for Multilevel Primary and Behavioral Care Providers (OnDemand)",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=ndr7Rd0kQay7rYNHAbb2iw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EPI Talk On Demand: Rural Health",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=MJArZ2SdL45v9SPL%2FtzQ1Q%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EPI Talks On Demand: The Teenage Patient with a Developmental Epileptic Encephalopathy at the Intersection of Pediatric and Adult Epilepsy Care",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=qVQqWWRRyrSlcvR%2Bw9j8mA%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Tech Troubleshooting: Making EEG Artifacts a Thing of the Past",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Secondary Stroke Prevention - Mechanism-Driven, Evidence-Based Strategies to Reduce Recurrent Stroke",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/secondary-stroke-prevention-mechanism-driven-evidence-based-strategies-reduce-recurrent",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+      "category": "free",
+      "status": "Verified free credit",
+      "credits": 3.5,
+      "credit_type": "ASET CEU",
+      "cost": 0,
+      "expires": "2027-12-31",
       "verified_on": "2026-10-29",
       "date_added": "2026-10-29",
       "discovery_source": "Manually verified course allowlist"
