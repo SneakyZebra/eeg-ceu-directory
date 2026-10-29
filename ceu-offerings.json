@@ -1,1 +1,23 @@
-{"last_checked":null,"providers_checked":[],"items":[]}
+{
+  "last_checked": "2026-10-29T04:29:59.734558+00:00",
+  "providers_checked": [
+    "Stratus EEG U",
+    "Neuro Pathway",
+    "Next Gen Neuro",
+    "ASET Member Resources",
+    "ASET Webinars",
+    "American Epilepsy Society",
+    "ACNS",
+    "ILAE",
+    "EpiCARE"
+  ],
+  "items": [
+    {
+      "title": "College Credit for Credentials",
+      "provider": "ASET Member Resources",
+      "url": "https://www.aset.org/college-credit-for-credentials/",
+      "category": "paid",
+      "status": "Needs verification"
+    }
+  ]
+}
