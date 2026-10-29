@@ -91,6 +91,9 @@
 }
 </style>
 
+
+
+
 <!-- EEG LOGO LIBRARY START -->
 <style>
 .entry .logo { overflow:hidden; padding:2px; }
@@ -175,35 +178,23 @@ document.addEventListener('DOMContentLoaded', function() {
 const curated=[{"category": "free", "title": "Stratus EEG U", "description": "Monthly live webinars; ASET CEUs for qualifying attendance.", "url": "https://www.stratusneuro.com/eeg-u", "badge": "ASET CEUs · Live", "logo": "stratus"}, {"category": "free", "title": "Neuro Pathway", "description": "Free neurodiagnostic CEU opportunities; availability and limits vary.", "url": "https://myneuropathway.com/ceus/", "badge": "Check current credits", "logo": "neuro"}, {"category": "free", "title": "NGN Gives Back", "description": "Sponsored EEG learning; confirm which events award CEUs.", "url": "https://www.teamngn.com/ngngivesback-sponsor", "badge": "Check CEUs", "logo": "ngn"}, {"category": "unknown", "title": "American Epilepsy Society", "description": "Epilepsy education and selected complimentary programs; check credit eligibility.", "url": "https://learn.aesnet.org/", "badge": "Varies by course", "logo": "aes"}, {"category": "unknown", "title": "TeleSpecialists", "description": "EEG and epilepsy webinars; selected events offer ASET CEUs.", "url": "https://tstelemed.com/", "badge": "Selected events", "logo": "ts"}, {"category": "unknown", "title": "Cadwell Learning", "description": "EEG learning events; select live sessions may award CEUs.", "url": "https://www.cadwell.com/", "badge": "Selected events", "logo": "cadwell"}, {"category": "unknown", "title": "NeuroEnlight", "description": "EEG educational resources; confirm credits on each activity.", "url": "https://neuroenlight.com/", "badge": "Check credits", "logo": "ne"}, {"category": "unknown", "title": "EpiCARE Webinars", "description": "Free epilepsy webinars; certificates do not automatically equal ABRET CEUs.", "url": "https://epi-care.eu/webinars/", "badge": "Verify eligibility", "logo": "epicare"}, {"category": "unknown", "title": "ILAE Education", "description": "Epilepsy courses and forums; check credit type and eligibility.", "url": "https://www.ilae.org/education", "badge": "Varies by course", "logo": "ilae"}, {"category": "paid", "title": "ASET Member Resources", "description": "Exclusive member webinars, quizzes and educational materials.", "url": "https://www.aset.org/free-and-exclusive-member-resources/", "badge": "Membership", "logo": "aset"}, {"category": "paid", "title": "ASET EEG Study Guide", "description": "EEG courses and quizzes with listed ASET CEU values.", "url": "https://www.aset.org/eeg-study-guide/", "badge": "ASET CEUs", "logo": "aset"}, {"category": "paid", "title": "ASET Education", "description": "Courses, seminars, webinars and professional development.", "url": "https://www.aset.org/education/", "badge": "ASET CEUs", "logo": "aset"}, {"category": "paid", "title": "ASET Membership", "description": "Member journal quizzes and webinar benefits.", "url": "https://www.aset.org/membership/", "badge": "Membership", "logo": "aset"}, {"category": "paid", "title": "ACNS Courses", "description": "Clinical neurophysiology courses; check CEU details.", "url": "https://www.acns.org/", "badge": "Varies by course", "logo": "acns"}, {"category": "paid", "title": "Pocket NeuroDiagnostics", "description": "EEG/LTM education; verify eligible credits for live courses.", "url": "https://pocketneurodiagnostics.com/", "badge": "Selected courses", "logo": "pocket"}, {"category": "paid", "title": "ASNM Education", "description": "Neurodiagnostic and monitoring education; member and paid options.", "url": "https://www.asnm.org/", "badge": "Check credits", "logo": "asnm"}, {"category": "paid", "title": "Now You Know Med", "description": "Neurodiagnostic continuing education and subscription learning.", "url": "https://nowyouknowmed.com/", "badge": "Subscription", "logo": "nyk"}, {"category": "paid", "title": "ASET Foundation", "description": "Scholarships toward educational programs; not itself a CEU course.", "url": "https://www.aset.org/foundation/", "badge": "Funding resource", "logo": "aset"}];
 const known=new Set(curated.map(x=>x.url.replace(/\/$/,'')));
 function add(item,unverified=false){if(!item.url||!/^https:\/\//.test(item.url))return;const host=document.getElementById(item.category==='free'?'free':item.category==='paid'?'paid':item.category==='general'?'general':'unknown');const card=document.createElement('article');card.className='entry'+(unverified?' candidate':'');const logo=document.createElement('div');logo.className='logo';
-const initials = item.title.split(' ')
-  .filter(w => w.length)
-  .map(w => w[0])
-  .slice(0,3)
-  .join('')
-  .toUpperCase();
 
-logo.textContent = initials;
+const image=document.createElement('img');
+image.alt=item.title+' logo or brain illustration';
+image.loading='eager';
+image.decoding='async';
+image.style.width='100%';
+image.style.height='100%';
+image.style.objectFit='contain';
+image.style.objectPosition='center';
 
-const image = document.createElement('img');
-image.alt = item.title + ' logo';
-image.loading = 'lazy';
-image.style.width = '100%';
-image.style.height = '100%';
-image.style.objectFit = 'contain';
-
-image.onload = () => {
-  logo.replaceChildren(image);
+image.onerror=function(){
+  this.onerror=null;
+  this.src=window.eegBrainFor(item.url);
 };
 
-image.onerror = () => {
-  logo.replaceChildren();
-  const fallback = document.createElement('img');
-  fallback.src = window.eegBrainFor(item.url);
-  fallback.alt = 'Illustrated brain icon';
-  logo.append(fallback);
-};
-
-image.src = window.eegLogoFor(item.url);
+image.src=window.eegLogoFor(item.url);
+logo.replaceChildren(image);
 const info=document.createElement('div');info.className='info';const strong=document.createElement('strong');strong.textContent=item.title;const p=document.createElement('p');p.textContent=item.description||'Potential CEU opportunity. Confirm details with provider.';const badge=document.createElement('span');badge.className='tag';badge.textContent=item.badge||'Needs verification';info.append(strong,p,badge);const a=document.createElement('a');a.className='visit';a.textContent='Visit Site ↗';a.href=item.url;a.target='_blank';a.rel='noopener noreferrer';card.append(logo,info,a);host.append(card);if(item.category==='general')document.getElementById('general-empty').hidden=true}
 const curatedEducation=[{"category": "general", "title": "ACNS Practice Guidelines", "url": "https://www.acns.org/practice/guidelines", "description": "Technical EEG standards and clinical practice guidelines", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "Learning EEG", "url": "https://www.learningeeg.com/", "description": "Structured EEG interpretation lessons and quizzes", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "EEG Atlas Online", "url": "https://eegatlas-online.com/index.php/en/", "description": "Annotated EEG cases and waveform practice", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "EEG Master", "url": "https://eegmaster.com/", "description": "Interactive EEG interpretation exercises", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "EEG Pedia", "url": "https://eegpedia.org/index.php?title=Main_Page", "description": "EEG terminology and waveform reference", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "Yale EEG Modules", "url": "https://campuspress.yale.edu/eegmodules/", "description": "Academic EEG teaching modules", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "EEG Platform", "url": "https://eegplatform.com/", "description": "Interactive EEG cases", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "NAEC Workforce Resources", "url": "https://naec-epilepsy.org/neurodiagnostic-workforce-resources", "description": "Competencies and professional development", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "ILAE Education", "url": "https://www.ilae.org/education", "description": "Epilepsy education and training", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "Stratus EEG U Recordings", "url": "https://www.stratusneuro.com/eeg-u", "description": "Recorded webinars for learning; recorded attendance does not provide the live CEUs", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "AES Learning Center", "url": "https://learn.aesnet.org/", "description": "Epilepsy and EEG curricula; individual offerings may separately award credits", "badge": "Learning resource", "logo": "?"}, {"category": "general", "title": "ACNS Education", "url": "https://www.acns.org/education", "description": "Clinical neurophysiology learning resources", "badge": "Learning resource", "logo": "?"}];
 curatedEducation.forEach(x=>add(x));
@@ -295,6 +286,9 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
  window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 })();
 </script><script>(function(){const conferenceEvents=[["ACNS Annual Meeting and Courses", "ACNS", "https://www.acns.org/meetings/annual-meeting-and-courses"], ["ASET Annual Conference", "ASET", "https://www.aset.org/annual-conference/"], ["AES Annual Meeting", "AES", "https://aesnet.org/AES-annual-meeting/"], ["AAN Annual Meeting", "AAN", "https://www.aan.com/events/annual-meeting"], ["NANS Annual Meeting", "NANS", "https://www.neuromodulation.org/"], ["AANS Annual Scientific Meeting", "AANS", "https://www.aans.org/annual-meeting/"], ["European Congress of Clinical Neurophysiology", "ECCN", "https://www.ifcn.info/"], ["International Congress of Clinical Neurophysiology", "IFCN", "https://www.ifcn.info/"], ["ABRET Credentialing and Events (no annual meeting confirmed)", "ABRET", "https://abret.org/"]];const host=document.getElementById('conference-list');if(!host)return;conferenceEvents.forEach(([name,org,url])=>{const card=document.createElement('article');card.className='conference-card';const label=document.createElement('small');label.textContent=org;const h=document.createElement('h3');h.textContent=name;const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Official meeting information ↗';card.append(label,h,link);host.append(card)});})();</script>
+
+
+
 
 
 
