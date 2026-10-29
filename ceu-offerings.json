@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T08:15:48.883825+00:00",
+  "last_checked": "2026-10-29T08:21:37.684326+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -7,28 +7,519 @@
     "American Epilepsy Society",
     "ACNS",
     "ILAE",
-    "EpiCARE"
+    "EpiCARE",
+    "Neurocritical Care Society Webinars",
+    "Neurocritical Care Society Calendar",
+    "NowYouKnowMed EEG Tech"
   ],
   "discovery_searches": [
     {
-      "query": "\"neurodiagnostic\" \"education\" \"credits\" course",
-      "results": 0
+      "query": "neurodiagnostic conference CEU",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
     },
     {
-      "query": "\"seizure\" \"EEG\" \"free\" educational webinar",
-      "results": 0
+      "query": "neurodiagnostic conference CEU",
+      "engine": "google_news",
+      "results": 2,
+      "relevant": 0
     },
     {
-      "query": "\"EEG\" \"continuing education\" \"free\" webinar",
-      "results": 0
+      "query": "seizure monitoring education",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
     },
     {
-      "query": "\"neurodiagnostic\" \"CEU\" \"free\"",
-      "results": 0
+      "query": "seizure monitoring education",
+      "engine": "google_news",
+      "results": 25,
+      "relevant": 1
+    },
+    {
+      "query": "EEG technologist webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "EEG technologist webinar",
+      "engine": "google_news",
+      "results": 6,
+      "relevant": 0
+    },
+    {
+      "query": "neurodiagnostic CEU",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "neurodiagnostic CEU",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "EEG continuing education",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "EEG continuing education",
+      "engine": "google_news",
+      "results": 13,
+      "relevant": 7
+    },
+    {
+      "query": "ASET CEU webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 5
+    },
+    {
+      "query": "ASET CEU webinar",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
     }
   ],
-  "discovery_candidates_added": 0,
+  "discovery_candidates_added": 13,
   "items": [
+    {
+      "title": "EEG Tech Training",
+      "provider": "Stratus EEG U",
+      "url": "https://www.stratusneuro.com/eeg-tech-training",
+      "category": "free",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Physician Education",
+      "provider": "Stratus EEG U",
+      "url": "https://www.stratusneuro.com/physician-education",
+      "category": "free",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Register Now",
+      "provider": "Stratus EEG U",
+      "url": "https://stratusneuro.zoom.us/webinar/register/WN_uCIu9F4SQUeOJJZ-Avzr1w",
+      "category": "free",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Register Now",
+      "provider": "Stratus EEG U",
+      "url": "https://stratusneuro.zoom.us/webinar/register/WN_tLyditlITtqytwVgGec0Xw",
+      "category": "free",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "All Courses Catalog",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?SearchMode=1",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Principles of Clinical Neurophysiology Courses",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/meetings/fall-courses",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Principles of Clinical Neurophysiology",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/meetings/fall-courses/principles-of-clinical-neurophysiology",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Registration",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/meetings/fall-courses/principles-of-clinical-neurophysiology/registration",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Clinical Neurophysiology Fellowship Information",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/education/cnp-fellowship",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "About the Clinical Neurophysiology Fellowship",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/education/cnp-fellowship/about-the-clinical-neurophysiology-fellowship",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "In-Service Exam in Clinical Neurophysiology",
+      "provider": "ACNS",
+      "url": "https://www.acns.org/education/in-service-exam",
+      "category": "paid",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Baltic Sea Summer School on Epilepsy (BSSSE)",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/baltic-sea-summer-school-on-epilepsy-bssse",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Dianalund Summer School on EEG and Epilepsy (DSSEE)",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/dianalund-summer-school-on-eeg-and-epilepsy-dssee",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Epilepsy Regional Teaching Course, Kinshasa",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/epilepsy-regional-teaching-course-kinshasa",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "ILAE School on EEG in the First Year of Life",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/ilae-school-on-eeg-in-the-first-year-of-life",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "ILAE School for Neuropathology and Neuroimaging in Epilepsy (INES)",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/ilae-school-for-neuropathology-and-neuroimaging-in-epilepsy-ines",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "ILAE School on Pre-Surgical Evaluation for Epilepsy and Epilepsy Surgery (EPODES)",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/ilae-school-on-pre-surgical-evaluation-for-epilepsy-and-epilepsy-surgery-epodes",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "International Congress on Epilepsy, Brain & Mind",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/international-congress-on-epilepsy-brain-and-mind",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Latin American Summer School on Epilepsy",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/latin-american-summer-school-on-epilepsy",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "San Servolo Epilepsy Summer SchoolSan Servolo Epilepsy Summer School",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/san-servolo-epilepsy-summer-schoolsan-servolo-epilepsy-summer-school",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "WONOEP – The Workshop on Neurobiology of the Epilepsies",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/wonoep-the-workshop-on-neurobiology-of-the-epilepsies",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "WONOEP proceedings and reports",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/wonoep-the-workshop-on-neurobiology-of-the-epilepsies/wonoep-proceedings-and-reports",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Video-EEG Course in Paediatric Epilepsies",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/video-eeg-course-in-paediatric-epilepsies",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Educational Webinars",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/patient-care/covid-19-and-epilepsy/for-clinicians/educational-webinars",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Virtual Epilepsy Academy (VIREPA)",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/education/virtual-epilepsy-academy-virepa",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Epilepsy Surgery Curriculum",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/education/epilepsy-surgery-curriculum",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Books on Epilepsy",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/education/books-on-epilepsy",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Bookstore Contact form",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/education/books-on-epilepsy/bookstore-contact-form",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Epilepsy Care in India",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/education/videos/epilepsy-care-in-india",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Roadmap for a competency-based educational curriculum in epileptology.",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/download.cfm?downloadfile=456E71B0-4FBD-11E9-AFA2204747814332&typename=dmFile&fieldname=filename",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Continuing medical education in epileptology: The Level 1-2-3 experience of the ILAE Academy",
+      "provider": "ILAE",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/epd2.70045",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "An epilepsy curriculum for primary health care providers: a report from the Education Council of the International League Against Epilepsy",
+      "provider": "ILAE",
+      "url": "https://onlinelibrary.wiley.com/doi/full/10.1684/epd.2022.1479",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "A curriculum for epilepsy surgery: A report from the Surgical Commission's Epilepsy Surgery Educational Task Force and the Educational Council of the ILAE",
+      "provider": "ILAE",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/epd2.70054",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Epilepsy educational curriculum for nurses: A report from the Nursing Section of the International League Against Epilepsy",
+      "provider": "ILAE",
+      "url": "https://onlinelibrary.wiley.com/doi/10.1002/epd2.70273",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Procedures for ILAE oversight and ILAE Academy endorsement of learning activities in epileptology by the ILAE Education Council",
+      "provider": "ILAE",
+      "url": "https://www.ilae.org/files/dmfile/definition-of-teaching-activities-endorsed-by-the-ilae_2021_august.pdf",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "Provider monitoring"
+    },
+    {
+      "title": "Education Research: Epilepsy Monitoring Unit Staff Education Using a High-Fidelity Manikin - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5IcThCV2Y3WXdNcUJLM3FtYW9CaTRsaFE5WWhsSDE3U2hRVEJ0ai1KdHJHczU2QnhWSWlXSG12a0RXQlZucVc5WjIybE5TaTBOWnVkYlZmblVzc1NhUm9GeWxHNUYtemxoNGc?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Education Research: Online EEG Learning Platforms for Resident and Fellow Education - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAzSVFXV3BVdXZYeTVtWnpuZmJ5cHF2MUJBX0FRTzVQRzFCejZOQzB3dXI4Wnlwb3pNekJ6VG04Y2RYVWpnRXNMX2lEcDVEY1F0SThGVU9WV1Z6dElhYU5xc1VyVS1MZm8yNGc?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "EEG-based functional connectivity patterns during boredom in an educational context | Scientific Reports - Nature",
+      "provider": "Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBTRmtlLXVQWG1ramVWOUJtWWRJS0NURnRUdlh1ZUhjZUNxTWtyQXo2Qm84TVFPS1FyeU1MT2FkaUtGR2hoVzdIRkI3MHc3Tk1INjBCeTFjWU80dnRObTdV?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "NeuroVoices: Fabio Nascimento, MD, on Improving EEG Education in Residency Programs - NeurologyLive",
+      "provider": "NeurologyLive",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPRE5HbF9hVW1RSGQtLUhTTjVuSlRtWDhCaUlQMkN2Zlk2bUtRRmdXa2JaS1JvaTM3bHFoZ0VNWlB6Q2ZiU0NFcjV3Z3VRYlVFMmNRRXdKSHhrbmhjWFI4cnFfRTduWnk1TTdkRmlfU",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Education Research: EEG Education in Child Neurology and Neurodevelopmental Disabilities Residencies - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9Ea2RERGVpcEI4WEFidkdvNHlidXRFb2RTUHpGSzRoME1UUjhCa3phS21ydGdjbTlEYnRjc291MXBNMk1jdFlXVHZKM0ZSaG44enpvWExCY0RTbENzRG1FbU9TNm1RMWxkemc?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Inconsistencies Identified Across EEG Neurology Education Tactics - NeurologyLive",
+      "provider": "NeurologyLive",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOdVJ3RVBfQ1hJbFgtZGdRaHdWc1dsdDdVSHNwa1hUYWhoVWVkbEhKZGVVcWltZUtMUFJjQUZkVFZnYUZOSEVKX3cxeURsNjVvcVl3bEdEdHpsODFPNlFiLXBldU5MLUNFeS0tS1dmT",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Education Research: Development of a Workplace-Based Assessment to Enhance EEG Interpretation Skills for Medical Students - Neurology® Journals",
+      "provider": "Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1WTzBpLVRtZHR4N3JNa2RCUHVEdXh4bkxkOW56NHcta1VvTkFYUDRuV2NKSEZEQktfUXotTzQ0dDA5c1Q4SUVrNzFyZHNPbTdNN2FQQ1hWbzY4VGljTHZuS1ZHMHF3ZWxrMEE?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Aperiodic component of EEG power spectrum and cognitive performance are modulated by education in aging - Nature",
+      "provider": "Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5PRm5idjNUS1c5d2tMMnV1T2tfRFNiN2N4TlRRX0Zmb0RUUzBMNWxhUzdyQ1J5UjQtSng0a0R1SlBwRWJNMXZSUTVORXVHNzM0ODFXazF0TU80ejlBNlRV?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "My Courses - ASET - The Neurodiagnostic Society",
+      "provider": "www.aset.org",
+      "url": "https://www.aset.org/my-courses",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "ASET Foundation | Supporting Neurodiagnostic Technologists",
+      "provider": "asetfoundation.org",
+      "url": "https://asetfoundation.org/",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "Education - ASET - The Neurodiagnostic Society",
+      "provider": "www.aset.org",
+      "url": "https://www.aset.org/education",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "ASET CEUs - ASET - The Neurodiagnostic Society",
+      "provider": "www.aset.org",
+      "url": "https://www.aset.org/aset-ceus",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "100% Free ASET Approved CEUs - myneuropathway.com",
+      "provider": "myneuropathway.com",
+      "url": "https://myneuropathway.com/ceus",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-29",
+      "discovery_source": "bing RSS"
+    },
     {
       "title": "College Credit for Credentials",
       "provider": "ASET Member Resources",
