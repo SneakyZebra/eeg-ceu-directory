@@ -84,9 +84,11 @@ def add(items, title, provider, url, category="unknown", source=""):
     title = tidy(title)
     if not url or len(title) < 12 or url in items or len(items) >= MAX_ITEMS:
         return False
+    # Never infer free access from a provider. A course can be paid or member only.
+    # Automated discovery is always unverified until individually reviewed.
     items[url] = {
         "title": title, "provider": tidy(provider) or "Web discovery",
-        "url": url, "category": category, "status": "Needs verification",
+        "url": url, "category": "unknown", "status": "Needs verification",
         "date_added": TODAY, "discovery_source": source,
     }
     return True
@@ -172,6 +174,15 @@ def main():
             key = normalize(item["url"])
             if key:
                 items[key] = item
+    # Repair older automatically discovered listings that were wrongly marked free
+    # simply because their provider was assumed to offer free courses.
+    corrected = 0
+    for item in items.values():
+        if (item.get("discovery_source") in ("Provider monitoring", "Google News RSS", "bing RSS", "google_news RSS")
+                and item.get("category") == "free"
+                and item.get("status") == "Needs verification"):
+            item["category"] = "unknown"
+            corrected += 1
     checked, provider_added = monitor_sources(items)
     searches, discovered = search_discovery(items)
     payload = {
@@ -184,6 +195,7 @@ def main():
     PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"Providers checked: {len(checked)}; new provider leads: {provider_added}; "
           f"RSS queries: {len(searches)}; new search leads: {discovered}.")
+    print(f"Corrected {corrected} previously misclassified free listings.")
     print("New leads are unverified. Free access does not necessarily mean approved CEU credit.")
 
 if __name__ == "__main__":
