@@ -215,4 +215,97 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
  show(location.hash.slice(1));
  window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
 })();
-</script><script>(function(){const conferenceEvents=[["ACNS Annual Meeting and Courses", "ACNS", "https://www.acns.org/meetings/annual-meeting-and-courses"], ["ASET Annual Conference", "ASET", "https://www.aset.org/annual-conference/"], ["AES Annual Meeting", "AES", "https://aesnet.org/AES-annual-meeting/"], ["AAN Annual Meeting", "AAN", "https://www.aan.com/events/annual-meeting"], ["NANS Annual Meeting", "NANS", "https://www.neuromodulation.org/"], ["AANS Annual Scientific Meeting", "AANS", "https://www.aans.org/annual-meeting/"], ["European Congress of Clinical Neurophysiology", "ECCN", "https://www.ifcn.info/"], ["International Congress of Clinical Neurophysiology", "IFCN", "https://www.ifcn.info/"], ["ABRET Credentialing and Events (no annual meeting confirmed)", "ABRET", "https://abret.org/"]];const host=document.getElementById('conference-list');if(!host)return;conferenceEvents.forEach(([name,org,url])=>{const card=document.createElement('article');card.className='conference-card';const label=document.createElement('small');label.textContent=org;const h=document.createElement('h3');h.textContent=name;const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Official meeting information ↗';card.append(label,h,link);host.append(card)});})();</script></body></html>
+</script><script>(function(){const conferenceEvents=[["ACNS Annual Meeting and Courses", "ACNS", "https://www.acns.org/meetings/annual-meeting-and-courses"], ["ASET Annual Conference", "ASET", "https://www.aset.org/annual-conference/"], ["AES Annual Meeting", "AES", "https://aesnet.org/AES-annual-meeting/"], ["AAN Annual Meeting", "AAN", "https://www.aan.com/events/annual-meeting"], ["NANS Annual Meeting", "NANS", "https://www.neuromodulation.org/"], ["AANS Annual Scientific Meeting", "AANS", "https://www.aans.org/annual-meeting/"], ["European Congress of Clinical Neurophysiology", "ECCN", "https://www.ifcn.info/"], ["International Congress of Clinical Neurophysiology", "IFCN", "https://www.ifcn.info/"], ["ABRET Credentialing and Events (no annual meeting confirmed)", "ABRET", "https://abret.org/"]];const host=document.getElementById('conference-list');if(!host)return;conferenceEvents.forEach(([name,org,url])=>{const card=document.createElement('article');card.className='conference-card';const label=document.createElement('small');label.textContent=org;const h=document.createElement('h3');h.textContent=name;const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Official meeting information ↗';card.append(label,h,link);host.append(card)});})();</script>
+<!-- BRANDING UPDATE START -->
+<style>
+.entry .logo {
+  overflow: hidden;
+  padding: 5px;
+}
+.entry .logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.conference-card .conference-logo {
+  width: 49px;
+  height: 49px;
+  border-radius: 7px;
+  background: #eef5f8;
+  padding: 6px;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+</style>
+<script>
+(function () {
+  function improve() {
+    document.querySelectorAll(".entry").forEach(card => {
+      const square = card.querySelector(".logo");
+      const link = card.querySelector("a[href]");
+      if (!square || !link || square.dataset.updated) return;
+
+      square.dataset.updated = "yes";
+      const initials = square.textContent.trim();
+      const domain = new URL(link.href).hostname;
+      const img = document.createElement("img");
+      img.alt = "Organization icon";
+      img.loading = "lazy";
+      img.src = "https://www.google.com/s2/favicons?domain=" +
+        encodeURIComponent(domain) + "&sz=128";
+      img.onerror = () => {
+        img.remove();
+        square.textContent = initials === "?" ? "EEG" : initials;
+      };
+      square.replaceChildren(img);
+    });
+
+    document.querySelectorAll(".conference-card").forEach(card => {
+      if (card.dataset.updated) return;
+      const link = card.querySelector("a[href]");
+      if (!link) return;
+
+      card.dataset.updated = "yes";
+      const img = document.createElement("img");
+      img.className = "conference-logo";
+      img.alt = "Organization icon";
+      img.loading = "lazy";
+      img.src = "https://www.google.com/s2/favicons?domain=" +
+        encodeURIComponent(new URL(link.href).hostname) +
+        "&sz=128";
+      img.onerror = () => img.remove();
+      card.prepend(img);
+    });
+
+    const sections = document.querySelectorAll(
+      ".entry .info, .conference-card, .general-education-note, .footer"
+    );
+    sections.forEach(section => {
+      const walker = document.createTreeWalker(
+        section, NodeFilter.SHOW_TEXT
+      );
+      while (walker.nextNode()) {
+        const node = walker.currentNode;
+        const original = node.nodeValue;
+        const revised = original
+          .replace(/\s*[—–]\s*/g, ", ")
+          .replace(/\s+-\s+/g, ", ");
+        if (original !== revised) node.nodeValue = revised;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    improve();
+    const observer = new MutationObserver(improve);
+    ["free", "paid", "unknown", "general", "conference-list"]
+      .forEach(id => {
+        const element = document.getElementById(id);
+        if (element) observer.observe(element, {childList: true});
+      });
+  });
+})();
+</script>
+<!-- BRANDING UPDATE END -->
+
+</body></html>
