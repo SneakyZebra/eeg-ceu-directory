@@ -1,16 +1,29 @@
-"""Daily EEG CEU discovery. Free public RSS feeds plus existing provider pages.
-Requires requests and beautifulsoup4, already in requirements.txt.
-Results are discovery candidates, never automatically verified for ABRET credit.
+"""Free EEG CEU discovery for GitHub Actions.
+
+Combines known providers, newly found education hubs, and broad RSS searches.
+Every new result is a lead requiring human verification of CEU approval and cost.
+Uses only requests and beautifulsoup4, already in requirements.txt.
 """
 import datetime as dt
 import json
 import re
 import time
+import xml.etree.ElementTree as ET
 from pathlib import Path
-from urllib.parse import urljoin, urlparse, parse_qs, unquote
+from urllib.parse import urljoin, urlparse, urlencode, parse_qsl, urlunparse
 import requests
 from bs4 import BeautifulSoup
 
+PATH = Path("ceu-offerings.json")
+NOW = dt.datetime.now(dt.timezone.utc)
+TODAY = NOW.date().isoformat()
+HEADERS = {"User-Agent": "Mozilla/5.0 (compatible; EEGCEUDirectory/3.0; educational discovery)"}
+SESSION = requests.Session()
+SESSION.headers.update(HEADERS)
+MAX_ITEMS = 500
+MAX_NEW = 45
+
+# The original nine sources remain. New sites provide additional entry points.
 SOURCES = [
     ("Stratus EEG U", "https://www.stratusneuro.com/eeg-u", "free"),
     ("Neuro Pathway", "https://myneuropathway.com/ceus/", "free"),
@@ -21,146 +34,157 @@ SOURCES = [
     ("ACNS", "https://www.acns.org/meetings/fall-courses/principles-of-clinical-neurophysiology/cme--ceu-information", "paid"),
     ("ILAE", "https://www.ilae.org/education", "unknown"),
     ("EpiCARE", "https://epi-care.eu/webinars/", "unknown"),
+    ("ASET Events", "https://www.aset.org/events/", "unknown"),
+    ("Neurocritical Care Society Webinars", "https://www.neurocriticalcare.org/NCS-Learning-Center/Access-My-Education/Industry-Sponsored-Webinars", "unknown"),
+    ("Neurocritical Care Society Calendar", "https://www.neurocriticalcare.org/Events/Event-Calendar", "unknown"),
+    ("NowYouKnowMed EEG Tech", "https://nowyouknowmed.com/sessions/eeg-tech", "unknown"),
 ]
-# A rotating selection keeps daily requests modest while expanding search coverage.
+# Broad searches work better than several mandatory quoted terms.
 QUERIES = [
-    '"EEG" "continuing education" "free" webinar',
-    '"neurodiagnostic" "CEU" "free"',
-    '"EEG technologist" "credits" webinar',
-    '"ABRET" "CEU" webinar',
-    '"clinical neurophysiology" "free" webinar',
-    '"epilepsy monitoring" "continuing education" webinar',
-    '"intraoperative monitoring" "CEU" webinar',
-    '"long term monitoring" "CEU" free',
-    '"evoked potentials" "continuing education" webinar',
-    '"EEG" "on demand" "CEU" free',
-    '"neurodiagnostic" "education" "credits" course',
-    '"seizure" "EEG" "free" educational webinar',
+    "EEG technologist webinar", "neurodiagnostic CEU", "EEG continuing education",
+    "ASET CEU webinar", "ABRET recertification education",
+    "epilepsy EEG webinar", "clinical neurophysiology webinar",
+    "critical care EEG webinar", "intraoperative monitoring education",
+    "evoked potentials CEU", "long term EEG monitoring webinar",
+    "EEG free online course", "neurodiagnostic training webinar",
+    "EEG technologist education", "neurodiagnostic conference CEU",
+    "seizure monitoring education",
 ]
-PATH = Path("ceu-offerings.json")
-MAX_ITEMS = 500
-MAX_NEW_PER_RUN = 30
-HEADERS = {"User-Agent": "EEGCEUDirectory/2.0 (+https://sneakyzebra.github.io/eeg-ceu-directory/)"}
-session = requests.Session()
-session.headers.update(HEADERS)
-today = dt.datetime.now(dt.timezone.utc)
-date = today.date().isoformat()
+# Separate broad news announcements from directly indexed educational pages.
+# Bing RSS is a free public feed, not a paid search API. It can rate limit or change.
+SEARCH_ENGINES = ("bing", "google_news")
+TOPIC = re.compile(r"\b(EEG|electroencephalograph\w*|neurodiagnostic\w*|neurophysiolog\w*|epilep\w*|seizure\w*|evoked potentials?|intraoperative|neuromonitoring|long.term monitoring|ABRET|ASET)\b", re.I)
+EDUCATION = re.compile(r"\b(CEUs?|CECs?|credit\w*|continuing education|webinar\w*|course\w*|seminar\w*|training|workshop\w*|education\w*|lecture\w*|board review|conference\w*)\b", re.I)
+EXCLUDE = re.compile(r"\b(job opening|job posting|salary|hiring|vacancy|equipment for sale|used equipment)\b", re.I)
+LINK_HINT = re.compile(r"webinar|course|ceu|credit|education|training|seminar|event|learn|register|session|workshop", re.I)
+TRACKING = {"utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"}
 
 def normalize(url):
     try:
-        u = urlparse(url)
-        if u.scheme not in ("https", "http") or not u.netloc:
+        p = urlparse(url.strip())
+        if p.scheme not in ("https", "http") or not p.netloc:
             return ""
-        # Remove tracking fragments, but keep query strings needed by course pages.
-        return u._replace(fragment="").geturl().rstrip("/")
-    except ValueError:
+        if p.hostname in {"localhost", "127.0.0.1"}:
+            return ""
+        query = urlencode([(k, v) for k, v in parse_qsl(p.query, keep_blank_values=True) if k.lower() not in TRACKING])
+        path = p.path.rstrip("/") or "/"
+        return urlunparse((p.scheme.lower(), p.netloc.lower(), path, "", query, ""))
+    except (ValueError, AttributeError):
         return ""
 
-def clean_title(value):
-    return " ".join(value.split())[:180]
+def tidy(s):
+    return " ".join(str(s or "").split())[:190]
 
-def looks_relevant(text):
-    return bool(re.search(r"\b(EEG|neurodiagnostic|neurophysiology|epilepsy|seizure|evoked potentials|intraoperative monitoring|long.term monitoring|ABRET)\b", text, re.I)) and bool(re.search(r"\b(CEUs?|CECs?|credits?|continuing education|webinars?|courses?|training)\b", text, re.I))
+def relevant(title, description=""):
+    combined = tidy(title + " " + description)
+    return bool(TOPIC.search(combined) and EDUCATION.search(combined) and not EXCLUDE.search(title))
 
-def add(items, title, provider, url, category, source):
-    title = clean_title(title)
+def add(items, title, provider, url, category="unknown", source=""):
     url = normalize(url)
-    if not url or len(title) < 12 or url in items:
-        return False
-    if len(items) >= MAX_ITEMS:
+    title = tidy(title)
+    if not url or len(title) < 12 or url in items or len(items) >= MAX_ITEMS:
         return False
     items[url] = {
-        "title": title, "provider": provider, "url": url,
-        "category": category, "status": "Needs verification",
-        "date_added": date, "discovery_source": source,
+        "title": title, "provider": tidy(provider) or "Web discovery",
+        "url": url, "category": category, "status": "Needs verification",
+        "date_added": TODAY, "discovery_source": source,
     }
     return True
 
-def google_news_url(query):
-    from urllib.parse import urlencode
+def rss_items(content):
+    """Correctly parse RSS as XML, not HTML (HTML parsers lose item/link data)."""
+    root = ET.fromstring(content)
+    for item in root.findall(".//item"):
+        title = tidy(item.findtext("title"))
+        link = tidy(item.findtext("link"))
+        desc = tidy(BeautifulSoup(item.findtext("description") or "", "html.parser").get_text(" ", strip=True))
+        source = item.find("source")
+        provider = tidy(source.text if source is not None else "")
+        yield title, link, desc, provider
+
+def rss_url(engine, query):
+    if engine == "bing":
+        return "https://www.bing.com/search?" + urlencode({"q": query, "format": "rss"})
     return "https://news.google.com/rss/search?" + urlencode({
-        "q": query + " when:30d", "hl": "en-US", "gl": "US", "ceid": "US:en"
+        "q": query, "hl": "en-US", "gl": "US", "ceid": "US:en"
     })
 
-def extract_news_link(entry):
-    link = entry.find("link")
-    if link:
-        return link.get_text(strip=True) or (link.next_sibling or "").strip()
-    return ""
-
-def discover(items):
-    # RSS indexes news and announcements, not the entire web.
-    # Rotate four searches daily; every query is checked at least every three days.
-    offset = today.date().toordinal() % len(QUERIES)
-    selected = [QUERIES[(offset + i) % len(QUERIES)] for i in range(4)]
-    count = 0
-    checks = []
+def search_discovery(items):
+    offset = NOW.date().toordinal() % len(QUERIES)
+    selected = [QUERIES[(offset + i) % len(QUERIES)] for i in range(6)]
+    stats = []
+    added = 0
     for query in selected:
-        try:
-            response = session.get(google_news_url(query), timeout=18)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.content, "html.parser")
-            entries = soup.find_all("item")[:25]
-            checks.append({"query": query, "results": len(entries)})
-            for entry in entries:
-                title = clean_title(entry.title.get_text(" ", strip=True)) if entry.title else ""
-                link = extract_news_link(entry)
-                if not looks_relevant(title):
-                    continue
-                # Google News links are intermediary links; retain them as unverified
-                # discovery leads rather than pretending they are direct course links.
-                provider = entry.source.get_text(" ", strip=True) if entry.source else "Web discovery"
-                if add(items, title, provider, link, "unknown", "Google News RSS"):
-                    count += 1
-                if count >= MAX_NEW_PER_RUN:
-                    return checks, count
-        except (requests.RequestException, ValueError) as exc:
-            print(f"Discovery search unavailable: {query}: {exc}")
-        time.sleep(0.3)
-    return checks, count
+        for engine in SEARCH_ENGINES:
+            try:
+                r = SESSION.get(rss_url(engine, query), timeout=16)
+                r.raise_for_status()
+                entries = list(rss_items(r.content))[:25]
+                matched = 0
+                for title, link, desc, provider in entries:
+                    if not relevant(title, desc):
+                        continue
+                    matched += 1
+                    if add(items, title, provider or urlparse(link).netloc, link, "unknown", engine + " RSS"):
+                        added += 1
+                stats.append({"query": query, "engine": engine, "results": len(entries), "relevant": matched})
+                if added >= MAX_NEW:
+                    return stats, added
+            except (requests.RequestException, ET.ParseError, ValueError) as e:
+                stats.append({"query": query, "engine": engine, "error": str(e)[:110]})
+                print(f"Search unavailable ({engine}, {query}): {e}")
+            time.sleep(0.15)
+    return stats, added
 
 def monitor_sources(items):
     checked = []
     added = 0
     for provider, url, category in SOURCES:
         try:
-            response = session.get(url, timeout=18)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, "html.parser")
+            r = SESSION.get(url, timeout=16)
+            r.raise_for_status()
+            soup = BeautifulSoup(r.text, "html.parser")
             checked.append(provider)
             for a in soup.select("a[href]"):
-                title = clean_title(a.get_text(" ", strip=True))
-                target = urljoin(url, a["href"])
-                if not (12 <= len(title) <= 140 and re.search(r"\b(CEUs?|CECs?|continuing education|credits?)\b", title, re.I)):
+                title = tidy(a.get_text(" ", strip=True))
+                target = urljoin(url, a.get("href", ""))
+                # A short course name can be meaningful when the URL identifies an event.
+                if not 12 <= len(title) <= 160 or not LINK_HINT.search(title + " " + target):
+                    continue
+                if not relevant(title, provider + " " + target):
                     continue
                 if normalize(target) == normalize(url):
                     continue
                 if add(items, title, provider, target, category, "Provider monitoring"):
                     added += 1
-        except requests.RequestException as exc:
-            print(f"Provider unavailable: {provider}: {exc}")
+        except requests.RequestException as e:
+            print(f"Provider unavailable ({provider}): {e}")
     return checked, added
 
 def main():
     try:
         old = json.loads(PATH.read_text(encoding="utf-8")) if PATH.exists() else {}
-    except (json.JSONDecodeError, OSError):
+    except (OSError, json.JSONDecodeError):
         old = {}
-    items = {normalize(x["url"]): x for x in old.get("items", []) if isinstance(x, dict) and x.get("url") and normalize(x["url"])}
+    items = {}
+    for item in old.get("items", []):
+        if isinstance(item, dict) and item.get("url"):
+            key = normalize(item["url"])
+            if key:
+                items[key] = item
     checked, provider_added = monitor_sources(items)
-    searches, discovered = discover(items)
-    # Preserve existing entries, and sort newly discovered items first.
-    ordered = sorted(items.values(), key=lambda x: x.get("date_added", ""), reverse=True)
+    searches, discovered = search_discovery(items)
     payload = {
-        "last_checked": today.isoformat(),
+        "last_checked": NOW.isoformat(),
         "providers_checked": checked,
         "discovery_searches": searches,
         "discovery_candidates_added": discovered,
-        "items": ordered[:MAX_ITEMS],
+        "items": sorted(items.values(), key=lambda x: x.get("date_added", ""), reverse=True)[:MAX_ITEMS],
     }
-    PATH.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-    print(f"Checked {len(checked)} providers, ran {len(searches)} free discovery searches, added {provider_added} provider links and {discovered} discovery candidates.")
-    print("All new discoveries require human verification of course availability, cost, and ABRET eligibility.")
+    PATH.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(f"Providers checked: {len(checked)}; new provider leads: {provider_added}; "
+          f"RSS queries: {len(searches)}; new search leads: {discovered}.")
+    print("New leads are unverified. Free access does not necessarily mean approved CEU credit.")
 
 if __name__ == "__main__":
     main()
