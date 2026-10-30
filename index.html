@@ -94,6 +94,9 @@
 
 
 
+
+
+
 <!-- EEG LOGO LIBRARY START -->
 <style>
 .entry .logo { overflow:hidden; padding:2px; }
@@ -296,5 +299,82 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
 
 
 
+
+
+
+
+
+<!-- CEU SIX CARD LIMIT START -->
+<style>
+.ceu-show-toggle {
+  display:block;
+  width:100%;
+  margin:14px 0;
+  padding:12px;
+  background:#0d3048;
+  color:#c9f6a8;
+  border:1px solid #69be28;
+  border-radius:9px;
+  font:inherit;
+  font-weight:700;
+  cursor:pointer;
+}
+</style>
+<script>
+(function(){
+  const limit=6;
+
+  function setup(id){
+    const host=document.getElementById(id);
+    if(!host)return;
+
+    const button=document.createElement('button');
+    button.className='ceu-show-toggle';
+    button.type='button';
+    button.dataset.expanded='false';
+    host.after(button);
+
+    function update(){
+      const cards=Array.from(host.children)
+        .filter(el=>el.classList.contains('entry'));
+      const expanded=button.dataset.expanded==='true';
+
+      cards.forEach((card,i)=>{
+        card.style.display=expanded||i<limit?'':'none';
+      });
+
+      const extra=Math.max(0,cards.length-limit);
+      button.style.display=extra?'block':'none';
+      button.textContent=expanded
+        ? 'Show Less'
+        : 'Show More ('+extra+' additional resources)';
+      button.setAttribute('aria-expanded',String(expanded));
+    }
+
+    button.addEventListener('click',()=>{
+      button.dataset.expanded=String(
+        button.dataset.expanded!=='true'
+      );
+      update();
+    });
+
+    new MutationObserver(update)
+      .observe(host,{childList:true});
+
+    update();
+  }
+
+  function init(){
+    ['free','paid','unknown'].forEach(setup);
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init);
+  }else{
+    init();
+  }
+})();
+</script>
+<!-- CEU SIX CARD LIMIT END -->
 
 </body></html>
