@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-29T18:56:48.811683+00:00",
+  "last_checked": "2026-10-30T18:35:44.874304+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,18 +15,6 @@
   ],
   "discovery_searches": [
     {
-      "query": "neurodiagnostic conference CEU",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "neurodiagnostic conference CEU",
-      "engine": "google_news",
-      "results": 2,
-      "relevant": 0
-    },
-    {
       "query": "seizure monitoring education",
       "engine": "bing",
       "results": 10,
@@ -36,7 +24,7 @@
       "query": "seizure monitoring education",
       "engine": "google_news",
       "results": 25,
-      "relevant": 1
+      "relevant": 2
     },
     {
       "query": "EEG technologist webinar",
@@ -47,14 +35,14 @@
     {
       "query": "EEG technologist webinar",
       "engine": "google_news",
-      "results": 7,
+      "results": 1,
       "relevant": 0
     },
     {
       "query": "neurodiagnostic CEU",
       "engine": "bing",
       "results": 10,
-      "relevant": 0
+      "relevant": 1
     },
     {
       "query": "neurodiagnostic CEU",
@@ -71,26 +59,74 @@
     {
       "query": "EEG continuing education",
       "engine": "google_news",
-      "results": 25,
-      "relevant": 9
+      "results": 14,
+      "relevant": 7
     },
     {
       "query": "ASET CEU webinar",
       "engine": "bing",
       "results": 10,
-      "relevant": 5
+      "relevant": 4
     },
     {
       "query": "ASET CEU webinar",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "ABRET recertification education",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 1
+    },
+    {
+      "query": "ABRET recertification education",
       "engine": "google_news",
       "results": 0,
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 0,
+  "discovery_candidates_added": 3,
   "catalog_pages_scanned": 65,
-  "catalog_candidates_added": 0,
+  "catalog_candidates_added": 1,
   "items": [
+    {
+      "title": "Brave 11-year-old girl helps teacher during epileptic seizure in classroom - Education News",
+      "provider": "Education News",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQblF4UU5VN2lnV3VfSURVdHFqVEtSQ0oydncyYzl4cXg1VTY5SGF2LXNySEp3YnljWjRXcTBKNzYxWGJyM0plblNFOUdfY2hqTmxCRTBMNEQwaGJfQ19Ta1lyVXdHVC16V0o5VWhEd",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-30",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "TX-ASET – Making Neurodiagnostic Education Bigger in Texas",
+      "provider": "txaset.org",
+      "url": "https://txaset.org/",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-30",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "Programs & Education - ABRET",
+      "provider": "abret.org",
+      "url": "https://abret.org/resources/programs-education",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-30",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "AES DEI Committee On Demand Webinar Series: Addressing Social Determinants of Health in Epilepsy Care: Practical Approach",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=WwIZm7t39UzkAlyN2hSTEw%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-30",
+      "discovery_source": "Deep catalog discovery"
+    },
     {
       "title": "EEG Tech Training",
       "provider": "Stratus EEG U",
