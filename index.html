@@ -97,6 +97,9 @@
 
 
 
+
+
+
 <!-- EEG LOGO LIBRARY START -->
 <style>
 .entry .logo { overflow:hidden; padding:2px; }
@@ -304,6 +307,12 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
 
 
 
+
+
+
+
+
+
 <!-- CEU SIX CARD LIMIT START -->
 <style>
 .ceu-show-toggle {
@@ -331,36 +340,32 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
     const button=document.createElement('button');
     button.className='ceu-show-toggle';
     button.type='button';
-    button.dataset.expanded='false';
     host.after(button);
+    let visible=limit;
 
     function update(){
       const cards=Array.from(host.children)
         .filter(el=>el.classList.contains('entry'));
-      const expanded=button.dataset.expanded==='true';
-
       cards.forEach((card,i)=>{
-        card.style.display=expanded||i<limit?'':'none';
+        card.style.display=i<visible?'':'none';
       });
-
-      const extra=Math.max(0,cards.length-limit);
-      button.style.display=extra?'block':'none';
-      button.textContent=expanded
-        ? 'Show Less'
-        : 'Show More ('+extra+' additional resources)';
-      button.setAttribute('aria-expanded',String(expanded));
+      const remaining=Math.max(0,cards.length-visible);
+      button.style.display=cards.length>limit?'block':'none';
+      button.textContent=remaining
+        ? 'Show 6 More ('+remaining+' remaining)'
+        : 'Show Less';
+      button.setAttribute('aria-expanded',String(visible>limit));
     }
 
     button.addEventListener('click',()=>{
-      button.dataset.expanded=String(
-        button.dataset.expanded!=='true'
-      );
+      const count=Array.from(host.children)
+        .filter(el=>el.classList.contains('entry')).length;
+      visible=visible>=count?limit:Math.min(count,visible+limit);
       update();
     });
 
     new MutationObserver(update)
       .observe(host,{childList:true});
-
     update();
   }
 
