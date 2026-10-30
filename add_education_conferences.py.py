@@ -471,12 +471,13 @@ feature = """
     host.after(button);
     let visible=limit;
 
-    function update(){
-      const cards=Array.from(host.children)
+    function update(reset){
+      if(reset===true)visible=limit;
+      const all=Array.from(host.children)
         .filter(el=>el.classList.contains('entry'));
-      cards.forEach((card,i)=>{
-        card.style.display=i<visible?'':'none';
-      });
+      const cards=all.filter(card=>card.dataset.eegMatch!=='no');
+      all.forEach(card=>{card.style.display='none'});
+      cards.forEach((card,i)=>{card.style.display=i<visible?'':'none'});
       const remaining=Math.max(0,cards.length-visible);
       button.style.display=cards.length>limit?'block':'none';
       button.textContent=remaining
@@ -487,14 +488,20 @@ feature = """
 
     button.addEventListener('click',()=>{
       const count=Array.from(host.children)
-        .filter(el=>el.classList.contains('entry')).length;
+        .filter(el=>el.classList.contains('entry')&&el.dataset.eegMatch!=='no').length;
       visible=visible>=count?limit:Math.min(count,visible+limit);
       update();
     });
 
-    new MutationObserver(update)
+    new MutationObserver(()=>update(false))
       .observe(host,{childList:true});
-    update();
+    window.eegRefreshDirectoryCards=window.eegRefreshDirectoryCards||function(reset){
+      document.querySelectorAll('.ceu-show-toggle').forEach(btn=>{
+        if(btn._eegUpdate)btn._eegUpdate(reset);
+      });
+    };
+    button._eegUpdate=update;
+    update(false);
   }
 
   function init(){
@@ -515,3 +522,183 @@ html = html.replace("</body>", feature + "\n</body>", 1)
 page.write_text(html, encoding="utf-8")
 
 print("CEU directory expansion controls installed.")
+
+# Enhanced directory filters, personal course planner, and new EEG tech learning pathway
+# Replaces only its own generated block on each daily run.
+from pathlib import Path as _EnhancePath
+_enhance_page = _EnhancePath('index.html')
+_enhance_html = _enhance_page.read_text(encoding='utf-8')
+_enhance_start = '<!-- EEG ENHANCEMENTS START -->'
+_enhance_end = '<!-- EEG ENHANCEMENTS END -->'
+if _enhance_start in _enhance_html and _enhance_end in _enhance_html:
+    _enhance_html = _enhance_html.split(_enhance_start, 1)[0] + _enhance_html.split(_enhance_end, 1)[1]
+_enhance_feature = r'''
+<!-- EEG ENHANCEMENTS START -->
+<style>
+.eeg-enhance-panel{background:#0b2b40;color:#e9f5f8;border:1px solid #39617a;border-radius:13px;padding:18px;margin:16px 0 24px}
+.eeg-enhance-panel h2,.eeg-enhance-panel h3{color:#d6f6b8;margin:0 0 9px}
+.eeg-enhance-panel p{margin:7px 0 12px}
+.eeg-enhance-controls{display:flex;flex-wrap:wrap;gap:12px;align-items:end}
+.eeg-enhance-controls label{display:flex;flex-direction:column;gap:5px;flex:1 1 145px;font-size:14px;font-weight:600}
+.eeg-enhance-controls select,.eeg-enhance-controls input,.eeg-enhance-controls button,.eeg-enhance-button{min-height:42px;box-sizing:border-box;border-radius:7px;border:1px solid #7896a6;padding:9px;background:#f8fcfd;color:#102a39;font:inherit}
+.eeg-enhance-button{cursor:pointer;font-weight:700;background:#b5ef85;color:#123127}
+.eeg-enhance-controls button{cursor:pointer}
+.eeg-enhance-muted{color:#c3d4dd;font-size:13px}
+.eeg-enhance-table{display:grid;gap:9px;margin-top:15px}
+.eeg-enhance-record{background:#12374c;border:1px solid #376078;padding:12px;border-radius:9px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.eeg-enhance-record small{display:block;color:#c4d8e3}
+.eeg-enhance-progress{height:16px;border-radius:20px;background:#31516a;overflow:hidden;margin:10px 0}
+.eeg-enhance-progress>div{height:100%;background:#9fe46f;width:0%;transition:width .2s}
+.eeg-pathway-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:15px;margin:16px 0}
+.eeg-pathway-card{border:1px solid #3b6478;border-radius:12px;padding:18px;background:#103148}
+.eeg-pathway-card h3{color:#b5ef85;margin-top:0}
+.eeg-pathway-card li{margin:9px 0}
+.eeg-pathway-card a{color:#b5ef85}
+#eeg-learning-view[hidden]{display:none!important}
+@media(max-width:640px){.eeg-enhance-panel{padding:13px}.eeg-enhance-controls label{flex-basis:100%}}
+</style>
+<script>
+(function(){
+'use strict';
+const KEY='eeg-ceu-course-planner-v1';
+const GOAL='eeg-ceu-course-goal-v1';
+const get=(k,fallback)=>{try{const v=JSON.parse(localStorage.getItem(k));return v===null?fallback:v}catch(e){return fallback}};
+const put=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){alert('Browser storage is unavailable. Export your records for safekeeping.');return false}};
+const el=(tag,props={},txt)=>{const node=document.createElement(tag);Object.assign(node,props);if(txt!==undefined)node.textContent=txt;return node};
+const cleanCsv=v=>{let s=String(v??'');if(/^[\s]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'};
+const safeNumber=v=>{const n=Number(v);return Number.isFinite(n)&&n>=0?n:0};
+function init(){
+  // Filtering is applied to the same cards controlled by the six-at-a-time feature.
+  const directory=document.getElementById('ceu-directory-view');
+  if(directory){
+    const panel=el('section',{className:'eeg-enhance-panel'});
+    panel.append(el('h2',{},'Quick Filters'),el('p',{className:'eeg-enhance-muted'},'Filter existing listings. Course format and credit amounts are shown only when explicitly stated in the listing. Confirm credit eligibility with the provider.'));
+    const controls=el('div',{className:'eeg-enhance-controls'});
+    function choice(label,values){const wrap=el('label',{},label),sel=el('select');values.forEach(([v,t])=>sel.append(el('option',{value:v},t)));wrap.append(sel);controls.append(wrap);return sel}
+    const cost=choice('Cost',[['all','Free and Paid'],['free','Free'],['paid','Paid']]);
+    const format=choice('Format',[['all','Any format'],['live','Live Webinar'],['demand','On Demand']]);
+    const credit=choice('Credit amount',[['all','Any amount'],['known','Specified amount'],['1','1 or more CEUs'],['2','2 or more CEUs'],['5','5 or more CEUs']]);
+    const reset=el('button',{type:'button'},'Reset Filters');controls.append(reset);
+    const summary=el('p',{className:'eeg-enhance-muted',id:'eeg-filter-summary'});
+    panel.append(controls,summary);
+    const grid=directory.querySelector('.grid');if(grid)directory.insertBefore(panel,grid);else directory.prepend(panel);
+    const lists=['free','paid','unknown'].map(id=>document.getElementById(id)).filter(Boolean);
+    let applying=false;
+    function apply(){
+      if(applying)return;applying=true;
+      let matches=0;
+      lists.forEach(host=>{
+        const group=host.id;
+        host.querySelectorAll(':scope > .entry').forEach(card=>{
+          const t=card.textContent.toLowerCase();
+          const category=group==='free'?'free':group==='paid'?'paid':'unknown';
+          const matchCost=cost.value==='all'||cost.value===category;
+          const live=/\blive\b|webinar|scheduled session/.test(t)&&!/recorded only/.test(t);
+          const demand=/on[ -]?demand|self[ -]?paced|recorded|asynchronous/.test(t);
+          const matchFormat=format.value==='all'||(format.value==='live'&&live)||(format.value==='demand'&&demand);
+          const amounts=[...t.matchAll(/(?:\b(\d+(?:\.\d+)?)\s*(?:aset\s*)?(?:ceu|ceus|cec|cecs|credits?)\b|\b(?:ceu|ceus|cec|cecs|credits?)\s*[:=]?\s*(\d+(?:\.\d+)?))/g)].map(m=>Number(m[1]||m[2]));
+          const max=amounts.length?Math.max(...amounts):null;
+          const matchCredit=credit.value==='all'||(credit.value==='known'&&max!==null)||(Number(credit.value)>0&&max!==null&&max>=Number(credit.value));
+          const ok=matchCost&&matchFormat&&matchCredit;
+          card.dataset.eegMatch=ok?'yes':'no';if(ok)matches++;
+        });
+      });
+      summary.textContent=matches+' matching resources. Use Show 6 More to reveal additional matches.';
+      if(typeof window.eegRefreshDirectoryCards==='function')window.eegRefreshDirectoryCards(true);
+      else lists.forEach(host=>host.querySelectorAll(':scope > .entry').forEach(card=>{card.style.display=card.dataset.eegMatch==='no'?'none':''}));
+      applying=false;
+    }
+    [cost,format,credit].forEach(sel=>sel.addEventListener('change',apply));
+    reset.addEventListener('click',()=>{cost.value='all';format.value='all';credit.value='all';apply()});
+    lists.forEach(host=>new MutationObserver(()=>{if(!applying)apply()}).observe(host,{childList:true}));
+    apply();
+  }
+  // A course planner complements the existing completed-course tracker without overwriting old records.
+  const toolkit=document.getElementById('ceu-tools');
+  if(toolkit){
+    const panel=el('section',{className:'eeg-enhance-panel',id:'eeg-course-planner'});
+    panel.append(el('h2',{},'My CEU Course Planner'),el('p',{className:'eeg-enhance-muted'},'Save a course, track progress, and enter earned credits after completion. Records stay in this browser. Export regularly and keep your certificates.'));
+    const controls=el('div',{className:'eeg-enhance-controls'});
+    function field(label,type,placeholder){const w=el('label',{},label),input=el('input',{type,placeholder:placeholder||''});w.append(input);controls.append(w);return input}
+    const title=field('Course name','text','Course or webinar');title.maxLength=180;
+    const provider=field('Provider','text','Optional');provider.maxLength=120;
+    const statusWrap=el('label',{},'Status'),status=el('select');['Saved','In Progress','Completed'].forEach(s=>status.append(el('option',{value:s},s)));statusWrap.append(status);controls.append(statusWrap);
+    const earned=field('Earned CEUs','number','0');earned.min='0';earned.max='1000';earned.step='0.25';earned.value='0';
+    const add=el('button',{type:'button',className:'eeg-enhance-button'},'Save Course');controls.append(add);
+    const goalRow=el('div',{className:'eeg-enhance-controls'});
+    const goalLabel=el('label',{},'My recertification CEU goal'),goal=el('input',{type:'number',min:'1',max:'10000',step:'0.25',value:String(get(GOAL,30))});goalLabel.append(goal);goalRow.append(goalLabel);
+    const exportBtn=el('button',{type:'button',className:'eeg-enhance-button'},'Export Planner CSV');goalRow.append(exportBtn);
+    const progressText=el('p',{className:'eeg-enhance-muted'}),bar=el('div',{className:'eeg-enhance-progress'}),fill=el('div');bar.append(fill);
+    const list=el('div',{className:'eeg-enhance-table'});
+    panel.append(controls,goalRow,progressText,bar,list);
+    const oldTracker=document.getElementById('tracker-form');
+    if(oldTracker&&oldTracker.closest('.tool-panel'))oldTracker.closest('.tool-panel').before(panel);else toolkit.append(panel);
+    function records(){return get(KEY,[])}
+    function render(){
+      const rows=records();list.replaceChildren();
+      const total=rows.filter(r=>r.status==='Completed').reduce((n,r)=>n+safeNumber(r.credits),0);
+      const target=Math.max(1,safeNumber(goal.value)||30);
+      progressText.textContent=total.toFixed(2)+' of '+target+' CEUs earned ('+Math.min(100,Math.round(total/target*100))+'%). Only completed courses count.';
+      fill.style.width=Math.min(100,total/target*100)+'%';
+      if(!rows.length)list.append(el('p',{className:'eeg-enhance-muted'},'No courses saved yet.'));
+      rows.forEach(r=>{
+        const row=el('div',{className:'eeg-enhance-record'}),details=el('div');details.append(el('strong',{},r.title),el('small',{},(r.provider||'Provider not entered')+' · '+r.status+' · '+safeNumber(r.credits)+' earned CEUs'));
+        const buttons=el('div',{className:'eeg-enhance-controls'}),state=el('select');['Saved','In Progress','Completed'].forEach(s=>state.append(el('option',{value:s},s)));state.value=r.status;
+        state.setAttribute('aria-label','Status for '+r.title);
+        state.addEventListener('change',()=>{const data=records(),item=data.find(x=>x.id===r.id);if(item){item.status=state.value;put(KEY,data);render()}});
+        const edit=el('button',{type:'button'},'Edit CEUs');edit.addEventListener('click',()=>{const v=prompt('Earned CEUs for '+r.title,String(r.credits));if(v===null)return;const n=Number(v);if(!Number.isFinite(n)||n<0||n>1000){alert('Enter a valid CEU amount.');return}const data=records(),item=data.find(x=>x.id===r.id);if(item){item.credits=n;put(KEY,data);render()}});
+        const remove=el('button',{type:'button'},'Remove');remove.addEventListener('click',()=>{if(!confirm('Remove '+r.title+'?'))return;put(KEY,records().filter(x=>x.id!==r.id));render()});
+        buttons.append(state,edit,remove);row.append(details,buttons);list.append(row);
+      });
+    }
+    add.addEventListener('click',()=>{
+      const name=title.value.trim();if(!name){alert('Enter a course name.');title.focus();return}
+      const n=Number(earned.value);if(!Number.isFinite(n)||n<0||n>1000){alert('Enter a valid earned CEU amount.');return}
+      const data=records();data.push({id:Date.now()+'-'+Math.random().toString(36).slice(2),title:name,provider:provider.value.trim(),status:status.value,credits:n});
+      if(put(KEY,data)){title.value='';provider.value='';status.value='Saved';earned.value='0';render()}
+    });
+    goal.addEventListener('change',()=>{const n=Number(goal.value);if(n>0&&n<=10000){put(GOAL,n);render()}else{alert('Enter a valid goal.');goal.value=String(get(GOAL,30))}});
+    exportBtn.addEventListener('click',()=>{
+      const rows=[['Course','Provider','Status','Earned CEUs'],...records().map(r=>[r.title,r.provider,r.status,r.credits])];
+      const csv=rows.map(row=>row.map(cleanCsv).join(',')).join('\r\n');
+      const url=URL.createObjectURL(new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'}));
+      const link=el('a',{href:url,download:'eeg-ceu-course-planner.csv'});document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    });
+    window.eegSaveCourse=function(name,providerName){title.value=name;provider.value=providerName||'';status.value='Saved';earned.value='0';add.click()};
+    render();
+  }
+  // Learning pathway is a dedicated navigation tab, not a credit-bearing course catalog.
+  const nav=document.querySelector('.ceu-tabs');
+  if(nav){
+    const tab=el('button',{type:'button',className:'ceu-tab',dataset:{view:'learning'},textContent:'New EEG Tech Pathway'});
+    tab.setAttribute('aria-pressed','false');nav.append(tab);
+    const view=el('main',{className:'ceu-view',id:'eeg-learning-view',hidden:true});
+    const intro=el('section',{className:'eeg-enhance-panel'});
+    intro.append(el('h2',{},'New EEG Tech Learning Pathway'),el('p',{},'A progressive learning guide from foundational EEG skills to advanced clinical interpretation. These links are educational resources; CEU credit is not guaranteed. Follow your department training, supervision, and competency requirements.'));
+    const grid=el('div',{className:'eeg-pathway-grid'});
+    const levels=[
+      {name:'Beginner',topics:[['Electrode placement and the 10–20 system','https://www.acns.org/practice/guidelines'],['EEG fundamentals and terminology','https://www.learningeeg.com/'],['Recognizing common artifacts','https://eegpedia.org/index.php?title=Main_Page']]},
+      {name:'Intermediate',topics:[['Normal variants and sleep patterns','https://www.learningeeg.com/'],['Seizure patterns and EEG interpretation','https://eegatlas-online.com/index.php/en/'],['Practice with clinical EEG examples','https://eegpedia.org/index.php?title=Main_Page']]},
+      {name:'Advanced',topics:[['ICU EEG and critical care monitoring','https://www.acns.org/practice/guidelines'],['Continuous EEG and seizure terminology','https://www.acns.org/practice/guidelines'],['Advanced seizure and epilepsy education','https://www.ilae.org/education']]}
+    ];
+    levels.forEach(level=>{
+      const card=el('section',{className:'eeg-pathway-card'});card.append(el('h3',{},level.name));
+      const ul=el('ul');level.topics.forEach(([topic,url])=>{const li=el('li'),a=el('a',{href:url,target:'_blank',rel:'noopener noreferrer'},topic+' ↗');li.append(a);ul.append(li)});card.append(ul);grid.append(card)
+    });intro.append(grid,el('p',{className:'eeg-enhance-muted'},'Suggested sequence only. Source pages may contain a mix of introductory and advanced material. Confirm individual course availability and credit status.'));view.append(intro);
+    const directory=document.getElementById('ceu-directory-view');if(directory)directory.after(view);else nav.after(view);
+    function showLearning(){
+      document.querySelectorAll('.ceu-view,.tools-shell').forEach(v=>{v.hidden=v===view?false:true});
+      nav.querySelectorAll('.ceu-tab').forEach(t=>{const active=t===tab;t.classList.toggle('active',active);t.setAttribute('aria-pressed',String(active))});
+    }
+    tab.addEventListener('click',e=>{e.stopImmediatePropagation();showLearning()},true);
+    nav.querySelectorAll('.ceu-tab:not([data-view="learning"])').forEach(t=>t.addEventListener('click',()=>{view.hidden=true},true));
+  }
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<!-- EEG ENHANCEMENTS END -->
+'''
+_enhance_html = _enhance_html.replace('</body>', _enhance_feature + '\n</body>', 1)
+_enhance_page.write_text(_enhance_html, encoding='utf-8')
+print('Quick filters, course planner, and EEG learning pathway installed.')
