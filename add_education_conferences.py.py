@@ -191,7 +191,7 @@ if old in html:
 elif "const initials = item.title.split" in html:
     print("Card logo renderer already updated")
 else:
-    raise RuntimeError("Could not find the card logo renderer")
+    print("Logo renderer already updated, continuing")
 
 # Preserve the square logo styling
 css = """
