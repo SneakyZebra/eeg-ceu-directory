@@ -726,8 +726,8 @@ function drawRoadProducts(){
         {image:eegLeadsImage,w:110,h:49}
       ];
       const item=types[roadItemNumber++%types.length];
-      roadItems.push({...item,x:W+12,speed:2.4+Math.random()*1.1});
-      nextRoadItemAt=tick+22+Math.random()*34;
+      roadItems.push({...item,x:W+12,speed:2.7+Math.random()*0.8});
+      nextRoadItemAt=tick+35+Math.random()*30;
     }
   }
   g.save();
