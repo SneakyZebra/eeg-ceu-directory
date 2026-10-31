@@ -629,7 +629,7 @@ function open(){
 const worldIndex=openingCount%3;marioMode=(worldIndex===1);zeldaMode=(worldIndex===2);openingCount++;
 try{sessionStorage.setItem('eeg-brain-opening-count',String(openingCount))}catch(e){}
 $('fb-outer-score').style.visibility=zeldaMode?'hidden':'visible';box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
-modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Tap or press Space to turn angry red brains into happy pink brains. They speed up every four seconds. Do not let one touch Link!':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
+modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Blast the angry brains with Ativan to make them happy again! Tap or press Space to fire. They speed up every four seconds. Do not let one touch Link!':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
@@ -735,7 +735,7 @@ function zHappyBrain(x,y){
 }
 function zDrawCombat(){
   g.save();
-  g.beginPath();g.rect(0,147,W,236);g.clip();
+  g.beginPath();g.rect(0,132,W,H-132);g.clip();
   // Zelda mode intentionally has no EEG tails or static projectile artwork.
   for(const e of zEnemies){
     g.save();
