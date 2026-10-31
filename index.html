@@ -846,113 +846,61 @@ function marioCliff(x,y,h,capBottom){
 }
 
 // Third game: NES-era overhead fantasy adventure with a dedicated progress HUD.
+
+// Third game uses the supplied NES screenshot artwork directly, without redesigning it.
+const zeldaBg=new Image(),zeldaLinkArt=new Image(),zeldaLogArt=new Image();
+zeldaBg.src='data:image/png;base64,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';
+zeldaLinkArt.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAABEklEQVR4nNVUKxKDMBB9MAhED1KBRFQiERyjohJRGRlZUYnoAXoABLISgazgKIjMUMGQspsPCCr6ZjIDmzcvb3ezCVT/HLEzwr0FASDybcrhQv5FXG0SDXj63fVMCI00z10TJ+lzQQDIhfqKtUcAZgZe0fT2sJJyobTgFhiNSosEjYyQFgnSItExDp/bUBNe92mBprxEV7/Jnkv46zQrp8Wczd9d/dYxEVfeZgVtcRgbGTlrJk+9EVvrvvOezs7ymsYbGUEOF68waZTNFYer3kRUX6OsnE7Pyk3ivu4Hqn+OM0HElR6A5SQt3fEJs5VhdUxtQvwwPjSEbXPpgq+22il36BpZzrXxjPT3wE8e6f8R/QDB5XTvs56iOwAAAABJRU5ErkJggg==';
+zeldaLogArt.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAVCAYAAABLy77vAAAA1klEQVR4nK2UQRGFIBRFL4xLgxjABSEIYAAiEMMIBjAAIVwYwCAsneGv8CM8ERneyhHemcPlKTuP1aFB8RYQAOj8w64VAEAYy2oseQgBgE32rhsm9gWya/U3GuflBuyGiW2yv8yEsQwAnmz5rlUCoRo22TvK1vdXhU0dPQH5sGPD0Ix6n4RNgd+sbmGX1BMUAPg4L19YydF8f1HYOZPL6JNODkQFHU96uBbb+b1FRjGMGoHk1qhNoYVfjyf/cfiEseS3FldueIvqPFYXWlX9e6hqd/2tQD/JKHS2pg8CIgAAAABJRU5ErkJggg==';
 function zeldaScenery(){
-  pixelRect(0,0,W,H,'#f4d4a0');
-  // Repeating top-down grass borders and shrubs, deliberately chunky NES pixels.
-  for(let i=-1;i<26;i++){
-    const x=i*29-(tick*.75%29);
-    for(const y of [63,H-101]){
-      pixelRect(x,y,27,29,'#06530b');
-      pixelRect(x+4,y+2,19,24,'#00a51c');
-      pixelRect(x+7,y+6,6,11,'#20d42b');
-      pixelRect(x+17,y+4,5,14,'#00450b');
-      pixelRect(x+3,y+20,8,5,'#003d0a');
-    }
+  g.imageSmoothingEnabled=false;
+  if(zeldaBg.complete&&zeldaBg.naturalWidth){
+    g.drawImage(zeldaBg,0,0,W,H);
+  }else{
+    pixelRect(0,0,W,H,'#fbd5a2');
   }
-  // Overhead forest canopy and pixel bushes, distinct from platformer hills.
-  for(let i=0;i<8;i++){
-    const x=((i*121-tick*.45)%(W+150)+W+150)%(W+150)-60;
-    const y=102+(i%3)*89;
-    pixelRect(x,y,38,29,'#075c0a');
-    pixelRect(x+4,y+3,30,22,'#00a018');
-    pixelRect(x+10,y+6,8,8,'#3de533');
-    pixelRect(x+26,y+16,6,6,'#035a09');
-  }
-  // Decorative NES-style rocks and trees on the distant trail.
-  for(let i=0;i<5;i++){
-    const x=((i*166+55-tick*.27)%(W+100)+W+100)%(W+100)-50;
-    const y=166+(i%2)*97;
-    pixelRect(x,y,27,20,'#9c632d');
-    pixelRect(x+3,y+2,21,12,'#d18b39');
-    pixelRect(x+8,y+4,8,4,'#f7b75c');
-    pixelRect(x+4,y+17,22,3,'#5d331a');
-  }
-  // HUD copied conceptually from the reference: dark band, map, item slots, hearts.
-  pixelRect(0,0,W,65,'#050505');
-  pixelRect(12,11,92,42,'#797979');
-  pixelRect(15,14,86,36,'#858585');
-  pixelRect(50,33,5,5,'#14c02a');
-  g.font='bold 13px monospace';g.textBaseline='top';
-  g.fillStyle='#f6f2e2';g.fillText('×'+String(score).padStart(2,'0'),120,8);
-  g.fillText('BEST '+best,120,29);
-  pixelRect(246,9,30,37,'#2467f0');
-  pixelRect(250,12,22,31,'#000000');
-  pixelRect(291,9,30,37,'#d6a12e');
-  pixelRect(295,12,22,31,'#000000');
-  g.fillStyle='#f9e3b6';g.fillText('B',253,0);g.fillText('A',299,0);
-  g.fillStyle='#ff633c';g.fillText('—LIFE—',355,8);
-  const hearts=Math.max(1,5-Math.floor(score/5)%5);
-  g.font='20px monospace';
-  for(let i=0;i<5;i++){g.fillStyle=i<hearts?'#ff4536':'#5a1917';g.fillText('♥',356+i*22,28)}
-  g.fillStyle='#f5d9a0';g.font='bold 13px monospace';
-  g.fillText('LEVEL '+(Math.floor(score/5)+1),490,11);
-  g.fillText('SPEED '+speed.toFixed(1),490,31);
+  // The reference HUD remains visually unchanged; the score and level
+  // are overlaid in its original 8-bit font and palette.
+  g.textBaseline='top';g.font='bold 13px monospace';
+  g.fillStyle='#fff';
+  g.fillText('×'+String(score).padStart(2,'0'),Math.round(W*.35),Math.round(H*.065));
+  g.fillText('×'+String(best).padStart(2,'0'),Math.round(W*.35),Math.round(H*.125));
 }
 function zeldaObstacle(x,y,h,top){
   if(h<=0)return;
-  // Tree trunk + leafy hedge columns replace pipes in Hyrule.
-  pixelRect(x+8,y,56,h,'#5d351c');
-  for(let yy=y;yy<y+h;yy+=23){
-    pixelRect(x+2,yy,69,22,'#074b08');
-    pixelRect(x+6,yy+2,61,18,'#008c16');
-    pixelRect(x+11,yy+3,15,11,'#1de229');
-    pixelRect(x+39,yy+9,20,8,'#00680e');
-    pixelRect(x+3,yy+19,66,3,'#003e08');
+  // The exact brown log tile from the reference, stacked into obstacles.
+  g.imageSmoothingEnabled=false;
+  for(let yy=y;yy<y+h;yy+=27){
+    for(let xx=x;xx<x+73;xx+=25){
+      if(zeldaLogArt.complete&&zeldaLogArt.naturalWidth)
+        g.drawImage(zeldaLogArt,xx,yy,25,Math.min(27,y+h-yy));
+    }
   }
-  const cap=top?y+h-23:y;
-  pixelRect(x-5,cap,83,24,'#034607');
-  pixelRect(x-1,cap+3,75,18,'#08a319');
-  pixelRect(x+7,cap+5,21,8,'#36d92a');
-  pixelRect(x+39,cap+11,25,5,'#006d0c');
 }
 function zeldaLink(){
-  // Link-inspired 8-bit adventurer; small square pixels, no photo/background.
-  g.save();
-  g.translate(Math.round(hero.x+hero.w/2),Math.round(hero.y+hero.h/2));
-  g.rotate(Math.max(-.12,Math.min(.18,hero.vy*.02)));
-  g.scale(1.55,1.55);
-  const P=(x,y,w,h,c)=>pixelRect(x,y,w,h,c);
-  // Hat and pointed cap
-  P(-23,-25,32,7,'#004e13');P(-29,-19,39,7,'#007b16');P(-18,-32,20,8,'#007e18');
-  P(-25,-12,36,9,'#f3ba74');P(-21,-4,29,13,'#efae6b');
-  P(-27,-11,8,15,'#c97d3c');P(7,-11,8,15,'#c97d3c');
-  P(-15,-6,5,6,'#131313');P(1,-6,5,6,'#131313');
-  P(-7,5,12,3,'#8b4a2b');
-  P(-23,9,39,20,'#00871b');P(-19,12,30,14,'#14b82c');
-  P(-18,25,30,5,'#bb7138');P(-14,29,9,9,'#64371d');P(4,29,9,9,'#64371d');
-  P(-29,13,7,16,'#f2b36d');P(17,13,7,16,'#f2b36d');
-  P(-4,15,7,8,'#d3b548');
-  g.restore();
+  if(zeldaLinkArt.complete&&zeldaLinkArt.naturalWidth){
+    g.save();
+    g.translate(Math.round(hero.x+hero.w/2),Math.round(hero.y+hero.h/2));
+    g.rotate(Math.max(-.12,Math.min(.12,hero.vy*.02)));
+    g.imageSmoothingEnabled=false;
+    g.drawImage(zeldaLinkArt,-hero.w/2,-hero.h/2,hero.w,hero.h);
+    g.restore();
+  }
 }
 function zeldaBrain(x,y,phase){
-  g.save();g.translate(Math.round(x),Math.round(y));
-  const bob=Math.round(Math.sin(tick*.09+phase)*3);
-  // NES sprite enemy brain, outlined with irregular pink lobes and eyes.
-  const P=(a,b,w,h,c)=>pixelRect(a,b+bob,w,h,c);
-  P(4,0,23,5,'#67172b');P(0,5,32,21,'#67172b');P(4,26,23,5,'#67172b');
-  P(4,6,24,18,'#e86b8c');P(8,2,16,6,'#fa8da5');P(7,24,20,4,'#d84970');
-  P(8,8,3,10,'#a22b51');P(17,4,3,9,'#a22b51');P(23,14,3,9,'#a22b51');
-  P(10,14,5,5,'#fff7d7');P(22,14,5,5,'#fff7d7');
-  P(12,16,2,3,'#141018');P(24,16,2,3,'#141018');
-  P(14,23,10,3,'#64132b');
-  g.restore();
+  // Small 8-bit pink brain enemies, pixel-by-pixel and transparent.
+  const P=(a,b,w,h,c)=>pixelRect(Math.round(x+a),Math.round(y+b+Math.sin(tick*.09+phase)*3),w,h,c);
+  P(5,1,23,5,'#742040');P(1,6,31,18,'#742040');P(5,24,23,5,'#742040');
+  P(5,6,23,18,'#f184a5');P(9,2,15,6,'#f9b0c5');
+  P(7,9,4,10,'#c53f70');P(17,6,3,12,'#c53f70');P(24,11,3,11,'#c53f70');
+  P(10,14,5,5,'#fff5d9');P(22,14,5,5,'#fff5d9');
+  P(12,16,2,3,'#171018');P(24,16,2,3,'#171018');P(15,23,9,3,'#7c2041');
 }
 function drawZeldaBrains(){
-  // Decorative moving brain enemies, independent of pipes and never obstruct HUD.
   for(let i=0;i<4;i++){
-    const x=((W+140+i*187-tick*(1.05+i*.22))%(W+210)+W+210)%(W+210)-50;
-    const y=115+(i%3)*94;
-    zeldaBrain(x,y,i*2.1);
+    const x=((W+120+i*187-tick*(1.1+i*.2))%(W+200)+W+200)%(W+200)-40;
+    const y=120+(i%3)*77;
+    zeldaBrain(x,y,i*2);
   }
 }
 
