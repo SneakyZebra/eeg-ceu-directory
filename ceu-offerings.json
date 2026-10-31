@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-30T18:35:44.874304+00:00",
+  "last_checked": "2026-10-31T17:41:52.556437+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,82 +15,91 @@
   ],
   "discovery_searches": [
     {
-      "query": "seizure monitoring education",
+      "query": "EEG technologist webinar",
       "engine": "bing",
       "results": 10,
       "relevant": 0
     },
     {
-      "query": "seizure monitoring education",
+      "query": "EEG technologist webinar",
+      "engine": "google_news",
+      "results": 6,
+      "relevant": 0
+    },
+    {
+      "query": "neurodiagnostic CEU",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "neurodiagnostic CEU",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "EEG continuing education",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "EEG continuing education",
       "engine": "google_news",
       "results": 25,
+      "relevant": 9
+    },
+    {
+      "query": "ASET CEU webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 5
+    },
+    {
+      "query": "ASET CEU webinar",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "ABRET recertification education",
+      "engine": "bing",
+      "results": 10,
       "relevant": 2
     },
     {
-      "query": "EEG technologist webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "EEG technologist webinar",
-      "engine": "google_news",
-      "results": 1,
-      "relevant": 0
-    },
-    {
-      "query": "neurodiagnostic CEU",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 1
-    },
-    {
-      "query": "neurodiagnostic CEU",
-      "engine": "google_news",
-      "results": 0,
-      "relevant": 0
-    },
-    {
-      "query": "EEG continuing education",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "EEG continuing education",
-      "engine": "google_news",
-      "results": 14,
-      "relevant": 7
-    },
-    {
-      "query": "ASET CEU webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 4
-    },
-    {
-      "query": "ASET CEU webinar",
-      "engine": "google_news",
-      "results": 0,
-      "relevant": 0
-    },
-    {
-      "query": "ABRET recertification education",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 1
-    },
-    {
       "query": "ABRET recertification education",
       "engine": "google_news",
       "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "epilepsy EEG webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "epilepsy EEG webinar",
+      "engine": "google_news",
+      "results": 6,
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 3,
+  "discovery_candidates_added": 1,
   "catalog_pages_scanned": 65,
-  "catalog_candidates_added": 1,
+  "catalog_candidates_added": 0,
   "items": [
+    {
+      "title": "EEG Exam - ABRET",
+      "provider": "abret.org",
+      "url": "https://abret.org/apply/eeg",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-10-31",
+      "discovery_source": "bing RSS"
+    },
     {
       "title": "Brave 11-year-old girl helps teacher during epileptic seizure in classroom - Education News",
       "provider": "Education News",
