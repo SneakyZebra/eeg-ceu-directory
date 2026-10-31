@@ -647,26 +647,39 @@ function cloud(x,y,scale=1){
   g.restore();
 }
 // Soft, unlabeled EEG rhythms behind the gameplay.
-function skyEEG(y,cycles,amplitude,phase){
+// Four independent, irregular EEG channels based on the supplied tracing.
+// Only the waveform is drawn: no white image, grid, or rectangular background.
+function skyEEG(){
   g.save();
   g.strokeStyle='#e6fcff';
-  g.globalAlpha=.17;
-  g.lineWidth=1.7;
-  g.beginPath();
-  for(let x=0;x<=W;x+=2){
-    const a=(x+phase)*cycles;
-    const value=y+Math.sin(a)*amplitude+Math.sin(a*.42)*amplitude*.13;
-    if(x===0)g.moveTo(x,value);else g.lineTo(x,value);
+  g.globalAlpha=.17; // Preserve the original faint EEG opacity.
+  g.lineWidth=1.55;
+  g.lineJoin='round';
+  const baselines=[72,113,154,195];
+  for(let channel=0;channel<baselines.length;channel++){
+    g.beginPath();
+    for(let x=0;x<=W;x+=1.5){
+      const t=x+tick*.32;
+      // Smooth irregular activity with variable frequency, amplitude, and
+      // intermittent higher-frequency bursts like the uploaded EEG example.
+      const envelope=.75+.27*Math.sin(t*.017+channel*1.7)+.19*Math.sin(t*.047+channel*2.3);
+      const burst=Math.pow(Math.max(0,Math.sin(t*.014+channel*1.9)),7);
+      const fast=(2.4+4.8*burst)*Math.sin(t*(.37+channel*.021)+1.6*Math.sin(t*.019+channel));
+      const mid=3.2*Math.sin(t*.17+channel*1.8+.8*Math.sin(t*.013));
+      const slow=4.4*Math.sin(t*.047+channel*.7)+1.8*Math.sin(t*.083+channel*2.4);
+      const fine=1.3*Math.sin(t*.71+channel*1.1);
+      const y=baselines[channel]+envelope*(fast+mid)+slow+fine;
+      if(x===0)g.moveTo(x,y);else g.lineTo(x,y);
+    }
+    g.stroke();
   }
-  g.stroke();g.restore();
+  g.restore();
 }
 function scenery(){
   pixelRect(0,0,W,H,'#4ec2ce');
   // Distant, blocky clouds slowly scroll behind the pipes.
   const drift=(tick*.28)%330;
   for(let i=-1;i<4;i++)cloud(i*330-drift,218+(i%2)*18,.9);
-  skyEEG(135,.17,12,tick*.55);
-  skyEEG(225,.065,17,tick*.38);
   // Pale city skyline, rendered in a crisp pixel-art style.
   const skylineY=H-83,shift=(tick*.18)%104;
   for(let i=-1;i<9;i++){
@@ -835,6 +848,7 @@ function marioCliff(x,y,h,capBottom){
 function draw(){
   g.imageSmoothingEnabled=false;
   if(marioMode)marioScenery();else scenery();
+  skyEEG(); // Same faint tracing in both game worlds, behind the obstacles.
   for(const p of pipes){
     if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
