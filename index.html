@@ -750,86 +750,86 @@ function drawRoadProducts(){
 }
 
 
-// Alternating retro platform-world variant. All original Classic rendering is retained.
+
+// Blue-sky 8-bit platform world based on the supplied screenshot.
 function marioScenery(){
-  pixelRect(0,0,W,H,'#268b12');
-  // Layered rolling hills with golden pixel outlines, as in the supplied reference.
-  const drift=(tick*.28)%350;
-  for(let layer=0;layer<2;layer++){
-    const off=(tick*(layer?.28:.12))%390;
-    for(let i=-1;i<4;i++){
-      const x=i*390-off-80, y=layer?H-175:H-240;
-      g.fillStyle=layer?'#126b0b':'#176d10';
-      g.strokeStyle=layer?'#559c12':'#6c9d17';g.lineWidth=5;
-      g.beginPath();g.moveTo(x-40,H-79);
-      g.lineTo(x-40,y+95);g.lineTo(x-8,y+95);g.lineTo(x-8,y+55);
-      g.lineTo(x+22,y+55);g.lineTo(x+22,y+22);g.lineTo(x+55,y+22);
-      g.lineTo(x+55,y);g.lineTo(x+115,y);g.lineTo(x+115,y+22);
-      g.lineTo(x+148,y+22);g.lineTo(x+148,y+55);
-      g.lineTo(x+190,y+55);g.lineTo(x+190,y+88);
-      g.lineTo(x+230,y+88);g.lineTo(x+230,H-79);g.closePath();g.fill();g.stroke();
+  pixelRect(0,0,W,H,'#5c94fc');
+  const scroll=tick*.55;
+  function cloud(x,y,scale){
+    g.save();g.translate(Math.round(x),Math.round(y));g.scale(scale,scale);
+    const tiles=[[14,0,28,10],[7,10,45,12],[0,22,59,11],[9,33,45,5]];
+    for(const [a,b,w,h] of tiles)pixelRect(a-3,b-3,w+6,h+6,'#080808');
+    for(const [a,b,w,h] of tiles)pixelRect(a,b,w,h,'#ffffff');
+    for(let i=0;i<4;i++)pixelRect(9+i*12,29+(i%2)*3,8,3,'#33baf2');
+    g.restore();
+  }
+  for(let i=0;i<6;i++){
+    const x=((i*190-scroll*.2)%(W+150)+W+150)%(W+150)-90;
+    cloud(x,32+(i%3)*33,i%2?1.15:.8);
+  }
+  function hill(x,y,w,h){
+    g.fillStyle='#050505';g.beginPath();g.moveTo(x,y);g.lineTo(x+w*.45,y-h);g.lineTo(x+w*.56,y-h);g.lineTo(x+w,y);g.closePath();g.fill();
+    g.fillStyle='#00bb00';g.beginPath();g.moveTo(x+6,y);g.lineTo(x+w*.46,y-h+7);g.lineTo(x+w*.55,y-h+7);g.lineTo(x+w-6,y);g.closePath();g.fill();
+    pixelRect(x+w*.48,y-h*.65,4,7,'#060606');pixelRect(x+w*.6,y-h*.58,4,7,'#060606');
+  }
+  for(let i=-1;i<6;i++){
+    const x=i*185-(scroll*.35%185);
+    hill(x,H-79,105+(i%2)*30,40+(i%3)*15);
+    pixelRect(x+125,H-105,62,25,'#080808');
+    pixelRect(x+128,H-105,56,22,'#00c900');
+    pixelRect(x+138,H-116,37,15,'#00c900');
+  }
+  function brick(x,y){
+    pixelRect(x,y,31,28,'#070707');pixelRect(x+2,y+2,27,24,'#c65a21');
+    pixelRect(x+3,y+3,25,3,'#ffad74');
+    pixelRect(x+2,y+12,27,3,'#080808');
+    pixelRect(x+14,y+2,3,10,'#080808');
+    pixelRect(x+8,y+15,3,10,'#080808');
+    pixelRect(x+22,y+15,3,10,'#080808');
+  }
+  function question(x,y){
+    pixelRect(x,y,31,28,'#080808');pixelRect(x+2,y+2,27,24,'#f5a32c');
+    pixelRect(x+3,y+3,24,3,'#ffdb65');pixelRect(x+3,y+22,24,3,'#ac5417');
+    g.font='bold 23px monospace';g.textBaseline='top';g.fillStyle='#14100a';g.fillText('?',x+8,y+2);
+    pixelRect(x+4,y+5,3,3,'#9b4a17');pixelRect(x+24,y+19,3,3,'#9b4a17');
+  }
+  // Floating question blocks and brick clusters, scrolling behind the obstacles.
+  for(let i=0;i<9;i++){
+    const x=((i*148-scroll*.8)%(W+130)+W+130)%(W+130)-60;
+    const y=H-210-(i%3)*66;
+    for(let j=0;j<2+(i%3);j++)(j===1&&i%2===0?question:brick)(x+j*31,y);
+  }
+  // Orange brick-tiled floor with dark mortar.
+  pixelRect(0,H-79,W,79,'#060606');
+  for(let y=H-76;y<H;y+=22){
+    for(let i=-1;i<Math.ceil(W/31)+1;i++){
+      const x=i*31-(scroll*1.8%31)+(Math.floor((y-(H-76))/22)%2)*-15;
+      pixelRect(x+2,y+2,27,18,'#b95320');
+      pixelRect(x+3,y+3,24,3,'#ffa16c');
+      pixelRect(x+5,y+9,4,9,'#e77735');
+      pixelRect(x+21,y+11,3,7,'#783112');
     }
-  }
-  // Distant yellow leaf-like motifs and four-point stars.
-  for(let i=0;i<23;i++){
-    const x=((i*93-tick*.38)%(W+90)+W+90)%(W+90)-35;
-    const y=25+(i*67%(H-180));
-    pixelRect(x,y,7,14,'#b8c42a');pixelRect(x+7,y+4,9,5,'#d4d843');
-    pixelRect(x+3,y+4,3,5,'#7b9b18');
-  }
-  for(let i=0;i<5;i++){
-    const x=((i*219-tick*.17)%(W+100)+W+100)%(W+100)-30;
-    const y=55+(i%3)*95;
-    pixelRect(x+12,y,12,11,'#93a81d');pixelRect(x+12,y+30,12,11,'#93a81d');
-    pixelRect(x,y+12,12,18,'#93a81d');pixelRect(x+24,y+12,12,18,'#93a81d');
-    pixelRect(x+12,y+12,12,18,'#bfd12b');
-  }
-  // Bright, blocky bushes on the horizon.
-  for(let i=-1;i<7;i++){
-    const x=i*170-(tick*.53%170), y=H-79;
-    pixelRect(x+20,y-53,100,53,'#071d08');
-    pixelRect(x+4,y-36,145,36,'#071d08');
-    pixelRect(x+24,y-56,95,53,'#15bd17');
-    pixelRect(x+7,y-33,139,30,'#15bd17');
-    pixelRect(x+43,y-67,56,13,'#15bd17');
-    pixelRect(x+20,y-20,98,13,'#24d91d');
-  }
-  // A row of floating mystery blocks with black pixel edges.
-  const bx=((300-tick*.8)%(W+280)+W+280)%(W+280)-80;
-  for(let i=0;i<3;i++){
-    const x=bx+i*44,y=H-200;
-    pixelRect(x-3,y-3,39,39,'#13110b');
-    pixelRect(x,y,33,33,'#efad25');
-    pixelRect(x+3,y+3,27,4,'#ffe26a');
-    pixelRect(x+3,y+26,27,4,'#ac5918');
-    g.fillStyle='#fff3bc';g.font='bold 24px monospace';g.fillText('?',x+9,y+25);
-  }
-  // Yellow sand with green turf, matching the supplied reference.
-  pixelRect(0,H-79,W,79,'#cda45c');
-  pixelRect(0,H-79,W,6,'#080d04');
-  pixelRect(0,H-73,W,10,'#16b91d');
-  pixelRect(0,H-63,W,4,'#0c4210');
-  for(let x=-(tick*1.7%31);x<W;x+=31){
-    pixelRect(x,H-59+(Math.floor(x/31)%3)*13,5,9,'#f1d378');
-    pixelRect(x+15,H-40+(Math.floor(x/31)%2)*11,4,8,'#eac477');
   }
 }
 function marioCliff(x,y,h,capBottom){
   if(h<=0)return;
-  const w=73;
-  pixelRect(x-3,y-2,w+6,h+4,'#100e09');
-  pixelRect(x,y,w,h,'#cfa95d');
-  for(let yy=y+9;yy<y+h-4;yy+=17){
-    for(let xx=x+6;xx<x+w-5;xx+=18){
-      pixelRect(xx+(yy%3)*2,yy,5,9,'#e8c977');
-      pixelRect(xx+8,yy+5,4,6,'#b88b4c');
-    }
-  }
-  const lip=capBottom?y+h-12:y;
-  pixelRect(x-5,lip-4,w+10,19,'#101008');
-  pixelRect(x-2,lip,w+4,13,'#19a91d');
-  pixelRect(x+6,lip+3,w-12,5,'#5cdd28');
-  pixelRect(x-2,lip+12,w+4,3,'#0a4410');
+  // NES-style green pipes with crisp black silhouettes.
+  const w=73, bodyX=x+6, bodyW=61, capH=16;
+  const capY=capBottom?y+h-capH:y;
+  pixelRect(bodyX-2,y,bodyW+4,h,'#080808');
+  pixelRect(bodyX,y+1,bodyW,Math.max(0,h-2),'#008900');
+  pixelRect(bodyX+5,y+1,9,Math.max(0,h-2),'#56fb21');
+  pixelRect(bodyX+15,y+1,7,Math.max(0,h-2),'#25cf0c');
+  pixelRect(bodyX+25,y+1,25,Math.max(0,h-2),'#00a800');
+  pixelRect(bodyX+52,y+1,5,Math.max(0,h-2),'#006900');
+  pixelRect(x-2,capY-2,w+4,capH+4,'#080808');
+  pixelRect(x,capY,w,capH,'#00a600');
+  pixelRect(x+4,capY+2,10,capH-4,'#71ff35');
+  pixelRect(x+15,capY+2,7,capH-4,'#2be51b');
+  pixelRect(x+23,capY+2,34,capH-4,'#09b900');
+  pixelRect(x+59,capY+2,8,capH-4,'#006c00');
+  pixelRect(x+3,capY+2,2,capH-4,'#a1ff64');
+  pixelRect(x+w-4,capY+1,2,capH-2,'#004b00');
 }
 
 function draw(){
