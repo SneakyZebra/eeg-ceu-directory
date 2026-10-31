@@ -643,9 +643,11 @@ function zShoot(){
   if(zShots.length<6){
     zShots.push({x:hero.x-8,y:hero.y+hero.h*.5});
     try{
-      // Short, original NES-style sword pulse: bright square-wave sweep with a crisp tail.
-      beep(980,.055,'square',.042,0,570);
-      beep(510,.075,'triangle',.027,.035,230);
+      // Original 8-bit sword slash: rising chiptune attack and fast falling tail.
+      // The oscillator frequencies and short durations give a distinct NES-like sweep.
+      beep(480,.043,'square',.060,0,1230);
+      beep(1330,.100,'square',.045,.035,290);
+      beep(720,.078,'triangle',.035,.025,170);
     }catch(e){}
   }
 }
@@ -656,11 +658,13 @@ function zUpdate(d){
   zSpeed=Math.min(8,1.15+Math.floor(zElapsed/240)*.48);
   // Link patrols vertically in a predictable, smooth rhythm. His sword
   // always fires from his current position.
+  // Wider patrol: Link visibly enters both green borders but stays on screen.
+  // Movement remains smooth and faster than the previous version.
   const patrolCenter=230;
-  const patrolAmplitude=72;
-  // Extend patrol slightly into the upper and lower greenery, keeping Link fully visible.
-  hero.y=Math.max(158,Math.min(301,patrolCenter+Math.sin(zElapsed*.032)*patrolAmplitude));
-  hero.vy=Math.cos(zElapsed*.032)*patrolAmplitude*.032;
+  const patrolAmplitude=112;
+  const patrolRate=.038;
+  hero.y=Math.max(116,Math.min(342,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
+  hero.vy=Math.cos(zElapsed*patrolRate)*patrolAmplitude*patrolRate;
   zSpawn-=d;
   if(zSpawn<=0){
     const lanes=[171,242,316];
