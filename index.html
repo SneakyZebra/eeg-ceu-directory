@@ -629,11 +629,74 @@ function open(){
 const worldIndex=openingCount%3;marioMode=(worldIndex===1);zeldaMode=(worldIndex===2);openingCount++;
 try{sessionStorage.setItem('eeg-brain-opening-count',String(openingCount))}catch(e){}
 box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
-modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'THE LEGEND OF FLAPPY: HYRULE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Guide Link past the forest obstacles and wandering brains!':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
+modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Link stays in position. Tap or press Space to blast angry brains into happy pink brains! Heal as many as you can; five misses ends the round.':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
-function start(){mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
-function flap(){if(!modal.classList.contains('open'))return;if(mode==='ready'||mode==='over'){start();return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
+// Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
+let zEnemies=[],zShots=[],zSpawn=0,zMisses=0;
+function zReset(){
+  zEnemies=[];zShots=[];zSpawn=30;zMisses=0;
+  hero.x=W-115;hero.y=205;hero.vy=0;
+}
+function zShoot(){
+  if(mode!=='running')return;
+  if(zShots.length<4){
+    zShots.push({x:hero.x-8,y:hero.y+hero.h*.48});
+    try{beep(680,.045)}catch(e){}
+  }
+}
+function zUpdate(d){
+  tick+=d;speed=Math.min(6.5,1.5+Math.floor(score/5)*.36);
+  zSpawn-=d;
+  if(zSpawn<=0){
+    const lanes=[133,185,237,289];
+    zEnemies.push({x:-35,y:lanes[Math.floor(Math.random()*lanes.length)],happy:false,life:0,phase:Math.random()*6});
+    zSpawn=Math.max(20,62-Math.floor(score/5)*4)+Math.random()*18;
+  }
+  for(const e of zEnemies){
+    if(e.happy){e.life-=d;continue}
+    e.x+=speed*d*.9;
+    if(e.x>hero.x-24){e.happy=true;e.life=20;zMisses++;if(zMisses>=5){end();return}}
+  }
+  for(const shot of zShots){
+    shot.x-=9*d;
+    for(const e of zEnemies){
+      if(!e.happy&&Math.abs(shot.x-(e.x+15))<22&&Math.abs(shot.y-(e.y+15))<26){
+        e.happy=true;e.life=55;shot.x=-100;score++;scoreSound();break;
+      }
+    }
+  }
+  zShots=zShots.filter(a=>a.x>-10);
+  zEnemies=zEnemies.filter(e=>e.happy?e.life>0:e.x<W+40);
+  hud();
+}
+function zHappyBrain(x,y){
+  const P=(a,b,w,h,c)=>pixelRect(Math.round(x+a),Math.round(y+b),w,h,c);
+  P(4,1,24,5,'#9b4670');P(0,6,32,20,'#9b4670');P(4,26,24,4,'#9b4670');
+  P(4,6,24,20,'#ffa9cc');P(8,2,16,7,'#ffcae0');
+  P(8,9,4,8,'#e97ca8');P(19,7,4,9,'#e97ca8');
+  P(8,15,5,4,'#fff');P(22,15,5,4,'#fff');
+  P(10,17,2,2,'#171018');P(24,17,2,2,'#171018');
+  P(11,23,3,2,'#9b4670');P(14,25,11,2,'#9b4670');P(25,23,3,2,'#9b4670');
+}
+function zDrawCombat(){
+  for(const e of zEnemies){
+    if(e.happy)zHappyBrain(e.x,e.y);
+    else zeldaBrain(e.x,e.y,e.phase);
+  }
+  for(const a of zShots){
+    pixelRect(a.x-9,a.y-3,18,6,'#a7561b');
+    pixelRect(a.x-15,a.y-2,7,4,'#ffe65b');
+    pixelRect(a.x-4,a.y-1,7,2,'#f6c657');
+  }
+  zeldaLink();
+  // Clear, unobtrusive hit counter on top of the NES HUD.
+  g.font='bold 13px monospace';g.textBaseline='top';g.fillStyle='#fff';
+  g.fillText('HEALED '+score,Math.round(W*.71),Math.round(H*.075));
+  g.fillStyle='#ff806a';g.fillText('MISSED '+zMisses+'/5',Math.round(W*.71),Math.round(H*.13));
+}
+function start(){mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;if(zeldaMode)zReset();$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
+function flap(){if(!modal.classList.contains('open'))return;if(zeldaMode&&mode==='running'){zShoot();return;}if(mode==='ready'||mode==='over'){start();return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
 function resume(){mode='running';$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';last=performance.now()}
 function pause(){if(mode==='running'){mode='paused';show('PAUSED','Your brain is taking a break.','RESUME');$('fb-pause').textContent='RESUME'}else if(mode==='paused')resume()}
 function end(){if(mode!=='running')return;mode='over';crashSound();best=Math.max(best,score);const phrase=phrases[losses%phrases.length];losses++;try{localStorage.setItem('eeg-flappy-best',String(best));localStorage.setItem('eeg-flappy-losses',String(losses))}catch(e){}hud();show(phrase,'Score '+score+' • Best '+best,'TRY AGAIN')}
@@ -913,8 +976,7 @@ function draw(){
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
   }
-  if(zeldaMode)drawZeldaBrains();else if(!marioMode)drawRoadProducts();
-  if(zeldaMode){zeldaLink();return}
+  if(zeldaMode){zDrawCombat();return}else if(!marioMode)drawRoadProducts();
   g.save();
   g.translate(hero.x+hero.w/2,hero.y+hero.h/2);
   g.rotate(Math.max(-.22,Math.min(.45,hero.vy*.05)));
@@ -924,7 +986,7 @@ function draw(){
   else{g.font='65px serif';g.fillText('🧠',-hero.w/2,hero.h/3)}
   g.restore();
 }
-function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(7.5,3+Math.floor(score/5)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const top=(zeldaMode?100:50)+Math.random()*Math.max(1,(H-79)-gap-(zeldaMode?140:100));pipes.push({x:W+10,top,gap,passed:false});spawn=108}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
+function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);if(zeldaMode){zUpdate(d);return;}tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(7.5,3+Math.floor(score/5)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const top=(zeldaMode?100:50)+Math.random()*Math.max(1,(H-79)-gap-(zeldaMode?140:100));pipes.push({x:W+10,top,gap,passed:false});spawn=108}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
 function loop(t){
   const dt=last?t-last:16.67;last=t;
   try{if(modal.classList.contains('open')){update(dt);draw()}}
