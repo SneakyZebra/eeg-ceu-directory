@@ -648,28 +648,33 @@ function zShoot(){
 function zUpdate(d){
   tick+=d;
   zElapsed+=d;
-  // The enemies get faster at 4-second intervals, regardless of score.
+  // Speed rises every four seconds, including newly spawned enemies.
   zSpeed=Math.min(8,1.15+Math.floor(zElapsed/240)*.48);
+  // Link patrols vertically in a predictable, smooth rhythm. His sword
+  // always fires from his current position.
+  const patrolCenter=215;
+  const patrolAmplitude=74;
+  hero.y=patrolCenter+Math.sin(zElapsed*.023)*patrolAmplitude;
+  hero.vy=Math.cos(zElapsed*.023)*patrolAmplitude*.023;
   zSpawn-=d;
   if(zSpawn<=0){
-    // Independent top, middle and bottom entry lanes; jitter keeps arrivals unpredictable.
     const lanes=[94,192,309];
-    const startY=lanes[Math.floor(Math.random()*lanes.length)]+(Math.random()-.5)*24;
+    const startY=lanes[Math.floor(Math.random()*lanes.length)]+(Math.random()-.5)*35;
     zEnemies.push({x:-58,y:startY,baseY:startY,phase:Math.random()*6,age:0,happy:false,life:0});
-    zSpawn=Math.max(18,42-zSpeed*2)+Math.random()*78;
+    zSpawn=Math.max(22,50-zSpeed*2)+Math.random()*78;
   }
+  // Enemies are steered toward the sword's reachable zone, but retain
+  // enough independent motion that timing a shot is necessary.
   const targetY=hero.y+hero.h*.5-15;
   for(const e of zEnemies){
     if(e.happy){e.life-=d;continue}
     e.age+=d;
     e.x+=zSpeed*d;
-    // Sway vertically, then gradually converge on Link's firing lane.
-    const progress=Math.max(0,Math.min(1,(e.x-80)/(hero.x-160)));
-    const convergence=progress*progress*(3-2*progress);
-    const sway=Math.sin(e.age*.075+e.phase)*(15*(1-convergence)+3);
+    const progress=Math.max(0,Math.min(1,(e.x-65)/(hero.x-115)));
+    const convergence=.78*progress*progress*(3-2*progress);
+    const sway=Math.sin(e.age*.058+e.phase)*(16-6*progress);
     const desired=e.baseY*(1-convergence)+targetY*convergence+sway;
-    e.y+=(desired-e.y)*Math.min(1,.12*d);
-    // Touching Link is an immediate game over.
+    e.y+=(desired-e.y)*Math.min(1,.065*d);
     if(e.x+40>=hero.x && e.x-7<=hero.x+hero.w &&
        e.y+37>=hero.y && e.y-7<=hero.y+hero.h){end();return}
   }
@@ -677,8 +682,14 @@ function zUpdate(d){
     shot.x-=10*d;
     for(const e of zEnemies){
       if(!e.happy && shot.x>=e.x-12 && shot.x<=e.x+45 &&
-         Math.abs(shot.y-(e.y+15))<32){
-        e.happy=true;e.life=65;shot.x=-100;score++;scoreSound();break;
+         Math.abs(shot.y-(e.y+15))<29){
+        e.happy=true;e.life=65;shot.x=-100;score++;scoreSound();
+        // Every successful hit immediately summons one fresh angry brain
+        // in the middle lane, without resetting the regular spawn timer.
+        const middleY=192+(Math.random()-.5)*18;
+        zEnemies.push({x:-58-Math.random()*35,y:middleY,baseY:middleY,
+          phase:Math.random()*6,age:0,happy:false,life:0});
+        break;
       }
     }
   }
@@ -962,21 +973,25 @@ function zeldaScenery(){
   // Use the supplied banner image, not the previous Zelda HUD.
   // Keep the original NES playfield visible below it.
   const bannerH=96;
+  g.fillStyle='#000';g.fillRect(0,0,W,bannerH);
+  // Fit the complete supplied banner at its native proportions, without stretching.
+  // The remaining black space houses the live NES-style counters.
   if(zeldaCustomBanner.complete&&zeldaCustomBanner.naturalWidth){
-    g.drawImage(zeldaCustomBanner,0,0,W,bannerH);
-  }else{pixelRect(0,0,W,bannerH,'#000')}
-  // Cover the fixed screenshot numbers, then render live 8-bit counters.
-  g.fillStyle='#000';g.fillRect(101,0,168,bannerH);
+    const imageRatio=zeldaCustomBanner.naturalWidth/zeldaCustomBanner.naturalHeight;
+    const imageW=Math.min(W*.55,bannerH*imageRatio);
+    const imageH=imageW/imageRatio;
+    g.imageSmoothingEnabled=true;
+    g.drawImage(zeldaCustomBanner,12,(bannerH-imageH)/2,imageW,imageH);
+    g.imageSmoothingEnabled=false;
+  }
+  const scoreX=Math.max(310,W*.53);
   g.textBaseline='top';
-  g.font='bold 13px monospace';
+  g.font='bold 15px monospace';
   g.fillStyle='#fff';
-  g.fillText('SCORE',112,5);
-  g.fillText(String(score).padStart(3,'0'),210,5);
-  g.fillText('BEST',112,35);
-  g.fillText(String(best).padStart(3,'0'),210,35);
+  g.fillText('SCORE '+String(score).padStart(3,'0'),scoreX,9);
+  g.fillText('BEST  '+String(best).padStart(3,'0'),scoreX,37);
   g.fillStyle='#f5bc4a';
-  g.fillText('LEVEL',112,65);
-  g.fillText(String(1+Math.floor(zElapsed/240)),226,65);
+  g.fillText('LEVEL '+String(1+Math.floor(zElapsed/240)),scoreX,65);
 }
 
 function zeldaObstacle(x,y,h,top){
