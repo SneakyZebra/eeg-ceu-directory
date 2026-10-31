@@ -711,18 +711,19 @@ let roadItems=[];
 let nextRoadItemAt=0;
 let roadItemNumber=0;
 function drawRoadProducts(){
-  // Do not restart product traffic on a flap; varied intervals are intentional.
+  // The three original, isolated product images are the only road traffic.
+  // Staggered arrivals and individual speeds; never more than two at once.
   if(tick>=nextRoadItemAt && roadItems.length<2){
     const previous=roadItems[roadItems.length-1];
-    if(!previous || previous.x<W-150){
+    if(!previous || previous.x<W-190){
       const types=[
-        {image:ten20Image,w:49,h:46},
-        {image:collodionImage,w:106,h:24},
-        {image:nuprepImage,w:100,h:30}
+        {image:ten20Image,w:66,h:64},
+        {image:collodionImage,w:122,h:32},
+        {image:nuprepImage,w:118,h:42}
       ];
       const item=types[roadItemNumber++%types.length];
-      roadItems.push({...item,x:W+8,speed:1.5+Math.random()*1.65});
-      nextRoadItemAt=tick+65+Math.random()*95;
+      roadItems.push({...item,x:W+12,speed:1.65+Math.random()*2.2});
+      nextRoadItemAt=tick+72+Math.random()*125;
     }
   }
   g.save();
@@ -730,8 +731,8 @@ function drawRoadProducts(){
   g.imageSmoothingQuality='high';
   for(const item of roadItems){
     item.x-=item.speed;
-    // Road begins at y=H-59. Place products on its surface.
-    const y=H-8-item.h;
+    // The products travel along the lower road, not over the grass.
+    const y=H-10-item.h;
     if(item.image.complete&&item.image.naturalWidth){
       g.drawImage(item.image,Math.round(item.x),Math.round(y),item.w,item.h);
     }
