@@ -629,44 +629,59 @@ function open(){
 const worldIndex=openingCount%3;marioMode=(worldIndex===1);zeldaMode=(worldIndex===2);openingCount++;
 try{sessionStorage.setItem('eeg-brain-opening-count',String(openingCount))}catch(e){}
 box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
-modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Link stays in position. Tap or press Space to blast angry brains into happy pink brains! Heal as many as you can; five misses ends the round.':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
+modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Tap or press Space to turn angry red brains into happy pink brains. They speed up every four seconds. Do not let one touch Link!':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
-let zEnemies=[],zShots=[],zSpawn=0,zMisses=0;
+let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15;
 function zReset(){
-  zEnemies=[];zShots=[];zSpawn=30;zMisses=0;
-  hero.x=W-115;hero.y=205;hero.vy=0;
+  zEnemies=[];zShots=[];zSpawn=12;zElapsed=0;zSpeed=1.15;
+  hero.x=W-110;hero.y=210;hero.vy=0;
 }
 function zShoot(){
   if(mode!=='running')return;
-  if(zShots.length<4){
-    zShots.push({x:hero.x-8,y:hero.y+hero.h*.48});
+  if(zShots.length<6){
+    zShots.push({x:hero.x-9,y:hero.y+hero.h*.5});
     try{beep(680,.045)}catch(e){}
   }
 }
 function zUpdate(d){
-  tick+=d;speed=Math.min(6.5,1.5+Math.floor(score/5)*.36);
+  tick+=d;
+  zElapsed+=d;
+  // The enemies get faster at 4-second intervals, regardless of score.
+  zSpeed=Math.min(8,1.15+Math.floor(zElapsed/240)*.48);
   zSpawn-=d;
   if(zSpawn<=0){
-    const lanes=[133,185,237,289];
-    zEnemies.push({x:-35,y:lanes[Math.floor(Math.random()*lanes.length)],happy:false,life:0,phase:Math.random()*6});
-    zSpawn=Math.max(20,62-Math.floor(score/5)*4)+Math.random()*18;
+    const lanes=[110,158,225,285];
+    const startY=lanes[Math.floor(Math.random()*lanes.length)];
+    zEnemies.push({x:-36,y:startY,baseY:startY,phase:Math.random()*6,age:0,happy:false,life:0});
+    zSpawn=Math.max(24,66-zSpeed*3)+Math.random()*20;
   }
+  const targetY=hero.y+hero.h*.5-15;
   for(const e of zEnemies){
     if(e.happy){e.life-=d;continue}
-    e.x+=speed*d*.9;
-    if(e.x>hero.x-24){e.happy=true;e.life=20;zMisses++;if(zMisses>=5){end();return}}
+    e.age+=d;
+    e.x+=zSpeed*d;
+    // Sway vertically, then gradually converge on Link's firing lane.
+    const progress=Math.max(0,Math.min(1,(e.x-80)/(hero.x-160)));
+    const convergence=progress*progress*(3-2*progress);
+    const sway=Math.sin(e.age*.075+e.phase)*(15*(1-convergence)+3);
+    const desired=e.baseY*(1-convergence)+targetY*convergence+sway;
+    e.y+=(desired-e.y)*Math.min(1,.12*d);
+    // Touching Link is an immediate game over.
+    if(e.x+29>=hero.x && e.x<=hero.x+hero.w &&
+       e.y+29>=hero.y && e.y<=hero.y+hero.h){end();return}
   }
   for(const shot of zShots){
-    shot.x-=9*d;
+    shot.x-=10*d;
     for(const e of zEnemies){
-      if(!e.happy&&Math.abs(shot.x-(e.x+15))<22&&Math.abs(shot.y-(e.y+15))<26){
-        e.happy=true;e.life=55;shot.x=-100;score++;scoreSound();break;
+      if(!e.happy && shot.x>=e.x-12 && shot.x<=e.x+35 &&
+         Math.abs(shot.y-(e.y+15))<24){
+        e.happy=true;e.life=65;shot.x=-100;score++;scoreSound();break;
       }
     }
   }
-  zShots=zShots.filter(a=>a.x>-10);
+  zShots=zShots.filter(a=>a.x>-20);
   zEnemies=zEnemies.filter(e=>e.happy?e.life>0:e.x<W+40);
   hud();
 }
@@ -690,10 +705,7 @@ function zDrawCombat(){
     pixelRect(a.x-4,a.y-1,7,2,'#f6c657');
   }
   zeldaLink();
-  // Clear, unobtrusive hit counter on top of the NES HUD.
-  g.font='bold 13px monospace';g.textBaseline='top';g.fillStyle='#fff';
-  g.fillText('HEALED '+score,Math.round(W*.71),Math.round(H*.075));
-  g.fillStyle='#ff806a';g.fillText('MISSED '+zMisses+'/5',Math.round(W*.71),Math.round(H*.13));
+
 }
 function start(){mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;if(zeldaMode)zReset();$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
 function flap(){if(!modal.classList.contains('open'))return;if(zeldaMode&&mode==='running'){zShoot();return;}if(mode==='ready'||mode==='over'){start();return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
@@ -912,7 +924,7 @@ function marioCliff(x,y,h,capBottom){
 
 // Third game uses the supplied NES screenshot artwork directly, without redesigning it.
 const zeldaBg=new Image(),zeldaLinkArt=new Image(),zeldaLogArt=new Image();
-zeldaBg.src='data:image/png;base64,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';
+zeldaBg.src='data:image/png;base64,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';
 zeldaLinkArt.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAVCAYAAACpF6WWAAABEklEQVR4nNVUKxKDMBB9MAhED1KBRFQiERyjohJRGRlZUYnoAXoABLISgazgKIjMUMGQspsPCCr6ZjIDmzcvb3ezCVT/HLEzwr0FASDybcrhQv5FXG0SDXj63fVMCI00z10TJ+lzQQDIhfqKtUcAZgZe0fT2sJJyobTgFhiNSosEjYyQFgnSItExDp/bUBNe92mBprxEV7/Jnkv46zQrp8Wczd9d/dYxEVfeZgVtcRgbGTlrJk+9EVvrvvOezs7ymsYbGUEOF68waZTNFYer3kRUX6OsnE7Pyk3ivu4Hqn+OM0HElR6A5SQt3fEJs5VhdUxtQvwwPjSEbXPpgq+22il36BpZzrXxjPT3wE8e6f8R/QDB5XTvs56iOwAAAABJRU5ErkJggg==';
 zeldaLogArt.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAAVCAYAAABLy77vAAAA1klEQVR4nK2UQRGFIBRFL4xLgxjABSEIYAAiEMMIBjAAIVwYwCAsneGv8CM8ERneyhHemcPlKTuP1aFB8RYQAOj8w64VAEAYy2oseQgBgE32rhsm9gWya/U3GuflBuyGiW2yv8yEsQwAnmz5rlUCoRo22TvK1vdXhU0dPQH5sGPD0Ix6n4RNgd+sbmGX1BMUAPg4L19YydF8f1HYOZPL6JNODkQFHU96uBbb+b1FRjGMGoHk1qhNoYVfjyf/cfiEseS3FldueIvqPFYXWlX9e6hqd/2tQD/JKHS2pg8CIgAAAABJRU5ErkJggg==';
 function zeldaScenery(){
@@ -951,14 +963,17 @@ function zeldaLink(){
   }
 }
 function zeldaBrain(x,y,phase){
-  // Small 8-bit pink brain enemies, pixel-by-pixel and transparent.
-  const P=(a,b,w,h,c)=>pixelRect(Math.round(x+a),Math.round(y+b+Math.sin(tick*.09+phase)*3),w,h,c);
-  P(5,1,23,5,'#742040');P(1,6,31,18,'#742040');P(5,24,23,5,'#742040');
-  P(5,6,23,18,'#f184a5');P(9,2,15,6,'#f9b0c5');
-  P(7,9,4,10,'#c53f70');P(17,6,3,12,'#c53f70');P(24,11,3,11,'#c53f70');
-  P(10,14,5,5,'#fff5d9');P(22,14,5,5,'#fff5d9');
-  P(12,16,2,3,'#171018');P(24,16,2,3,'#171018');P(15,23,9,3,'#7c2041');
+  // Angry red NES-style brain, transparent background.
+  const P=(a,b,w,h,c)=>pixelRect(Math.round(x+a),Math.round(y+b),w,h,c);
+  P(5,1,23,5,'#650e0e');P(1,6,31,19,'#650e0e');P(5,25,23,5,'#650e0e');
+  P(5,6,23,19,'#e53122');P(9,2,15,6,'#ff6340');
+  P(7,9,4,10,'#a91116');P(17,5,3,13,'#a91116');P(24,11,3,10,'#a91116');
+  P(8,13,8,3,'#3c0808');P(21,13,8,3,'#3c0808');
+  P(10,16,5,5,'#fff0c8');P(22,16,5,5,'#fff0c8');
+  P(12,17,2,3,'#150808');P(24,17,2,3,'#150808');
+  P(13,24,12,3,'#4d0909');P(17,22,4,2,'#4d0909');
 }
+
 function drawZeldaBrains(){
   for(let i=0;i<4;i++){
     const x=((W+120+i*187-tick*(1.1+i*.2))%(W+200)+W+200)%(W+200)-40;
@@ -970,7 +985,7 @@ function drawZeldaBrains(){
 function draw(){
   g.imageSmoothingEnabled=false;
   if(zeldaMode)zeldaScenery();else if(marioMode)marioScenery();else scenery();
-  skyEEG(); // Same faint tracing in both game worlds, behind the obstacles.
+  if(!zeldaMode)skyEEG(); // Preserve original NES HUD artwork.
   for(const p of pipes){
     if(zeldaMode){zeldaObstacle(p.x,65,Math.max(0,p.top-65),true);zeldaObstacle(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
