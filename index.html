@@ -706,31 +706,38 @@ const nuprepImage=new Image();nuprepImage.src='data:image/png;base64,iVBORw0KGgo
 
 // Original photographic EEG supplies on the moving road, with no dust clouds.
 // Clean photographic supplies: faster scrolling, staggered and continuously repeated.
+// Product photos travel ON the road, with at most two on screen.
+let roadItems=[];
+let nextRoadItemAt=0;
+let roadItemNumber=0;
 function drawRoadProducts(){
-  const speed=1.85;
-  const spacing=158;
-  const items=[
-    {image:ten20Image,w:64,h:65},
-    {image:collodionImage,w:125,h:33},
-    {image:nuprepImage,w:119,h:45}
-  ];
-  const count=9;
-  const loop=spacing*count;
-  const scroll=(tick*speed)%loop;
+  // Do not restart product traffic on a flap; varied intervals are intentional.
+  if(tick>=nextRoadItemAt && roadItems.length<2){
+    const previous=roadItems[roadItems.length-1];
+    if(!previous || previous.x<W-150){
+      const types=[
+        {image:ten20Image,w:49,h:46},
+        {image:collodionImage,w:106,h:24},
+        {image:nuprepImage,w:100,h:30}
+      ];
+      const item=types[roadItemNumber++%types.length];
+      roadItems.push({...item,x:W+8,speed:1.5+Math.random()*1.65});
+      nextRoadItemAt=tick+65+Math.random()*95;
+    }
+  }
   g.save();
-  // Smooth photo edges independently of the pixel-art background.
   g.imageSmoothingEnabled=true;
   g.imageSmoothingQuality='high';
-  for(let i=0;i<count;i++){
-    const item=items[i%items.length];
-    const x=((i*spacing+W+30-scroll+loop)%loop)-item.w;
-    if(x>W||x+item.w<0)continue;
-    const y=H-9-item.h;
+  for(const item of roadItems){
+    item.x-=item.speed;
+    // Road begins at y=H-59. Place products on its surface.
+    const y=H-8-item.h;
     if(item.image.complete&&item.image.naturalWidth){
-      g.drawImage(item.image,Math.round(x),Math.round(y),item.w,item.h);
+      g.drawImage(item.image,Math.round(item.x),Math.round(y),item.w,item.h);
     }
   }
   g.restore();
+  roadItems=roadItems.filter(item=>item.x+item.w>0);
 }
 function draw(){
   g.imageSmoothingEnabled=false;
