@@ -632,7 +632,7 @@ box.style.borderColor=marioMode?'#edb43d':'#69be28';
 modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
-function start(){audioReady();mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();flapSound()}
+function start(){mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
 function flap(){if(!modal.classList.contains('open'))return;if(mode==='ready'||mode==='over'){start();return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
 function resume(){mode='running';$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';last=performance.now()}
 function pause(){if(mode==='running'){mode='paused';show('PAUSED','Your brain is taking a break.','RESUME');$('fb-pause').textContent='RESUME'}else if(mode==='paused')resume()}
@@ -851,8 +851,16 @@ function draw(){
   g.restore();
 }
 function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(7.5,3+Math.floor(score/5)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const top=50+Math.random()*Math.max(1,(H-79)-gap-100);pipes.push({x:W+10,top,gap,passed:false});spawn=108}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
-function loop(t){const dt=last?t-last:16.67;last=t;if(modal.classList.contains('open')){update(dt);draw()}requestAnimationFrame(loop)}
-$('fb-start').addEventListener('click',()=>mode==='paused'?resume():start());$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
+function loop(t){
+  const dt=last?t-last:16.67;last=t;
+  try{if(modal.classList.contains('open')){update(dt);draw()}}
+  catch(e){console.error('Flappy render error:',e)}
+  finally{requestAnimationFrame(loop)}
+}
+// Direct touch/click handler plus delegated fallback for iPad Safari.
+$('fb-start').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else start()});
+$('fb-start').addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else start()},{passive:false});
+$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
 })();
 </script>
 <script id="video-suggestion-handler">
