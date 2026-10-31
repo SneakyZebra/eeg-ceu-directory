@@ -708,6 +708,10 @@ function zHappyBrain(x,y){
   P(4,6,24,20,'#ffa9cc');P(8,2,16,7,'#ffcae0');
   P(1,10,6,11,'#ffadd2');P(26,10,6,11,'#ffadd2');
   P(6,4,6,7,'#ffe0eb');P(22,4,6,7,'#ffe0eb');
+  P(9,5,2,5,'#d86b9c');P(11,8,4,2,'#d86b9c');
+  P(16,3,2,6,'#d86b9c');P(18,8,4,2,'#d86b9c');
+  P(25,9,2,6,'#d86b9c');P(6,18,4,2,'#d86b9c');
+  P(18,19,3,4,'#d86b9c');P(21,22,4,2,'#d86b9c');
   P(8,9,4,8,'#e97ca8');P(19,7,4,9,'#e97ca8');
   P(8,15,5,4,'#fff');P(22,15,5,4,'#fff');
   P(10,17,2,2,'#171018');P(24,17,2,2,'#171018');
@@ -720,7 +724,7 @@ function zDrawCombat(){
   for(const e of zEnemies){
     g.save();
     g.translate(Math.round(e.x+16),Math.round(e.y+15));
-    g.scale(1.72,1.72);
+    g.scale(1.87,1.87);
     if(e.happy)zHappyBrain(-16,-15);
     else zeldaBrain(-16,-15,e.phase);
     g.restore();
@@ -993,6 +997,16 @@ function zeldaScenery(){
   g.fillStyle='#000';g.fillRect(0,0,W,132);
   if(zeldaFullBanner.complete&&zeldaFullBanner.naturalWidth)
     g.drawImage(zeldaFullBanner,0,0,W,132);
+  // Close the B-slot frame with a continuous purple top border.
+  // Draw the border behind the white B label, so the label remains legible.
+  g.save();
+  g.fillStyle='#8500ef';
+  g.fillRect(310,16,92,6);
+  // The B is a white, pixelated letter on a black backing, as in the supplied HUD.
+  g.fillStyle='#000';g.fillRect(340,0,39,31);
+  g.fillStyle='#fff';g.font='bold 38px monospace';g.textBaseline='top';
+  g.fillText('B',342,-6);
+  g.restore();
   // Three live NES-style counters, replacing the frozen reference numbers.
   g.save();g.imageSmoothingEnabled=false;g.fillStyle='#fff';
   g.textBaseline='middle';g.font='bold 27px monospace';
@@ -1040,6 +1054,13 @@ function zeldaBrain(x,y,phase){
   P(1,10,6,9,'#ec3e2e');P(26,9,6,12,'#ec3e2e');
   P(6,3,6,7,'#ff6547');P(21,3,6,7,'#f94e38');
   P(11,7,5,4,'#ff8a61');P(20,9,4,4,'#ff8a61');
+  // Stepped sulci and highlights emphasize brain lobes in NES pixel art.
+  P(9,6,2,5,'#8c1720');P(11,9,4,2,'#8c1720');
+  P(15,3,2,5,'#8c1720');P(17,7,4,2,'#8c1720');
+  P(24,5,2,6,'#8c1720');P(22,10,4,2,'#8c1720');
+  P(6,17,3,3,'#8c1720');P(8,20,5,2,'#8c1720');
+  P(19,19,3,4,'#8c1720');P(21,22,5,2,'#8c1720');
+  P(10,5,3,2,'#ff9472');P(19,4,4,2,'#ff9472');
   P(7,9,4,10,'#a91116');P(17,5,3,13,'#a91116');P(24,11,3,10,'#a91116');
   P(8,13,8,3,'#3c0808');P(21,13,8,3,'#3c0808');
   P(10,16,5,5,'#fff0c8');P(22,16,5,5,'#fff0c8');
