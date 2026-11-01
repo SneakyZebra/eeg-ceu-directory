@@ -1328,7 +1328,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  function brainArt(b){
    const type=b.phase==='happy'?'happy':b.phase==='diving'?'attack':'idle';
    const variant=(level-1+b.row*2+b.id)%7;
-   const sprite=eegEnemySprites[type][variant];
+   const sprite=b.phase==='happy'?null:eegEnemySprites[type][variant];
    if(sprite&&sprite.complete&&sprite.naturalWidth){
      const w=b.size*2.8,h=w*sprite.naturalHeight/sprite.naturalWidth;
      ctx.save();ctx.imageSmoothingEnabled=false;
@@ -1438,7 +1438,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
        const others=brains.filter(other=>other!==b&&other.phase==='diving');
        for(const other of others){if(Math.random()<.55)other.vy=Math.min(240,other.vy+rand(15,35))}
        if(Math.random()<.55)spawnTime=Math.min(spawnTime,.32);
-       sparks.push({x:b.x,y:b.y,t:.42});updateHud();break;
+       updateHud();break;
      }
    }
    if(b.phase==='diving'&&invuln<=0&&Math.abs(b.x-shipX)<b.size+14&&Math.abs(b.y-520)<b.size+10){
@@ -1473,7 +1473,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    ctx.globalAlpha=1;
  }
  function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);if(bg.complete)ctx.drawImage(bg,0,0,W,H);drawGalagaStars();for(const b of brains)brainArt(b);
- ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}for(const sp of sparks){ctx.strokeStyle='#ffb8df';ctx.lineWidth=2;ctx.beginPath();ctx.arc(sp.x,sp.y,20*(.42-sp.t)/.42,0,Math.PI*2);ctx.stroke()}
+ ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}
  if(invuln<=0||Math.floor(invuln*9)%2===0){if(shipImg.complete)ctx.drawImage(shipImg,Math.round(shipX)-20,503,40,42)}
  }
  function loop(now){if(!active)return;const dt=Math.min(.035,(now-last)/1000||.016);last=now;if(playing)tick(dt);draw();raf=requestAnimationFrame(loop)}
