@@ -626,7 +626,7 @@ function flapSound(){beep(750,.105,'square',.045,0,420)}function scoreSound(){be
 function hud(){$('fb-score').textContent=score;$('fb-best').textContent=best}
 function show(title,msg,btn){$('fb-title').textContent=title;$('fb-message').textContent=msg;$('fb-start').textContent=btn;$('fb-overlay').style.display='flex'}
 function open(){
-const worldIndex=openingCount%3;marioMode=(worldIndex===1);zeldaMode=(worldIndex===2);openingCount++;
+const worldIndex=openingCount%2;marioMode=false;zeldaMode=(worldIndex===1);openingCount++;
 try{sessionStorage.setItem('eeg-brain-opening-count',String(openingCount))}catch(e){}
 $('fb-outer-score').style.visibility=zeldaMode?'hidden':'visible';box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
 modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'HYRULE: HAPPY BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?'Blast the angry brains with Ativan to make them happy again! Tap or press Space to fire. They speed up every four seconds. Do not let one touch Link!':marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!','START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
@@ -1187,7 +1187,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
   'use strict';
   const url='https://yjnvfdbevxenutujbpxz.supabase.co';
   const key='sb_publishable__eY5cLk12yR47Jt18567QA_L0xdCpiE';
-  const games={flappy:'Flappy Brain',mario:'Pixel World',zelda:'Hyrule Brain Rescue'};
+  const games={flappy:'Flappy Brain',zelda:'Hyrule Brain Rescue'};
   const dialog=document.getElementById('arcade-board');
   const rows=document.getElementById('arcade-board-rows');
   const status=document.getElementById('arcade-board-status');
