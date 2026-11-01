@@ -1241,26 +1241,26 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
 #galaga-brain-hud{position:absolute;top:5px;left:8px;right:8px;display:flex;justify-content:space-between;align-items:center;pointer-events:none;font:700 13px monospace;color:#c2ff9a;text-shadow:1px 2px #000}
 #galaga-brain-exit{pointer-events:auto;border:1px solid #89cf6c;background:#071a1ce0;color:white;border-radius:4px;padding:4px 9px;cursor:pointer}
 #galaga-brain-layer{position:absolute;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px;gap:12px;color:white;font-family:system-ui}
-#galaga-brain-layer[hidden]{display:none}#galaga-brain-layer h2{color:#b5ff7e;margin:0;font-size:clamp(19px,5vw,27px)}#galaga-brain-layer p{line-height:1.45;font-size:14px;margin:0}
+#galaga-brain-layer[hidden]{display:none}#galaga-brain-layer h2{color:#b5ff7e;margin:0;font-size:clamp(19px,5vw,27px)}#galaga-brain-layer p{line-height:1.5;font-size:13px;margin:0;max-width:390px}#galaga-brain-layer{overflow-y:auto}#galaga-brain-layer h2{text-shadow:0 0 12px #69be2866}
 #galaga-brain-play{background:#69be28;color:#041522;border:0;border-radius:7px;padding:11px 22px;font-weight:800;cursor:pointer}
 #galaga-brain-controls{position:absolute;bottom:7px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none}
 #galaga-brain-controls button{pointer-events:auto;touch-action:none;user-select:none;border:1px solid #89cf6c;background:#062137c9;color:white;border-radius:8px;font-size:20px;font-weight:900;width:62px;height:46px}
 #galaga-brain-controls button:last-child{background:#a23a22d8;border-color:#ffb78b;width:82px;font-size:14px}
-</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">GALAGA BRAIN RESCUE</h2><p id="galaga-brain-description">Your ship moves automatically. Press Space or tap FIRE to turn angry brains happy. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div><div id="galaga-brain-controls"><button data-galaga="fire" aria-label="Fire">FIRE</button></div></div></div><script id="galaga-brain-script">
+</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">EEG SPACE WARS</h2><p id="galaga-brain-description">Your ship moves automatically. Press Space or tap FIRE to turn angry brains happy. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div><div id="galaga-brain-controls"><button data-galaga="fire" aria-label="Fire">FIRE</button></div></div></div><script id="galaga-brain-script">
 (()=>{
  const modal=document.getElementById('galaga-brain-modal'),canvas=document.getElementById('galaga-brain-canvas'),ctx=canvas.getContext('2d');
  const layer=document.getElementById('galaga-brain-layer'),title=document.getElementById('galaga-brain-title'),description=document.getElementById('galaga-brain-description'),play=document.getElementById('galaga-brain-play');
  const bg=new Image(),shipImg=new Image();bg.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAIiCAIAAACxO61yAAAEqElEQVR4nO3dMW4TQRSA4YljLChfZZcwQmJWpMsVKJKI43ESOExcJKaNK9exZEGHhIxxTIxf1v6+cneKv3ranVlpz8qa1rXrm6v7x/uvX76t3wXg5RuuX5reTuv5+Wy1OnwNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcLSi1OwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANLU7AAAAAD6xqskAAD0hId3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgmWpEjciuYGfD7ADgRRtNxqWUslhkh7Abwx34m+XDPDsBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBNUswMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+Dc1onUtuwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE5S61p2AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDyakT3umVXAKdikB1wQh7fzLMTANi3GpGdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM93c/Hxw8Xn7Ao4OcPsAI7cbLU6K3fZFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv6nZAQAAAAAAAAAAAAAAsD8+kwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYoEa0rmVXALBXETU7AQAAAAAAAAAOoEZkJ8B2g+wA6JnRZGy+Axwbkx0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgF9a11rXsisA2MFw64rrm6vVcja9nR6gBoC9GGxdsVrOvs/eHyAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/q+z7ACgB2rEaDKePywXi1l2C0+y/U9MAKWU8vbHeDLKjgAAAAAgR41oXcuu6AF77kCfjCbjV+9qdkUPDLMDAHawfJhnJwAAAPAHEXbiAEo5sgPV8WRkvgMcG5MdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADarJT5F1BLZIQDs1aXJDnB8/KITAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaKqNkJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAllrKZWRHALB3NUx3eBEG2QEAAAAAAAAAAAAAAPBEETWiZlcAAAAAAAAAwDM5+wYAAIBe+QmlPjgRVRh5awAAAABJRU5ErkJggg==';shipImg.src='data:image/png;base64,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';
  const W=500,H=546,buttons={fire:false};let active=false,playing=false,raf=0,last=0,shipX=250,shipDirection=1,score=0,lives=3,level=1,shotTime=0,spawnTime=0,invuln=0,gameId=0,frame=0,brainId=0;
- let brains=[],shots=[],sparks=[];const rand=(a,b)=>a+Math.random()*(b-a);
+ let brains=[],shots=[],sparks=[];let aggression=0;const rand=(a,b)=>a+Math.random()*(b-a);
  const phrases=['Time for a meal or rest break','Time for a skin check','Time for a stretch break','Time to archive some studies','Time to check your PerfectServe messages','Time to check your Epic messages','Go get some lunch','All outta 10–20 paste','Looks like Citrix is down again','Time to DC a patient','Have you checked how many CEUs you have','Time to hydrate','You lost, but you are still fantastic'];
- function start(){playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
+ function start(){playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;aggression=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
  function updateHud(){document.getElementById('galaga-brain-score').textContent='SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
  function show(t,d,button){title.textContent=t;description.textContent=d;play.textContent=button;layer.hidden=false}
  function end(){if(!playing)return;playing=false;const id=++gameId;show('GAME OVER',phrases[Math.floor(Math.random()*phrases.length)]+'  •  Score: '+score,'HIGH SCORES');play.onclick=()=>{if(id!==gameId)return;showBoard(id)};setTimeout(()=>{if(id===gameId&&active&&!playing)showBoard(id)},3300)}
  function showBoard(id){if(id!==gameId||!active)return;gameId++;close();if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame('galaga',score)}
  function close(){active=false;playing=false;gameId++;modal.classList.remove('active');document.body.style.overflow='';cancelAnimationFrame(raf);Object.keys(buttons).forEach(k=>buttons[k]=false)}
- window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('GALAGA BRAIN RESCUE','Your ship moves left and right automatically. Press Space or tap FIRE to turn angry red brains into happy pink brains.','START GAME');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
+ window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('WELCOME TO EEG SPACE WARS',"The United Galaxy EEG Force (UGEF): Humanity's defense organization and the player's faction. The UGEF initially tried diplomacy when the Seizure Armada first approached the galaxy in the late 2270s, which failed and triggered open war. Now awesome EEG techs must treat the seizing brains to free them from captivity. Your ship moves automatically. Press Space or tap FIRE to treat the brains!",'DEFEND THE GALAXY');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
  document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;
  document.querySelectorAll('[data-galaga]').forEach(btn=>{const key=btn.dataset.galaga;const down=e=>{e.preventDefault();buttons[key]=true;try{btn.setPointerCapture(e.pointerId)}catch{}};const up=e=>{e.preventDefault();buttons[key]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);btn.addEventListener('lostpointercapture',()=>buttons[key]=false)});
  document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
@@ -1332,16 +1332,82 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    }
    ctx.restore();
  }
- function tick(dt){frame+=dt;let speed=dt*60;shipX+=shipDirection*2.65*speed;if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}shotTime-=dt;spawnTime-=dt;invuln-=dt;
+ function tick(dt){
+ frame+=dt;const speed=dt*60;
+ shipX+=shipDirection*2.65*speed;
+ if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}
+ shotTime-=dt;spawnTime-=dt;invuln-=dt;
  if(buttons.fire&&shotTime<=0){shots.push({x:shipX,y:499,vy:-430});shotTime=.18}
- if(spawnTime<=0){let available=brains.filter(b=>b.phase==='formation');if(available.length){const b=available[Math.floor(Math.random()*available.length)];b.phase='diving';b.vy=50+level*8;b.vx=(shipX-b.x)*.25;spawnTime=Math.max(.85,2.25-level*.12)}else spawnTime=.9}
- for(const shot of shots)shot.y+=shot.vy*dt;shots=shots.filter(s=>s.y>-12);
- for(const b of brains){if(b.phase==='happy'){b.happy-=dt;continue}if(b.phase==='formation'){b.x=b.baseX+Math.sin(frame*.7+b.row*.8)*16;b.y=b.baseY+Math.sin(frame*1.1+b.angle)*3}else if(b.phase==='diving'){b.vy=Math.min(155,b.vy+22*dt);b.vx+=(shipX-b.x)*dt*.09;b.vx=Math.max(-95,Math.min(95,b.vx));b.x+=b.vx*dt;b.y+=b.vy*dt;if(b.y>H+35){b.phase='formation';b.x=b.baseX;b.y=b.baseY}}
- for(const shot of shots){if(Math.abs(shot.x-b.x)<b.size+3&&Math.abs(shot.y-b.y)<b.size+6){shot.y=-100;b.phase='happy';b.happy=.58;score+=10+5*(3-b.row);sparks.push({x:b.x,y:b.y,t:.42});updateHud();break}}
- if(b.phase==='diving'&&invuln<=0&&Math.abs(b.x-shipX)<b.size+14&&Math.abs(b.y-520)<b.size+10){lives--;invuln=1.6;b.phase='formation';b.y=b.baseY;updateHud();if(lives<=0){end();return}}
+ if(spawnTime<=0){
+   const available=brains.filter(b=>b.phase==='formation');
+   if(available.length){
+     const b=available[Math.floor(Math.random()*available.length)];
+     b.phase='diving';b.diveAge=0;b.startX=b.x;b.startY=b.y;
+     b.attack=['direct','circle','zigzag','wild'][Math.floor(Math.random()*4)];
+     b.attackSeed=rand(0,Math.PI*2);b.turns=rand(1.1,2.0);
+     b.vy=55+level*9+aggression*7+rand(0,20);
+     b.vx=(shipX-b.x)*.20;
+     spawnTime=Math.max(.38,2.1-level*.1-aggression*.055);
+   }else spawnTime=.65;
  }
- brains=brains.filter(b=>b.phase!=='happy'||b.happy>0);sparks.forEach(s=>s.t-=dt);sparks=sparks.filter(s=>s.t>0);
- if(!brains.length){level++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,phase:'formation',timer:0,vx:0,vy:0,angle:rand(0,6),happy:0});lives=Math.min(3,lives+1);updateHud()}
+ for(const shot of shots)shot.y+=shot.vy*dt;
+ shots=shots.filter(s=>s.y>-12);
+ for(const b of brains){
+   if(b.phase==='happy'){b.happy-=dt;continue}
+   if(b.phase==='formation'){
+     b.x=b.baseX+Math.sin(frame*.7+b.row*.8)*16;
+     b.y=b.baseY+Math.sin(frame*1.1+b.angle)*3;
+   }else if(b.phase==='diving'){
+     b.diveAge=(b.diveAge||0)+dt;
+     const t=b.diveAge;
+     const diveSpeed=Math.min(285,b.vy+35*t+aggression*3);
+     // Perform a readable flourish before accelerating down toward the ship.
+     if(b.attack==='circle'&&t<1.15){
+       const theta=b.attackSeed+t*Math.PI*2*b.turns;
+       b.x=b.startX+Math.cos(theta)*30-Math.cos(b.attackSeed)*30;
+       b.y=b.startY+Math.sin(theta)*24-Math.sin(b.attackSeed)*24+12*t;
+     }else if(b.attack==='zigzag'&&t<1.2){
+       b.x=b.startX+Math.sin(t*13+b.attackSeed)*43-Math.sin(b.attackSeed)*43;
+       b.y=b.startY+t*32;
+     }else if(b.attack==='wild'&&t<1.4){
+       b.x=b.startX+Math.sin(t*17+b.attackSeed)*32+Math.sin(t*7)*24;
+       b.y=b.startY+Math.sin(t*11+b.attackSeed)*17+t*32;
+     }else{
+       const target=shipX;
+       b.vx+=(target-b.x)*dt*(b.attack==='direct'?.14:.22);
+       b.vx=Math.max(-125,Math.min(125,b.vx));
+       b.x+=b.vx*dt;
+       b.y+=diveSpeed*dt;
+       if(b.attack==='zigzag')b.x+=Math.sin(t*13+b.attackSeed)*45*dt;
+       if(b.attack==='wild')b.x+=Math.sin(t*23+b.attackSeed)*85*dt;
+     }
+     b.x=Math.max(18,Math.min(W-18,b.x));
+     if(b.y>H+35){b.phase='formation';b.x=b.baseX;b.y=b.baseY}
+   }
+   for(const shot of shots){
+     if(shot.y<0||b.phase==='happy')continue;
+     if(Math.abs(shot.x-b.x)<b.size+3&&Math.abs(shot.y-b.y)<b.size+6){
+       shot.y=-100;b.phase='happy';b.happy=.58;
+       score+=10+5*(3-b.row);aggression=Math.min(16,aggression+1);
+       // Each successful treatment makes some remaining attackers more aggressive.
+       const others=brains.filter(other=>other!==b&&other.phase==='diving');
+       for(const other of others){if(Math.random()<.55)other.vy=Math.min(240,other.vy+rand(15,35))}
+       if(Math.random()<.55)spawnTime=Math.min(spawnTime,.32);
+       sparks.push({x:b.x,y:b.y,t:.42});updateHud();break;
+     }
+   }
+   if(b.phase==='diving'&&invuln<=0&&Math.abs(b.x-shipX)<b.size+14&&Math.abs(b.y-520)<b.size+10){
+     lives--;invuln=1.6;b.phase='formation';b.y=b.baseY;updateHud();
+     if(lives<=0){end();return}
+   }
+ }
+ brains=brains.filter(b=>b.phase!=='happy'||b.happy>0);
+ sparks.forEach(s=>s.t-=dt);sparks=sparks.filter(s=>s.t>0);
+ if(!brains.length){
+   level++;aggression=Math.max(0,aggression-4);
+   for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,phase:'formation',timer:0,vx:0,vy:0,angle:rand(0,6),happy:0});
+   lives=Math.min(3,lives+1);updateHud();
+ }
  }
  function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);if(bg.complete)ctx.drawImage(bg,0,0,W,H);for(const b of brains)brainArt(b);ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}for(const sp of sparks){ctx.strokeStyle='#ffb8df';ctx.lineWidth=2;ctx.beginPath();ctx.arc(sp.x,sp.y,20*(.42-sp.t)/.42,0,Math.PI*2);ctx.stroke()}
  if(invuln<=0||Math.floor(invuln*9)%2===0){if(shipImg.complete)ctx.drawImage(shipImg,Math.round(shipX)-20,503,40,42)}
