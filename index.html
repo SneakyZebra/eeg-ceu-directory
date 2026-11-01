@@ -1201,7 +1201,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
     rows.replaceChildren();
     const loading=document.createElement('tr');const cell=document.createElement('td');cell.colSpan=3;cell.textContent='Loading all time scores...';loading.appendChild(cell);rows.appendChild(loading);
     try{
-      const endpoint=url+'/rest/v1/arcade_scores?select=player_name,score&game=eq.'+encodeURIComponent(currentGame)+'&order=score.desc&limit=8';
+      const endpoint=url+'/rest/v1/arcade_scores?select=player_name,score&game=eq.'+encodeURIComponent(currentGame==='flappy'?'flappy_brain':currentGame)+'&order=score.desc&limit=8';
       const r=await fetch(endpoint,{headers:{apikey:key,Authorization:'Bearer '+key}});
       if(!r.ok)throw new Error('Leaderboard request failed ('+r.status+'). Check arcade_scores SELECT policy and column names.');
       const data=await r.json();if(token!==openingToken)return;
@@ -1223,7 +1223,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
     const player_name=nameInput.value.trim();if(!/^[A-Za-z0-9 _.-]{2,20}$/.test(player_name)){msg('Use 2 to 20 letters, numbers, spaces, dots, underscores or hyphens.');return}
     submit.disabled=true;msg('Submitting score...');
     try{
-      const r=await fetch(url+'/functions/v1/submit-arcade-score',{method:'POST',headers:{'Content-Type':'application/json',apikey:key,Authorization:'Bearer '+key},body:JSON.stringify({game:currentGame,player_name,score:currentScore})});
+      const r=await fetch(url+'/functions/v1/submit-arcade-score',{method:'POST',headers:{'Content-Type':'application/json',apikey:key,Authorization:'Bearer '+key},body:JSON.stringify({game:currentGame==='flappy'?'flappy_brain':currentGame,player_name,score:currentScore})});
       const payload=await r.json().catch(()=>({}));
       if(!r.ok)throw new Error(payload.error||payload.message||'Score submission failed ('+r.status+').');
       try{localStorage.setItem('eeg-arcade-player-name',player_name)}catch(e){}
