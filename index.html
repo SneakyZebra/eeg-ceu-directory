@@ -1246,7 +1246,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
 #galaga-brain-controls{position:absolute;bottom:7px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none}
 #galaga-brain-controls button{pointer-events:auto;touch-action:none;user-select:none;border:1px solid #89cf6c;background:#062137c9;color:white;border-radius:8px;font-size:20px;font-weight:900;width:62px;height:46px}
 #galaga-brain-controls button:last-child{background:#a23a22d8;border-color:#ffb78b;width:82px;font-size:14px}
-</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">EEG SPACE WARS</h2><p id="galaga-brain-description">Your ship moves automatically. Press Space or tap FIRE to turn angry brains happy. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div><div id="galaga-brain-controls"><button data-galaga="fire" aria-label="Fire">FIRE</button></div></div></div><script id="galaga-brain-script">
+</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">EEG SPACE WARS</h2><p id="galaga-brain-description">Your ship moves automatically. Press Space or tap the game screen to turn angry brains happy. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div></div></div><script id="galaga-brain-script">
 (()=>{
  const modal=document.getElementById('galaga-brain-modal'),canvas=document.getElementById('galaga-brain-canvas'),ctx=canvas.getContext('2d');
  const layer=document.getElementById('galaga-brain-layer'),title=document.getElementById('galaga-brain-title'),description=document.getElementById('galaga-brain-description'),play=document.getElementById('galaga-brain-play');
@@ -1255,12 +1255,12 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  let brains=[],shots=[],sparks=[];let aggression=0;const rand=(a,b)=>a+Math.random()*(b-a);
  const phrases=['Time for a meal or rest break','Time for a skin check','Time for a stretch break','Time to archive some studies','Time to check your PerfectServe messages','Time to check your Epic messages','Go get some lunch','All outta 10–20 paste','Looks like Citrix is down again','Time to DC a patient','Have you checked how many CEUs you have','Time to hydrate','You lost, but you are still fantastic'];
  function start(){playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;aggression=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
- function updateHud(){document.getElementById('galaga-brain-score').textContent='SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
+ function updateHud(){document.getElementById('galaga-brain-score').textContent='LEVEL '+level+'  •  SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
  function show(t,d,button){title.textContent=t;description.textContent=d;play.textContent=button;layer.hidden=false}
  function end(){if(!playing)return;playing=false;const id=++gameId;show('GAME OVER',phrases[Math.floor(Math.random()*phrases.length)]+'  •  Score: '+score,'HIGH SCORES');play.onclick=()=>{if(id!==gameId)return;showBoard(id)};setTimeout(()=>{if(id===gameId&&active&&!playing)showBoard(id)},3300)}
  function showBoard(id){if(id!==gameId||!active)return;gameId++;close();if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame('galaga',score)}
  function close(){active=false;playing=false;gameId++;modal.classList.remove('active');document.body.style.overflow='';cancelAnimationFrame(raf);Object.keys(buttons).forEach(k=>buttons[k]=false)}
- window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('WELCOME TO EEG SPACE WARS',"The United Galaxy EEG Force (UGEF): Humanity's defense organization and the player's faction. The UGEF initially tried diplomacy when the Seizure Armada first approached the galaxy in the late 2270s, which failed and triggered open war. Now awesome EEG techs must treat the seizing brains to free them from captivity. Your ship moves automatically. Press Space or tap FIRE to treat the brains!",'DEFEND THE GALAXY');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
+ window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('WELCOME TO EEG SPACE WARS',"The United Galaxy EEG Force (UGEF): Humanity's defense organization and the player's faction. The UGEF initially tried diplomacy when the Seizure Armada first approached the galaxy in the late 2270s, which failed and triggered open war. Now awesome EEG techs must treat the seizing brains to free them from captivity. Your ship moves automatically. Press Space or tap the game screen to treat the brains!",'DEFEND THE GALAXY');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
  document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;
  document.querySelectorAll('[data-galaga]').forEach(btn=>{const key=btn.dataset.galaga;const down=e=>{e.preventDefault();buttons[key]=true;try{btn.setPointerCapture(e.pointerId)}catch{}};const up=e=>{e.preventDefault();buttons[key]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);btn.addEventListener('lostpointercapture',()=>buttons[key]=false)});
  document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
@@ -1308,7 +1308,23 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  ];
  function brainArt(b){
    const happy=b.phase==='happy',pattern=happy?happyPixels:angryPixels;
-   const palette=happy?['#8e2759','#e96ba7','#ffa5d2','#ffe0ed']:spritePalettes[b.row];
+   // Each wave has a distinct angry brain color family, while treated brains always turn pink.
+   const waveColors=[
+     ['#490611','#9e1833','#f04665','#ff9baf'], // crimson
+     ['#6c2406','#bc3d0b','#ff7428','#ffd18a'], // orange
+     ['#655008','#a9890e','#f1c529','#fff3a0'], // amber
+     ['#154a15','#23892a','#57d84c','#c2ff9d'], // green
+     ['#064a5a','#087d9e','#32c9e5','#b1f5ff'], // cyan
+     ['#19276a','#3347bc','#6b87ff','#d2dcff'], // blue
+     ['#4d186d','#8430b4','#c169f2','#efd0ff'], // violet
+     ['#671a53','#ae3588','#ef70ca','#ffd3f1']  // magenta
+   ];
+   const base=waveColors[(level-1)%waveColors.length];
+   const palette=happy?['#8e2759','#e96ba7','#ffa5d2','#ffe0ed']:base.map((c,i)=>{
+     // Subtle row shading keeps the four formation rows visually distinct.
+     const n=parseInt(c.slice(1),16),f=1-(b.row*.055),r=Math.round(((n>>16)&255)*f),g=Math.round(((n>>8)&255)*f),bl=Math.round((n&255)*f);
+     return '#'+[r,g,bl].map(v=>v.toString(16).padStart(2,'0')).join('');
+   });
    const unit=(b.size*2)/16;
    const x=Math.round(b.x-8*unit),y=Math.round(b.y-8*unit);
    ctx.save();ctx.imageSmoothingEnabled=false;
@@ -1334,10 +1350,10 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  }
  function tick(dt){
  frame+=dt;const speed=dt*60;
- shipX+=shipDirection*2.65*speed;
+ shipX+=shipDirection*(2.65+Math.min(1.5,(level-1)*.13))*speed;
  if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}
  shotTime-=dt;spawnTime-=dt;invuln-=dt;
- if(buttons.fire&&shotTime<=0){shots.push({x:shipX,y:499,vy:-430});shotTime=.18}
+ if(buttons.fire&&shotTime<=0){shots.push({x:shipX,y:499,vy:-430});shotTime=Math.max(.12,.18-(level-1)*.004)}
  if(spawnTime<=0){
    const available=brains.filter(b=>b.phase==='formation');
    if(available.length){
@@ -1345,9 +1361,9 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
      b.phase='diving';b.diveAge=0;b.startX=b.x;b.startY=b.y;
      b.attack=['direct','circle','zigzag','wild'][Math.floor(Math.random()*4)];
      b.attackSeed=rand(0,Math.PI*2);b.turns=rand(1.1,2.0);
-     b.vy=55+level*9+aggression*7+rand(0,20);
+     b.vy=55+level*14+aggression*7+rand(0,20+level*3);
      b.vx=(shipX-b.x)*.20;
-     spawnTime=Math.max(.38,2.1-level*.1-aggression*.055);
+     spawnTime=Math.max(.25,2.1-level*.17-aggression*.055);
    }else spawnTime=.65;
  }
  for(const shot of shots)shot.y+=shot.vy*dt;
@@ -1360,16 +1376,16 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    }else if(b.phase==='diving'){
      b.diveAge=(b.diveAge||0)+dt;
      const t=b.diveAge;
-     const diveSpeed=Math.min(285,b.vy+35*t+aggression*3);
+     const diveSpeed=Math.min(410,b.vy+(35+level*4)*t+aggression*3);
      // Perform a readable flourish before accelerating down toward the ship.
-     if(b.attack==='circle'&&t<1.15){
+     if(b.attack==='circle'&&t<Math.max(.65,1.15-level*.035)){
        const theta=b.attackSeed+t*Math.PI*2*b.turns;
        b.x=b.startX+Math.cos(theta)*30-Math.cos(b.attackSeed)*30;
        b.y=b.startY+Math.sin(theta)*24-Math.sin(b.attackSeed)*24+12*t;
-     }else if(b.attack==='zigzag'&&t<1.2){
+     }else if(b.attack==='zigzag'&&t<Math.max(.65,1.2-level*.035)){
        b.x=b.startX+Math.sin(t*13+b.attackSeed)*43-Math.sin(b.attackSeed)*43;
        b.y=b.startY+t*32;
-     }else if(b.attack==='wild'&&t<1.4){
+     }else if(b.attack==='wild'&&t<Math.max(.75,1.4-level*.04)){
        b.x=b.startX+Math.sin(t*17+b.attackSeed)*32+Math.sin(t*7)*24;
        b.y=b.startY+Math.sin(t*11+b.attackSeed)*17+t*32;
      }else{
@@ -1406,10 +1422,28 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  if(!brains.length){
    level++;aggression=Math.max(0,aggression-4);
    for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,phase:'formation',timer:0,vx:0,vy:0,angle:rand(0,6),happy:0});
-   lives=Math.min(3,lives+1);updateHud();
+   lives=Math.min(3,lives+1);spawnTime=.8;updateHud();
  }
  }
- function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);if(bg.complete)ctx.drawImage(bg,0,0,W,H);for(const b of brains)brainArt(b);ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}for(const sp of sparks){ctx.strokeStyle='#ffb8df';ctx.lineWidth=2;ctx.beginPath();ctx.arc(sp.x,sp.y,20*(.42-sp.t)/.42,0,Math.PI*2);ctx.stroke()}
+ // Small multicolored pixel stars inspired by the supplied Galaga reference.
+ // The original reference background remains underneath this subtle animated starfield.
+ const galagaStarColors=['#f2f2e9','#7a9bff','#e75c64','#59d98a','#c064ef','#e5cc59','#6bbbd8'];
+ const galagaStars=Array.from({length:115},(_,i)=>({
+   x:Math.random()*W,y:Math.random()*H,
+   color:galagaStarColors[Math.floor(Math.random()*galagaStarColors.length)],
+   size:Math.random()<.87?1:2,phase:Math.random()*Math.PI*2,
+   drift:.9+Math.random()*3.2
+ }));
+ function drawGalagaStars(){
+   for(const star of galagaStars){
+     const twinkle=.42+.45*(.5+.5*Math.sin(frame*.035+star.phase));
+     ctx.globalAlpha=twinkle;
+     ctx.fillStyle=star.color;
+     ctx.fillRect(Math.round(star.x),Math.round((star.y+frame*star.drift*.035)%H),star.size,star.size);
+   }
+   ctx.globalAlpha=1;
+ }
+ function draw(){ctx.fillStyle='#000';ctx.fillRect(0,0,W,H);if(bg.complete)ctx.drawImage(bg,0,0,W,H);drawGalagaStars();for(const b of brains)brainArt(b);ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}for(const sp of sparks){ctx.strokeStyle='#ffb8df';ctx.lineWidth=2;ctx.beginPath();ctx.arc(sp.x,sp.y,20*(.42-sp.t)/.42,0,Math.PI*2);ctx.stroke()}
  if(invuln<=0||Math.floor(invuln*9)%2===0){if(shipImg.complete)ctx.drawImage(shipImg,Math.round(shipX)-20,503,40,42)}
  }
  function loop(now){if(!active)return;const dt=Math.min(.035,(now-last)/1000||.016);last=now;if(playing)tick(dt);draw();raf=requestAnimationFrame(loop)}
