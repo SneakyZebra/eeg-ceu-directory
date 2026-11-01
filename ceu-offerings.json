@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-10-31T17:41:52.556437+00:00",
+  "last_checked": "2026-11-01T18:24:58.733447+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,18 +15,6 @@
   ],
   "discovery_searches": [
     {
-      "query": "EEG technologist webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "EEG technologist webinar",
-      "engine": "google_news",
-      "results": 6,
-      "relevant": 0
-    },
-    {
       "query": "neurodiagnostic CEU",
       "engine": "bing",
       "results": 10,
@@ -47,14 +35,14 @@
     {
       "query": "EEG continuing education",
       "engine": "google_news",
-      "results": 25,
-      "relevant": 9
+      "results": 11,
+      "relevant": 6
     },
     {
       "query": "ASET CEU webinar",
       "engine": "bing",
       "results": 10,
-      "relevant": 5
+      "relevant": 4
     },
     {
       "query": "ASET CEU webinar",
@@ -66,7 +54,7 @@
       "query": "ABRET recertification education",
       "engine": "bing",
       "results": 10,
-      "relevant": 2
+      "relevant": 0
     },
     {
       "query": "ABRET recertification education",
@@ -83,14 +71,53 @@
     {
       "query": "epilepsy EEG webinar",
       "engine": "google_news",
-      "results": 6,
+      "results": 8,
+      "relevant": 1
+    },
+    {
+      "query": "clinical neurophysiology webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "clinical neurophysiology webinar",
+      "engine": "google_news",
+      "results": 2,
       "relevant": 0
     }
   ],
   "discovery_candidates_added": 1,
   "catalog_pages_scanned": 65,
-  "catalog_candidates_added": 0,
+  "catalog_candidates_added": 2,
   "items": [
+    {
+      "title": "EEG and Brain Death - ILAE Eastern Mediterranean & Africa 25 February Webinar (English) - YouTube",
+      "provider": "YouTube",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5IdHpSRXdMWmRTcU1ZQlE4aEJNUWtlN0s3MXA5WVRkaE1fbS04WWdHZFhSdzJGSi16WTBiVlpFbEtRblpuSVZNSHdtZXRzNllORGVVNlhjLUZpa0Nk?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-01",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "Patient Safety Initiative: Activating a Stroke Alert for Triage Patients",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/patient-safety-initiative-activating-stroke-alert-triage-patients-0",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-01",
+      "discovery_source": "Deep catalog discovery"
+    },
+    {
+      "title": "Jump to content",
+      "provider": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/content/challenginginteresting-neurology-case-submission",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-01",
+      "discovery_source": "Deep catalog discovery"
+    },
     {
       "title": "EEG Exam - ABRET",
       "provider": "abret.org",
