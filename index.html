@@ -758,7 +758,7 @@ function start(){mode='running';score=0;spawn=88;speed=3;tick=0;pipes=[];roadIte
 function flap(){if(!modal.classList.contains('open'))return;if(zeldaMode&&mode==='running'){zShoot();return;}if(mode==='ready'||mode==='over'){start();return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
 function resume(){mode='running';$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';last=performance.now()}
 function pause(){if(mode==='running'){mode='paused';show('PAUSED','Your brain is taking a break.','RESUME');$('fb-pause').textContent='RESUME'}else if(mode==='paused')resume()}
-function end(){if(mode!=='running')return;mode='over';crashSound();best=Math.max(best,score);const phrase=phrases[losses%phrases.length];losses++;try{localStorage.setItem('eeg-flappy-best',String(best));localStorage.setItem('eeg-flappy-losses',String(losses))}catch(e){}hud();show(phrase,'Score '+score+' • Best '+best,'TRY AGAIN')}
+function end(){if(mode!=='running')return;mode='over';crashSound();best=Math.max(best,score);const phrase=phrases[losses%phrases.length];losses++;try{localStorage.setItem('eeg-flappy-best',String(best));localStorage.setItem('eeg-flappy-losses',String(losses))}catch(e){}hud();show(phrase,'Score '+score+' • Best '+best,'TRY AGAIN');arcadeAfterGame(zeldaMode?'zelda':marioMode?'mario':'flappy',score)}
 // Retro arcade scenery, inspired by the classic side-scrolling game.
 function pixelRect(x,y,w,h,color){g.fillStyle=color;g.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}
 function cloud(x,y,scale=1){
@@ -1148,6 +1148,90 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    if(submit)submit.textContent=original.submit;
    if(cost)cost.value=original.cost;
  });
+})();
+</script>
+
+<!-- Shared arcade leaderboard, connected to Supabase -->
+<style>
+#arcade-board{border:1px solid #69be28;border-radius:15px;background:#08243b;color:#f5f9fc;width:min(95vw,550px);max-height:90vh;overflow:auto;padding:22px;box-shadow:0 20px 70px #000a;font-family:system-ui,sans-serif}
+#arcade-board::backdrop{background:#010b18d9}
+#arcade-board h2{margin:0 0 8px;color:#a9ed7b;font-size:23px}
+#arcade-board p{font-size:13px;color:#c4d6e0;line-height:1.5}
+#arcade-board input{padding:11px;background:#12394e;border:1px solid #5e8395;border-radius:7px;color:#fff;font-size:16px;width:100%;max-width:290px}
+#arcade-board button{border:1px solid #69be28;background:#69be28;color:#08243b;font-weight:800;padding:10px 14px;border-radius:7px;cursor:pointer;margin:5px 5px 5px 0}
+#arcade-board button.secondary{background:transparent;color:#b8ef8d}
+#arcade-board button:disabled{opacity:.55;cursor:wait}
+#arcade-board table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+#arcade-board td,#arcade-board th{text-align:left;border-bottom:1px solid #315367;padding:9px 6px}
+#arcade-board td:last-child,#arcade-board th:last-child{text-align:right}
+#arcade-board .arcade-status{min-height:20px}
+</style>
+<dialog id="arcade-board" aria-labelledby="arcade-board-title">
+  <h2 id="arcade-board-title">Arcade Hall of Fame</h2>
+  <p id="arcade-board-result"></p>
+  <form id="arcade-board-form">
+    <label for="arcade-board-name">Enter your name for the global leaderboard</label>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;align-items:center">
+      <input id="arcade-board-name" maxlength="20" minlength="2" autocomplete="nickname" placeholder="Player name" required pattern="[A-Za-z0-9 _.-]{2,20}"/>
+      <button id="arcade-board-submit" type="submit">Submit score</button>
+    </div>
+  </form>
+  <p id="arcade-board-status" class="arcade-status" role="status"></p>
+  <h3 id="arcade-board-list-title">Top 8 all time</h3>
+  <table><thead><tr><th>Rank</th><th>Player</th><th>Score</th></tr></thead><tbody id="arcade-board-rows"><tr><td colspan="3">Loading...</td></tr></tbody></table>
+  <button type="button" class="secondary" id="arcade-board-refresh">Refresh scores</button>
+  <button type="button" class="secondary" id="arcade-board-close">Back to game</button>
+</dialog>
+<script>
+(function(){
+  'use strict';
+  const url='https://yjnvfdbevxenutujbpxz.supabase.co';
+  const key='sb_publishable__eY5cLk12yR47Jt18567QA_L0xdCpiE';
+  const games={flappy:'Flappy Brain',mario:'Pixel World',zelda:'Hyrule Brain Rescue'};
+  const dialog=document.getElementById('arcade-board');
+  const rows=document.getElementById('arcade-board-rows');
+  const status=document.getElementById('arcade-board-status');
+  const form=document.getElementById('arcade-board-form');
+  const nameInput=document.getElementById('arcade-board-name');
+  const submit=document.getElementById('arcade-board-submit');
+  let currentGame='flappy',currentScore=0,openingToken=0;
+  function msg(t){status.textContent=t}
+  async function refresh(){
+    const token=openingToken;
+    rows.replaceChildren();
+    const loading=document.createElement('tr');const cell=document.createElement('td');cell.colSpan=3;cell.textContent='Loading all time scores...';loading.appendChild(cell);rows.appendChild(loading);
+    try{
+      const endpoint=url+'/rest/v1/arcade_scores?select=player_name,score&game=eq.'+encodeURIComponent(currentGame)+'&order=score.desc&limit=8';
+      const r=await fetch(endpoint,{headers:{apikey:key,Authorization:'Bearer '+key}});
+      if(!r.ok)throw new Error('Leaderboard request failed ('+r.status+'). Check arcade_scores SELECT policy and column names.');
+      const data=await r.json();if(token!==openingToken)return;
+      rows.replaceChildren();
+      if(!Array.isArray(data)||!data.length){const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=3;td.textContent='No scores yet. Be the first!';tr.appendChild(td);rows.appendChild(tr);return}
+      data.forEach((entry,i)=>{const tr=document.createElement('tr');[String(i+1),String(entry.player_name||'Player'),String(entry.score??0)].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});rows.appendChild(tr)});
+    }catch(e){if(token!==openingToken)return;rows.replaceChildren();const tr=document.createElement('tr');const td=document.createElement('td');td.colSpan=3;td.textContent=e.message;tr.appendChild(td);rows.appendChild(tr)}
+  }
+  window.arcadeAfterGame=function(game,score){
+    currentGame=games[game]?game:'flappy';currentScore=Math.max(0,Math.floor(Number(score)||0));openingToken++;
+    document.getElementById('arcade-board-result').textContent=games[currentGame]+' • Score: '+currentScore;
+    document.getElementById('arcade-board-list-title').textContent=games[currentGame]+' • Top 8 all time';
+    form.hidden=false;submit.disabled=false;msg('');
+    try{nameInput.value=localStorage.getItem('eeg-arcade-player-name')||''}catch(e){}
+    if(!dialog.open)dialog.showModal();refresh();
+  };
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();if(!form.reportValidity())return;
+    const player_name=nameInput.value.trim();if(!/^[A-Za-z0-9 _.-]{2,20}$/.test(player_name)){msg('Use 2 to 20 letters, numbers, spaces, dots, underscores or hyphens.');return}
+    submit.disabled=true;msg('Submitting score...');
+    try{
+      const r=await fetch(url+'/functions/v1/submit-arcade-score',{method:'POST',headers:{'Content-Type':'application/json',apikey:key,Authorization:'Bearer '+key},body:JSON.stringify({game:currentGame,player_name,score:currentScore})});
+      const payload=await r.json().catch(()=>({}));
+      if(!r.ok)throw new Error(payload.error||payload.message||'Score submission failed ('+r.status+').');
+      try{localStorage.setItem('eeg-arcade-player-name',player_name)}catch(e){}
+      form.hidden=true;msg('Score submitted. The global leaderboard will update shortly.');await refresh();
+    }catch(err){msg('Could not save score: '+err.message)}finally{submit.disabled=false}
+  });
+  document.getElementById('arcade-board-refresh').addEventListener('click',refresh);
+  document.getElementById('arcade-board-close').addEventListener('click',()=>dialog.close());
 })();
 </script>
 </body></html>
