@@ -1246,27 +1246,93 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
 #galaga-brain-controls{position:absolute;bottom:7px;left:8px;right:8px;display:flex;justify-content:space-between;pointer-events:none}
 #galaga-brain-controls button{pointer-events:auto;touch-action:none;user-select:none;border:1px solid #89cf6c;background:#062137c9;color:white;border-radius:8px;font-size:20px;font-weight:900;width:62px;height:46px}
 #galaga-brain-controls button:last-child{background:#a23a22d8;border-color:#ffb78b;width:82px;font-size:14px}
-</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">GALAGA BRAIN RESCUE</h2><p id="galaga-brain-description">Move your ship left and right. Fire blasts at the angry red brains to make them happy pink brains. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div><div id="galaga-brain-controls"><button data-galaga="left" aria-label="Move left">◀</button><button data-galaga="right" aria-label="Move right">▶</button><button data-galaga="fire" aria-label="Fire">FIRE</button></div></div></div><script id="galaga-brain-script">
+</style><div id="galaga-brain-modal" role="dialog" aria-modal="true" aria-label="Galaga Brain Rescue"><div id="galaga-brain-shell"><canvas id="galaga-brain-canvas" width="500" height="546"></canvas><div id="galaga-brain-hud"><span id="galaga-brain-score">SCORE 0000</span><span id="galaga-brain-lives">♥ ♥ ♥</span><button id="galaga-brain-exit" type="button">✕</button></div><div id="galaga-brain-layer"><h2 id="galaga-brain-title">GALAGA BRAIN RESCUE</h2><p id="galaga-brain-description">Your ship moves automatically. Press Space or tap FIRE to turn angry brains happy. Survive the diving attacks!</p><button id="galaga-brain-play" type="button">START GAME</button></div><div id="galaga-brain-controls"><button data-galaga="fire" aria-label="Fire">FIRE</button></div></div></div><script id="galaga-brain-script">
 (()=>{
  const modal=document.getElementById('galaga-brain-modal'),canvas=document.getElementById('galaga-brain-canvas'),ctx=canvas.getContext('2d');
  const layer=document.getElementById('galaga-brain-layer'),title=document.getElementById('galaga-brain-title'),description=document.getElementById('galaga-brain-description'),play=document.getElementById('galaga-brain-play');
  const bg=new Image(),shipImg=new Image();bg.src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAIiCAIAAACxO61yAAAEqElEQVR4nO3dMW4TQRSA4YljLChfZZcwQmJWpMsVKJKI43ESOExcJKaNK9exZEGHhIxxTIxf1v6+cneKv3ranVlpz8qa1rXrm6v7x/uvX76t3wXg5RuuX5reTuv5+Wy1OnwNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcLSi1OwEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANLU7AAAAAD6xqskAAD0hId3AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgmWpEjciuYGfD7ADgRRtNxqWUslhkh7Abwx34m+XDPDsBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgBNUswMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA+Dc1onUtuwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE5S61p2AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDyakT3umVXAKdikB1wQh7fzLMTANi3GpGdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAM93c/Hxw8Xn7Ao4OcPsAI7cbLU6K3fZFQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv6nZAQAAAAAAAAAAAAAAsD8+kwcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADYoEa0rmVXALBXETU7AQAAAAAAAAAOoEZkJ8B2g+wA6JnRZGy+Axwbkx0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgF9a11rXsisA2MFw64rrm6vVcja9nR6gBoC9GGxdsVrOvs/eHyAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/q+z7ACgB2rEaDKePywXi1l2C0+y/U9MAKWU8vbHeDLKjgAAAAAgR41oXcuu6AF77kCfjCbjV+9qdkUPDLMDAHawfJhnJwAAAPAHEXbiAEo5sgPV8WRkvgMcG5MdAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADarJT5F1BLZIQDs1aXJDnB8/KITAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaKqNkJAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAllrKZWRHALB3NUx3eBEG2QEAAAAAAAAAAAAAAPBEETWiZlcAAAAAAAAAwDM5+wYAAIBe+QmlPjgRVRh5awAAAABJRU5ErkJggg==';shipImg.src='data:image/png;base64,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';
- const W=500,H=546,buttons={left:false,right:false,fire:false};let active=false,playing=false,raf=0,last=0,shipX=250,score=0,lives=3,level=1,shotTime=0,spawnTime=0,invuln=0,gameId=0,frame=0,brainId=0;
+ const W=500,H=546,buttons={fire:false};let active=false,playing=false,raf=0,last=0,shipX=250,shipDirection=1,score=0,lives=3,level=1,shotTime=0,spawnTime=0,invuln=0,gameId=0,frame=0,brainId=0;
  let brains=[],shots=[],sparks=[];const rand=(a,b)=>a+Math.random()*(b-a);
  const phrases=['Time for a meal or rest break','Time for a skin check','Time for a stretch break','Time to archive some studies','Time to check your PerfectServe messages','Time to check your Epic messages','Go get some lunch','All outta 10–20 paste','Looks like Citrix is down again','Time to DC a patient','Have you checked how many CEUs you have','Time to hydrate','You lost, but you are still fantastic'];
- function start(){playing=true;layer.hidden=true;shipX=250;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
+ function start(){playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
  function updateHud(){document.getElementById('galaga-brain-score').textContent='SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
  function show(t,d,button){title.textContent=t;description.textContent=d;play.textContent=button;layer.hidden=false}
  function end(){if(!playing)return;playing=false;const id=++gameId;show('GAME OVER',phrases[Math.floor(Math.random()*phrases.length)]+'  •  Score: '+score,'HIGH SCORES');play.onclick=()=>{if(id!==gameId)return;showBoard(id)};setTimeout(()=>{if(id===gameId&&active&&!playing)showBoard(id)},3300)}
  function showBoard(id){if(id!==gameId||!active)return;gameId++;close();if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame('galaga',score)}
  function close(){active=false;playing=false;gameId++;modal.classList.remove('active');document.body.style.overflow='';cancelAnimationFrame(raf);Object.keys(buttons).forEach(k=>buttons[k]=false)}
- window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('GALAGA BRAIN RESCUE','Move left and right, fire upward, and turn angry red brains into happy pink brains. Arrow keys and Space also work.','START GAME');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
+ window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('GALAGA BRAIN RESCUE','Your ship moves left and right automatically. Press Space or tap FIRE to turn angry red brains into happy pink brains.','START GAME');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
  document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;
  document.querySelectorAll('[data-galaga]').forEach(btn=>{const key=btn.dataset.galaga;const down=e=>{e.preventDefault();buttons[key]=true;try{btn.setPointerCapture(e.pointerId)}catch{}};const up=e=>{e.preventDefault();buttons[key]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);btn.addEventListener('lostpointercapture',()=>buttons[key]=false)});
- document.addEventListener('keydown',e=>{if(!active)return;let k=e.key==='ArrowLeft'?'left':e.key==='ArrowRight'?'right':e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.key==='ArrowLeft'?'left':e.key==='ArrowRight'?'right':e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
- canvas.addEventListener('pointermove',e=>{if(!playing||e.buttons===0)return;const r=canvas.getBoundingClientRect();shipX=Math.max(25,Math.min(475,(e.clientX-r.left)/r.width*500));buttons.fire=true});canvas.addEventListener('pointerdown',e=>{if(!playing)return;const r=canvas.getBoundingClientRect();shipX=Math.max(25,Math.min(475,(e.clientX-r.left)/r.width*500));buttons.fire=true});canvas.addEventListener('pointerup',()=>buttons.fire=false);
- function brainArt(b){let x=Math.round(b.x),y=Math.round(b.y),r=b.size;ctx.save();ctx.translate(x,y);if(b.phase==='happy'){ctx.fillStyle='#ffb5db';ctx.strokeStyle='#ff65ad'}else{ctx.fillStyle=['#69000c','#9b0d17','#cf1c2d','#ff4050'][b.row];ctx.strokeStyle=['#b82032','#d82a3b','#ff5c69','#ff9a9e'][b.row]}ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-r*.8,-r*.18);ctx.bezierCurveTo(-r*1.1,-r*.95,-r*.28,-r*1.05,0,-r*.72);ctx.bezierCurveTo(r*.35,-r*1.15,r*1.2,-r*.55,r*.85,r*.16);ctx.bezierCurveTo(r*1.05,r*.8,r*.25,r*1.06,0,r*.72);ctx.bezierCurveTo(-r*.6,r*1.05,-r*1.08,r*.45,-r*.8,-r*.18);ctx.closePath();ctx.fill();ctx.stroke();ctx.strokeStyle=b.phase==='happy'?'#e87baa':'#ff9b9e';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(0,-r*.72);ctx.lineTo(-r*.15,r*.7);ctx.moveTo(-r*.72,-r*.05);ctx.lineTo(r*.76,-r*.05);ctx.stroke();ctx.fillStyle='#fff';ctx.fillRect(-r*.52,-r*.2,Math.max(3,r*.25),Math.max(3,r*.22));ctx.fillRect(r*.24,-r*.2,Math.max(3,r*.25),Math.max(3,r*.22));ctx.fillStyle='#19121b';ctx.fillRect(-r*.42,-r*.12,2,2);ctx.fillRect(r*.33,-r*.12,2,2);ctx.strokeStyle=b.phase==='happy'?'#b3246c':'#42121a';ctx.lineWidth=2;ctx.beginPath();if(b.phase==='happy'){ctx.arc(0,r*.18,r*.35,.15,Math.PI-.15)}else{ctx.moveTo(-r*.36,r*.42);ctx.lineTo(0,r*.22);ctx.lineTo(r*.36,r*.42)}ctx.stroke();ctx.restore()}
- function tick(dt){frame+=dt;let speed=dt*60;if(buttons.left)shipX-=4.4*speed;if(buttons.right)shipX+=4.4*speed;shipX=Math.max(23,Math.min(477,shipX));shotTime-=dt;spawnTime-=dt;invuln-=dt;
+ document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
+ canvas.addEventListener('pointerdown',e=>{if(!playing)return;e.preventDefault();buttons.fire=true});canvas.addEventListener('pointerup',()=>buttons.fire=false);canvas.addEventListener('pointercancel',()=>buttons.fire=false);
+ // Pixel art enemy sprites, drawn on a crisp 16 by 16 grid in the style of classic arcade enemies.
+ const angryPixels=[
+ '....XXXXXXXX....',
+ '..XXXXXXXXXXXX..',
+ '.XXXXXX..XXXXXX.',
+ 'XXXXXX....XXXXXX',
+ 'XXXXX......XXXXX',
+ 'XXXX.XXXXXX.XXXX',
+ 'XXX..XXXXXX..XXX',
+ 'XXX.XXXXXXXX.XXX',
+ 'XXXXXXXXXXXXXXXX',
+ 'XXXX..XXXX..XXXX',
+ '.XXX..XXXX..XXX.',
+ '.XXXX......XXXX.',
+ '..XXXX.XX.XXXX..',
+ '...XXX....XXX...',
+ '....XX....XX....',
+ '.....X....X.....'];
+ const happyPixels=[
+ '....XXXXXXXX....',
+ '..XXXXXXXXXXXX..',
+ '.XXXXXXXXXXXXXXXX',
+ 'XXXXXXXXXXXXXXXX',
+ 'XXXXXXXXXXXXXXXX',
+ 'XXXX..XXXX..XXXX',
+ 'XXXX..XXXX..XXXX',
+ 'XXXXXXXXXXXXXXXX',
+ 'XXXXXXXXXXXXXXXX',
+ 'XXX.XXXXXXXX.XXX',
+ 'XXX..XXXXXX..XXX',
+ '.XXX........XXX.',
+ '..XXXXXXXXXXXX..',
+ '...XXXXXXXXXX...',
+ '....XXXXXXXX....',
+ '......XXXX......'];
+ const spritePalettes=[
+ ['#490611','#9e1833','#f04665','#ff9baf'],
+ ['#59050b','#ae1426','#f04448','#ff8a82'],
+ ['#6a0909','#c22424','#f75b40','#ffac70'],
+ ['#790d12','#d62b38','#ff6261','#ffc0a0']
+ ];
+ function brainArt(b){
+   const happy=b.phase==='happy',pattern=happy?happyPixels:angryPixels;
+   const palette=happy?['#8e2759','#e96ba7','#ffa5d2','#ffe0ed']:spritePalettes[b.row];
+   const unit=(b.size*2)/16;
+   const x=Math.round(b.x-8*unit),y=Math.round(b.y-8*unit);
+   ctx.save();ctx.imageSmoothingEnabled=false;
+   for(let row=0;row<16;row++)for(let col=0;col<16;col++){
+     if(pattern[row][col]!== 'X')continue;
+     const edge=(row<3||row>12||col<3||col>12);
+     const highlight=(row<5&&col>3&&col<12)||(row>=5&&row<8&&col<4);
+     ctx.fillStyle=edge?palette[0]:highlight?palette[3]:(row%4===0?palette[2]:palette[1]);
+     ctx.fillRect(Math.round(x+col*unit),Math.round(y+row*unit),Math.ceil(unit),Math.ceil(unit));
+   }
+   // Deliberately angular expressions, no curves or antialiasing.
+   const px=(cx,cy,w,h,color)=>{ctx.fillStyle=color;ctx.fillRect(Math.round(x+cx*unit),Math.round(y+cy*unit),Math.ceil(w*unit),Math.ceil(h*unit))};
+   if(happy){
+     px(4,6,2,2,'#45162f');px(10,6,2,2,'#45162f');
+     px(5,10,1,1,'#7a214b');px(6,11,4,1,'#7a214b');px(10,10,1,1,'#7a214b');
+   }else{
+     px(3,5,4,1,'#35070d');px(9,5,4,1,'#35070d');
+     px(4,6,2,2,'#ffe3df');px(10,6,2,2,'#ffe3df');
+     px(5,7,1,1,'#210609');px(10,7,1,1,'#210609');
+     px(6,11,4,1,'#3c070b');px(5,12,1,1,'#3c070b');px(10,12,1,1,'#3c070b');
+   }
+   ctx.restore();
+ }
+ function tick(dt){frame+=dt;let speed=dt*60;shipX+=shipDirection*2.65*speed;if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}shotTime-=dt;spawnTime-=dt;invuln-=dt;
  if(buttons.fire&&shotTime<=0){shots.push({x:shipX,y:499,vy:-430});shotTime=.18}
  if(spawnTime<=0){let available=brains.filter(b=>b.phase==='formation');if(available.length){const b=available[Math.floor(Math.random()*available.length)];b.phase='diving';b.vy=50+level*8;b.vx=(shipX-b.x)*.25;spawnTime=Math.max(.85,2.25-level*.12)}else spawnTime=.9}
  for(const shot of shots)shot.y+=shot.vy*dt;shots=shots.filter(s=>s.y>-12);
