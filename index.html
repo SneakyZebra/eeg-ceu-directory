@@ -1606,7 +1606,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
 const $=id=>document.getElementById(id),modal=$('rad-eeg-modal'),screen=$('rad-eeg-screen'),cv=$('rad-eeg-canvas'),g=cv.getContext('2d');
 const W=640,H=400,signs=['Collodion AVE','NuPrep Lane','1020 st.','EPIC AVE','Tacoma Szechuan','Jolean RD'];
 const hospitals=['TACOMA GENERAL','MARY BRIDGE','GOOD SAMARITAN','AUBURN MEDICAL'];
-let state='intro',frameId=0,last=0,travel=0,stage=0,carX=0,targetX=0,pressed=0,points=0,hits=0,traffic=[],nextTraffic=1500,signAt=1200,buildingAt=2100,signNum=0,buildingNum=0,gesture=null,heldLeft=false,heldRight=false;
+let state='intro',frameId=0,last=0,travel=0,stage=0,carX=0,targetX=0,pressed=0,points=0,hits=0,traffic=[],nextTraffic=1500,signAt=1200,buildingAt=2100,signNum=0,buildingNum=0,gesture=null,heldLeft=false,heldRight=false,finishMode=false,finishProgress=0;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function box(x,y,w,h,c){g.fillStyle=c;g.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}
 function shape(pts,c){g.fillStyle=c;g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();g.fill()}
@@ -1647,23 +1647,64 @@ else{box(-42,-83,84,83,'#a7a49b');box(-46,-87,92,8,'#eee6d6');box(-7,-100,14,16,
 g.restore()}
 function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y));g.scale(s,s);box(-3,-4,6,63,'#a9a99b');box(-61,-43,122,40,'#e8e9df');box(-57,-39,114,32,'#136c49');text(name,0,-18,name.length>13?9:11,'#f9f9f4');g.restore()}
 function scenery(){let entries=[];
-let z=signAt-travel;if(z>0&&z<3200){let t=depth(z),side=signNum%2===0?-1:1;entries.push({z,draw:()=>sign(center(t)+side*(half(t)+20+33*t),yy(t),.13+t*.88,signs[signNum%signs.length])})}
-z=buildingAt-travel;if(z>0&&z<3200){let t=depth(z),side=buildingNum%2===0?1:-1;entries.push({z,draw:()=>building(center(t)+side*(half(t)+32+46*t),yy(t),.14+t*1.18,hospitals[buildingNum%hospitals.length],buildingNum%4===2)})}
-entries.sort((a,b)=>b.z-a.z).forEach(e=>e.draw());}
+// A single roadside feature appears at a time. Alternate between sign and
+// building, and swap sides at each successive feature.
+let featureIndex=Math.min(signNum,buildingNum)*2+(signNum>buildingNum?1:0);
+let signZ=signAt-travel,buildingZ=buildingAt-travel;
+if(signZ>0&&signZ<3200){let t=depth(signZ),side=signNum%2===0?-1:1;
+entries.push({z:signZ,draw:()=>sign(center(t)+side*(half(t)+28+42*t),yy(t),.13+t*.88,signs[signNum%signs.length])});}
+if(buildingZ>0&&buildingZ<3200){let t=depth(buildingZ),side=buildingNum%2===0?1:-1;
+entries.push({z:buildingZ,draw:()=>building(center(t)+side*(half(t)+45+60*t),yy(t),.14+t*1.18,hospitals[buildingNum%hospitals.length],buildingNum%4===2)});}
+entries.sort((a,b)=>b.z-a.z).forEach(e=>e.draw());
+}
+function finishLine(){
+let remaining=(stage+1)*12500-travel;
+if(remaining>2700||remaining< -100)return;
+let t=depth(Math.max(0,remaining)),cy=yy(t),cx=center(t),hw=half(t);
+// Checkered stripe spans the full width of the road and approaches the car.
+let thick=2+14*t;
+for(let row=0;row<2;row++)for(let k=0;k<12;k++){
+let xa=cx-hw+(2*hw)*k/12,xb=cx-hw+(2*hw)*(k+1)/12;
+shape([[xa,cy+row*thick],[xb,cy+row*thick],[xb,cy+(row+1)*thick],[xa,cy+(row+1)*thick]],(row+k)%2?'#17191c':'#fff5e3');
+}
+// Large destination hospital on alternating roadside, only at the finish.
+let side=stage%2===0?1:-1, bx=cx+side*(hw+85*t+35),scale=.35+1.8*t;
+building(bx,cy,scale,hospitals[(stage+1)%hospitals.length],false);
+let label=hospitals[(stage+1)%hospitals.length];
+let labelWidth=Math.max(88,label.length*7+16),lx=clamp(bx-labelWidth/2,2,W-labelWidth-2),ly=cy-112*scale;
+box(lx,ly,labelWidth,21,'#ece7d9');box(lx+2,ly+2,labelWidth-4,17,'#184f5c');text(label,lx+labelWidth/2,ly+14,label.length>12?9:11,'#ffffff');
+if(t>.22){text('FINISH',cx,Math.max(54,cy-35*t),Math.round(12+14*t),'#ffe17a');}
+}
 function car(x,y,s,color,player=false){g.save();g.translate(Math.round(x),Math.round(y));g.scale(s,s);
 if(player){
-// Rear view of a silver DeLorean DMC-12: angular stainless steel body,
-// black louvered rear window, full-width rear lighting and dark bumper.
-box(-32,-4,8,29,'#111318');box(24,-4,8,29,'#111318');
-shape([[-29,17],[-27,-5],[-18,-19],[18,-19],[27,-5],[29,17],[26,25],[-26,25]],'#5b646b');
-shape([[-26,14],[-25,-5],[-17,-18],[17,-18],[25,-5],[26,14]],'#b8c0c4');
-shape([[-19,-8],[-14,-15],[14,-15],[19,-8],[21,5],[-21,5]],'#252d33');
-for(let i=0;i<5;i++)box(-19,-7+i*3,38,2,'#58636a');
-box(-26,8,52,5,'#707a80');box(-24,13,48,6,'#c2c7c9');
-box(-26,12,10,6,'#b82927');box(16,12,10,6,'#b82927');
-box(-15,13,7,5,'#e1a29a');box(8,13,7,5,'#e1a29a');
-box(-27,20,54,6,'#23272b');box(-6,19,12,5,'#d9d5b5');
-box(-23,-3,4,11,'#e1e4e3');box(19,-3,4,11,'#e1e4e3');
+// Back to the Future inspired time machine DeLorean, rear facing.
+// Sprite uses the same 58 by 44 collision footprint as the prior car.
+// Tires and shadow.
+box(-32,-2,8,27,'#101216');box(24,-2,8,27,'#101216');
+box(-30,21,60,6,'#16191b');
+// Stainless steel wedge profile, angular rear pillars and roof.
+shape([[-29,18],[-27,-4],[-18,-19],[18,-19],[27,-4],[29,18],[26,25],[-26,25]],'#50585d');
+shape([[-26,15],[-24,-6],[-17,-18],[17,-18],[24,-6],[26,15]],'#b7bec0');
+box(-24,11,48,7,'#929c9e');
+// Black louvered rear windshield with visible horizontal vents.
+shape([[-19,-9],[-13,-16],[13,-16],[19,-9],[21,5],[-21,5]],'#111b22');
+for(let i=0;i<5;i++){box(-19,-8+i*3,38,2,i%2?'#38444c':'#59666c')}
+// Distinctive external time-machine hardware on both sides.
+box(-28,-5,6,20,'#1d272c');box(22,-5,6,20,'#1d272c');
+box(-27,-6,3,17,'#71dce7');box(24,-6,3,17,'#71dce7');
+box(-26,-13,5,9,'#566268');box(21,-13,5,9,'#566268');
+// Reactor / time circuit hardware above rear deck.
+box(-9,-20,18,5,'#424d52');box(-5,-23,10,4,'#88999b');
+box(-2,-21,4,4,'#86f2ed');
+// Twin red tail lamps and center grille.
+box(-26,12,12,7,'#7e1416');box(-24,13,8,4,'#f14738');
+box(14,12,12,7,'#7e1416');box(16,13,8,4,'#f14738');
+box(-13,12,26,7,'#293136');for(let i=-11;i<12;i+=5)box(i,13,3,5,'#515b61');
+// Time machine blue flux glow beneath the rear bumper.
+box(-25,20,50,5,'#20282c');
+box(-16,24,9,2,'#4ed8ee');box(7,24,9,2,'#4ed8ee');
+// Yellow OUTATIME-style plate, legible at large canvas scale.
+box(-9,19,18,6,'#eacb61');box(-7,21,14,2,'#202327');
 }else{
 box(-28,-5,56,27,'#151318');box(-31,3,7,22,'#141215');box(24,3,7,22,'#141215');
 shape([[-25,7],[-23,-10],[-16,-19],[16,-19],[23,-10],[25,7],[25,20],[-25,20]],'#211a17');
@@ -1675,22 +1716,22 @@ box(-19,7,11,6,'#f7d6a0');box(8,7,11,6,'#f7d6a0');box(-6,9,12,5,'#2b1715');box(-
 // used to draw the cars, not approximate lane or world-distance thresholds.
 function carBounds(x,y,s){return {left:x-29*s,right:x+29*s,top:y-17*s,bottom:y+23*s}}
 function carsTouch(a,b){return a.left<b.right && a.right>b.left && a.top<b.bottom && a.bottom>b.top}
-function draw(){g.imageSmoothingEnabled=false;drawRoad();scenery();
+function draw(){g.imageSmoothingEnabled=false;drawRoad();scenery();finishLine();
 traffic.slice().sort((a,b)=>b.z-a.z).forEach(o=>{let t=depth(o.z);if(t<=0||t>=1)return;car(center(t)+o.lane*half(t)*.67,yy(t),.14+t*1.05,o.color)});
 car(W/2+carX*169,333,1.45,'#b8c0c4',true);
 box(0,0,W,42,'#14151c');text('RAD EEG',10,19,16,'#f6c552','left');text('STAGE '+(stage+1),W/2,19,12,'#fff');text('SCORE '+points,W-12,19,12,'#fff','right');text('TO '+hospitals[(stage+1)%hospitals.length],10,35,10,'#f2e9ce','left');text((195+stage*12)+' MPH',W-12,35,11,'#fff','right');
 box(8,H-10,W-16,4,'#24252b');box(8,H-10,(W-16)*clamp((travel-stage*12500)/12500,0,1),4,'#f4be44');}
 function show(title,message,button){state='overlay';$('rad-eeg-title').textContent=title;$('rad-eeg-message').textContent=message;$('rad-eeg-start').textContent=button;$('rad-eeg-overlay').style.display='flex'}
-function reset(){travel=stage*12500;carX=0;targetX=0;traffic=[];nextTraffic=travel+1250;signAt=travel+950;buildingAt=travel+1800;signNum=0;buildingNum=0;hits=0;state='play';$('rad-eeg-overlay').style.display='none'}
+function reset(){travel=stage*12500;carX=0;targetX=0;traffic=[];nextTraffic=travel+850;signAt=travel+900;buildingAt=travel+4600;signNum=0;buildingNum=0;hits=0;state='play';$('rad-eeg-overlay').style.display='none'}
 function update(dt){if(state!=='play')return;
 let steering=(heldRight?1:0)-(heldLeft?1:0);if(steering)targetX+=steering*dt*1.5;
 targetX=clamp(targetX,-1.5,1.5);carX+=(targetX-carX)*Math.min(1,dt*9);
 let speed=520+stage*34;travel+=speed*dt;
-if(signAt<travel-100){signAt+=2300;signNum++}if(buildingAt<travel-150){buildingAt+=3100;buildingNum++}
-if(travel>=nextTraffic){traffic.push({z:3200,lane:[-.68,0,.68][Math.floor(Math.random()*3)],color:['#e83e52','#e3c337','#64a5e0','#e4e9ef'][Math.floor(Math.random()*4)],hit:false});nextTraffic=travel+1200+Math.random()*650;}
+if(signAt<travel-120){signAt+=7600;signNum++}if(buildingAt<travel-150){buildingAt+=7600;buildingNum++}
+if(travel>=nextTraffic){traffic.push({z:3200,lane:[-.68,0,.68][Math.floor(Math.random()*3)],color:['#e83e52','#e3c337','#64a5e0','#e4e9ef'][Math.floor(Math.random()*4)],hit:false});nextTraffic=travel+700+Math.random()*450;}
 for(const o of traffic){o.z-=speed*dt*1.48;if(!o.hit&&o.z<3200&&o.z>0&&carsTouch(carBounds(W/2+carX*169,333,1.45),carBounds(center(depth(o.z))+o.lane*half(depth(o.z))*.67,yy(depth(o.z)),.14+depth(o.z)*1.05))){o.hit=true;show('GAME OVER','You collided with traffic and the EEG supplies did not make it. Try the delivery again!','RETRY');return}}traffic=traffic.filter(o=>o.z>-100);
 points+=Math.floor(dt*30);
-if(travel>=(stage+1)*12500){stage++;points+=1000;show('DELIVERY COMPLETE!','EEG supplies delivered to '+hospitals[stage%hospitals.length]+'. Your fellow technologists thank you!','NEXT HOSPITAL')}}
+if(travel>=(stage+1)*12500){stage++;points+=1000;show('FINISH LINE! DELIVERY COMPLETE!','EEG supplies delivered to '+hospitals[stage%hospitals.length]+'. Your fellow technologists thank you!','NEXT HOSPITAL')}}
 function frame(t){if(!modal.classList.contains('rad-open'))return;let dt=Math.min(.04,(t-last)/1000||.016);last=t;update(dt);draw();frameId=requestAnimationFrame(frame)}
 function open(){modal.classList.add('rad-open');stage=0;points=0;show('RAD EEG','Deliver EEG supplies between hospitals. The car drives automatically. Swipe left or right, or use the arrow keys, to dodge traffic.','START DELIVERY');last=0;cancelAnimationFrame(frameId);frameId=requestAnimationFrame(frame)}
 function close(){modal.classList.remove('rad-open');cancelAnimationFrame(frameId);gesture=null;heldLeft=heldRight=false}
