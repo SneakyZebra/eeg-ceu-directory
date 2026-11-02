@@ -1606,6 +1606,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
 const $=id=>document.getElementById(id),modal=$('rad-eeg-modal'),screen=$('rad-eeg-screen'),cv=$('rad-eeg-canvas'),g=cv.getContext('2d');
 const W=640,H=400,signs=['Collodion AVE','NuPrep Lane','1020 st.','EPIC AVE','Tacoma Szechuan','Jolean RD'];
 const hospitals=['TACOMA GENERAL','MARY BRIDGE','GOOD SAMARITAN','AUBURN MEDICAL'];
+const radEegFunnyMessages=['Time for a meal or rest break', 'Time for a skin check', 'Time for a stretch break', 'Time to archive some studies', 'Time to check your PerfectServe messages', 'Good time to check your Epic messages', 'Go get some lunch', 'All outta 10-20 paste', 'Looks like Citrix is down again', 'Time to DC a patient', 'Have you checked how many CEUs you have?', 'Time to hydrate', 'You lost, but you are still fantastic'];
 let state='intro',frameId=0,last=0,travel=0,stage=0,carX=0,targetX=0,pressed=0,points=0,hits=0,traffic=[],nextTraffic=1500,signAt=1200,buildingAt=2100,signNum=0,buildingNum=0,gesture=null,heldLeft=false,heldRight=false,finishMode=false,finishProgress=0;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 // Delivery celebration: real EEG supply artwork launches from the DeLorean.
@@ -1690,7 +1691,7 @@ let featureIndex=Math.min(signNum,buildingNum)*2+(signNum>buildingNum?1:0);
 let signZ=signAt-travel,buildingZ=buildingAt-travel;
 if(signZ>0&&signZ<3200){let t=depth(signZ),side=signNum%2===0?-1:1;
 entries.push({z:signZ,draw:()=>sign(center(t)+side*(half(t)+28+42*t),yy(t),.13+t*.88,signs[signNum%signs.length])});}
-if(buildingZ>0&&buildingZ<3200){let t=depth(buildingZ),side=buildingNum%2===0?1:-1;
+if(buildingZ>0&&buildingZ<3200 && ((stage+1)*12500-travel)>3400){let t=depth(buildingZ),side=buildingNum%2===0?1:-1;
 entries.push({z:buildingZ,draw:()=>building(center(t)+side*(half(t)+45+60*t),yy(t),.14+t*1.18,hospitals[buildingNum%hospitals.length],buildingNum%4===2)});}
 entries.sort((a,b)=>b.z-a.z).forEach(e=>e.draw());
 }
@@ -1766,7 +1767,7 @@ targetX=clamp(targetX,-1.5,1.5);carX+=(targetX-carX)*Math.min(1,dt*9);
 let speed=610+stage*40;travel+=speed*dt;
 if(signAt<travel-120){signAt+=7600;signNum++}if(buildingAt<travel-150){buildingAt+=7600;buildingNum++}
 if(travel>=nextTraffic){traffic.push({z:3200,lane:[-.68,0,.68][Math.floor(Math.random()*3)],color:['#e83e52','#e3c337','#64a5e0','#e4e9ef'][Math.floor(Math.random()*4)],hit:false});nextTraffic=travel+700+Math.random()*450;}
-for(const o of traffic){o.z-=speed*dt*1.48;if(!o.hit&&o.z<3200&&o.z>0&&carsTouch(carBounds(W/2+carX*169,333,1.45),carBounds(center(depth(o.z))+o.lane*half(depth(o.z))*.67,yy(depth(o.z)),.14+depth(o.z)*1.05))){o.hit=true;show('GAME OVER','You collided with traffic and the EEG supplies did not make it. Try the delivery again!','RETRY');return}}traffic=traffic.filter(o=>o.z>-100);
+for(const o of traffic){o.z-=speed*dt*1.48;if(!o.hit&&o.z<3200&&o.z>0&&carsTouch(carBounds(W/2+carX*169,333,1.45),carBounds(center(depth(o.z))+o.lane*half(depth(o.z))*.67,yy(depth(o.z)),.14+depth(o.z)*1.05))){o.hit=true;show('GAME OVER',radEegFunnyMessages[Math.floor(Math.random()*radEegFunnyMessages.length)],'RETRY');return}}traffic=traffic.filter(o=>o.z>-100);
 points+=Math.max(1,Math.round(speed*dt*0.065));
 if(travel>=(stage+1)*12500){beginCelebration()}}
 function frame(t){if(!modal.classList.contains('rad-open'))return;let dt=Math.min(.04,(t-last)/1000||.016);last=t;update(dt);draw();frameId=requestAnimationFrame(frame)}
@@ -1798,6 +1799,22 @@ window.eegRadOpen=open;
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',removeStandaloneRadLaunchers);
   else removeStandaloneRadLaunchers();
+})();
+</script>
+<script id="eeg-priority-sources-2026">
+(function(){
+const sources=[["American Clinical Neurophysiology Society", "https://www.acns.org/", "Professional guidelines, courses and conference education. Verify credit on each offering.", ["general-education-view", "registry-prep-view", "conferences-view"]], ["Learning EEG", "https://www.learningeeg.com/", "EEG interpretation lessons and educational exercises. Credit is not assumed.", ["general-education-view", "registry-prep-view"]], ["Neurotech EEG Institute", "https://www.neurotecheeginstitute.com/", "EEG education and training information. Check individual program requirements.", ["general-education-view", "registry-prep-view"]], ["Neurodiagnostic Niche", "https://neurodiagnosticniche.com/", "Neurodiagnostic education and resources. Verify any course credit before enrollment.", ["general-education-view", "registry-prep-view"]], ["EpilepsyDiagnosis.org", "https://www.epilepsydiagnosis.org/", "Epilepsy classification and EEG learning reference. Not listed as a CEU course.", ["general-education-view", "registry-prep-view"]], ["Neurotech EEG Program", "https://www.neurotecheeginstitute.com/programs/eeg-program", "EEG training program information; not represented as a standalone CEU course.", ["registry-prep-view"]]];
+function render(){
+for(const [name,url,description,tabs] of sources){
+ for(const id of tabs){const root=document.getElementById(id);if(!root)continue;
+ let section=root.querySelector('[data-priority-sources]');if(!section){section=document.createElement('section');section.setAttribute('data-priority-sources','');section.style.cssText='margin:24px auto;max-width:1180px;padding:18px;border:1px solid #28546b;border-radius:14px;background:#091f30;color:#e9f4ff';section.innerHTML='<h2 style="margin:0 0 8px;font-size:21px">Additional trusted EEG resources</h2><p style="margin:0 0 14px;font-size:13px;opacity:.85">Educational references and training programs. Credit eligibility must be verified for each specific activity.</p><div data-priority-list style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"></div>';root.appendChild(section)}
+ const list=section.querySelector('[data-priority-list]');if([...list.querySelectorAll('a')].some(a=>a.href.replace(/\/$/,'')===url.replace(/\/$/,'')))continue;
+ const card=document.createElement('article');card.style.cssText='background:#102f45;border:1px solid #31556a;border-radius:10px;padding:13px;display:flex;flex-direction:column;gap:8px';
+ const title=document.createElement('strong');title.textContent=name;const desc=document.createElement('span');desc.textContent=description;desc.style.cssText='font-size:13px;line-height:1.5';const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Visit Site';link.style.cssText='color:#a8f344;font-weight:700;margin-top:auto';card.append(title,desc,link);list.appendChild(card);
+ }
+}
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
 })();
 </script>
 </body></html>
