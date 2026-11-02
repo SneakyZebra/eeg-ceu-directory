@@ -1803,18 +1803,33 @@ window.eegRadOpen=open;
 </script>
 <script id="eeg-priority-sources-2026">
 (function(){
-const sources=[["American Clinical Neurophysiology Society", "https://www.acns.org/", "Professional guidelines, courses and conference education. Verify credit on each offering.", ["general-education-view", "registry-prep-view", "conferences-view"]], ["Learning EEG", "https://www.learningeeg.com/", "EEG interpretation lessons and educational exercises. Credit is not assumed.", ["general-education-view", "registry-prep-view"]], ["Neurotech EEG Institute", "https://www.neurotecheeginstitute.com/", "EEG education and training information. Check individual program requirements.", ["general-education-view", "registry-prep-view"]], ["Neurodiagnostic Niche", "https://neurodiagnosticniche.com/", "Neurodiagnostic education and resources. Verify any course credit before enrollment.", ["general-education-view", "registry-prep-view"]], ["EpilepsyDiagnosis.org", "https://www.epilepsydiagnosis.org/", "Epilepsy classification and EEG learning reference. Not listed as a CEU course.", ["general-education-view", "registry-prep-view"]], ["Neurotech EEG Program", "https://www.neurotecheeginstitute.com/programs/eeg-program", "EEG training program information; not represented as a standalone CEU course.", ["registry-prep-view"]]];
+const sources=[
+["American Clinical Neurophysiology Society","https://www.acns.org/","Clinical neurophysiology education, guidelines and professional meetings. Verify course credits.",["general","registry-paid","conference-list"]],
+["Learning EEG","https://www.learningeeg.com/","EEG interpretation lessons and case examples. Credit not confirmed.",["general","registry-free"]],
+["Neurotech EEG Institute","https://www.neurotecheeginstitute.com/","EEG training and education resources. Review individual program details.",["general","registry-paid"]],
+["Neurodiagnostic Niche","https://neurodiagnosticniche.com/","Neurodiagnostic education and training. Verify price and credit.",["general","registry-paid"]],
+["EpilepsyDiagnosis.org","https://www.epilepsydiagnosis.org/","Epilepsy and EEG clinical reference materials.",["general","registry-free"]],
+["Neurotech EEG Program","https://www.neurotecheeginstitute.com/programs/eeg-program","Full EEG training program, not a standalone CEU course.",["registry-paid"]]
+];
+function norm(h){try{let u=new URL(h,location.href);return u.hostname.replace(/^www\./,'')+u.pathname.replace(/\/$/,'')}catch(e){return h}}
 function render(){
-for(const [name,url,description,tabs] of sources){
- for(const id of tabs){const root=document.getElementById(id);if(!root)continue;
- let section=root.querySelector('[data-priority-sources]');if(!section){section=document.createElement('section');section.setAttribute('data-priority-sources','');section.style.cssText='margin:24px auto;max-width:1180px;padding:18px;border:1px solid #28546b;border-radius:14px;background:#091f30;color:#e9f4ff';section.innerHTML='<h2 style="margin:0 0 8px;font-size:21px">Additional trusted EEG resources</h2><p style="margin:0 0 14px;font-size:13px;opacity:.85">Educational references and training programs. Credit eligibility must be verified for each specific activity.</p><div data-priority-list style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"></div>';root.appendChild(section)}
- const list=section.querySelector('[data-priority-list]');if([...list.querySelectorAll('a')].some(a=>a.href.replace(/\/$/,'')===url.replace(/\/$/,'')))continue;
- const card=document.createElement('article');card.style.cssText='background:#102f45;border:1px solid #31556a;border-radius:10px;padding:13px;display:flex;flex-direction:column;gap:8px';
- const title=document.createElement('strong');title.textContent=name;const desc=document.createElement('span');desc.textContent=description;desc.style.cssText='font-size:13px;line-height:1.5';const link=document.createElement('a');link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Visit Site';link.style.cssText='color:#a8f344;font-weight:700;margin-top:auto';card.append(title,desc,link);list.appendChild(card);
- }
+for(let [name,url,description,ids] of sources)for(let id of ids){
+let root=document.getElementById(id);if(!root)continue;
+if([...root.querySelectorAll('a[href]')].some(a=>norm(a.href)===norm(url)))continue;
+let card=document.createElement('article');card.className='entry';card.dataset.integratedSource=norm(url);
+let logo=document.createElement('div');logo.className='logo';
+let img=document.createElement('img');img.loading='lazy';img.alt=name+' logo';img.src='https://www.google.com/s2/favicons?domain='+encodeURIComponent(new URL(url).hostname)+'&sz=128';logo.appendChild(img);
+let info=document.createElement('div');info.className='info';
+let title=document.createElement('strong');title.textContent=name;
+let p=document.createElement('p');p.textContent=description;
+let tag=document.createElement('span');tag.className='tag';tag.textContent=id==='conference-list'?'Professional meetings':id==='general'?'Education':'Study resource';info.append(title,p,tag);
+let link=document.createElement('a');link.className='visit';link.href=url;link.target='_blank';link.rel='noopener noreferrer';link.textContent='Visit Site';
+card.append(logo,info,link);root.appendChild(card);
 }
+let empty=document.getElementById('general-empty');if(empty&&document.getElementById('general')?.children.length)empty.hidden=true;
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',render);else render();
+function init(){render();for(let id of ['general','registry-free','registry-paid','conference-list']){let root=document.getElementById(id);if(root)new MutationObserver(()=>{if(!root.querySelector('[data-integrated-source]'))render()}).observe(root,{childList:true})}}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body></html>
