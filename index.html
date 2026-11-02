@@ -1585,4 +1585,73 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  }
  function loop(now){if(!active)return;const dt=Math.min(.035,(now-last)/1000||.016);last=now;if(playing)tick(dt);draw();raf=requestAnimationFrame(loop)}
 })();
-</script></body></html>
+</script>
+<style>
+#rad-eeg-launch{position:fixed;right:18px;bottom:18px;z-index:9998;background:#123750;color:#b9ff66;border:2px solid #9ad64d;border-radius:12px;padding:12px 17px;font:900 14px monospace;box-shadow:0 4px 20px #0009;cursor:pointer}
+#rad-eeg-modal{display:none;position:fixed;inset:0;z-index:99999;background:#020911e8;align-items:center;justify-content:center;padding:12px}
+#rad-eeg-modal.rad-open{display:flex}
+#rad-eeg-shell{width:min(100%,920px);background:#071d30;border:2px solid #8dd446;border-radius:15px;padding:12px;color:white;font-family:monospace;box-shadow:0 12px 50px #000}
+#rad-eeg-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:3px 4px 10px}
+#rad-eeg-head strong{color:#b9ff66;font-size:22px}#rad-eeg-close{background:#24455a;color:white;border:1px solid #7695aa;border-radius:8px;padding:9px 13px;cursor:pointer}
+#rad-eeg-screen{position:relative;width:100%;aspect-ratio:16/10;background:black;overflow:hidden;touch-action:none}
+#rad-eeg-canvas{width:100%;height:100%;display:block;image-rendering:pixelated}
+#rad-eeg-overlay{position:absolute;inset:7% 9%;background:#061328e8;border:3px solid #f4cb68;color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:18px;overflow:auto}
+#rad-eeg-overlay h2{color:#f9cc60;font-size:clamp(24px,5vw,44px);margin:0;text-shadow:4px 4px #8a352c}#rad-eeg-overlay p{max-width:540px;line-height:1.6;margin:0;font-size:clamp(11px,1.8vw,16px)}
+#rad-eeg-start{background:#a7ed3c;color:#0c2433;border:0;border-radius:5px;padding:12px 28px;font-weight:900;cursor:pointer}
+#rad-eeg-controls{display:flex;justify-content:center;gap:12px;padding-top:10px;flex-wrap:wrap}#rad-eeg-controls button{background:#1c4560;color:#fff;border:1px solid #6d9cae;border-radius:8px;padding:12px 18px;font:900 17px monospace;touch-action:none;user-select:none}
+#rad-eeg-note{text-align:center;color:#a7c2d0;font-size:12px;padding:8px 0 2px}
+</style>
+<button id="rad-eeg-launch" type="button">🏎 RAD EEG</button>
+<div id="rad-eeg-modal" role="dialog" aria-modal="true" aria-label="Rad EEG driving game"><div id="rad-eeg-shell"><div id="rad-eeg-head"><strong>RAD EEG · SUPPLY RUN</strong><button id="rad-eeg-close" type="button">✕ CLOSE</button></div><div id="rad-eeg-screen"><canvas id="rad-eeg-canvas" width="640" height="400"></canvas><div id="rad-eeg-overlay"><h2 id="rad-eeg-title">RAD EEG</h2><p id="rad-eeg-message">The EEG team needs supplies at the next hospital! Race through Tacoma, avoid traffic, and deliver the Collodion, NuPrep, and electrodes before the clock runs out. Watch for the Tacoma Dome and familiar road signs.</p><button id="rad-eeg-start" type="button">START DELIVERY</button></div></div><div id="rad-eeg-controls"><button data-rad="left">◀ LEFT</button><button data-rad="gas">▲ GAS</button><button data-rad="brake">▼ BRAKE</button><button data-rad="right">RIGHT ▶</button><button id="rad-eeg-pause">PAUSE</button></div><div id="rad-eeg-note">Keyboard: ← → steer · ↑ accelerate · ↓ brake · P pause · Touch controls supported</div></div></div>
+<script>
+(()=>{
+'use strict';
+const $=id=>document.getElementById(id),modal=$('rad-eeg-modal'),canvas=$('rad-eeg-canvas'),g=canvas.getContext('2d');
+const W=640,H=400,signs=['Collodion AVE','NuPrep Lane','1020 st.','EPIC AVE','Tacoma Szechuan','Jolean RD'];
+const destinations=['TACOMA GENERAL','MARY BRIDGE','GOOD SAMARITAN','AUBURN MEDICAL'];
+let mode='ready',last=0,raf=0,stage=0,dist=0,remaining=0,speed=0,carX=0,traffic=[],held=new Set(),damage=0,points=0,seen=0;
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function rect(x,y,w,h,c){g.fillStyle=c;g.fillRect(Math.round(x),Math.round(y),Math.ceil(w),Math.ceil(h))}
+function poly(coords,c){g.fillStyle=c;g.beginPath();coords.forEach(([x,y],i)=>i?g.lineTo(x,y):g.moveTo(x,y));g.closePath();g.fill()}
+function label(str,x,y,size=12,color='#fff',align='center'){g.font=`bold ${size}px monospace`;g.textAlign=align;g.fillStyle='#07101b';g.fillText(str,x+2,y+2);g.fillStyle=color;g.fillText(str,x,y)}
+function curve(z){return Math.sin((dist+z)*.00085)*.46+Math.sin((dist+z)*.00033)*.32}
+function roadCenter(t){return W/2+curve((1-t)*1500)*t*155}
+function roadHalf(t){return 24+290*t*t}
+function scenery(type,x,y,scale,caption){g.save();g.translate(x,y);g.scale(scale,scale);
+if(type==='hospital'){rect(-29,-39,58,39,'#c8d5d7');rect(-24,-46,48,8,'#eef1f0');rect(-5,-55,10,18,'#fafafa');rect(-12,-48,24,7,'#fff');rect(-3,-53,6,17,'#df3c43');rect(-9,-47,18,5,'#df3c43');for(let j=0;j<3;j++)for(let i=0;i<4;i++)rect(-22+i*12,-34+j*10,7,6,'#397ca2');rect(-7,-11,14,11,'#426f88');label('HOSPITAL',0,-60,8,'#fff')}
+if(type==='dome'){rect(-44,-6,88,7,'#a5c4cc');poly([[-47,-7],[-39,-25],[-26,-38],[0,-45],[26,-38],[39,-25],[47,-7]],'#b8cdd6');for(let i=-32;i<=32;i+=16)rect(i,-29,3,23,'#678ba0');label('TACOMA DOME',0,-51,8,'#fff')}
+if(type==='sign'){rect(-2,-2,4,42,'#a3a6a4');rect(-43,-29,86,31,'#17674a');rect(-40,-26,80,25,'#2e9c6a');label(caption,0,-9,8,'#fff')}
+if(type==='tree'){rect(-4,-15,8,30,'#72543b');poly([[-27,-14],[0,-67],[27,-14]],'#13563e');poly([[-22,-28],[0,-78],[22,-28]],'#23764d')}
+g.restore()}
+function drawCar(x,y,size,color='#e8f1f7',opponent=false){g.save();g.translate(x,y);g.scale(size,size);rect(-20,-15,40,39,'#0b1525');poly([[-18,-8],[-13,-23],[13,-23],[18,-8],[18,20],[-18,20]],color);rect(-11,-15,22,12,'#3b83b1');rect(-12,4,24,7,'#7399b2');rect(-18,15,8,5,opponent?'#ffe28b':'#f04847');rect(10,15,8,5,opponent?'#ffe28b':'#f04847');rect(-22,7,5,14,'#121820');rect(17,7,5,14,'#121820');g.restore()}
+function draw(){g.imageSmoothingEnabled=false;
+rect(0,0,W,180,'#65b4dc');rect(0,100,W,75,'#a9d7e7');rect(0,167,W,233,'#3d995e');
+poly([[0,180],[48,126],[97,175],[165,132],[235,178],[310,145],[380,180],[475,120],[580,175],[640,135],[640,190],[0,190]],'#4d7b9a');
+rect(0,183,W,8,'#2c774e');
+for(let i=0;i<85;i++){let far=i/85,near=(i+1)/85,yy=181+Math.pow(far,1.75)*220,yy2=181+Math.pow(near,1.75)*220,c=roadCenter(far),c2=roadCenter(near),h=roadHalf(far),h2=roadHalf(near);let stripe=Math.floor((dist/85+far*16))%2===0;
+poly([[c-h-10,yy],[c+h+10,yy],[c2+h2+10,yy2],[c2-h2-10,yy2]],stripe?'#eee6d2':'#d55353');
+poly([[c-h,yy],[c+h,yy],[c2+h2,yy2],[c2-h2,yy2]],'#535965');
+if(Math.floor(dist/95+far*19)%2===0){let lw=Math.max(1,3*far);for(let lane of [-.33,.33])poly([[c+lane*h-lw,yy],[c+lane*h+lw,yy],[c2+lane*h2+lw*1.04,yy2],[c2+lane*h2-lw*1.04,yy2]],'#f5e6b0')}
+}
+for(let j=19;j>=0;j--){let z=dist+j*170+110,phase=((z%3600)+3600)%3600,t=1-phase/3600;if(t<.04||t>.96)continue;let side=Math.floor(z/170)%2?1:-1;let cx=roadCenter(t)+side*(roadHalf(t)+36+60*t),cy=181+Math.pow(t,1.75)*220,scale=.16+t*1.6;let n=Math.floor(z/170);let type=n%13===0?'dome':n%5===0?'hospital':n%3===0?'sign':'tree';scenery(type,cx,cy,scale,signs[Math.abs(n)%signs.length])}
+traffic.sort((a,b)=>b.z-a.z).forEach(o=>{let t=1-o.z/2400;if(t<0||t>1) return;let y=181+Math.pow(t,1.75)*210,x=roadCenter(t)+o.lane*roadHalf(t)*.65;drawCar(x,y,.2+t*1.15,o.color,true)});
+drawCar(W/2+carX*165,338,1.5,'#edf3f9');
+rect(0,0,W,43,'#071527');label('RAD EEG',15,18,16,'#a6f65a','left');label('SUPPLIES → '+destinations[stage%destinations.length],W/2,16,12,'#f5e1a0');label(Math.round(speed*2.4)+' MPH',W-12,18,13,'#fff','right');label('TIME '+Math.ceil(remaining)+'   SCORE '+points+'   DELIVERY '+(stage+1),W/2,35,11,'#fff');
+rect(8,H-13,W-16,7,'#14283a');rect(8,H-13,(W-16)*clamp(dist/12500,0,1),7,'#a7f14e');
+}
+function spawn(){traffic.push({z:2300,lane:[-.65,0,.65][Math.floor(Math.random()*3)],color:['#f7bd47','#5dd1de','#e9789b','#88df68'][Math.floor(Math.random()*4)]})}
+function end(win){mode=win?'won':'lost';$('rad-eeg-overlay').style.display='flex';$('rad-eeg-title').textContent=win?'DELIVERY COMPLETE!':'DELIVERY FAILED';$('rad-eeg-message').textContent=win?'The EEG team received the supplies! Great work. Ready for the next hospital?':'The supplies did not make it in time. Your fellow EEG technologists are counting on you. Try again!';$('rad-eeg-start').textContent=win?'NEXT HOSPITAL':'RETRY DELIVERY';if(win){stage++;points+=Math.round(remaining*10)+300}}
+function reset(){dist=0;remaining=Math.max(37,72-stage*5);speed=0;carX=0;traffic=[];damage=0;seen=0;mode='running';$('rad-eeg-overlay').style.display='none'}
+function update(dt){if(mode!=='running')return;let accel=held.has('gas')?85:-35;if(held.has('brake'))accel=-170;speed=clamp(speed+accel*dt,0,140+stage*9);let steer=(held.has('right')?1:0)-(held.has('left')?1:0);carX=clamp(carX+steer*dt*(.65+speed/130)-curve(120)*speed*dt*.0014,-1.85,1.85);if(Math.abs(carX)>1.2)speed=Math.max(25,speed-95*dt);dist+=speed*dt*1.65;remaining-=dt;if(Math.floor(dist/600)>seen){seen=Math.floor(dist/600);spawn();points+=25}for(let o of traffic){o.z-=speed*dt*1.65;if(o.z<85&&o.z>-35&&Math.abs(carX-o.lane)<.36){speed*=.35;remaining-=4;o.z=-200;damage++;if(damage>=4){end(false);return}}}traffic=traffic.filter(o=>o.z>-300);if(dist>=12500){end(true);return}if(remaining<=0)end(false)}
+function frame(t){if(!modal.classList.contains('rad-open'))return;let dt=Math.min(.04,(t-last)/1000||0);last=t;update(dt);draw();raf=requestAnimationFrame(frame)}
+function open(){modal.classList.add('rad-open');mode='ready';$('rad-eeg-overlay').style.display='flex';$('rad-eeg-title').textContent='RAD EEG';$('rad-eeg-message').textContent='Drive EEG supplies from hospital to hospital across Tacoma. Avoid traffic, pass the Tacoma Dome, and get the equipment to your fellow technologists before time runs out!';$('rad-eeg-start').textContent='START DELIVERY';last=0;cancelAnimationFrame(raf);raf=requestAnimationFrame(frame)}
+function close(){modal.classList.remove('rad-open');cancelAnimationFrame(raf);held.clear()}
+$('rad-eeg-launch').addEventListener('click',open);$('rad-eeg-close').addEventListener('click',close);$('rad-eeg-start').addEventListener('click',reset);
+$('rad-eeg-pause').addEventListener('click',()=>{if(mode==='running'){mode='paused';$('rad-eeg-pause').textContent='RESUME'}else if(mode==='paused'){mode='running';$('rad-eeg-pause').textContent='PAUSE'}});
+const keys={ArrowLeft:'left',ArrowRight:'right',ArrowUp:'gas',ArrowDown:'brake',a:'left',d:'right',w:'gas',s:'brake'};
+document.addEventListener('keydown',e=>{if(!modal.classList.contains('rad-open'))return;if(keys[e.key]){e.preventDefault();held.add(keys[e.key])}if(e.key==='p'||e.key==='P')$('rad-eeg-pause').click();if((e.key===' '||e.key==='Enter')&&mode!=='running'&&mode!=='paused'){$('rad-eeg-start').click();e.preventDefault()}});
+document.addEventListener('keyup',e=>{if(keys[e.key])held.delete(keys[e.key])});
+document.querySelectorAll('[data-rad]').forEach(b=>{let key=b.dataset.rad;b.addEventListener('pointerdown',e=>{e.preventDefault();held.add(key);b.setPointerCapture(e.pointerId)});for(let ev of ['pointerup','pointercancel','lostpointercapture'])b.addEventListener(ev,()=>held.delete(key))});
+})();
+</script>
+</body></html>
