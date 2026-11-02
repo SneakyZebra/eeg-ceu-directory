@@ -1,5 +1,9 @@
 name: Daily EEG priority source discovery
 on:
+  push:
+    paths:
+      - '.github/workflows/daily-priority-source-discovery.yml'
+      - 'scripts/discover_priority_sources.py'
   schedule:
     - cron: '17 13 * * *'
   workflow_dispatch:
