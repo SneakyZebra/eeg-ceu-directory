@@ -1672,4 +1672,22 @@ document.addEventListener('keyup',e=>{if(e.key==='ArrowLeft')heldLeft=false;if(e
 window.eegRadOpen=open;
 })();
 </script>
+
+<script>
+/* Rad EEG is accessible exclusively from the randomized secret-letter Easter egg. */
+(function(){
+  function removeStandaloneRadLaunchers(){
+    document.querySelectorAll('button,a,[role="button"]').forEach(function(el){
+      if(el.closest('#rad-eeg-modal'))return;
+      var id=(el.id||'').toLowerCase(), cls=(typeof el.className==='string'?el.className:'').toLowerCase();
+      var label=(el.textContent||'').trim().replace(/\s+/g,' ').toLowerCase();
+      if((/rad[-_]?eeg/.test(id+' '+cls) && /launch|trigger|open|floating|fab|button|btn/.test(id+' '+cls)) || /^rad eeg(?:\s*[🚗🏎️🎮])?$/.test(label)){
+        el.remove();
+      }
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',removeStandaloneRadLaunchers);
+  else removeStandaloneRadLaunchers();
+})();
+</script>
 </body></html>
