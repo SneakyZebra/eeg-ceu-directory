@@ -1720,9 +1720,9 @@ g.restore()}
 function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y));g.scale(s,s);box(-3,-4,6,63,'#a9a99b');box(-61,-43,122,40,'#e8e9df');box(-57,-39,114,32,'#136c49');text(name,0,-18,name.length>13?9:11,'#f9f9f4');g.restore()}
 // Decorative roadside foliage stays on the grass, outside both road shoulders.
 function roadsideFoliage(){
-  const foliageCount=52;
+  const foliageCount=16;
   for(let i=0;i<foliageCount;i++){
-    const z=(i*227+travel*.8+((i*71)%139))%3100;
+    const z=(i*421+travel*.8+((i*71)%139))%3100;
     const t=depth(z);
     if(t<.06||t>.98)continue;
     const y=yy(t),scale=.16+t*1.28;
@@ -1731,7 +1731,7 @@ function roadsideFoliage(){
     const x=center(t)+side*offset;
     if(x< -70||x>W+70)continue;
     g.save();g.translate(Math.round(x),Math.round(y));g.scale(scale,scale);
-    if(i%4===0 || i%7===0){
+    if(i%5!==0){
       box(-4,-32,8,33,'#62412a');
       shape([[-24,-23],[0,-79],[24,-23]],'#174f31');
       shape([[-21,-41],[0,-91],[21,-41]],'#277a3b');
@@ -1903,4 +1903,36 @@ function init(){render();for(let id of ['general','registry-free','registry-paid
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
+
+<style id="eeg-arcade-large-window-2026">
+/* Large arcade presentation: approximately 75% of the visible screen,
+   with room for controls and safe areas on phones and tablets. */
+#flappy-easter-box {
+  width: min(75vw, calc(75dvh * 1.45), 1280px) !important;
+  max-width: 96vw !important;
+  max-height: 94dvh;
+  overflow: auto;
+}
+#flappy-easter-box .fb-stage {
+  width: 100%;
+}
+#galaga-brain-shell {
+  width: min(75vw, calc(75dvh * 500 / 546), 1100px) !important;
+  max-width: 96vw !important;
+  max-height: 94dvh !important;
+}
+#rad-eeg-shell {
+  width: min(75vw, 1380px) !important;
+  max-width: 96vw !important;
+  max-height: 94dvh;
+  overflow: auto;
+}
+#rad-eeg-screen {
+  max-height: 75dvh;
+}
+@media (max-width: 700px) {
+  #flappy-easter-box, #rad-eeg-shell { width: 96vw !important; }
+  #galaga-brain-shell { width: min(96vw, calc(82dvh * 500 / 546)) !important; }
+}
+</style>
 </body></html>
