@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-11-01T18:24:58.733447+00:00",
+  "last_checked": "2026-11-02T22:18:29.170636+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,18 +15,6 @@
   ],
   "discovery_searches": [
     {
-      "query": "neurodiagnostic CEU",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "neurodiagnostic CEU",
-      "engine": "google_news",
-      "results": 0,
-      "relevant": 0
-    },
-    {
       "query": "EEG continuing education",
       "engine": "bing",
       "results": 10,
@@ -35,8 +23,8 @@
     {
       "query": "EEG continuing education",
       "engine": "google_news",
-      "results": 11,
-      "relevant": 6
+      "results": 13,
+      "relevant": 7
     },
     {
       "query": "ASET CEU webinar",
@@ -54,7 +42,7 @@
       "query": "ABRET recertification education",
       "engine": "bing",
       "results": 10,
-      "relevant": 0
+      "relevant": 1
     },
     {
       "query": "ABRET recertification education",
@@ -71,8 +59,8 @@
     {
       "query": "epilepsy EEG webinar",
       "engine": "google_news",
-      "results": 8,
-      "relevant": 1
+      "results": 5,
+      "relevant": 0
     },
     {
       "query": "clinical neurophysiology webinar",
@@ -83,14 +71,44 @@
     {
       "query": "clinical neurophysiology webinar",
       "engine": "google_news",
-      "results": 2,
+      "results": 5,
+      "relevant": 0
+    },
+    {
+      "query": "critical care EEG webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "critical care EEG webinar",
+      "engine": "google_news",
+      "results": 0,
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 1,
+  "discovery_candidates_added": 2,
   "catalog_pages_scanned": 65,
-  "catalog_candidates_added": 2,
+  "catalog_candidates_added": 0,
   "items": [
+    {
+      "title": "Virtual reality-assisted prediction of adult ADHD based on eye tracking, EEG, actigraphy and behavioral indices: a machine learning analysis of independent training and test samples | Transl",
+      "provider": "Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBUSG15dVozR09LcHg0SXJGRVpUZU5vYTZuSGJiZHJ0MHhqVm5RM2prVWRjWEIxM29kR09zZlk3bjBnQjlZVlhnMkljcFJtRVRCVmhJMmg3Qlo1cE9qMGRF?oc=5",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-02",
+      "discovery_source": "google_news RSS"
+    },
+    {
+      "title": "ASET Career Resource Center",
+      "provider": "jobs.aset.org",
+      "url": "https://jobs.aset.org/",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-02",
+      "discovery_source": "bing RSS"
+    },
     {
       "title": "EEG and Brain Death - ILAE Eastern Mediterranean & Africa 25 February Webinar (English) - YouTube",
       "provider": "YouTube",
@@ -648,20 +666,6 @@
       "status": "Needs verification",
       "date_added": "2026-10-29",
       "discovery_source": "bing RSS"
-    },
-    {
-      "title": "Neonatal and Pediatric Epilepsy Syndromes",
-      "provider": "TeleSpecialists",
-      "url": "https://learning.tstelemed.com/content/neonatal-and-pediatric-epilepsy-syndromes",
-      "category": "free",
-      "status": "Verified free credit",
-      "credits": 1.0,
-      "credit_type": "ASET CEU",
-      "cost": 0,
-      "expires": "2026-11-01",
-      "verified_on": "2026-10-29",
-      "date_added": "2026-10-29",
-      "discovery_source": "Manually verified course allowlist"
     },
     {
       "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
