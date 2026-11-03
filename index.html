@@ -1268,23 +1268,54 @@ function zeldaHud(){
     const x=margin+i*(cell+gap),y=top;
     g.fillStyle='#101010';g.fillRect(x,y,cell,height);
     g.strokeStyle='#a4a4a4';g.lineWidth=1;g.strokeRect(x+.5,y+.5,cell-1,height-1);
-    const px=(xx,yy,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(xx),Math.round(yy),w,h)};
-    const ix=x+10,iy=y+10;
-    // Original NES Zelda inventory icon vocabulary: rupee, key, and bomb.
-    if(e.kind===0){ // Green rupee
-      px(ix+7,iy,5,2,'#c9ff8a');px(ix+4,iy+2,11,3,'#72d74a');
-      px(ix+2,iy+5,15,9,'#36a72e');px(ix+4,iy+14,11,3,'#72d74a');
-      px(ix+7,iy+17,5,2,'#c9ff8a');px(ix+5,iy+5,3,9,'#c9ff8a');
-    }else if(e.kind===1){ // Golden key
-      px(ix+3,iy+2,11,3,'#ffdb59');px(ix+1,iy+5,4,8,'#ffdb59');
-      px(ix+12,iy+5,4,8,'#ffdb59');px(ix+4,iy+12,9,3,'#ffdb59');
-      px(ix+7,iy+15,4,6,'#ffdb59');px(ix+10,iy+18,6,3,'#ffdb59');
-    }else{ // Blue NES bomb with fuse
-      px(ix+9,iy,3,4,'#e9d39c');px(ix+11,iy+2,4,3,'#f5a83d');
-      px(ix+5,iy+5,10,3,'#80baff');px(ix+3,iy+8,14,10,'#3171d4');
-      px(ix+5,iy+18,10,3,'#17439d');px(ix+5,iy+9,3,6,'#b5d7ff');
-    }
-    const labelX=x+36, available=cell-42;
+    // NES-style 8 by 8 pixel sprites, enlarged without smoothing.
+    // Pixel art uses a fixed grid for consistent proportions and sharp edges.
+    const sprites=[
+      [ // green rupee: faceted diamond
+        '...LL...',
+        '..LGGL..',
+        '.LGHHGL.',
+        'LGHHHDGL',
+        'LGHHHDGL',
+        '.LGDDGL.',
+        '..LGGL..',
+        '...LL...'
+      ],
+      [ // golden NES-style key: ring, stem and teeth
+        '..YYYY..',
+        '.YKKKKY.',
+        '.YK..KY.',
+        '.YKKKKY.',
+        '..YYYY..',
+        '...YY...',
+        '...YYYY.',
+        '...YY.Y.'
+      ],
+      [ // blue NES-style bomb: rounded body and small fuse
+        '....FF..',
+        '.....F..',
+        '..BBBB..',
+        '.BLLBB B'.replace(/ /g,''),
+        'BLLBBBBB',
+        'BLLBBBBB',
+        '.BBBBBB.',
+        '..BBBB..'
+      ]
+    ];
+    const palette={
+      L:'#9be852',G:'#42a52b',H:'#d8ff90',D:'#246b20',
+      Y:'#f8d45b',K:'#a86c24',
+      B:'#2860bd',F:'#f5bd53'
+    };
+    const sprite=sprites[e.kind], scale=3;
+    const iconX=Math.round(x+7),iconY=Math.round(y+12);
+    sprite.forEach((line,sy)=>{
+      for(let sx=0;sx<line.length;sx++){
+        const color=palette[line[sx]];
+        if(color){g.fillStyle=color;g.fillRect(iconX+sx*scale,iconY+sy*scale,scale,scale)}
+      }
+    });
+    const labelX=x+35, available=cell-40;
     g.fillStyle='#f8e5b0';g.textAlign='left';g.textBaseline='middle';
     g.font='bold 11px monospace';
     // Measure text and size it to fit instead of clipping.
