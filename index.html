@@ -854,9 +854,9 @@ window.arcadeReturnFlappyStart=function(){
 
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
-let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=5,zInvuln=0,zFireHeld=false,zFireSounds=0;
+let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=1,zInvuln=0,zFireHeld=false,zFireSounds=0;
 function zReset(){
-  zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=5;zInvuln=160;zFireHeld=false;
+  zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=1;zInvuln=0;zFireHeld=false;
   hero.x=W-110;hero.y=210;hero.vy=0;
 }
 // User-provided NES sword sound, embedded so GitHub Pages needs no separate audio file.
