@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-11-02T22:18:29.170636+00:00",
+  "last_checked": "2026-11-03T20:05:48.629454+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,22 +15,10 @@
   ],
   "discovery_searches": [
     {
-      "query": "EEG continuing education",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "EEG continuing education",
-      "engine": "google_news",
-      "results": 13,
-      "relevant": 7
-    },
-    {
       "query": "ASET CEU webinar",
       "engine": "bing",
       "results": 10,
-      "relevant": 4
+      "relevant": 0
     },
     {
       "query": "ASET CEU webinar",
@@ -40,57 +28,87 @@
     },
     {
       "query": "ABRET recertification education",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "ABRET recertification education",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "epilepsy EEG webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "epilepsy EEG webinar",
+      "engine": "google_news",
+      "results": 7,
+      "relevant": 0
+    },
+    {
+      "query": "clinical neurophysiology webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "clinical neurophysiology webinar",
+      "engine": "google_news",
+      "results": 4,
+      "relevant": 0
+    },
+    {
+      "query": "critical care EEG webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "critical care EEG webinar",
+      "engine": "google_news",
+      "results": 0,
+      "relevant": 0
+    },
+    {
+      "query": "intraoperative monitoring education",
       "engine": "bing",
       "results": 10,
       "relevant": 1
     },
     {
-      "query": "ABRET recertification education",
+      "query": "intraoperative monitoring education",
       "engine": "google_news",
-      "results": 0,
-      "relevant": 0
-    },
-    {
-      "query": "epilepsy EEG webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "epilepsy EEG webinar",
-      "engine": "google_news",
-      "results": 5,
-      "relevant": 0
-    },
-    {
-      "query": "clinical neurophysiology webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "clinical neurophysiology webinar",
-      "engine": "google_news",
-      "results": 5,
-      "relevant": 0
-    },
-    {
-      "query": "critical care EEG webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "critical care EEG webinar",
-      "engine": "google_news",
-      "results": 0,
-      "relevant": 0
+      "results": 25,
+      "relevant": 1
     }
   ],
   "discovery_candidates_added": 2,
   "catalog_pages_scanned": 65,
   "catalog_candidates_added": 0,
   "items": [
+    {
+      "title": "INTRAOPERATIVE Definition & Meaning | Merriam-Webster Medical",
+      "provider": "www.merriam-webster.com",
+      "url": "https://www.merriam-webster.com/medical/intraoperative",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-03",
+      "discovery_source": "bing RSS"
+    },
+    {
+      "title": "IntraNerve Neuroscience Earns ABRET Recognition for IONM Training Program, Strengthening the Future of Surgical Neurophysiology - Yahoo Finance",
+      "provider": "Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQWXVIVlpvbDZkTHdMODlzdnJrNnFTMS14bzl0N1N5Z0k5QXRCcHA4cl9YRW56S05iMkczejJwU0xXSk85bjBxNG1DUzh6eWJ4a3h1cUVwUnRZX3FtTUszeDFjczFJVlkybFUtZWFpT",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-03",
+      "discovery_source": "google_news RSS"
+    },
     {
       "title": "Virtual reality-assisted prediction of adult ADHD based on eye tracking, EEG, actigraphy and behavioral indices: a machine learning analysis of independent training and test samples | Transl",
       "provider": "Nature",
