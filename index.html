@@ -854,9 +854,9 @@ window.arcadeReturnFlappyStart=function(){
 
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
-let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0;
+let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=3,zInvuln=0;
 function zReset(){
-  zEnemies=[];zShots=[];zSpawn=22;zElapsed=0;zSpeed=1.15;zShotCooldown=0;
+  zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=3;zInvuln=110;
   hero.x=W-110;hero.y=210;hero.vy=0;
 }
 // User-provided NES sword sound, embedded so GitHub Pages needs no separate audio file.
@@ -880,6 +880,7 @@ function zShoot(){
   playZeldaSwordSample();
 }
 function zUpdate(d){
+  zInvuln=Math.max(0,zInvuln-d);
   zShotCooldown=Math.max(0,zShotCooldown-d);
   tick+=d;
   zElapsed+=d;
@@ -918,8 +919,12 @@ function zUpdate(d){
     const sway=Math.sin(e.age*.058+e.phase)*(16-6*progress);
     const desired=e.baseY*(1-convergence)+targetY*convergence+sway;
     e.y=Math.max(165,Math.min(335,e.y+(desired-e.y)*Math.min(1,.065*d)));
-    if(e.x+40>=hero.x && e.x-7<=hero.x+hero.w &&
-       e.y+37>=hero.y && e.y-7<=hero.y+hero.h){end();return}
+    if(zInvuln<=0 && e.x+28>=hero.x+15 && e.x<=hero.x+hero.w-15 &&
+       e.y+26>=hero.y+12 && e.y>=hero.y-16){
+       zLives--;zInvuln=105;e.happy=true;e.life=0;
+       if(zLives<=0){end();return}
+       continue;
+    }
   }
   for(const shot of zShots){
     shot.x-=10*d;
@@ -1349,9 +1354,9 @@ function draw(){
   for(const p of pipes){
     if(zeldaMode){zeldaObstacle(p.x,65,Math.max(0,p.top-65),true);zeldaObstacle(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
-    else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
+    else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-p.top-p.gap,false)}
   }
-  if(zeldaMode){zDrawCombat();return}else if(!marioMode){ /* No road sprites in Flappy Brain. */ }
+  if(zeldaMode){zDrawCombat();if(mode==='running'){g.save();g.font='bold 13px monospace';g.fillStyle='#ffdf91';g.fillText('♥'.repeat(zLives),W-87,68);g.restore()}return}else if(!marioMode){ /* No road sprites in Flappy Brain. */ }
   g.save();
   g.translate(hero.x+hero.w/2,hero.y+hero.h/2);
   g.rotate(Math.max(-.22,Math.min(.45,hero.vy*.05)));
@@ -1361,9 +1366,9 @@ function draw(){
   else{g.font='65px serif';g.fillText('🧠',-hero.w/2,hero.h/3)}
   g.restore();
 }
-function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);if(zeldaMode){zUpdate(d);return;}tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(7.5,3+Math.floor(score/5)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const top=(zeldaMode?100:50)+Math.random()*Math.max(1,(H-79)-gap-(zeldaMode?140:100));pipes.push({x:W+10,top,gap,passed:false});spawn=108}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
+function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);if(zeldaMode){zUpdate(d);return;}tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(7.5,3+Math.floor(score/5)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const playableBottom=H-79;const minTop=42;const maxTop=Math.max(minTop+1,playableBottom-gap-42);const top=minTop+Math.random()*(maxTop-minTop);pipes.push({x:W+10,top,gap,passed:false});spawn=90+Math.random()*45}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
 function loop(t){
-  const dt=last?t-last:16.67;last=t;
+  const dt=last?Math.min(34,t-last):16.67;last=t;
   try{if(modal.classList.contains('open')){update(dt);draw()}}
   catch(e){console.error('Flappy render error:',e)}
   finally{requestAnimationFrame(loop)}
@@ -1542,7 +1547,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    if(now-(eegLastSound[kind]||0)<cooldown)return;
    eegLastSound[kind]=now;
    try{
-     if(!eegSoundPool[kind])eegSoundPool[kind]=Array.from({length:kind==='fire'?5:3},()=>{
+     if(!eegSoundPool[kind])eegSoundPool[kind]=Array.from({length:kind==='fire'?3:2},()=>{
        const audio=new Audio('data:audio/mpeg;base64,'+eegSoundData[kind]);audio.preload='auto';audio.volume=kind==='fire'?.26:.48;return audio;
      });
      const pool=eegSoundPool[kind],audio=pool.find(x=>x.paused||x.ended)||pool[0];
@@ -1560,7 +1565,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('WELCOME TO BRAIN WARS',"The United Galaxy EEG Force (UGEF): Humanity's defense organization and the player's faction. The UGEF initially tried diplomacy when the Seizure Armada first approached the galaxy in the late 2270s, which failed and triggered open war. Now awesome EEG techs must treat the seizing brains to free them from captivity. Your ship moves automatically. Press Space or tap the game screen to treat the brains!",'DEFEND THE GALAXY');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
  document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;layer.addEventListener('pointerdown',e=>{if(!playing&&!e.target.closest('button')&&layer.classList.contains('intro')){e.preventDefault();start()}});
  document.querySelectorAll('[data-galaga]').forEach(btn=>{const key=btn.dataset.galaga;const down=e=>{e.preventDefault();buttons[key]=true;try{btn.setPointerCapture(e.pointerId)}catch{}};const up=e=>{e.preventDefault();buttons[key]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);btn.addEventListener('lostpointercapture',()=>buttons[key]=false)});
- document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();if(!playing&&layer.classList.contains('intro')){start();return}buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
+ document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();if(!playing&&layer.classList.contains('intro')){start();buttons[k]=false;return}if(playing)buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
  canvas.addEventListener('pointerdown',e=>{if(!playing)return;e.preventDefault();buttons.fire=true});canvas.addEventListener('pointerup',()=>buttons.fire=false);canvas.addEventListener('pointercancel',()=>buttons.fire=false);
  // Pixel art enemy sprites, drawn on a crisp 16 by 16 grid in the style of classic arcade enemies.
  const angryPixels=[
@@ -1633,10 +1638,9 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
    const sprite=b.phase==='happy'?null:eegEnemySprites[type][variant]; // Happy brains are always drawn as a complete pink sprite, with no debris.
    if(sprite&&sprite.complete&&sprite.naturalWidth){
      const w=b.size*2.8,h=w*sprite.naturalHeight/sprite.naturalWidth;
-     ctx.save();ctx.imageSmoothingEnabled=false;
-     if(b.phase==='diving'){ctx.translate(b.x,b.y);ctx.rotate(Math.sin((b.diveAge||0)*8)*.12);ctx.drawImage(sprite,-w/2,-h/2,w,h)}
+     if(b.phase==='diving'){ctx.save();ctx.translate(b.x,b.y);ctx.rotate(Math.sin((b.diveAge||0)*8)*.12);ctx.drawImage(sprite,-w/2,-h/2,w,h);ctx.restore()}
      else ctx.drawImage(sprite,Math.round(b.x-w/2),Math.round(b.y-h/2),w,h);
-     ctx.restore();return;
+     return;
    }
    const happy=b.phase==='happy',pattern=happy?happyPixels:angryPixels;
    // Each wave has a distinct angry brain color family, while treated brains always turn pink.
@@ -1768,7 +1772,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  // Small multicolored pixel stars inspired by the supplied Galaga reference.
  // The original reference background remains underneath this subtle animated starfield.
  const galagaStarColors=['#f2f2e9','#7a9bff','#e75c64','#59d98a','#c064ef','#e5cc59','#6bbbd8'];
- const galagaStars=Array.from({length:115},(_,i)=>({
+ const galagaStars=Array.from({length:55},(_,i)=>({
    x:Math.random()*W,y:Math.random()*H,
    color:galagaStarColors[Math.floor(Math.random()*galagaStarColors.length)],
    size:Math.random()<.87?1:2,phase:Math.random()*Math.PI*2,
@@ -1787,7 +1791,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  ctx.fillStyle='#ffec8c';for(const shot of shots){ctx.fillRect(Math.round(shot.x)-2,Math.round(shot.y)-11,4,14);ctx.fillStyle='#ff6233';ctx.fillRect(Math.round(shot.x)-1,Math.round(shot.y)-7,2,8);ctx.fillStyle='#ffec8c'}
  if(invuln<=0||Math.floor(invuln*9)%2===0){if(shipImg.complete)ctx.drawImage(shipImg,Math.round(shipX)-20,503,40,42)}
  }
- function loop(now){if(!active)return;const dt=Math.min(.035,(now-last)/1000||.016);last=now;if(playing)tick(dt);draw();raf=requestAnimationFrame(loop)}
+ function loop(now){if(!active)return;const dt=Math.min(.033,(now-last)/1000||.016);last=now;if(playing)tick(dt);if(playing)draw();raf=requestAnimationFrame(loop)}
 })();
 </script>
 <style>
