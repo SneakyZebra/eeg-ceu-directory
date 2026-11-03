@@ -2008,4 +2008,102 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
   button, a, [role="button"] { touch-action: manipulation; }
 }
 </style>
-<script id="smart-ceu-finder-script">(()=>{const root=document.getElementById('smart-ceu-finder');if(!root)return;const $=id=>document.getElementById(id);const hosts=['free','paid','unknown'];const clean=s=>(s||'').trim();const inferTopic=text=>{const t=text.toLowerCase();for(const [name,re] of [['Pediatric EEG',/pediatric|neonatal|child/],['Critical Care',/critical care|icu|continuous eeg|c?eeg/],['Epilepsy',/epilep|seizure/],['Routine EEG',/routine|artifact|montage|10.?20/],['Sleep',/sleep|polysomno/]])if(re.test(t))return name;return 'General EEG'};const getItems=()=>hosts.flatMap(group=>Array.from(document.querySelectorAll('#'+group+' .entry')).map(card=>{const link=card.querySelector('a.visit')||card.querySelector('a[href]');const title=clean(card.querySelector('.info strong')?.textContent)||clean(card.querySelector('strong')?.textContent);const desc=clean(card.querySelector('.info')?.textContent||card.textContent).replace(title,'').trim();const raw=title+' '+desc;const creditMatch=raw.match(/\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?)\b/i);const lengthMatch=raw.match(/\b(\d+(?:\.\d+)?)\s*(?:minutes?|hours?)\b/i);const duration=lengthMatch?Number(lengthMatch[1])*(/hour/i.test(lengthMatch[0])?60:1):null;return {title,desc,group,topic:inferTopic(raw),credits:creditMatch?Number(creditMatch[1]):null,duration,url:link?.href||'',verified:false}})).filter(x=>x.title&&/^https?:/.test(x.url)));let items=[];const selectOptions=(id,values)=>{const el=$(id);while(el.options.length>1)el.remove(1);values.sort((a,b)=>a.localeCompare(b)).forEach(v=>el.add(new Option(v,v)))};function refresh(){items=getItems();selectOptions('scf-provider',[...new Set(items.map(x=>x.title))]);selectOptions('scf-topic',[...new Set(items.map(x=>x.topic))]);$('scf-count').textContent='Choose filters, then select Search CEUs.';$('scf-results').replaceChildren()}function render(){const q=$('scf-query').value.toLowerCase().trim(),cost=$('scf-cost').value,provider=$('scf-provider').value,topic=$('scf-topic').value,credits=$('scf-credits').value,length=$('scf-length').value,verification=$('scf-verification').value;if(!items.length){$('scf-count').textContent='Resources are still loading. Please try again in a moment.';return}const filtered=items.filter(x=>(!q||(x.title+' '+x.desc+' '+x.topic).toLowerCase().includes(q))&&(cost==='all'||x.group===cost)&&(provider==='all'||x.title===provider)&&(topic==='all'||x.topic===topic)&&(credits==='all'||(credits==='known'?x.credits!==null:x.credits===null))&&(length==='all'||(length==='known'?x.duration!==null:x.duration===null))&&(verification==='all'||(verification==='verified'?x.verified:!x.verified)));$('scf-count').textContent=filtered.length+' resources found';const out=$('scf-results');out.replaceChildren();if(!filtered.length){const p=document.createElement('p');p.textContent='No matching resources. Try adjusting the filters.';out.append(p);return}filtered.forEach(x=>{const card=document.createElement('article');card.className='scf-result';const title=document.createElement('strong');title.textContent=x.title;card.append(title);const tags=document.createElement('div');tags.className='scf-tags';[x.group==='free'?'Free':x.group==='paid'?'Paid / Membership':'Verify cost',x.topic,x.credits===null?'Credits not specified':x.credits+' CEUs',x.duration===null?'Length not specified':x.duration+' min','Verify course credit'].forEach(t=>{const el=document.createElement('span');el.className='scf-tag';el.textContent=t;tags.append(el)});card.append(tags);const p=document.createElement('p');p.textContent=x.desc.slice(0,210);card.append(p);const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Visit Site';card.append(a);out.append(card)})}root.addEventListener('toggle',()=>{if(root.open)refresh()});['free','paid','unknown'].forEach(id=>{const host=$(id);if(host)new MutationObserver(()=>{if(root.open){items=getItems();selectOptions('scf-provider',[...new Set(items.map(x=>x.title))]);selectOptions('scf-topic',[...new Set(items.map(x=>x.topic))]);}}).observe(host,{childList:true})});$('scf-submit').addEventListener('click',()=>{items=getItems();render();$('scf-results').scrollIntoView({behavior:'smooth',block:'nearest'})});$('scf-query').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();render()}});$('scf-reset').addEventListener('click',()=>{$('scf-query').value='';['scf-cost','scf-provider','scf-topic','scf-credits','scf-length','scf-verification'].forEach(id=>$(id).selectedIndex=0);$('scf-results').replaceChildren();$('scf-count').textContent='Filters cleared. Select Search CEUs to browse resources.'});})();</script></body></html>
+<script id="smart-ceu-finder-script">
+(function(){
+  'use strict';
+  function init(){
+    const root=document.getElementById('smart-ceu-finder');
+    const button=document.getElementById('scf-submit');
+    const output=document.getElementById('scf-results');
+    const count=document.getElementById('scf-count');
+    if(!root||!button||!output||!count)return;
+    const $=id=>document.getElementById(id);
+    const value=id=>$(id)?$(id).value:'all';
+    const norm=x=>String(x||'').trim();
+    const topicFor=text=>{
+      const t=text.toLowerCase();
+      for(const [name,rx] of [['Pediatric EEG',/pediatric|neonatal|child/],['Critical Care',/critical care|icu|continuous eeg|ceeg/],['Epilepsy',/epilep|seizure/],['Routine EEG',/routine|artifact|montage|10.?20/],['Sleep',/sleep|polysomno/]])if(rx.test(t))return name;
+      return 'General EEG';
+    };
+    function collect(){
+      const rows=[];
+      const seen=new Set();
+      for(const group of ['free','paid','unknown']){
+        document.querySelectorAll('#'+group+' .entry').forEach(card=>{
+          const title=norm(card.querySelector('.info strong, strong')?.textContent);
+          const desc=norm(card.querySelector('.info p, p')?.textContent);
+          const link=card.querySelector('a.visit, a[href]');
+          const url=link?.href||'';
+          if(!title||!/^https?:/.test(url)||seen.has(url+'|'+group))return;
+          seen.add(url+'|'+group);
+          const raw=title+' '+desc;
+          const credit=raw.match(/\b(\d+(?:\.\d+)?)\s*(?:CEUs?|credits?)\b/i);
+          const duration=raw.match(/\b(\d+(?:\.\d+)?)\s*(minutes?|hours?)\b/i);
+          rows.push({title,desc,url,group,topic:topicFor(raw),credits:credit?+credit[1]:null,
+            duration:duration?+duration[1]*(duration[2].toLowerCase().startsWith('hour')?60:1):null,verified:false});
+        });
+      }
+      // Use the directory's actual curated data when cards are not yet populated.
+      if(!rows.length&&typeof curated!=='undefined'&&Array.isArray(curated)){
+        curated.forEach(x=>{
+          if(!['free','paid','unknown'].includes(x.category)||!x.title||!x.url)return;
+          rows.push({title:x.title,desc:x.description||'',url:x.url,group:x.category,
+            topic:topicFor(x.title+' '+(x.description||'')),credits:null,duration:null,verified:false});
+        });
+      }
+      return rows;
+    }
+    function options(id,items){
+      const select=$(id);if(!select)return;
+      const previous=select.value;
+      select.querySelectorAll('option:not(:first-child)').forEach(x=>x.remove());
+      [...new Set(items)].sort((a,b)=>a.localeCompare(b)).forEach(x=>select.add(new Option(x,x)));
+      if([...select.options].some(x=>x.value===previous))select.value=previous;
+    }
+    function search(){
+      const rows=collect();
+      options('scf-provider',rows.map(x=>x.title));
+      options('scf-topic',rows.map(x=>x.topic));
+      const q=norm(value('scf-query')).toLowerCase();
+      const cost=value('scf-cost'),provider=value('scf-provider'),topic=value('scf-topic');
+      const credit=value('scf-credits'),length=value('scf-length'),verification=value('scf-verification');
+      const matches=rows.filter(x=>
+        (!q||(x.title+' '+x.desc+' '+x.topic).toLowerCase().includes(q))&&
+        (cost==='all'||x.group===cost)&&
+        (provider==='all'||x.title===provider)&&
+        (topic==='all'||x.topic===topic)&&
+        (credit==='all'||(credit==='known'?x.credits!==null:x.credits===null))&&
+        (length==='all'||(length==='known'?x.duration!==null:x.duration===null))&&
+        (verification==='all'||(verification==='verified'?x.verified:!x.verified))
+      );
+      output.replaceChildren();
+      count.textContent=matches.length+' matching resources found';
+      if(!rows.length){count.textContent='Resource list unavailable. Please reload the page.';return;}
+      if(!matches.length){const p=document.createElement('p');p.textContent='No matches found. Try fewer filters or a different search term.';output.append(p);return;}
+      for(const x of matches){
+        const card=document.createElement('article');card.className='scf-result';
+        const title=document.createElement('strong');title.textContent=x.title;card.append(title);
+        const tags=document.createElement('div');tags.className='scf-tags';
+        for(const label of [x.group==='free'?'Free':x.group==='paid'?'Paid / Membership':'Verify cost',x.topic,x.credits===null?'Credit amount not confirmed':x.credits+' CEUs',x.duration===null?'Duration not confirmed':x.duration+' min','Verify course credit']){
+          const tag=document.createElement('span');tag.className='scf-tag';tag.textContent=label;tags.append(tag);
+        }
+        card.append(tags);
+        const p=document.createElement('p');p.textContent=x.desc;card.append(p);
+        const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Visit Site';card.append(a);
+        output.append(card);
+      }
+      output.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }
+    root.addEventListener('toggle',()=>{if(root.open){const rows=collect();options('scf-provider',rows.map(x=>x.title));options('scf-topic',rows.map(x=>x.topic));}});
+    button.addEventListener('click',search);
+    $('scf-query')?.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();search();}});
+    $('scf-reset')?.addEventListener('click',()=>{
+      $('scf-query').value='';
+      ['scf-cost','scf-provider','scf-topic','scf-credits','scf-length','scf-verification'].forEach(id=>{if($(id))$(id).selectedIndex=0;});
+      output.replaceChildren();count.textContent='Filters cleared. Select Search CEUs to browse resources.';
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+})();
+</script></body></html>
