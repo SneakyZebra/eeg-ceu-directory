@@ -840,7 +840,7 @@ score=0;spawn=115;speed=3;tick=0;pipes=[];roadItems=[];
 nextRoadItemAt=0;roadItemNumber=0;hero.x=135;hero.y=205;hero.vy=0;
 hud();last=performance.now();
 modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';mode='ready';show(zeldaMode?'THE LEGEND OF HYRULE: BRAIN RESCUE':marioMode?'FLAPPY BRAIN: PIXEL WORLD':'READY TO FLAP?',zeldaMode?zeldaStory:marioMode?'Fly through the colorful retro platform world!':'Fly through the EEG barriers!',zeldaMode?'BEGIN THE QUEST':'START GAME');rotateSecret();$('fb-close').focus();last=performance.now();draw()}
-function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
+function close(){zFireHeld=false;modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 
 window.arcadeReturnFlappyStart=function(){
   mode='ready';score=0;spawn=115;speed=3;tick=0;pipes=[];roadItems=[];
@@ -854,9 +854,9 @@ window.arcadeReturnFlappyStart=function(){
 
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
-let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=3,zInvuln=0;
+let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=5,zInvuln=0,zFireHeld=false,zFireSounds=0;
 function zReset(){
-  zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=3;zInvuln=110;
+  zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=5;zInvuln=160;zFireHeld=false;
   hero.x=W-110;hero.y=210;hero.vy=0;
 }
 // User-provided NES sword sound, embedded so GitHub Pages needs no separate audio file.
@@ -875,13 +875,14 @@ function playZeldaSwordSample(){
 function zShoot(){
   if(mode!=='running'||zShotCooldown>0)return;
   // No projectile-count lockout: firing remains available throughout the game.
-  zShotCooldown=7;
+  zShotCooldown=5;
   zShots.push({x:hero.x-8,y:hero.y+hero.h*.5});
-  playZeldaSwordSample();
+  if((++zFireSounds%3)===0)playZeldaSwordSample();
 }
 function zUpdate(d){
   zInvuln=Math.max(0,zInvuln-d);
   zShotCooldown=Math.max(0,zShotCooldown-d);
+  if(zFireHeld && zShotCooldown<=0)zShoot();
   tick+=d;
   zElapsed+=d;
   // Speed rises every four seconds, including newly spawned enemies.
@@ -921,8 +922,8 @@ function zUpdate(d){
     e.y=Math.max(165,Math.min(335,e.y+(desired-e.y)*Math.min(1,.065*d)));
     if(zInvuln<=0 && e.x+28>=hero.x+15 && e.x<=hero.x+hero.w-15 &&
        e.y+26>=hero.y+12 && e.y>=hero.y-16){
-       zLives--;zInvuln=105;e.happy=true;e.life=0;
-       if(zLives<=0){end();return}
+       zLives--;zInvuln=180;e.happy=true;e.life=0;
+       if(zLives<=0){zFireHeld=false;end();return}
        continue;
     }
   }
@@ -981,11 +982,12 @@ function zDrawCombat(){
   zeldaLink();
   g.restore();
 }
-function start(){$('fb-overlay').classList.remove('zelda-story-intro','flappy-brain-title-screen');mode='running';score=0;spawn=115;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;if(zeldaMode)zReset();$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
+function start(){zFireHeld=false;$('fb-overlay').classList.remove('zelda-story-intro','flappy-brain-title-screen');mode='running';score=0;spawn=115;speed=3;tick=0;pipes=[];roadItems=[];nextRoadItemAt=0;roadItemNumber=0;hero.y=205;hero.vy=-4;if(zeldaMode)zReset();$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';hud();last=performance.now();try{flapSound()}catch(e){console.warn('Flappy audio:',e)}}
 function flap(){if(!modal.classList.contains('open'))return;if(mode==='over'&&window.arcadePendingResult){window.arcadePendingResult.open();return;}if(zeldaMode&&mode==='running'){zShoot();return;}if(mode==='ready'){start();return}if(mode==='over'){return}if(mode==='paused'){resume();return}hero.vy=-6.3;flapSound()}
 function resume(){mode='running';$('fb-overlay').style.display='none';$('fb-pause').textContent='PAUSE';last=performance.now()}
-function pause(){if(mode==='running'){mode='paused';show('PAUSED','Your brain is taking a break.','RESUME');$('fb-pause').textContent='RESUME'}else if(mode==='paused')resume()}
+function pause(){zFireHeld=false;if(mode==='running'){mode='paused';show('PAUSED','Your brain is taking a break.','RESUME');$('fb-pause').textContent='RESUME'}else if(mode==='paused')resume()}
 function end(){
+ zFireHeld=false;
  if(mode!=='running')return;
  mode='over';crashSound();best=Math.max(best,score);
  const phrase=phrases[losses%phrases.length];losses++;
@@ -1249,43 +1251,55 @@ function zeldaScenery(){
   g.fillStyle='#000';g.fillRect(0,0,W,132);
   if(zeldaFullBanner.complete&&zeldaFullBanner.naturalWidth)
     g.drawImage(zeldaFullBanner,0,0,W,132);
-  // NES style HUD: all three counters inside the visible 680px canvas.
+  // HUD is rendered last, above scenery and obstacles.
+}
+function zeldaHud(){
   g.save();
-  g.fillStyle='#000000';g.fillRect(0,78,W,54);
-  const stats=[
-    {label:'HIGH SCORE',value:Math.max(best,score),icon:'trophy'},
-    {label:'SCORE',value:score,icon:'rupee'},
-    {label:'LVL',value:1+Math.floor(zElapsed/240),icon:'triforce'}
+  g.imageSmoothingEnabled=false;
+  const top=80, height=52, margin=10, gap=8;
+  const cell=(W-2*margin-2*gap)/3;
+  g.fillStyle='#080808';g.fillRect(0,top-3,W,height+6);
+  const entries=[
+    {label:'HIGH SCORE',value:Math.max(best,score),kind:0},
+    {label:'SCORE',value:score,kind:1},
+    {label:'LVL',value:1+Math.floor(zElapsed/240),kind:2}
   ];
-  const margin=12,gap=7,pw=(W-margin*2-gap*2)/3;
-  stats.forEach((stat,i)=>{
-    const x=margin+i*(pw+gap),y=82;
-    g.fillStyle='#080808';g.fillRect(x,y,pw,47);
-    g.strokeStyle='#777777';g.lineWidth=1;g.strokeRect(x+.5,y+.5,pw-1,46);
-    // Simple crisp NES icon motifs: gold trophy, blue rupee, gold Triforce.
-    const ix=x+9,iy=y+7;
-    if(stat.icon==='trophy'){
-      pixelRect(ix+3,iy,10,3,'#f9d15a');pixelRect(ix+4,iy+3,8,7,'#f9d15a');
-      pixelRect(ix+1,iy+2,3,5,'#f9d15a');pixelRect(ix+12,iy+2,3,5,'#f9d15a');
-      pixelRect(ix+7,iy+10,2,4,'#f9d15a');pixelRect(ix+4,iy+14,8,2,'#f9d15a');
-    }else if(stat.icon==='rupee'){
-      pixelRect(ix+5,iy,6,3,'#91dcff');pixelRect(ix+2,iy+3,12,8,'#299fe2');
-      pixelRect(ix+5,iy+11,6,3,'#91dcff');pixelRect(ix+5,iy+4,3,6,'#d7faff');
-    }else{
-      const tri=(xx,yy)=>{pixelRect(xx+3,yy,3,3,'#ffdc60');pixelRect(xx,yy+3,9,3,'#ffdc60')};
-      tri(ix+4,iy);tri(ix,iy+7);tri(ix+8,iy+7);
+  entries.forEach((e,i)=>{
+    const x=margin+i*(cell+gap),y=top;
+    g.fillStyle='#101010';g.fillRect(x,y,cell,height);
+    g.strokeStyle='#a4a4a4';g.lineWidth=1;g.strokeRect(x+.5,y+.5,cell-1,height-1);
+    const px=(xx,yy,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(xx),Math.round(yy),w,h)};
+    const ix=x+10,iy=y+10;
+    // Original NES Zelda inventory icon vocabulary: rupee, key, and bomb.
+    if(e.kind===0){ // Green rupee
+      px(ix+7,iy,5,2,'#c9ff8a');px(ix+4,iy+2,11,3,'#72d74a');
+      px(ix+2,iy+5,15,9,'#36a72e');px(ix+4,iy+14,11,3,'#72d74a');
+      px(ix+7,iy+17,5,2,'#c9ff8a');px(ix+5,iy+5,3,9,'#c9ff8a');
+    }else if(e.kind===1){ // Golden key
+      px(ix+3,iy+2,11,3,'#ffdb59');px(ix+1,iy+5,4,8,'#ffdb59');
+      px(ix+12,iy+5,4,8,'#ffdb59');px(ix+4,iy+12,9,3,'#ffdb59');
+      px(ix+7,iy+15,4,6,'#ffdb59');px(ix+10,iy+18,6,3,'#ffdb59');
+    }else{ // Blue NES bomb with fuse
+      px(ix+9,iy,3,4,'#e9d39c');px(ix+11,iy+2,4,3,'#f5a83d');
+      px(ix+5,iy+5,10,3,'#80baff');px(ix+3,iy+8,14,10,'#3171d4');
+      px(ix+5,iy+18,10,3,'#17439d');px(ix+5,iy+9,3,6,'#b5d7ff');
     }
-    g.textAlign='left';g.textBaseline='middle';
-    g.fillStyle='#fff5dc';g.font='bold 10px monospace';
-    g.fillText(stat.label,x+31,y+14,pw-37);
-    let fs=19;const val=String(stat.value);
-    while(fs>10){g.font='bold '+fs+'px monospace';if(g.measureText(val).width<=pw-16)break;fs--}
-    g.textAlign='center';g.fillStyle='#ffffff';
-    g.fillText(val,x+pw/2,y+35,pw-14);
+    const labelX=x+36, available=cell-42;
+    g.fillStyle='#f8e5b0';g.textAlign='left';g.textBaseline='middle';
+    g.font='bold 11px monospace';
+    // Measure text and size it to fit instead of clipping.
+    let labelSize=11;
+    while(labelSize>8 && g.measureText(e.label).width>available){labelSize--;g.font='bold '+labelSize+'px monospace'}
+    g.fillText(e.label,labelX,y+15);
+    g.fillStyle='#ffffff';g.font='bold 18px monospace';
+    const value=String(e.value);
+    let valSize=18;
+    while(valSize>10 && g.measureText(value).width>available){valSize--;g.font='bold '+valSize+'px monospace'}
+    g.fillText(value,labelX,y+37);
   });
   g.restore();
-  g.restore();
 }
+
 function zeldaObstacle(x,y,h,top){
   if(h<=0)return;
   // The exact brown log tile from the reference, stacked into obstacles.
@@ -1356,7 +1370,7 @@ function draw(){
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-p.top-p.gap,false)}
   }
-  if(zeldaMode){zDrawCombat();if(mode==='running'){g.save();g.font='bold 13px monospace';g.fillStyle='#ffdf91';g.fillText('♥'.repeat(zLives),W-87,68);g.restore()}return}else if(!marioMode){ /* No road sprites in Flappy Brain. */ }
+  if(zeldaMode){zDrawCombat();zeldaHud();if(mode==='running'){g.save();g.font='bold 13px monospace';g.fillStyle='#ffdf91';g.fillText('♥'.repeat(zLives),W-87,68);g.restore()}return}else if(!marioMode){ /* No road sprites in Flappy Brain. */ }
   g.save();
   g.translate(hero.x+hero.w/2,hero.y+hero.h/2);
   g.rotate(Math.max(-.22,Math.min(.45,hero.vy*.05)));
@@ -1376,7 +1390,7 @@ function loop(t){
 // Direct touch/click handler plus delegated fallback for iPad Safari.
 $('fb-start').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()});
 $('fb-start').addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()},{passive:false});
-$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});$('fb-overlay').addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;if(mode==='ready'){e.preventDefault();start()}});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
+$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});$('fb-overlay').addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;if(mode==='ready'){e.preventDefault();start()}});modal.addEventListener('pointerdown',e=>{if(e.target===modal&&mode!=='running')close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(zeldaMode&&mode==='running'){zFireHeld=true;if(!e.repeat)zShoot()}else if(!e.repeat)flap()}if(e.code==='KeyP'&&!e.repeat)pause()});window.addEventListener('keyup',e=>{if(e.code==='Space'||e.code==='ArrowUp')zFireHeld=false});window.addEventListener('blur',()=>{zFireHeld=false});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
 })();
 </script>
 <script id="video-suggestion-handler">
@@ -2017,7 +2031,7 @@ points+=Math.max(1,Math.round(speed*dt*0.065));
 if(travel>=(stage+1)*12500){beginCelebration()}}
 function frame(t){if(!modal.classList.contains('rad-open'))return;let dt=Math.min(.04,(t-last)/1000||.016);last=t;update(dt);draw();frameId=requestAnimationFrame(frame)}
 function open(){modal.classList.add('rad-open');stage=0;points=0;show('RAD EEG','Deliver EEG supplies between hospitals. The car drives automatically. Swipe left or right, or use the arrow keys, to dodge traffic.','START DELIVERY');last=0;cancelAnimationFrame(frameId);frameId=requestAnimationFrame(frame)}
-function close(){modal.classList.remove('rad-open');cancelAnimationFrame(frameId);gesture=null;heldLeft=heldRight=false}
+function close(){zFireHeld=false;modal.classList.remove('rad-open');cancelAnimationFrame(frameId);gesture=null;heldLeft=heldRight=false}
 $('rad-eeg-close').addEventListener('click',close);$('rad-eeg-start').addEventListener('click',reset);
 screen.addEventListener('pointerdown',e=>{if(state!=='play'&&document.getElementById('rad-eeg-overlay').style.display!=='none'&&state!=='celebrate'){e.preventDefault();reset();return}if(state!=='play')return;gesture={id:e.pointerId,x:e.clientX,initial:targetX};screen.setPointerCapture(e.pointerId)});
 screen.addEventListener('pointermove',e=>{if(!gesture||gesture.id!==e.pointerId)return;let width=screen.getBoundingClientRect().width;targetX=clamp(gesture.initial+(e.clientX-gesture.x)/width*3.5,-1.5,1.5)});
