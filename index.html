@@ -980,8 +980,32 @@ window.arcadeReturnFlappyStart=function(){
 
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
+// NES walking enemies from the supplied five-sprite sheet. Rendered only in Zelda mode.
+const zGroundSprites=['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAdCAYAAADYSS5zAAABEUlEQVR4nO2WQQrCMBBFf0yPUhDBAyh4HMGtR+lW8DiCPYAgQo9iiZtOaJJJ2lpLk+LbFMKkTZ4/GYVSCjGzmnsBXfwXOJaMG6zrGgBQbTMjoOunEmz9ZR8Msjzd2XmvjTDm5Y+3AAAppR5L0yCZI2O0U3rm551ZX5QIjsM0TOOE/Z32LxW9QcHdg9xOgO6sDcXOZpIG2Qza/Nqc/V7fKQcSMPjVAquidE7iVPOiN8ieYpupMkgknUHWoK8XE7pjHG/Gzu166q2a60EBbiex65fbi6ci6V7cq5N4e3KTKcqikzmC6jzvC7EMgzZ0bzkme84bwjINEtpkc2+276/Q+BCWbZDwGRpjjojeYK9/M3PyAXy+jlyHuAZoAAAAAElFTkSuQmCC','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAmCAYAAAC/H3lnAAABPElEQVR4nO2YwRHCIBBFwbEXsSM70Zt6007syFgNHswy48/CsmjGYc27OEHYkBf8IfoYo+uJ1a8noGWZ8NwsE56bNdf42PronHNheB3HGH2piPev/kN4b28dv7nn+9swTGboiskAmqJ2CWk8nSfdkUItG4YRNJ04XcbPQ7nA2A/H45qvwabhCWh2PA5oOtNPvCMFbBhWry00iO2V1JzXhmHMYYmUo2AU81XCZA4vE56bthwmKH8zXzc8yES6M+y5t2baDxPpVw45O9x0ORt2fE5jGv3ffhhBs1LOUh0aNzENdUzl8EcpoX2Ctex/ERuGtXuIb2Fyt8bmsPjuhvteLcIbSOl/jO4Ms2uYrhBN59pF4xmD/nxl65fozjC7hiedyCiYjMc9bxzIGSXzNWYJm4ZTZ+3aRRRpkKM7w09LfJfyAxk8BwAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAA60lEQVR4nO2YQQrCMBBFjfQoBRE8QI/Vo3gsDyCI0KMIcTWLfBhnpmOUSfJ2bdMmfXy+pinnfIjC8d8LsDAWW4vJc/PznIrAz+tSXN+ut+L49MjJM18os8nSBpxJNIhw46ym45tFg7+GMx7fLKE1zGVSm2lCynA7Zom9LYB4WyG+WSmr8/1VmNgu01fH99cGnCE8j3Dj0HBTbfDxXxe9qZRhrTlpHol2zKJRbUYl0DjN009mCS67ZNjas9JzOUKZde0UCG3PIk3vFFy7W23mrNnkaNesd9/f1XeDsdhajMXWwvQLRnj7cm8rvAEvWJ42X8B/PAAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAnCAYAAAB5XdqFAAABLUlEQVR4nO2YwYrCMBCG/9nmEQt7UfAorI+zCx4FvRT6iC3jaVgJnWTSBsvUfrdoGsbPP5O2xMzwwNfaBVjZC63NXmhtwpyLjn8jA8D9pyEAIOpMrYP5m6aut+DG6KJCiTq22pwz/5XPMBozDC0NQ0vaeAlujNKSs17ydvhtAQC3MwgATlfw1Phx6QH87/4S3Bid1Uc1xJw2FqSPCpZ+uk2jsYkYyWCMZDi3bsqsG6OmXW81qZnLfS9s32ipSWtGtXnCVJ91Y7RqH81lMCa+DwihV//BbRjNZUnLZu5zjdQ9gBujyV0vd0clWSohXrdpGnWuG6PJjEpmxnF8TzUJ3BjdC63NqoWG0LO1g7gxWvWs106W3NuRVP8UtmlUfvmc5/IpStZxY3TRm5J38gR/Jo4KXtLFXgAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAkCAYAAAAdFbNSAAABV0lEQVR4nN2YQWrDMBBFv6ocxZtCDtBCjhPotkfpNpDjBNIDdBPwUWKURfNFMslYI5uQjN7OMDbmafw1ckgpwRtvz36BKSwsRcPmc3Q54tc+PPJ+iUvToaanD+8hAUD3/QEA6H9+cXmtcVO33gUAiDFWvu4/7ZuWDMMAAOiXi6sVINnw33GWWUl7pmmShmRPszcJjRMazmxXCahPC0m7prWelbCHSal+qnGXpsd3xHMPqrCnz3WqWVFH8jdSmS4NmjYie1nSrQsP4AoYe7wd06WpjJhTxVhnxaXpuzmtmS5Nddac1p5jzW2XpsfTQ8lXjbk9yxUuGXdpumr2kNSatZ50mjRdtSNyRqD50k74KFyaNp0ROY0ReSLRel6S72MaiXRqOqdNpos7pDwLKmhnyNpTukvTo+lRmvbynyZrTyv5bN0JiUvTph1R+9rn/pObSnumXxWXpk/jc8F9Jc/FtQAAAABJRU5ErkJggg=='].map(src=>{const im=new Image();im.src=src;return im});
+let zGroundWalkers=[];
+function zResetGroundWalkers(){
+  zGroundWalkers=Array.from({length:5},(_,i)=>({sprite:i,x:i*132-60,pace:.42+(i%3)*.13,dir:i%2?1:-1,phase:i*1.7}));
+}
+function zUpdateGroundWalkers(d){
+  for(const a of zGroundWalkers){a.x+=a.dir*a.pace*d;
+    if(a.dir>0&&a.x>W+35)a.x=-60;
+    if(a.dir<0&&a.x< -65)a.x=W+30;
+    a.phase+=d*.09;
+  }
+}
+function zDrawGroundWalkers(){
+  // The ground lane sits below the lower hedge, not over Link or the combat area.
+  for(const a of zGroundWalkers){const img=zGroundSprites[a.sprite];if(!img.complete||!img.naturalWidth)continue;
+    const bob=Math.sin(a.phase)>0?1:0;
+    g.save();g.imageSmoothingEnabled=false;
+    if(a.dir>0){g.translate(Math.round(a.x)+34,0);g.scale(-1,1);g.drawImage(img,0,H+18+bob,34,32)}
+    else g.drawImage(img,Math.round(a.x),H+18+bob,34,32);
+    g.restore();
+  }
+}
 let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zLives=1,zInvuln=0,zFireHeld=false,zFireSounds=0;
 function zReset(){
+  zResetGroundWalkers();
   zEnemies=[];zShots=[];zSpawn=55;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zLives=1;zInvuln=0;zFireHeld=false;
   hero.x=W-110;hero.y=210;hero.vy=0;
 }
@@ -1011,6 +1035,7 @@ function zUpdate(d){
   if(zFireHeld && zShotCooldown<=0)zShoot();
   tick+=d;
   zElapsed+=d;
+  zUpdateGroundWalkers(d);
   // Speed rises every four seconds, including newly spawned enemies.
   zSpeed=Math.min(8,1.15+Math.floor(zElapsed/240)*.48);
   // Link patrols vertically in a predictable, smooth rhythm. His sword
@@ -1018,10 +1043,10 @@ function zUpdate(d){
   // Wider patrol: Link visibly enters both green borders but stays on screen.
   // Movement remains smooth and faster than the previous version.
   // Stay inside the sandy playfield: the top green hedge is not flyable space.
-  const patrolCenter=252;
-  const patrolAmplitude=62;
+  const patrolCenter=265;
+  const patrolAmplitude=75;
   const patrolRate=.038;
-  hero.y=Math.max(190,Math.min(314,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
+  hero.y=Math.max(190,Math.min(340,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
   hero.vy=Math.cos(zElapsed*patrolRate)*patrolAmplitude*patrolRate;
   zSpawn-=d;
   if(zSpawn<=0){
@@ -1550,6 +1575,7 @@ function draw(){
     g.fillStyle='#ffdaad';
     g.fillRect(0,H-1,W,134);
     zDrawCombat();
+    zDrawGroundWalkers();
     g.restore();
     zeldaHud();
     return;
@@ -1999,15 +2025,15 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
  // Small multicolored pixel stars inspired by the supplied Galaga reference.
  // The original reference background remains underneath this subtle animated starfield.
  const galagaStarColors=['#f2f2e9','#7a9bff','#e75c64','#59d98a','#c064ef','#e5cc59','#6bbbd8'];
- const galagaStars=Array.from({length:55},(_,i)=>({
+ const galagaStars=Array.from({length:125},(_,i)=>({
    x:Math.random()*W,y:Math.random()*H,
    color:galagaStarColors[Math.floor(Math.random()*galagaStarColors.length)],
-   size:Math.random()<.87?1:2,phase:Math.random()*Math.PI*2,
+   size:Math.random()<.92?1:2,phase:Math.random()*Math.PI*2,
    drift:.9+Math.random()*3.2
  }));
  function drawGalagaStars(){
    for(const star of galagaStars){
-     const twinkle=.42+.45*(.5+.5*Math.sin(frame*.035+star.phase));
+     const twinkle=.24+.64*(.5+.5*Math.sin(frame*.016+star.phase));
      ctx.globalAlpha=twinkle;
      ctx.fillStyle=star.color;
      ctx.fillRect(Math.round(star.x),Math.round((star.y+frame*star.drift*.035)%H),star.size,star.size);
@@ -2530,7 +2556,19 @@ function setup(root){const c=cfg[root.dataset.finder];const q=root.querySelector
 function populate(){const rows=getRows(c);fill(provider,rows.map(x=>x.title));fill(topicSelect,rows.map(x=>x.topic));return rows;}
 function search(){const rows=populate(),term=q.value.trim().toLowerCase();const matches=rows.filter(x=>(!term||x.raw.toLowerCase().includes(term))&&(provider.value==='all'||x.title===provider.value)&&(topicSelect.value==='all'||x.topic===topicSelect.value)&&(!cost||cost.value==='all'||x.cost===cost.value));output.replaceChildren();count.textContent=matches.length+' matching resources found';if(!rows.length){count.textContent='Resources are still loading or unavailable. Please try again shortly.';return;}if(!matches.length){const p=document.createElement('p');p.textContent='No matching resources. Try clearing some filters.';output.append(p);return;}for(const x of matches){const card=document.createElement('article');card.className='otf-result';const h=document.createElement('strong');h.textContent=x.title;card.append(h);const t=document.createElement('small');t.textContent=x.topic+(x.cost!=='all'?' • '+(x.cost==='free'?'Free':'Paid'):'');card.append(t);if(x.desc){const p=document.createElement('p');p.textContent=x.desc;card.append(p);}const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Visit Site';card.append(a);output.append(card);}output.scrollIntoView({behavior:'smooth',block:'nearest'});}
 root.addEventListener('toggle',()=>{if(root.open)populate()});root.querySelector('.otf-submit').addEventListener('click',search);q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();search()}});root.querySelector('.otf-reset').addEventListener('click',()=>{q.value='';provider.value='all';topicSelect.value='all';if(cost)cost.value='all';output.replaceChildren();count.textContent='Filters cleared. Select Search to browse resources.';});}
-function init(){document.querySelectorAll('.other-tab-finder').forEach(setup);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script></body></html>
+function init(){document.querySelectorAll('.other-tab-finder').forEach(setup);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script>
+<style id="brain-wars-gentle-twinkling-stars-20261103">
+/* Pixel star layers animate opacity only: inexpensive on iPad and do not affect gameplay. */
+#galaga-brain-layer.intro{isolation:isolate}
+#galaga-brain-layer.intro::before,#galaga-brain-layer.intro::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;background-repeat:no-repeat;background-size:100% 100%;}
+#galaga-brain-layer.intro::before{background-image:radial-gradient(circle at 5.01% 60.91%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 30.34% 92.70%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 75.31% 29.16%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 20.82% 68.83%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 21.52% 39.27%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 89.46% 33.95%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 59.24% 9.25%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 29.31% 75.52%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 79.33% 72.31%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 26.23% 76.38%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 63.65% 49.87%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 66.97% 18.73%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 85.63% 38.00%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 25.96% 58.93%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 87.30% 83.42%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 71.53% 45.29%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 13.52% 18.14%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 5.02% 26.51%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 58.87% 58.82%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 50.09% 14.35%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 44.07% 56.15%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 24.22% 62.58%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 7.96% 55.06%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 54.03% 66.30%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 65.36% 86.51%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 56.25% 38.73%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 46.00% 11.37%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 34.23% 46.97%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 82.51% 57.68%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 16.17% 71.80%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 78.27% 76.27%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 44.42% 82.80%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 82.97% 83.73%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 54.69% 69.88%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 66.12% 48.97%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 17.15% 2.60%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 27.78% 78.37%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 74.75% 80.71%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 62.43% 57.96%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 20.08% 23.22%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 97.24% 17.60%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 64.11% 95.70%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 37.10% 44.93%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 56.23% 31.97%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 49.68% 72.38%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 69.47% 7.10%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 33.65% 57.19%,#d3d5e9 0 1px,transparent 1.5px);animation:brainWarsTwinkleA 5.7s ease-in-out infinite alternate}
+#galaga-brain-layer.intro::after{background-image:radial-gradient(circle at 43.07% 10.62%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 59.39% 86.21%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 34.87% 22.98%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 44.56% 52.27%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 69.13% 75.61%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 10.20% 20.20%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 69.33% 35.84%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 64.87% 5.25%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 68.92% 24.94%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 91.75% 31.86%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 89.50% 78.47%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 31.42% 22.16%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 83.81% 11.95%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 26.50% 72.44%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 74.07% 91.26%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 40.33% 70.26%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 23.51% 42.71%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 55.40% 28.52%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 21.56% 23.42%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 78.20% 72.56%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 20.87% 69.27%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 57.77% 60.87%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 72.56% 24.19%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 76.39% 34.94%,#7ec9e2 0 1px,transparent 1.5px),radial-gradient(circle at 29.34% 40.50%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 53.04% 95.91%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 59.68% 47.30%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 10.83% 6.99%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 31.60% 79.09%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 11.03% 57.29%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 15.52% 39.77%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 68.22% 71.24%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 55.33% 48.66%,#a0baff 0 1px,transparent 1.5px),radial-gradient(circle at 70.13% 59.95%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 72.41% 36.84%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 15.48% 76.55%,#d87e8d 0 1px,transparent 1.5px),radial-gradient(circle at 85.22% 43.24%,#f3cf70 0 1px,transparent 1.5px),radial-gradient(circle at 48.89% 24.87%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 71.38% 90.95%,#d3d5e9 0 1px,transparent 1.5px),radial-gradient(circle at 74.25% 41.05%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 56.41% 71.71%,#f5f5e8 0 1px,transparent 1.5px),radial-gradient(circle at 31.26% 90.90%,#a4e2aa 0 1px,transparent 1.5px),radial-gradient(circle at 58.85% 39.98%,#f5f5e8 0 1px,transparent 1.5px);animation:brainWarsTwinkleB 7.3s ease-in-out infinite alternate}
+#galaga-brain-layer.intro > *{position:relative;z-index:1}
+@keyframes brainWarsTwinkleA{0%{opacity:.25}50%{opacity:.8}100%{opacity:.4}}
+@keyframes brainWarsTwinkleB{0%{opacity:.8}50%{opacity:.3}100%{opacity:.9}}
+@media(prefers-reduced-motion:reduce){#galaga-brain-layer.intro::before,#galaga-brain-layer.intro::after{animation:none;opacity:.65}}
+</style>
+</body></html>
 <style id="arcade-rad-close-hotfix">
 #rad-eeg-head{position:relative;z-index:30;flex-shrink:0}
 #rad-eeg-close{position:relative;z-index:31;pointer-events:auto!important;touch-action:manipulation;min-height:38px}
