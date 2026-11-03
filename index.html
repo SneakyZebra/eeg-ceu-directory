@@ -1394,14 +1394,42 @@ function drawZeldaBrains(){
 
 function draw(){
   g.imageSmoothingEnabled=false;
-  if(zeldaMode)zeldaScenery();else if(marioMode)marioScenery();else scenery();
+  // Keep the complete NES banner and all three counters in a dedicated
+  // fixed-height HUD. Fit the playable world below it, without covering it.
+  if(zeldaMode){
+    const hudBottom=184;
+    const originalWorldTop=132;
+    const worldScale=(H-hudBottom)/(H-originalWorldTop);
+    g.save();
+    g.beginPath();g.rect(0,hudBottom,W,H-hudBottom);g.clip();
+    g.translate(0,hudBottom-originalWorldTop*worldScale);
+    g.scale(1,worldScale);
+    zeldaScenery();
+    for(const p of pipes){
+      zeldaObstacle(p.x,65,Math.max(0,p.top-65),true);
+      zeldaObstacle(p.x,p.top+p.gap,H-79-p.top-p.gap,false);
+    }
+    zDrawCombat();
+    g.restore();
+    // Redraw the header at native size above the world, not over gameplay.
+    g.fillStyle='#000';g.fillRect(0,0,W,133);
+    if(zeldaFullBanner.complete&&zeldaFullBanner.naturalWidth)
+      g.drawImage(zeldaFullBanner,0,0,W,132);
+    zeldaHud();
+    if(mode==='running'){
+      g.save();g.font='bold 13px monospace';g.fillStyle='#ffdf91';
+      g.fillText('♥'.repeat(zLives),W-87,68);g.restore();
+    }
+    return;
+  }
+  if(marioMode)marioScenery();else scenery();
   if(!zeldaMode)skyEEG(); // Preserve original NES HUD artwork.
   for(const p of pipes){
     if(zeldaMode){zeldaObstacle(p.x,65,Math.max(0,p.top-65),true);zeldaObstacle(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-p.top-p.gap,false)}
   }
-  if(zeldaMode){zDrawCombat();zeldaHud();if(mode==='running'){g.save();g.font='bold 13px monospace';g.fillStyle='#ffdf91';g.fillText('♥'.repeat(zLives),W-87,68);g.restore()}return}else if(!marioMode){ /* No road sprites in Flappy Brain. */ }
+  if(!marioMode){ /* No road sprites in Flappy Brain. */ }
   g.save();
   g.translate(hero.x+hero.w/2,hero.y+hero.h/2);
   g.rotate(Math.max(-.22,Math.min(.45,hero.vy*.05)));
