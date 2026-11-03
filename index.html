@@ -1017,10 +1017,11 @@ function zUpdate(d){
   // always fires from his current position.
   // Wider patrol: Link visibly enters both green borders but stays on screen.
   // Movement remains smooth and faster than the previous version.
-  const patrolCenter=230;
-  const patrolAmplitude=112;
+  // Stay inside the sandy playfield: the top green hedge is not flyable space.
+  const patrolCenter=252;
+  const patrolAmplitude=62;
   const patrolRate=.038;
-  hero.y=Math.max(116,Math.min(342,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
+  hero.y=Math.max(190,Math.min(314,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
   hero.vy=Math.cos(zElapsed*patrolRate)*patrolAmplitude*patrolRate;
   zSpawn-=d;
   if(zSpawn<=0){
@@ -1543,7 +1544,11 @@ function draw(){
     }else{
       g.fillStyle='#fbd5a2';g.fillRect(0,0,W,H+132);
     }
-    // Continue the sand at the lower edge if the scene is shorter than viewport.
+    // The original 256x224 scenery ends before the bottom of the canvas
+    // after its upward HUD offset. Fill the exposed strip with matching sand
+    // so no underlying Flappy Brain image or separate tiled layer shows through.
+    g.fillStyle='#ffdaad';
+    g.fillRect(0,H-1,W,134);
     zDrawCombat();
     g.restore();
     zeldaHud();
