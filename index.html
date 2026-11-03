@@ -746,7 +746,7 @@ document.getElementById('tracker-export').addEventListener('click',()=>{const ro
 #flappy-easter-box .fb-overlay.zelda-story-intro #fb-start {display:none !important;}
 #flappy-easter-box .fb-overlay.zelda-story-intro::after {content:none !important;display:none !important;}
 </style>
-<div id="flappy-easter-modal" role="dialog" aria-modal="true" aria-label="Flappy Brain EEG Edition" aria-hidden="true"><div id="flappy-easter-box"><div class="fb-head"><div><div style="font-size:23px;font-weight:900">FLAPPY <span style="color:#a5ff31">BRAIN</span></div><div style="font-size:10px;color:#bce7f2;letter-spacing:2px">⚡ EEG EDITION ⚡</div></div><div class="fb-score" id="fb-outer-score"><div><small>SCORE</small><b id="fb-score">0</b></div><div><small>BEST</small><b id="fb-best">0</b></div></div><button id="fb-close" class="fb-secondary" aria-label="Close game">✕</button></div><div class="fb-stage"><canvas id="fb-canvas" width="680" height="470"></canvas><div class="fb-overlay" id="fb-overlay"><strong id="fb-title">READY TO FLAP?</strong><span id="fb-message">Fly through the EEG barriers!</span><button id="fb-start" class="fb-primary">START GAME</button></div></div><div class="fb-controls"><button id="fb-flap" class="fb-primary">↑ FLAP!</button><button id="fb-pause" class="fb-secondary">PAUSE</button><button id="fb-sound" class="fb-secondary" aria-label="Toggle sound">🔊</button></div><div style="font-size:11px;color:#b2cbd9;text-align:center;margin-top:9px">Tap to flap • Space / ↑ on keyboard • Sound on</div></div></div>
+<div id="flappy-easter-modal" role="dialog" aria-modal="true" aria-label="Flappy Brain EEG Edition" aria-hidden="true"><div id="flappy-easter-box"><div class="fb-head"><div><div id="fb-current-game-name" style="font-size:23px;font-weight:900">FLAPPY <span style="color:#a5ff31">BRAIN</span></div><div style="font-size:10px;color:#bce7f2;letter-spacing:2px">⚡ EEG EDITION ⚡</div></div><div class="fb-score" id="fb-outer-score"><div><small>SCORE</small><b id="fb-score">0</b></div><div><small>BEST</small><b id="fb-best">0</b></div></div><button id="fb-close" class="fb-secondary" aria-label="Close game">✕</button></div><div class="fb-stage"><canvas id="fb-canvas" width="680" height="470"></canvas><div class="fb-overlay" id="fb-overlay"><strong id="fb-title">READY TO FLAP?</strong><span id="fb-message">Fly through the EEG barriers!</span><button id="fb-start" class="fb-primary">START GAME</button></div></div><div class="fb-controls"><button id="fb-flap" class="fb-primary">↑ FLAP!</button><button id="fb-pause" class="fb-secondary">PAUSE</button><button id="fb-sound" class="fb-secondary" aria-label="Toggle sound">🔊</button></div><div style="font-size:11px;color:#b2cbd9;text-align:center;margin-top:9px">Tap to flap • Space / ↑ on keyboard • Sound on</div></div></div>
 <!-- Flappy Brain Easter Egg v3: square letter targets, rotating secret -->
 <script id="flappy-easter-script">
 (()=>{
@@ -811,7 +811,14 @@ function show(title,msg,btn){
 
 }
 function open(){
-const worldIndex=nextEasterGame();marioMode=false;zeldaMode=(worldIndex===1);if(worldIndex===2){rotateSecret();window.eegGalagaOpen();return;}if(worldIndex===3){rotateSecret();window.eegRadOpen();return;}
+const worldIndex=nextEasterGame();marioMode=false;zeldaMode=(worldIndex===1);
+const gameNames=['Flappy Brain','The Legend of EEG Tech','Brain Wars','Rad EEG'];
+const currentName=gameNames[worldIndex];
+const headerName=$('fb-current-game-name');
+headerName.innerHTML=worldIndex===0?'FLAPPY <span style="color:#a5ff31">BRAIN</span>':worldIndex===1?'THE LEGEND OF <span style="color:#a5ff31">EEG TECH</span>':worldIndex===2?'BRAIN <span style="color:#a5ff31">WARS</span>':'RAD <span style="color:#a5ff31">EEG</span>';
+modal.setAttribute('aria-label',currentName+' game');
+if(worldIndex===2){rotateSecret();window.eegGalagaOpen();return;}
+if(worldIndex===3){rotateSecret();window.eegRadOpen();return;}
 
 $('fb-outer-score').style.visibility=zeldaMode?'hidden':'visible';box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
 // Reset the entire Flappy scene before the opening screen is drawn.
@@ -823,9 +830,9 @@ modal.classList.add('open');modal.setAttribute('aria-hidden','false');document.b
 function close(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';mode='ready';$('fb-overlay').style.display='flex'}
 heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-letter');if(span&&heading.contains(span)&&Number(span.dataset.easterIndex)===secret)open()});heading.addEventListener('keydown',e=>{if(e.key!=='Enter'&&e.key!==' ')return;const span=e.target.closest('.eeg-easter-letter');if(!span)return;e.preventDefault();if(Number(span.dataset.easterIndex)===secret)open()});
 // Hyrule shooting mode: stationary Link, incoming angry brains, healing projectiles.
-let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0;
+let zEnemies=[],zShots=[],zSpawn=0,zElapsed=0,zSpeed=1.15,zShotCooldown=0,zHearts=3,zInvincible=0;
 function zReset(){
-  zEnemies=[];zShots=[];zSpawn=22;zElapsed=0;zSpeed=1.15;zShotCooldown=0;
+  zEnemies=[];zShots=[];zSpawn=70;zElapsed=0;zSpeed=1.15;zShotCooldown=0;zHearts=3;zInvincible=110;
   hero.x=W-110;hero.y=210;hero.vy=0;
 }
 // User-provided NES sword sound, embedded so GitHub Pages needs no separate audio file.
@@ -849,6 +856,7 @@ function zShoot(){
   playZeldaSwordSample();
 }
 function zUpdate(d){
+  zInvincible=Math.max(0,zInvincible-d);
   zShotCooldown=Math.max(0,zShotCooldown-d);
   tick+=d;
   zElapsed+=d;
@@ -887,8 +895,13 @@ function zUpdate(d){
     const sway=Math.sin(e.age*.058+e.phase)*(16-6*progress);
     const desired=e.baseY*(1-convergence)+targetY*convergence+sway;
     e.y=Math.max(165,Math.min(335,e.y+(desired-e.y)*Math.min(1,.065*d)));
-    if(e.x+40>=hero.x && e.x-7<=hero.x+hero.w &&
-       e.y+37>=hero.y && e.y-7<=hero.y+hero.h){end();return}
+    if(zInvincible<=0 && e.x+40>=hero.x+16 && e.x-7<=hero.x+hero.w-16 &&
+       e.y+37>=hero.y+12 && e.y-7<=hero.y+hero.h-12){
+      zHearts--;zInvincible=150; e.happy=true;e.life=0;
+      if(zHearts<=0){end();return}
+      try{crashSound()}catch(err){}
+      continue;
+    }
   }
   for(const shot of zShots){
     shot.x-=10*d;
@@ -1306,7 +1319,12 @@ function draw(){
     else if(marioMode){marioCliff(p.x,0,p.top,true);marioCliff(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
     else{barrier(p.x,0,p.top,true);barrier(p.x,p.top+p.gap,H-79-p.top-p.gap,false)}
   }
-  if(zeldaMode){zDrawCombat();return}else if(!marioMode)drawRoadProducts();
+  if(zeldaMode){zDrawCombat();
+    g.save();g.font='bold 19px monospace';g.textAlign='left';
+    g.fillStyle='#000';g.fillText('HEALTH',17,29);
+    g.fillStyle='#ff4c70';g.fillText('♥'.repeat(zHearts),105,29);
+    if(zInvincible>0 && mode==='running'){g.font='bold 12px monospace';g.fillStyle='#fff';g.fillText('SHIELD',17,49)}
+    g.restore();return}else if(!marioMode)drawRoadProducts();
   g.save();
   g.translate(hero.x+hero.w/2,hero.y+hero.h/2);
   g.rotate(Math.max(-.22,Math.min(.45,hero.vy*.05)));
@@ -1326,7 +1344,7 @@ function loop(t){
 // Direct touch/click handler plus delegated fallback for iPad Safari.
 $('fb-start').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()});
 $('fb-start').addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()},{passive:false});
-$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
+$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});modal.addEventListener('pointerdown',e=>{if(e.target===modal&&!zeldaMode)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){if(zeldaMode&&mode==='running'){pause()}else{close()}return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
 })();
 </script>
 <script id="video-suggestion-handler">
@@ -1395,7 +1413,7 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
   <h3 id="arcade-board-list-title">High scores</h3>
   <table><thead><tr><th>Rank</th><th>Player</th><th>Score</th></tr></thead><tbody id="arcade-board-rows"><tr><td colspan="3">Loading...</td></tr></tbody></table>
   <button type="button" class="secondary" id="arcade-board-refresh">Refresh scores</button>
-  <button type="button" id="arcade-board-new-game">NEW GAME</button>
+  <button type="button" id="arcade-board-new-game">CLOSE GAME</button>
 </dialog>
 <script>
 (function(){
@@ -1454,7 +1472,18 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
     }catch(err){saveLocal(currentGame,player_name,currentScore);try{localStorage.setItem('eeg-arcade-player-name',player_name)}catch(e){}form.hidden=true;renderLocal();msg('Global submission unavailable. Score saved on this device.')}finally{submit.disabled=false}
   });
   document.getElementById('arcade-board-refresh').addEventListener('click',refresh);
-  document.getElementById('arcade-board-new-game').addEventListener('click',()=>{dialog.close();if(typeof window.arcadeNextGame==='function')window.arcadeNextGame()});
+  document.getElementById('arcade-board-new-game').addEventListener('click',()=>{
+    dialog.close();
+    // Exit the finished arcade session. A new game must be explicitly launched
+    // through the website Easter egg trigger, never from score submission.
+    const flappy=document.getElementById('flappy-easter-box');
+    if(flappy && flappy.classList.contains('open')) document.getElementById('fb-close')?.click();
+    const galaga=document.getElementById('galaga-brain-modal');
+    if(galaga && galaga.classList.contains('active')) document.getElementById('galaga-brain-exit')?.click();
+    const rad=document.getElementById('rad-eeg-modal');
+    if(rad && rad.classList.contains('rad-open')) document.getElementById('rad-eeg-close')?.click();
+    window.arcadeNextGame=null;
+  });
   dialog.addEventListener('cancel',e=>{e.preventDefault()});
 })();
 </script>
