@@ -983,23 +983,41 @@ heading.addEventListener('click',e=>{const span=e.target.closest('.eeg-easter-le
 // NES walking enemies from the supplied five-sprite sheet. Rendered only in Zelda mode.
 const zGroundSprites=['data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAdCAYAAADYSS5zAAABEUlEQVR4nO2WQQrCMBBFf0yPUhDBAyh4HMGtR+lW8DiCPYAgQo9iiZtOaJJJ2lpLk+LbFMKkTZ4/GYVSCjGzmnsBXfwXOJaMG6zrGgBQbTMjoOunEmz9ZR8Msjzd2XmvjTDm5Y+3AAAppR5L0yCZI2O0U3rm551ZX5QIjsM0TOOE/Z32LxW9QcHdg9xOgO6sDcXOZpIG2Qza/Nqc/V7fKQcSMPjVAquidE7iVPOiN8ieYpupMkgknUHWoK8XE7pjHG/Gzu166q2a60EBbiex65fbi6ci6V7cq5N4e3KTKcqikzmC6jzvC7EMgzZ0bzkme84bwjINEtpkc2+276/Q+BCWbZDwGRpjjojeYK9/M3PyAXy+jlyHuAZoAAAAAElFTkSuQmCC','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAmCAYAAAC/H3lnAAABPElEQVR4nO2YwRHCIBBFwbEXsSM70Zt6007syFgNHswy48/CsmjGYc27OEHYkBf8IfoYo+uJ1a8noGWZ8NwsE56bNdf42PronHNheB3HGH2piPev/kN4b28dv7nn+9swTGboiskAmqJ2CWk8nSfdkUItG4YRNJ04XcbPQ7nA2A/H45qvwabhCWh2PA5oOtNPvCMFbBhWry00iO2V1JzXhmHMYYmUo2AU81XCZA4vE56bthwmKH8zXzc8yES6M+y5t2baDxPpVw45O9x0ORt2fE5jGv3ffhhBs1LOUh0aNzENdUzl8EcpoX2Ctex/ERuGtXuIb2Fyt8bmsPjuhvteLcIbSOl/jO4Ms2uYrhBN59pF4xmD/nxl65fozjC7hiedyCiYjMc9bxzIGSXzNWYJm4ZTZ+3aRRRpkKM7w09LfJfyAxk8BwAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACsAAAAjCAYAAAANDvOtAAAA60lEQVR4nO2YQQrCMBBFjfQoBRE8QI/Vo3gsDyCI0KMIcTWLfBhnpmOUSfJ2bdMmfXy+pinnfIjC8d8LsDAWW4vJc/PznIrAz+tSXN+ut+L49MjJM18os8nSBpxJNIhw46ym45tFg7+GMx7fLKE1zGVSm2lCynA7Zom9LYB4WyG+WSmr8/1VmNgu01fH99cGnCE8j3Dj0HBTbfDxXxe9qZRhrTlpHol2zKJRbUYl0DjN009mCS67ZNjas9JzOUKZde0UCG3PIk3vFFy7W23mrNnkaNesd9/f1XeDsdhajMXWwvQLRnj7cm8rvAEvWJ42X8B/PAAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACoAAAAnCAYAAAB5XdqFAAABLUlEQVR4nO2YwYrCMBCG/9nmEQt7UfAorI+zCx4FvRT6iC3jaVgJnWTSBsvUfrdoGsbPP5O2xMzwwNfaBVjZC63NXmhtwpyLjn8jA8D9pyEAIOpMrYP5m6aut+DG6KJCiTq22pwz/5XPMBozDC0NQ0vaeAlujNKSs17ydvhtAQC3MwgATlfw1Phx6QH87/4S3Bid1Uc1xJw2FqSPCpZ+uk2jsYkYyWCMZDi3bsqsG6OmXW81qZnLfS9s32ipSWtGtXnCVJ91Y7RqH81lMCa+DwihV//BbRjNZUnLZu5zjdQ9gBujyV0vd0clWSohXrdpGnWuG6PJjEpmxnF8TzUJ3BjdC63NqoWG0LO1g7gxWvWs106W3NuRVP8UtmlUfvmc5/IpStZxY3TRm5J38gR/Jo4KXtLFXgAAAABJRU5ErkJggg==','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAkCAYAAAAdFbNSAAABV0lEQVR4nN2YQWrDMBBFv6ocxZtCDtBCjhPotkfpNpDjBNIDdBPwUWKURfNFMslYI5uQjN7OMDbmafw1ckgpwRtvz36BKSwsRcPmc3Q54tc+PPJ+iUvToaanD+8hAUD3/QEA6H9+cXmtcVO33gUAiDFWvu4/7ZuWDMMAAOiXi6sVINnw33GWWUl7pmmShmRPszcJjRMazmxXCahPC0m7prWelbCHSal+qnGXpsd3xHMPqrCnz3WqWVFH8jdSmS4NmjYie1nSrQsP4AoYe7wd06WpjJhTxVhnxaXpuzmtmS5Nddac1p5jzW2XpsfTQ8lXjbk9yxUuGXdpumr2kNSatZ50mjRdtSNyRqD50k74KFyaNp0ROY0ReSLRel6S72MaiXRqOqdNpos7pDwLKmhnyNpTukvTo+lRmvbynyZrTyv5bN0JiUvTph1R+9rn/pObSnumXxWXpk/jc8F9Jc/FtQAAAABJRU5ErkJggg=='].map(src=>{const im=new Image();im.src=src;return im});
 let zGroundWalkers=[];
+let zWalkerCountdown=0,zWalkerNextSide=0,zWalkerLastSprite=-1;
 function zResetGroundWalkers(){
-  zGroundWalkers=Array.from({length:5},(_,i)=>({sprite:i,x:i*132-60,pace:.42+(i%3)*.13,dir:i%2?1:-1,phase:i*1.7}));
+  zGroundWalkers=[];zWalkerCountdown=25;zWalkerNextSide=Math.random()<.5?0:1;zWalkerLastSprite=-1;
 }
 function zUpdateGroundWalkers(d){
-  for(const a of zGroundWalkers){a.x+=a.dir*a.pace*d;
-    if(a.dir>0&&a.x>W+35)a.x=-60;
-    if(a.dir<0&&a.x< -65)a.x=W+30;
+  const size=46;
+  for(const a of zGroundWalkers){
+    a.x+=a.dir*a.pace*d;
     a.phase+=d*.09;
+  }
+  zGroundWalkers=zGroundWalkers.filter(a=>a.x>-size-12&&a.x<W+12);
+  zWalkerCountdown-=d;
+  if(zWalkerCountdown<=0&&zGroundWalkers.length<3){
+    // Alternate entry sides and keep the spawn edge clear before deploying.
+    const side=zWalkerNextSide;
+    const dir=side===0?1:-1;
+    const x=dir===1?-size:W;
+    const edgeClear=zGroundWalkers.every(a=>Math.abs(a.x-x)>size*2.2);
+    if(edgeClear){
+      let sprite=Math.floor(Math.random()*zGroundSprites.length);
+      if(sprite===zWalkerLastSprite)sprite=(sprite+1+Math.floor(Math.random()*4))%zGroundSprites.length;
+      zGroundWalkers.push({sprite,x,dir,pace:.65+Math.random()*.42,phase:Math.random()*6});
+      zWalkerLastSprite=sprite;zWalkerNextSide=1-side;
+      zWalkerCountdown=75+Math.random()*75;
+    }else zWalkerCountdown=12;
   }
 }
 function zDrawGroundWalkers(){
-  // The ground lane sits below the lower hedge, not over Link or the combat area.
-  for(const a of zGroundWalkers){const img=zGroundSprites[a.sprite];if(!img.complete||!img.naturalWidth)continue;
+  // Walk across the lower strip with crisp, brain-sized original NES sprites.
+  for(const a of zGroundWalkers){
+    const img=zGroundSprites[a.sprite];if(!img.complete||!img.naturalWidth)continue;
     const bob=Math.sin(a.phase)>0?1:0;
     g.save();g.imageSmoothingEnabled=false;
-    if(a.dir>0){g.translate(Math.round(a.x)+34,0);g.scale(-1,1);g.drawImage(img,0,H+18+bob,34,32)}
-    else g.drawImage(img,Math.round(a.x),H+18+bob,34,32);
+    if(a.dir>0){g.translate(Math.round(a.x)+46,0);g.scale(-1,1);g.drawImage(img,0,H+8+bob,46,44)}
+    else g.drawImage(img,Math.round(a.x),H+8+bob,46,44);
     g.restore();
   }
 }
@@ -1043,22 +1061,25 @@ function zUpdate(d){
   // Wider patrol: Link visibly enters both green borders but stays on screen.
   // Movement remains smooth and faster than the previous version.
   // Stay inside the sandy playfield: the top green hedge is not flyable space.
-  const patrolCenter=265;
-  const patrolAmplitude=75;
+  const patrolCenter=266;
+  const patrolAmplitude=89;
   const patrolRate=.038;
-  hero.y=Math.max(190,Math.min(340,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
+  hero.y=Math.max(177,Math.min(355,patrolCenter+Math.sin(zElapsed*patrolRate)*patrolAmplitude));
   hero.vy=Math.cos(zElapsed*patrolRate)*patrolAmplitude*patrolRate;
   zSpawn-=d;
   if(zSpawn<=0){
-    const lanes=[171,242,316];
-    const startY=Math.max(165,Math.min(335,lanes[Math.floor(Math.random()*lanes.length)]+(Math.random()-.5)*22));
-    zEnemies.push({x:-58,y:startY,baseY:startY,phase:Math.random()*6,shade:Math.floor(Math.random()*5),age:0,happy:false,life:0});
-    // Irregular arrivals: occasional surprise bursts, never in the green borders.
-    if(Math.random()<.18 && zEnemies.length<8){
-      const extraY=Math.max(165,Math.min(335,lanes[Math.floor(Math.random()*lanes.length)]+(Math.random()-.5)*18));
-      zEnemies.push({x:-70-Math.random()*100,y:extraY,baseY:extraY,phase:Math.random()*6,shade:Math.floor(Math.random()*5),age:0,happy:false,life:0});
+    // Sample the full vertical playfield rather than a handful of fixed lanes.
+    // Avoid spawning close to a recent enemy at the same entry point.
+    let startY=170+Math.random()*177;
+    for(let tries=0;tries<12;tries++){
+      const candidate=170+Math.random()*177;
+      if(zEnemies.every(e=>e.happy||e.x>120||Math.abs(e.baseY-candidate)>57)){
+        startY=candidate;break;
+      }
     }
-    zSpawn=Math.max(22,50-zSpeed*2)+Math.random()*78;
+    zEnemies.push({x:-58,y:startY,baseY:startY,phase:Math.random()*6,shade:Math.floor(Math.random()*5),age:0,happy:false,life:0});
+    // Vary the intervals to keep waves unpredictable without overlapping spawns.
+    zSpawn=48+Math.random()*92;
   }
   // Enemies are steered toward the sword's reachable zone, but retain
   // enough independent motion that timing a shot is necessary.
