@@ -1029,23 +1029,31 @@ function skyEEG(){
   g.restore();
 }
 function scenery(){
-  pixelRect(0,0,W,H,'#4ec2ce');
-  // Distant, blocky clouds slowly scroll behind the pipes.
-  const drift=(tick*.28)%330;
-  for(let i=-1;i<4;i++)cloud(i*330-drift,218+(i%2)*18,.9);
-  // Pale city skyline, rendered in a crisp pixel-art style.
-  const skylineY=H-83,shift=(tick*.18)%104;
+  // Familiar Flappy Bird landscape: turquoise sky, rounded pixel clouds,
+  // distant mint skyline and two rows of green shrubs. The brain and EEG stay intact.
+  pixelRect(0,0,W,H,'#4fc4cf');
+  const drift=(tick*.23)%310;
+  for(let i=-1;i<5;i++)cloud(i*310-drift,190+(i%2)*21,.95);
+  const skylineY=H-47,shift=(tick*.12)%104;
   for(let i=-1;i<9;i++){
-    const x=i*104-shift, heights=[66,94,78,105,72][(i+10)%5];
-    pixelRect(x,skylineY-heights,84,heights,'#a7dfd0');
-    pixelRect(x+6,skylineY-heights+6,72,heights-6,'#e0f4d5');
-    pixelRect(x+13,skylineY-heights-10,49,12,'#a7dfd0');
-    pixelRect(x+17,skylineY-heights-6,41,8,'#e0f4d5');
-    for(let wy=skylineY-heights+18;wy<skylineY-9;wy+=23)
-      for(let wx=x+14;wx<x+70;wx+=20)pixelRect(wx,wy,9,14,'#a5d9c7');
+    const x=i*104-shift,heights=[63,91,75,104,69][(i+10)%5];
+    pixelRect(x-3,skylineY-heights-4,90,heights+4,'#9bd9c8');
+    pixelRect(x+2,skylineY-heights,80,heights,'#e3f6d4');
+    pixelRect(x+10,skylineY-heights-11,53,12,'#9bd9c8');
+    pixelRect(x+14,skylineY-heights-7,45,8,'#e3f6d4');
+    for(let wy=skylineY-heights+18;wy<skylineY-8;wy+=23)
+      for(let wx=x+13;wx<x+73;wx+=20)pixelRect(wx,wy,9,13,'#a8dcca');
   }
-  // Flappy Brain: clear sky extends to the bottom, without a road or ground sprites.
-  pixelRect(0,H-79,W,79,'#4ec2ce');
+  // Layered shrub silhouettes, rather than the old road and moving road sprites.
+  for(let row=0;row<2;row++){
+    const yy=H-(row?55:36),shift=(tick*(row?.19:.32))%58;
+    for(let i=-2;i<14;i++){
+      const x=i*58-shift;
+      pixelRect(x+6,yy+11,54,38,row?'#8bdc51':'#66c13b');
+      pixelRect(x+11,yy+3,39,17,row?'#b0ed79':'#8cdb52');
+      pixelRect(x+19,yy-3,23,12,row?'#b0ed79':'#8cdb52');
+    }
+  }
 }
 function barrier(x,y,h,capBottom){
   if(h<=0)return;
@@ -1236,30 +1244,41 @@ function zeldaScenery(){
   g.fillStyle='#000';g.fillRect(0,0,W,132);
   if(zeldaFullBanner.complete&&zeldaFullBanner.naturalWidth)
     g.drawImage(zeldaFullBanner,0,0,W,132);
-  // Responsive Zelda HUD: labels and values use separate lines, staying inside each panel.
+  // NES style HUD: all three counters inside the visible 680px canvas.
   g.save();
-  g.imageSmoothingEnabled=false;
-  g.fillStyle='#080d18';g.fillRect(0,86,W,46);
+  g.fillStyle='#000000';g.fillRect(0,78,W,54);
   const stats=[
-    {label:'BEST',value:best,color:'#eaf5ff'},
-    {label:'SCORE',value:score,color:'#eaf5ff'},
-    {label:'LVL',value:1+Math.floor(zElapsed/240),color:'#ffd75e'}
+    {label:'HIGH SCORE',value:Math.max(best,score),icon:'trophy'},
+    {label:'SCORE',value:score,icon:'rupee'},
+    {label:'LVL',value:1+Math.floor(zElapsed/240),icon:'triforce'}
   ];
-  const gap=8,margin=10,panelWidth=(W-margin*2-gap*2)/3;
+  const margin=12,gap=7,pw=(W-margin*2-gap*2)/3;
   stats.forEach((stat,i)=>{
-    const xx=margin+i*(panelWidth+gap);
-    g.fillStyle='#102239';g.fillRect(xx,89,panelWidth,40);
-    g.strokeStyle=stat.label==='LVL'?'#a27b2e':'#345a75';
-    g.lineWidth=1;g.strokeRect(xx+.5,89.5,panelWidth-1,39);
-    g.textAlign='center';g.textBaseline='middle';
-    g.font='bold 10px monospace';g.fillStyle='#8eb2c8';
-    g.fillText(stat.label,xx+panelWidth/2,98,panelWidth-10);
-    const value=String(stat.value);
-    let fontSize=19;
-    do {g.font='bold '+fontSize+'px monospace';fontSize--;} while(g.measureText(value).width>panelWidth-16 && fontSize>9);
-    g.fillStyle=stat.color;
-    g.fillText(value,xx+panelWidth/2,116,panelWidth-14);
+    const x=margin+i*(pw+gap),y=82;
+    g.fillStyle='#080808';g.fillRect(x,y,pw,47);
+    g.strokeStyle='#777777';g.lineWidth=1;g.strokeRect(x+.5,y+.5,pw-1,46);
+    // Simple crisp NES icon motifs: gold trophy, blue rupee, gold Triforce.
+    const ix=x+9,iy=y+7;
+    if(stat.icon==='trophy'){
+      pixelRect(ix+3,iy,10,3,'#f9d15a');pixelRect(ix+4,iy+3,8,7,'#f9d15a');
+      pixelRect(ix+1,iy+2,3,5,'#f9d15a');pixelRect(ix+12,iy+2,3,5,'#f9d15a');
+      pixelRect(ix+7,iy+10,2,4,'#f9d15a');pixelRect(ix+4,iy+14,8,2,'#f9d15a');
+    }else if(stat.icon==='rupee'){
+      pixelRect(ix+5,iy,6,3,'#91dcff');pixelRect(ix+2,iy+3,12,8,'#299fe2');
+      pixelRect(ix+5,iy+11,6,3,'#91dcff');pixelRect(ix+5,iy+4,3,6,'#d7faff');
+    }else{
+      const tri=(xx,yy)=>{pixelRect(xx+3,yy,3,3,'#ffdc60');pixelRect(xx,yy+3,9,3,'#ffdc60')};
+      tri(ix+4,iy);tri(ix,iy+7);tri(ix+8,iy+7);
+    }
+    g.textAlign='left';g.textBaseline='middle';
+    g.fillStyle='#fff5dc';g.font='bold 10px monospace';
+    g.fillText(stat.label,x+31,y+14,pw-37);
+    let fs=19;const val=String(stat.value);
+    while(fs>10){g.font='bold '+fs+'px monospace';if(g.measureText(val).width<=pw-16)break;fs--}
+    g.textAlign='center';g.fillStyle='#ffffff';
+    g.fillText(val,x+pw/2,y+35,pw-14);
   });
+  g.restore();
   g.restore();
 }
 function zeldaObstacle(x,y,h,top){
@@ -1352,7 +1371,7 @@ function loop(t){
 // Direct touch/click handler plus delegated fallback for iPad Safari.
 $('fb-start').addEventListener('click',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()});
 $('fb-start').addEventListener('touchend',e=>{e.preventDefault();e.stopPropagation();if(mode==='paused')resume();else if(mode==='over'){if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame(zeldaMode?'zelda':'flappy',score,document.getElementById('fb-title').textContent)}else start()},{passive:false});
-$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
+$('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('click',pause);$('fb-sound').addEventListener('click',()=>{sound=!sound;$('fb-sound').textContent=sound?'🔊':'🔇';if(sound){audioReady();beep(900,.09)}});$('fb-close').addEventListener('click',close);canvas.addEventListener('pointerdown',e=>{e.preventDefault();flap()});$('fb-overlay').addEventListener('pointerdown',e=>{if(e.target.closest('button'))return;if(mode==='ready'){e.preventDefault();start()}});modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});window.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='Escape'){close();return}if((e.code==='Space'||e.code==='ArrowUp')&&!e.repeat){e.preventDefault();flap()}if(e.code==='KeyP'&&!e.repeat)pause()});document.addEventListener('visibilitychange',()=>{if(document.hidden&&mode==='running')pause()});requestAnimationFrame(loop);
 })();
 </script>
 <script id="video-suggestion-handler">
@@ -1539,9 +1558,9 @@ $('fb-flap').addEventListener('click',flap);$('fb-pause').addEventListener('clic
  function end(){if(!playing)return;playing=false;gameId++;const phrase=phrases[Math.floor(Math.random()*phrases.length)];show(phrase,'Score: '+score,'NEW GAME');window.arcadeNextGame=()=>{play.onclick=start;start()};if(typeof window.arcadeAfterGame==='function')window.arcadeAfterGame('galaga',score,phrase)}
  function close(){active=false;playing=false;gameId++;modal.classList.remove('active');document.body.style.overflow='';cancelAnimationFrame(raf);Object.keys(buttons).forEach(k=>buttons[k]=false)}
  window.eegGalagaOpen=()=>{active=true;playing=false;gameId++;modal.classList.add('active');document.body.style.overflow='hidden';show('WELCOME TO BRAIN WARS',"The United Galaxy EEG Force (UGEF): Humanity's defense organization and the player's faction. The UGEF initially tried diplomacy when the Seizure Armada first approached the galaxy in the late 2270s, which failed and triggered open war. Now awesome EEG techs must treat the seizing brains to free them from captivity. Your ship moves automatically. Press Space or tap the game screen to treat the brains!",'DEFEND THE GALAXY');play.onclick=start;last=performance.now();cancelAnimationFrame(raf);raf=requestAnimationFrame(loop)};
- document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;
+ document.getElementById('galaga-brain-exit').onclick=close;play.onclick=start;layer.addEventListener('pointerdown',e=>{if(!playing&&!e.target.closest('button')&&layer.classList.contains('intro')){e.preventDefault();start()}});
  document.querySelectorAll('[data-galaga]').forEach(btn=>{const key=btn.dataset.galaga;const down=e=>{e.preventDefault();buttons[key]=true;try{btn.setPointerCapture(e.pointerId)}catch{}};const up=e=>{e.preventDefault();buttons[key]=false};btn.addEventListener('pointerdown',down);btn.addEventListener('pointerup',up);btn.addEventListener('pointercancel',up);btn.addEventListener('lostpointercapture',()=>buttons[key]=false)});
- document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
+ document.addEventListener('keydown',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();if(!playing&&layer.classList.contains('intro')){start();return}buttons[k]=true}if(e.key==='Escape')close()});document.addEventListener('keyup',e=>{if(!active)return;let k=e.code==='Space'?'fire':null;if(k){e.preventDefault();buttons[k]=false}});
  canvas.addEventListener('pointerdown',e=>{if(!playing)return;e.preventDefault();buttons.fire=true});canvas.addEventListener('pointerup',()=>buttons.fire=false);canvas.addEventListener('pointercancel',()=>buttons.fire=false);
  // Pixel art enemy sprites, drawn on a crisp 16 by 16 grid in the style of classic arcade enemies.
  const angryPixels=[
@@ -1996,10 +2015,10 @@ function frame(t){if(!modal.classList.contains('rad-open'))return;let dt=Math.mi
 function open(){modal.classList.add('rad-open');stage=0;points=0;show('RAD EEG','Deliver EEG supplies between hospitals. The car drives automatically. Swipe left or right, or use the arrow keys, to dodge traffic.','START DELIVERY');last=0;cancelAnimationFrame(frameId);frameId=requestAnimationFrame(frame)}
 function close(){modal.classList.remove('rad-open');cancelAnimationFrame(frameId);gesture=null;heldLeft=heldRight=false}
 $('rad-eeg-close').addEventListener('click',close);$('rad-eeg-start').addEventListener('click',reset);
-screen.addEventListener('pointerdown',e=>{if(state!=='play')return;gesture={id:e.pointerId,x:e.clientX,initial:targetX};screen.setPointerCapture(e.pointerId)});
+screen.addEventListener('pointerdown',e=>{if(state!=='play'&&document.getElementById('rad-eeg-overlay').style.display!=='none'&&state!=='celebrate'){e.preventDefault();reset();return}if(state!=='play')return;gesture={id:e.pointerId,x:e.clientX,initial:targetX};screen.setPointerCapture(e.pointerId)});
 screen.addEventListener('pointermove',e=>{if(!gesture||gesture.id!==e.pointerId)return;let width=screen.getBoundingClientRect().width;targetX=clamp(gesture.initial+(e.clientX-gesture.x)/width*3.5,-1.5,1.5)});
 for(const ev of ['pointerup','pointercancel','lostpointercapture'])screen.addEventListener(ev,()=>gesture=null);
-document.addEventListener('keydown',e=>{if(!modal.classList.contains('rad-open'))return;if(e.key==='ArrowLeft'){heldLeft=true;e.preventDefault()}if(e.key==='ArrowRight'){heldRight=true;e.preventDefault()}if((e.key==='Enter'||e.key===' ')&&state==='overlay'){e.preventDefault();reset()}if(e.key==='Escape')close()});
+document.addEventListener('keydown',e=>{if(!modal.classList.contains('rad-open'))return;if(e.code==='Space'&&state!=='play'&&state!=='celebrate'&&stage===0){e.preventDefault();reset();return}if(e.key==='ArrowLeft'){heldLeft=true;e.preventDefault()}if(e.key==='ArrowRight'){heldRight=true;e.preventDefault()}if((e.key==='Enter'||e.key===' ')&&state==='overlay'){e.preventDefault();reset()}if(e.key==='Escape')close()});
 document.addEventListener('keyup',e=>{if(e.key==='ArrowLeft')heldLeft=false;if(e.key==='ArrowRight')heldRight=false});
 // Rad EEG participates in the same rotating secret-letter Easter egg as the other arcade games.
 window.eegRadOpen=open;
