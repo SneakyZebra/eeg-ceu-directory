@@ -851,12 +851,12 @@ let secret=Math.floor(Math.random()*chars.length);try{const saved=sessionStorage
 function rotateSecret(){const previous=secret;secret=(secret+1+Math.floor(Math.random()*(chars.length-1)))%chars.length;try{sessionStorage.setItem('eeg-flappy-secret',String(secret))}catch(e){}}
 const modal=document.getElementById('flappy-easter-modal'),box=document.getElementById('flappy-easter-box');
 let marioMode=false,zeldaMode=false;
-// Shuffle all four games for this visit. Each game appears once per round.
+// Shuffle all five games for this visit. Each game appears once per round.
 let gameBag=[];
 let lastGame=-1;
 function nextEasterGame(){
   if(gameBag.length===0){
-    gameBag=[0,1,2,3];
+    gameBag=[0,1,2,3,4];
     for(let i=gameBag.length-1;i>0;i--){
       const j=Math.floor(Math.random()*(i+1));
       [gameBag[i],gameBag[j]]=[gameBag[j],gameBag[i]];
@@ -920,13 +920,14 @@ function show(title,msg,btn){
 }
 function open(){
 const worldIndex=nextEasterGame();marioMode=false;zeldaMode=(worldIndex===1);
-const gameNames=['Flappy Brain','The Legend of EEG Tech','Brain Wars','EEG Racer'];
+const gameNames=['Flappy Brain','The Legend of EEG Tech','Brain Wars','EEG Racer','EEG Quest'];
 const currentName=gameNames[worldIndex];
 const headerName=$('fb-current-game-name');
 headerName.innerHTML=worldIndex===0?'FLAPPY <span style="color:#a5ff31">BRAIN</span>':worldIndex===1?'THE LEGEND OF <span style="color:#a5ff31">EEG TECH</span>':worldIndex===2?'BRAIN <span style="color:#a5ff31">WARS</span>':'RAD <span style="color:#a5ff31">EEG</span>';
 modal.setAttribute('aria-label',currentName+' game');
 if(worldIndex===2){rotateSecret();window.eegGalagaOpen();return;}
 if(worldIndex===3){rotateSecret();window.eegRadOpen();return;}
+if(worldIndex===4){rotateSecret();window.eegQuestOpen();return;}
 
 $('fb-outer-score').style.visibility=zeldaMode?'hidden':'visible';box.style.borderColor=zeldaMode?'#d6a449':marioMode?'#edb43d':'#69be28';
 // Reset the entire Flappy scene before the opening screen is drawn.
@@ -2674,7 +2675,34 @@ function setup(root){const c=cfg[root.dataset.finder];const q=root.querySelector
 function populate(){const rows=getRows(c);fill(provider,rows.map(x=>x.title));fill(topicSelect,rows.map(x=>x.topic));return rows;}
 function search(){const rows=populate(),term=q.value.trim().toLowerCase();const matches=rows.filter(x=>(!term||x.raw.toLowerCase().includes(term))&&(provider.value==='all'||x.title===provider.value)&&(topicSelect.value==='all'||x.topic===topicSelect.value)&&(!cost||cost.value==='all'||x.cost===cost.value));output.replaceChildren();count.textContent=matches.length+' matching resources found';if(!rows.length){count.textContent='Resources are still loading or unavailable. Please try again shortly.';return;}if(!matches.length){const p=document.createElement('p');p.textContent='No matching resources. Try clearing some filters.';output.append(p);return;}for(const x of matches){const card=document.createElement('article');card.className='otf-result';const h=document.createElement('strong');h.textContent=x.title;card.append(h);const t=document.createElement('small');t.textContent=x.topic+(x.cost!=='all'?' • '+(x.cost==='free'?'Free':'Paid'):'');card.append(t);if(x.desc){const p=document.createElement('p');p.textContent=x.desc;card.append(p);}const a=document.createElement('a');a.href=x.url;a.target='_blank';a.rel='noopener noreferrer';a.textContent='Visit Site';card.append(a);output.append(card);}output.scrollIntoView({behavior:'smooth',block:'nearest'});}
 root.addEventListener('toggle',()=>{if(root.open)populate()});root.querySelector('.otf-submit').addEventListener('click',search);q.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();search()}});root.querySelector('.otf-reset').addEventListener('click',()=>{q.value='';provider.value='all';topicSelect.value='all';if(cost)cost.value='all';output.replaceChildren();count.textContent='Filters cleared. Select Search to browse resources.';});}
-function init(){document.querySelectorAll('.other-tab-finder').forEach(setup);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script></body></html>
+function init(){document.querySelectorAll('.other-tab-finder').forEach(setup);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();})();</script>
+<!-- EEG Quest: scoped arcade integration, separate from the education directory. -->
+<style id="eeg-quest-modal-style">
+#eeg-quest-modal{display:none;position:fixed;inset:0;z-index:2147483200;background:#00101bea;align-items:center;justify-content:center;padding:2vmin}
+#eeg-quest-modal.open{display:flex}
+#eeg-quest-frame{width:94vw;height:94dvh;border:2px solid #69be28;border-radius:10px;background:#071d27;max-width:1250px}
+</style>
+<div id="eeg-quest-modal" role="dialog" aria-modal="true" aria-label="EEG Quest Rhythm Rescue" aria-hidden="true"><iframe id="eeg-quest-frame" title="EEG Quest Rhythm Rescue battle game" allow="autoplay"></iframe></div>
+<script id="eeg-quest-integration">
+(()=>{
+ const modal=document.getElementById('eeg-quest-modal'),frame=document.getElementById('eeg-quest-frame');
+ let priorOverflow='',returnFocus=null;
+ function close(){
+  frame.contentWindow?.postMessage({type:'eeg-quest:hide'},location.origin);
+  modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=priorOverflow;returnFocus?.focus({preventScroll:true});
+ }
+ window.eegQuestOpen=()=>{
+  returnFocus=document.activeElement;priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';
+  modal.classList.add('open');modal.setAttribute('aria-hidden','false');
+  if(!frame.getAttribute('src'))frame.src='eeg-quest.html?embedded=1';else frame.contentWindow?.postMessage({type:'eeg-quest:open'},location.origin);
+  frame.focus();
+ };
+ window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===frame.contentWindow&&e.data?.type==='eeg-quest:close')close()});
+ modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});
+ window.addEventListener('keydown',e=>{if(modal.classList.contains('open')&&e.key==='Escape'){e.preventDefault();close()}});
+})();
+</script>
+</body></html>
 <style id="arcade-rad-close-hotfix">
 #rad-eeg-head{position:relative;z-index:30;flex-shrink:0}
 #rad-eeg-close{position:relative;z-index:31;pointer-events:auto!important;touch-action:manipulation;min-height:38px}

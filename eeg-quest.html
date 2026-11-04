@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#092b34"><title>EEG Quest • Rhythm Rescue</title>
+<style>
+:root{color-scheme:dark;--ink:#203b36;--paper:#f6f5e5;--mint:#cbd8b0;--gold:#f5c967;--night:#071d27}
+*{box-sizing:border-box}body{margin:0;background:var(--night);color:#eee9cf;font-family:"Courier New",monospace;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:12px;overflow:auto}button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #f2b63f;outline-offset:3px}button:disabled{cursor:default;opacity:.45}.cabinet{width:min(94vw,calc((100dvh - 112px)*1.1111),750px);min-width:285px}.topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px;font-size:11px;font-weight:bold;letter-spacing:1px}.brandmark{color:#bde6b8}.brandmark span{color:var(--gold)}.topbuttons{display:flex;gap:6px}.topbuttons button{border:1px solid #537369;border-radius:4px;background:#143840;color:#e9ecd3;font-size:10px;padding:9px 10px}.screen{position:relative;aspect-ratio:10/9;background:var(--paper);color:var(--ink);border:7px solid #203b36;box-shadow:0 0 0 3px #9ba88a,0 0 0 6px #17333d,0 18px 45px #0007;overflow:hidden}.battle{height:100%;display:grid;grid-template-rows:68% 32%}.field{position:relative;overflow:hidden;background:#f6f5e5}.field canvas{display:block;width:100%;height:100%;image-rendering:pixelated}.status{position:absolute;font-size:clamp(10px,1.7vw,15px);font-weight:bold;line-height:1.3}.enemy-status{left:5%;top:7%;width:48%;padding:0 0 6px 4px;border-bottom:3px solid var(--ink);border-left:3px solid var(--ink)}.player-status{right:5%;bottom:6%;width:49%;padding:4px 6px 4px 0;border-bottom:3px solid var(--ink);border-right:3px solid var(--ink)}.name-row{display:flex;justify-content:space-between;gap:6px}.level{font-size:.85em;white-space:nowrap}.hp-row{display:flex;align-items:center;gap:5px;margin-top:4px}.hp-label{font-size:.7em;color:#826435}.hp-track{height:8px;background:#dde1c3;border:2px solid var(--ink);flex:1;overflow:hidden}.hp-fill{height:100%;background:#539e63;transition:width .4s steps(8)}.hp-fill.low{background:#c5684e}.hp-numbers{text-align:right;margin-top:3px;font-size:.85em}.player-status .xp-track{height:3px;background:#bac9bc;margin-top:5px}.player-status .xp-track i{display:block;height:100%;background:#4f89a3;width:0}.wave-counter{position:absolute;left:5%;bottom:5%;font-size:9px;letter-spacing:2px;color:#55765d}.command-box{display:grid;grid-template-columns:1fr 1fr;border-top:5px double var(--ink);background:var(--paper);min-height:0}.dialogue{padding:clamp(9px,2vw,18px);font-size:clamp(11px,1.8vw,17px);line-height:1.5;min-width:0;display:flex;flex-direction:column;justify-content:space-between}.dialogue p{margin:0;white-space:pre-line}.dialogue small{font-size:8px;letter-spacing:1px;color:#6c7d65;margin-top:4px}.commands{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:7px;border-left:4px double var(--ink);min-height:0;align-content:stretch}.commands button{position:relative;border:0;border-radius:0;background:transparent;color:var(--ink);text-align:left;font-size:clamp(11px,1.8vw,16px);font-weight:bold;padding:5px 4px 5px 15px;min-height:35px;line-height:1.2}.commands button:hover,.commands button:focus{background:#e1e6ca;outline:none}.commands button:focus::before,.commands button:hover::before{content:"▶";position:absolute;left:1px;top:50%;transform:translateY(-50%);font-size:10px}.commands button small{display:block;font-size:clamp(8px,1.1vw,10px);font-weight:normal;margin-top:4px}.menu-back{align-self:flex-start;border:0;background:transparent;color:var(--ink);padding:4px 0;font:bold 10px "Courier New",monospace;min-height:24px}.menu-back[hidden]{display:none}.commands.long{grid-template-columns:1fr}.commands.moves button{font-size:clamp(8px,1.22vw,12px);overflow-wrap:anywhere;padding-left:10px}.commands.moves button::before{font-size:7px}.bottomline{display:flex;justify-content:space-between;gap:6px;font-size:9px;margin-top:12px;color:#9fb5aa;letter-spacing:.4px}.disclaimer{max-width:650px;text-align:center;font:9px/1.5 "Courier New",monospace;color:#98aaa4;margin:9px auto 0}.view[hidden]{display:none!important}.title-screen{position:absolute;inset:0;background:#dce8ca;display:flex;flex-direction:column;align-items:center;text-align:center;padding:7% 7% 4%;overflow:hidden}.title-screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#203b3605 3px,#203b3605 4px);pointer-events:none}.title-eyebrow{font-size:clamp(8px,1.7vw,13px);letter-spacing:3px;font-weight:bold;color:#526852}.title-screen h1{font-size:clamp(39px,8vw,72px);line-height:.85;letter-spacing:-4px;color:#f6d165;text-shadow:3px 0 #203b36,-3px 0 #203b36,0 -3px #203b36,0 3px #203b36,4px 5px #203b36;margin:7% 0 2%;transform:rotate(-3deg)}.title-screen h1 span{display:block;font-size:.9em}.title-sub{font-size:clamp(10px,2vw,17px);font-weight:bold;letter-spacing:3px;margin:3% 0 0}.title-art{width:100%;height:31%;image-rendering:pixelated;flex-shrink:1;margin:2% 0}.title-story{font-size:clamp(9px,1.6vw,14px);line-height:1.45;max-width:430px;margin:2% 0 5%}.start-button{background:var(--ink);color:#fff8dc;border:3px double #f5d37e;padding:12px 25px;font:bold clamp(11px,2vw,17px) "Courier New",monospace;letter-spacing:1px;box-shadow:3px 3px #8aa073}.title-foot{font-size:clamp(8px,1.2vw,10px);margin:5% 0 0;letter-spacing:1px}.result-screen{position:absolute;inset:0;background:var(--paper);padding:9% 7%;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}.result-screen .medal{font-size:58px;color:#b88a31;margin-bottom:12px}.result-screen h2{font-size:clamp(20px,4vw,36px);line-height:1.1;margin:5px 0 14px;letter-spacing:-1px}.result-screen p{max-width:430px;font-size:clamp(11px,1.7vw,15px);line-height:1.6;margin:10px 0}.result-screen .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}.secondary{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:11px;font:bold 12px "Courier New",monospace}.result-score{font-weight:bold!important;letter-spacing:2px}.guide-screen{position:absolute;inset:0;background:var(--paper);padding:6%;display:flex;flex-direction:column}.guide-screen h2{font-size:20px;margin:0 0 5px}.guide-screen>p{font-size:10px;line-height:1.5;margin:0 0 13px}.guide-list{overflow:auto;flex:1;border-top:3px double var(--ink);margin-bottom:14px}.guide-entry{padding:12px 0;border-bottom:1px solid #a7b69e;display:grid;grid-template-columns:40px 1fr;gap:10px}.guide-icon{width:40px;height:40px;image-rendering:pixelated}.guide-entry strong{font-size:12px}.guide-entry p{font-size:10px;line-height:1.5;margin:4px 0 0}.guide-entry small{font-size:9px;color:#58715c}.supply-count{color:#6f7c52}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:430px){body{padding:7px}.cabinet{width:min(96vw,calc((100dvh - 105px)*1.1111));min-width:270px}.screen{border-width:4px}.topline{font-size:9px;letter-spacing:0}.topbuttons button{font-size:9px;padding:8px}.dialogue{padding:8px;font-size:10px;line-height:1.4}.dialogue small{font-size:7px}.commands{padding:4px;gap:1px}.commands button{padding:4px 2px 4px 11px;min-height:32px;font-size:10px}.commands.moves button{font-size:8px}.commands button small{font-size:7px}.status{font-size:10px}.hp-track{height:6px}.wave-counter{font-size:7px}.bottomline{font-size:8px}.disclaimer{font-size:8px}.title-screen h1{font-size:40px}.title-story{font-size:10px}.title-screen{padding-top:6%}.title-sub{font-size:10px}.title-foot{font-size:8px}.start-button{padding:10px 18px;font-size:12px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.hp-fill{transition:none}}
+</style></head>
+<body><main class="cabinet" aria-label="EEG Quest arcade game">
+<header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Mute game audio" aria-pressed="false">♫ SOUND ON</button><button id="exit" aria-label="Close EEG Quest">✕ CLOSE</button></div></header>
+<section class="screen" aria-label="Game screen">
+<div id="battle" class="battle view" hidden>
+<div class="field"><canvas id="scene" width="320" height="196" aria-label="Your EEG technologist facing a rhythm creature"></canvas>
+<div class="status enemy-status"><div class="name-row"><span id="enemy-name">FOCALON</span><span class="level" id="enemy-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP</span><div class="hp-track" role="progressbar" aria-label="Creature energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="enemy-progress"><div class="hp-fill" id="enemy-hp"></div></div></div></div>
+<div class="status player-status"><div class="name-row"><span>EEG TECH</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">FOCUS</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100 / 100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
+<div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
+<div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
+<div id="title" class="title-screen view"><div class="title-eyebrow">A NEURO VALLEY ADVENTURE</div><h1>EEG<span>QUEST</span></h1><div class="title-sub">RHYTHM RESCUE</div><canvas id="title-art" class="title-art" width="320" height="92" aria-hidden="true"></canvas><p class="title-story">Rhythm creatures have scattered across Neuro Valley.<br>You are the EEG tech who can bring the rhythm back.</p><button id="start" class="start-button">▶ START YOUR PATROL</button><p class="title-foot">6 CREATURES · 4 MOVES · ONE CALM MIND</p></div>
+<div id="result" class="result-screen view" hidden><div class="medal" id="result-medal" aria-hidden="true">✦</div><h2 id="result-title">RHYTHM RESTORED</h2><p id="result-story"></p><p class="result-score" id="result-score"></p><div class="result-buttons"><button class="start-button" id="again">BACK TO TITLE</button></div></div>
+<div id="guide" class="guide-screen view" hidden><h2>CREATURE INDEX</h2><p>Original arcade creatures named after seizure and epilepsy terminology. Their abilities and medication move powers are fictional.</p><div id="guide-list" class="guide-list"></div><button id="guide-back" class="secondary">◀ BACK TO BATTLE</button></div>
+</section><div class="bottomline"><span>← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY</span><span id="best">BEST 0000</span></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
+</main>
+<script>
+'use strict';
+const QUEST_MOVES=[
+ {name:'Levetiracetam',tag:'PULSE',power:20,max:8,color:'#6cb9d1'},
+ {name:'Lamotrigine',tag:'PRISM',power:24,max:6,color:'#d1a1cd'},
+ {name:'Valproate',tag:'BURST',power:30,max:5,color:'#edb55f'},
+ {name:'Lacosamide',tag:'SYNC',power:26,max:5,color:'#7cbd92'}
+];
+const QUEST_CREATURES=[
+ {name:'FOCALON',term:'Focal seizure',level:4,hp:44,attack:10,color:['#443e63','#8d7ea8','#c1afd3','#eee3f3'],shape:0,move:'SPARK SNAP',story:'A small, sharp eared spark keeper. Its tail never stays still.'},
+ {name:'ABSENCUB',term:'Absence seizure',level:7,hp:56,attack:12,color:['#3b5d67','#81b2b5','#c0dcda','#f3faf1'],shape:1,move:'MIST DRIFT',story:'A shy valley spirit that slips in and out of the morning mist.'},
+ {name:'MYOCLONIX',term:'Myoclonus',level:10,hp:68,attack:14,color:['#654a35','#c79a44','#efcf6f','#fff2bd'],shape:2,move:'JOLT HOP',story:'A springy creature with zigzag wings and boundless arcade energy.'},
+ {name:'TONICLAW',term:'Tonic seizure',level:14,hp:82,attack:16,color:['#493c4e','#9f6e87','#d49eb0','#f9d7d8'],shape:3,move:'STONE GUARD',story:'A sturdy ridge dweller with a rock shell and oversized claws.'},
+ {name:'SPIKEWEAVER',term:'Spike and wave',level:18,hp:96,attack:18,color:['#3d5d4c','#76a473','#b8d696','#edf4c8'],shape:4,move:'WAVE WEB',story:'A forest trickster that weaves luminous patterns between the trees.'},
+ {name:'STATUSAUR',term:'Status epilepticus',level:24,hp:114,attack:21,color:['#573e5e','#98689e','#cf99c6','#f7d6e6'],shape:5,move:'TEMPEST ROAR',story:'The guardian of Rhythm Peak. Bring calm back to the valley for the final badge.'}
+];
+// Pure game rules. Powers, charges and focus are invented arcade statistics.
+class QuestBattle{
+ constructor(random=Math.random){this.random=random;this.reset()}
+ reset(){this.screen='title';this.stage=0;this.focus=100;this.score=0;this.turns=0;this.guard=0;this.charges=QUEST_MOVES.map(m=>m.max);this.items=[3,2,2];this.enemyHP=0;this.seen=[]}
+ begin(){this.reset();this.screen='battle';this.encounter()}
+ get enemy(){return QUEST_CREATURES[this.stage]}
+ encounter(){this.enemyHP=this.enemy.hp;this.turns=0;this.guard=0;if(!this.seen.includes(this.stage))this.seen.push(this.stage)}
+ act(kind,index){
+  if(this.screen!=='battle')return {ok:false,text:'Choose a new patrol from the title screen.'};
+  let dealt=0,restored=0,critical=false,text='';
+  if(kind==='move'){
+   const move=QUEST_MOVES[index];if(!move||this.charges[index]<=0)return {ok:false,text:'No arcade charges left. Open KIT to recharge your moves.'};
+   this.charges[index]--;critical=this.random()<.12;
+   dealt=Math.max(1,Math.round((move.power+Math.floor(this.random()*7)-2)*(critical?1.35:1)));
+   dealt=Math.min(dealt,this.enemyHP);this.enemyHP-=dealt;
+   text='EEG TECH used\n'+move.name.toUpperCase()+'!';if(critical)text+='\nA brilliant arcade hit!';
+  }else if(kind==='item'){
+   if(!Number.isInteger(index)||index<0||index>2||this.items[index]<=0)return {ok:false,text:'That toolkit supply is empty.'};
+   if(index===0&&this.focus===100)return {ok:false,text:'Your focus is already full. Save the break for later.'};
+   if(index===2&&this.charges.every((n,i)=>n===QUEST_MOVES[i].max))return {ok:false,text:'All move charges are full.'};
+   this.items[index]--;
+   if(index===0){restored=Math.min(40,100-this.focus);this.focus+=restored;text='A quiet FOCUS BREAK.\n'+restored+' focus points restored.'}
+   if(index===1){this.guard=2;text='ARTIFACT SHIELD up!\nThe next two counterattacks are softened.'}
+   if(index===2){this.charges=this.charges.map((n,i)=>Math.min(QUEST_MOVES[i].max,n+3));text='RECHARGE complete!\nEach move recovered three arcade charges.'}
+  }else return {ok:false,text:'Choose a battle command.'};
+  this.turns++;
+  if(this.enemyHP<=0){
+   this.score+=150+this.stage*40+Math.max(0,9-this.turns)*15;
+   this.screen=this.stage===QUEST_CREATURES.length-1?'complete':'won';
+   return {ok:true,dealt,restored,critical,text,enemyDamage:0,victory:true,complete:this.screen==='complete'};
+  }
+  let enemyDamage=this.enemy.attack+Math.floor(this.random()*6);
+  if(this.guard>0){enemyDamage=Math.max(1,Math.floor(enemyDamage*.35));this.guard--}
+  enemyDamage=Math.min(this.focus,enemyDamage);this.focus-=enemyDamage;
+  if(this.focus<=0)this.screen='defeat';
+  return {ok:true,dealt,restored,critical,text,enemyDamage,defeat:this.screen==='defeat'};
+ }
+ next(){
+  if(this.screen!=='won')return false;
+  this.stage++;this.focus=Math.min(100,this.focus+36);this.charges=this.charges.map((n,i)=>Math.min(QUEST_MOVES[i].max,n+2));
+  this.screen='battle';this.encounter();return true;
+ }
+}
+const SPRITES=[
+[
+'......##....##......','.....#CC#..#CC#.....','.....#ACC##CCA#.....','.....#AACCCCAA#.....','....#CCCCCCCCCC#....','...#CCWWCCCCWWCC#...','...#CWKKWCCWKKWC#...','...#CCWWCCCCWWCC#...','....#CCCCBBCCCC#....','.....#CCBBBCC#......','....##AAAAAAA##.....','...#BBAAAAAAABB#....','..#BBAAAAAAAAAAB#...','..#BAAAAACCAAAAB#...','...#AAAACCCAAAA#....','....#AAAACAAA#..##..','....#BAAAAAAB###CC#.','....#BB#..#BB#CCCA#.','....####..#######...','....................'],
+[
+'.......######.......','.....##CCCCCC##.....','....#CCCCCCCCCC#....','...#CCCDCCCCDCCC#...','...#CCCWWCCWWCCC#...','..#CCCWKKWWKKWCCC#..','..#CCCCWWCCWWCCCC#..','..#CCCCCCCCCCCCCC#..','...#CCCCCBCCCCCC#...','...#CCCCBBBCCCCC#...','...#CCCCCCCCCCCC#...','..#CCCCCCCCCCCCCC#..','..#CCACCCCCCCCACC#..','...#AACCCCCCCCAA#...','....#AACCCCCCAA#....','.....#AACCCCAA#.....','.....##A#AA#A##.....','......##.##.##......','....................','....................'],
+[
+'..##............##..','.#CC#..........#CC#.','#CCCC#........#CCCC#','#CCCCA#..##..#ACCCC#','.#CCCAA##CC##AACCC#.','..#CCCCCCCCCCCCCC#..','...#CCCWWCCWWCCC#...','...#CCWKKWWKKWCC#...','....#CCWWCCWWCC#....','....#CCCCCCCCCC#....','.....#CCBCCBCC#.....','...##AABBBBBAA##....','..#CCAAABBBAAACC#...','...##AAAAAAAA##.....','.....#AAAAAA#.......','.....#AA##AA#.......','....#CC#..#CC#......','....####..####......','....................','....................'],
+[
+'..###..........###..','.#CCC#........#CCC#.','#CCAAC#......#CAACC#','#CCAAAC##..##CAAACC#','.#CAAACAA##AACAAAC#.','..##AACCCCCCCCAA##..','....#CCBBBBBBCC#....','...#CCBCCCCCCBCC#...','...#CCBWWCCWWBCC#...','...#CCBKKCCKKBCC#...','...#CCBCCCCCCBCC#...','..#AACBBBBBBBCAA#...','..#AAACCCCCCCAAA#...','...#AAAAAAAAAAA#....','....#AAAAAAAAA#.....','....#AA####AA#......','...#CCC#..#CCC#.....','...#####..#####.....','....................','....................'],
+[
+'..#...#......#...#..','..#C..#C....C#..C#..','...#C..#C..C#..C#...','....#C..####..C#....','.....###CCCC###.....','....#CCCWWWWCCC#....','...#CCCWKWWKWCCC#...','...#CCCCWWWWCCCC#...','...#CCCCCCCCCCCC#...','....#CCCCBBCCCC#....','...##AAAABBAAAA##...','..#CC#AAAAAAAA#CC#..','.#CC#AAAAAAAAAA#CC#.','#CC#..#AAAAAA#..#CC#','.##..#CCAAAAACC#..##','....#CC#AAAA#CC#....','...#CC#.#AA#.#CC#...','...###...##...###...','....................','....................'],
+[
+'.......##..##.......','......#CC##CC#......','.....#CCCCCCCC#.....','....#CCCDDDDCCC#....','..###CCWWCCWWCC###..','.#CCCCCWKKWKKCCCCC#.','..#CCCCWWCCWWCCCC#..','...#CCCCCCCCCCCC#...','....#CCCCBBCCCC#....','...##ACCCBBCCCA##...','..#CCAAAACCAAAACC#..','.#CCAAAAACCAAAAACC#.','..###AAAACCAAA###...','.....#AAACCAAA#.....','.....#AAAACAAA#..##.','....#CAAAAAAAAC##CC#','...#CCAA##AAAACCACC#','...#CCCC##CCCC######','...#####..#####.....','....................']
+];
+const $=id=>document.getElementById(id),model=new QuestBattle();
+const scene=$('scene'),ctx=scene.getContext('2d'),titleCanvas=$('title-art'),titleCtx=titleCanvas.getContext('2d');
+let active=true,muted=false,audio=null,master=null,musicTimer=0,musicStep=0,busy=false,menu='root',epoch=0,timers=new Set(),best=0,fx=null,displayEnemyHP=0,displayFocus=100,showEnemy=true,raf=0,prior=0,selected=0;
+try{best=Number(localStorage.getItem('eeg-quest-best')||0)}catch(e){}
+$('best').textContent='BEST '+String(best).padStart(4,'0');
+const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+function sprite(g,which,x,y,scale=1,custom=null){
+ const pal=custom||QUEST_CREATURES[which].color,colors={'#':pal[0],A:pal[1],B:pal[0],C:pal[2],D:pal[3],W:'#f9f7e8',K:'#26383b'};
+ SPRITES[which].forEach((line,row)=>{for(let col=0;col<line.length;col++){const color=colors[line[col]];if(color){g.fillStyle=color;g.fillRect(Math.round(x+col*scale),Math.round(y+row*scale),Math.ceil(scale),Math.ceil(scale))}}});
+}
+function tech(g,x,y,scale=1){
+ const r=(a,b,w,h,c)=>{g.fillStyle=c;g.fillRect(Math.round(x+a*scale),Math.round(y+b*scale),Math.ceil(w*scale),Math.ceil(h*scale))};
+ r(6,0,13,2,'#253e43');r(3,2,18,5,'#355e62');r(2,7,23,3,'#253e43');r(6,10,14,5,'#29383b');
+ r(5,13,15,7,'#986e50');r(7,13,11,4,'#dfb18c');r(7,17,12,3,'#b98767');
+ r(2,20,22,19,'#243c43');r(3,20,20,16,'#e3e9db');r(9,21,8,17,'#faf7dc');r(4,23,4,12,'#b7d2c8');r(19,23,4,13,'#b7d2c8');
+ r(0,24,5,13,'#e3e9db');r(22,25,5,12,'#e3e9db');r(1,37,6,3,'#dfb18c');r(21,37,6,3,'#dfb18c');
+ r(10,23,2,12,'#4a8b94');r(15,25,5,2,'#4a8b94');r(18,26,2,6,'#4a8b94');r(15,31,5,2,'#4a8b94');
+ r(5,39,7,6,'#31545b');r(15,39,7,6,'#31545b');r(3,44,10,3,'#243c43');r(15,44,10,3,'#243c43');
+}
+function rect(g,x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
+function draw(time){
+ const t=motion.matches?0:time/1000;
+ if(model.screen==='title'){
+  const g=titleCtx;g.clearRect(0,0,320,92);g.imageSmoothingEnabled=false;
+  rect(g,0,68,320,20,'#acc398');rect(g,0,68,320,2,'#57785c');rect(g,0,88,320,4,'#779270');
+  for(let i=0;i<30;i++){rect(g,i*13%320,72+(i%3)*6,5,2,'#71966d')}
+  tech(g,144,13,1.2);
+  sprite(g,0,34,38+Math.round(Math.sin(t*2)*2),1.6);sprite(g,1,88,37+Math.round(Math.sin(t*2+1)*2),1.5);
+  sprite(g,2,199,37+Math.round(Math.sin(t*2+2)*2),1.5);sprite(g,4,256,37+Math.round(Math.sin(t*2+3)*2),1.5);
+  g.strokeStyle='#547c69';g.lineWidth=1;g.beginPath();for(let x=0;x<320;x++){const y=12+Math.sin(x*.14+t)*2+(x%70>60?Math.sin(x*.8)*5:0);x?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();
+  return;
+ }
+ ctx.clearRect(0,0,320,196);ctx.imageSmoothingEnabled=false;
+ rect(ctx,0,0,320,196,'#f6f5e5');
+ // Flat pixel islands and restrained green texture echo the handheld battle stage.
+ rect(ctx,196,104,93,4,'#d8dfc0');rect(ctx,186,108,111,4,'#e4e8d0');
+ rect(ctx,20,182,102,4,'#d8dfc0');rect(ctx,30,186,83,3,'#e4e8d0');
+ let heroShake=0,enemyShake=0;
+ if(fx&&fx.kind==='counter'&&!motion.matches)heroShake=Math.round(Math.sin(time*.08)*2);
+ if(fx&&fx.kind==='hit'&&!motion.matches)enemyShake=Math.round(Math.sin(time*.08)*2);
+ tech(ctx,47+heroShake,99,1.8);
+ if(showEnemy)sprite(ctx,model.stage,220+enemyShake,48+Math.round(Math.sin(t*2.2)*1.3),3.5);
+ if(fx){
+  const progress=Math.min(1,(time-fx.start)/fx.duration);
+  if(fx.kind==='move'){
+   const x=90+progress*148,y=140-progress*63;
+   rect(ctx,Math.round(x)-5,Math.round(y)-5,10,10,fx.color);rect(ctx,Math.round(x)-2,Math.round(y)-8,4,16,'#fff7c5');
+   if(!motion.matches)for(let i=1;i<=3;i++)rect(ctx,Math.round(x)-i*9,Math.round(y)+i*4,3,3,fx.color);
+  }
+  if(fx.kind==='rest'){for(let i=0;i<4;i++)rect(ctx,44+i*16,120-Math.round(progress*25),4,4,'#71a47c')}
+  if(fx.kind==='guard'){rect(ctx,39,113,2,62,'#8ab5c5');rect(ctx,98,113,2,62,'#8ab5c5');rect(ctx,39,113,61,2,'#8ab5c5')}
+ }
+}
+function frame(time){if(active&&!document.hidden){draw(time)}raf=requestAnimationFrame(frame)}
+function cancelWork(){epoch++;for(const id of timers)clearTimeout(id);timers.clear();busy=false;fx=null}
+function later(fn,delay){const token=epoch;const id=setTimeout(()=>{timers.delete(id);if(token===epoch&&active)fn()},delay);timers.add(id)}
+function view(id){for(const name of ['title','battle','result','guide'])$(name).hidden=name!==id}
+function say(text,hint='CHOOSE YOUR NEXT MOVE'){$('message').textContent=text;$('menu-hint').textContent=hint}
+function hp(){
+ const enemyPct=Math.max(0,displayEnemyHP/model.enemy.hp*100);
+ $('enemy-hp').style.width=enemyPct+'%';$('enemy-hp').classList.toggle('low',enemyPct<30);
+ $('enemy-progress').setAttribute('aria-valuemax',String(model.enemy.hp));$('enemy-progress').setAttribute('aria-valuenow',String(displayEnemyHP));
+ $('focus-hp').style.width=displayFocus+'%';$('focus-hp').classList.toggle('low',displayFocus<30);$('focus-progress').setAttribute('aria-valuenow',String(displayFocus));
+ $('focus-number').textContent=displayFocus+' / 100';$('journey').style.width=(model.stage/6*100)+'%';
+}
+function encounterUI(){
+ showEnemy=true;displayEnemyHP=model.enemyHP;displayFocus=model.focus;
+ $('enemy-name').textContent=model.enemy.name;$('enemy-level').textContent='Lv '+model.enemy.level;
+ $('player-level').textContent='Lv '+(4+model.stage*4);$('badges').textContent=QUEST_CREATURES.map((_,i)=>i<model.stage?'●':'○').join(' ');
+ hp();view('battle');say('A wild '+model.enemy.name+'\nappeared!');renderMenu('root');
+}
+function button(text,sub,action,disabled=false){
+ const b=document.createElement('button');b.type='button';b.disabled=disabled;b.append(document.createTextNode(text));if(sub){const small=document.createElement('small');small.textContent=sub;b.append(small)}b.addEventListener('click',action);$('commands').append(b);return b;
+}
+function renderMenu(next){
+ menu=next;selected=0;$('menu-back').hidden=next!=='moves';const root=$('commands');root.replaceChildren();root.className='commands'+(next==='moves'?' moves':next==='won'||next==='busy'?' long':'');
+ if(next==='busy'){button('···','BATTLE IN PROGRESS',()=>{},true);return}
+ if(next==='root'){
+  button('FIGHT',null,()=>{say('Choose a medication\nthemed arcade move.','FICTIONAL POWERS · NO DRUG MATCHUPS');renderMenu('moves')});
+  button('KIT',null,()=>{say('A good tech comes\nprepared.','EACH TOOLKIT ACTION USES A TURN');renderMenu('kit')});
+  button('INDEX',null,openGuide);
+  button('RETREAT',null,()=>{say('Leave this patrol?\nYour best score stays.');renderMenu('retreat')});
+ }else if(next==='moves'){
+  QUEST_MOVES.forEach((move,i)=>button(move.name,move.tag+' '+move.power+' · '+model.charges[i]+'/'+move.max+' CHG',()=>perform('move',i)));
+ }else if(next==='kit'){
+  button('BREAK','+40 FOCUS · '+model.items[0]+' LEFT',()=>perform('item',0));
+  button('SHIELD','2 TURNS · '+model.items[1]+' LEFT',()=>perform('item',1));
+  button('RECHARGE','+3 CHG · '+model.items[2]+' LEFT',()=>perform('item',2));
+  button('BACK',null,()=>{say('What will EEG TECH do?');renderMenu('root')});
+ }else if(next==='won'){
+  button('NEXT ENCOUNTER','+36 FOCUS · +2 CHARGES',()=>{model.next();encounterUI()});
+ }else if(next==='retreat'){
+  button('KEEP GOING',null,()=>{say('What will EEG TECH do?');renderMenu('root')});
+  button('TITLE SCREEN',null,()=>{saveBest();toTitle()});
+ }
+}
+function perform(kind,index){
+ if(busy)return;
+ const result=model.act(kind,index);if(!result.ok){say(result.text,'ESC / BACKSPACE TO RETURN');tone(170,.08,'triangle');return}
+ busy=true;renderMenu('busy');displayFocus=Math.min(100,displayFocus+result.restored);hp();say(result.text,'YOUR TURN');
+ const effect=kind==='move'?'move':index===0?'rest':index===1?'guard':'rest';
+ fx={kind:effect,color:QUEST_MOVES[index]?.color||'#8ab5c5',start:performance.now(),duration:500};
+ if(kind==='move'){tone(550+index*90,.12,'square');tone(880+index*50,.12,'triangle',.1)}else tone(540,.15,'triangle');
+ later(()=>{
+  displayEnemyHP=model.enemyHP;hp();fx={kind:'hit',start:performance.now(),duration:160};
+  if(result.victory){
+   showEnemy=false;fx=null;saveBest();victoryTune();
+   say(model.enemy.name+' calmed down!\nRhythm restored. +'+(150+model.stage*40+Math.max(0,9-model.turns)*15)+' points.','ENCOUNTER COMPLETE');
+   later(()=>{busy=false;if(result.complete)showResult(true);else renderMenu('won')},700);
+  }else{
+   say(model.enemy.name+' used\n'+model.enemy.move+'!','CREATURE COUNTERATTACK');
+   tone(190+model.stage*18,.14,'triangle');fx={kind:'counter',start:performance.now(),duration:260};
+   later(()=>{
+    fx=null;displayFocus=model.focus;hp();busy=false;
+    if(result.defeat){saveBest();showResult(false)}else{say('Focus lost: '+result.enemyDamage+'.\nWhat will EEG TECH do?');renderMenu('root')}
+   },650);
+  }
+ },550);
+}
+function saveBest(){if(model.score>best){best=model.score;try{localStorage.setItem('eeg-quest-best',String(best))}catch(e){}$('best').textContent='BEST '+String(best).padStart(4,'0')}}
+function showResult(won){
+ stopMusic();view('result');$('result-medal').textContent=won?'✦':'◇';
+ $('result-title').textContent=won?'RHYTHM RESTORED!':'TIME TO RECHARGE';
+ $('result-story').textContent=won?'Six creatures calmed. Six rhythm badges earned. Neuro Valley has found its steady beat again. Great work, EEG TECH.':'Even great technologists need a break. Your patrol ends here, but a fresh adventure is waiting on the title screen.';
+ $('result-score').textContent='SCORE '+String(model.score).padStart(4,'0')+'  ·  '+(won?6:model.stage)+'/6 BADGES';
+ $('again').focus({preventScroll:true});
+}
+function openGuide(){
+ if(busy)return;view('guide');const root=$('guide-list');root.replaceChildren();
+ QUEST_CREATURES.forEach((creature,i)=>{
+  const found=model.seen.includes(i),row=document.createElement('article');row.className='guide-entry';
+  const icon=document.createElement('canvas');icon.width=40;icon.height=40;icon.className='guide-icon';icon.setAttribute('aria-hidden','true');
+  if(found)sprite(icon.getContext('2d'),i,0,0,2);else{const c=icon.getContext('2d');c.fillStyle='#a3b796';c.font='bold 30px monospace';c.fillText('?',10,30)}
+  const text=document.createElement('div'),name=document.createElement('strong'),term=document.createElement('small'),desc=document.createElement('p');
+  name.textContent=found?creature.name:'UNDISCOVERED';term.textContent=found?' · '+creature.term:' · Encounter '+(i+1);desc.textContent=found?creature.story:'Keep exploring Neuro Valley to meet this creature.';
+  text.append(name,term,desc);row.append(icon,text);root.append(row);
+ });$('guide-back').focus({preventScroll:true});
+}
+function toTitle(){cancelWork();stopMusic();model.reset();showEnemy=true;view('title');$('start').focus({preventScroll:true})}
+function begin(){cancelWork();active=true;model.begin();initAudio();startMusic();encounterUI()}
+function initAudio(){
+ if(muted)return;
+ try{if(!audio){audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=.09;master.connect(audio.destination)}if(audio.state==='suspended')audio.resume().catch(()=>{})}catch(e){}
+}
+function tone(hz,duration=.1,type='square',delay=0){
+ if(muted||!active||document.hidden)return;initAudio();if(!audio)return;
+ const o=audio.createOscillator(),g=audio.createGain(),now=audio.currentTime+delay;o.type=type;o.frequency.value=hz;g.gain.setValueAtTime(.25,now);g.gain.exponentialRampToValueAtTime(.001,now+duration);o.connect(g);g.connect(master);o.start(now);o.stop(now+duration+.01);
+}
+const tune=[392,0,523,587,659,587,523,440,392,0,330,392,440,523,440,330,349,0,440,523,587,523,440,392,330,0,392,440,523,440,392,294];
+function startMusic(){
+ stopMusic();if(muted||!active||document.hidden)return;
+ initAudio();musicTimer=setInterval(()=>{
+  if(model.screen==='title'||['complete','defeat'].includes(model.screen)||!active||document.hidden)return;
+  const note=tune[musicStep%tune.length];if(note)tone(note,.11,'square');
+  if(musicStep%4===0)tone([131,131,175,147][Math.floor(musicStep/8)%4],.24,'triangle');musicStep++;
+ },160);
+}
+function stopMusic(){clearInterval(musicTimer);musicTimer=0}
+function victoryTune(){[523,659,784,1046].forEach((n,i)=>tone(n,.16,'square',i*.12))}
+function closeGame(){
+ cancelWork();active=false;stopMusic();if(audio)audio.suspend().catch(()=>{});
+ if(window.parent!==window)window.parent.postMessage({type:'eeg-quest:close'},location.origin);else location.href='./';
+}
+$('menu-back').addEventListener('click',()=>{say('What will EEG TECH do?');renderMenu('root')});
+$('start').addEventListener('click',begin);$('again').addEventListener('click',toTitle);$('exit').addEventListener('click',closeGame);
+$('guide-back').addEventListener('click',()=>{view('battle');say('What will EEG TECH do?');renderMenu('root')});
+$('sound').addEventListener('click',()=>{
+ muted=!muted;$('sound').textContent=muted?'♫ SOUND OFF':'♫ SOUND ON';$('sound').setAttribute('aria-label',muted?'Enable game audio':'Mute game audio');$('sound').setAttribute('aria-pressed',String(muted));
+ if(muted){stopMusic();if(audio)audio.suspend().catch(()=>{})}else{initAudio();if(model.screen!=='title')startMusic();tone(660,.1,'triangle')}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopMusic();if(audio)audio.suspend().catch(()=>{})}else if(active&&model.screen!=='title'&&!['complete','defeat'].includes(model.screen)){initAudio();startMusic()}});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();if(audio)audio.suspend().catch(()=>{})}});
+document.addEventListener('keydown',e=>{
+ if(!active||e.altKey||e.ctrlKey||e.metaKey)return;
+ if(e.target.closest('button')&&['sound','exit','menu-back'].includes(e.target.id)&&!e.key.startsWith('Arrow'))return;
+ if(e.key==='Escape'||e.key==='Backspace'){
+  e.preventDefault();if(busy)return;if(!$('guide').hidden){$('guide-back').click();return}
+  if(model.screen==='battle'){say('What will EEG TECH do?');renderMenu('root')}else if(model.screen!=='title')toTitle();return;
+ }
+ if(busy)return;
+ let buttons;
+ if(!$('title').hidden)buttons=[$('start')];else if(!$('result').hidden)buttons=[$('again')];else if(!$('guide').hidden)buttons=[$('guide-back')];else buttons=Array.from($('commands').querySelectorAll('button:not(:disabled)'));
+ if(!buttons.length)return;
+ const focused=buttons.indexOf(document.activeElement);if(focused>=0)selected=focused;selected=Math.min(selected,buttons.length-1);
+ if(e.key.startsWith('Arrow')){
+  e.preventDefault();const shift=e.key==='ArrowLeft'?-1:e.key==='ArrowRight'?1:e.key==='ArrowUp'?-2:2;selected=(selected+shift+buttons.length)%buttons.length;buttons[selected].focus({preventScroll:true});
+ }else if(/^[1-4]$/.test(e.key)){e.preventDefault();if(!e.repeat)buttons[Number(e.key)-1]?.click()}
+ else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();if(!e.repeat)buttons[selected].click()}
+});
+raf=requestAnimationFrame(frame);
+</script></body></html>
