@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-11-03T20:05:48.629454+00:00",
+  "last_checked": "2026-11-04T20:24:50.647937+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,22 +15,10 @@
   ],
   "discovery_searches": [
     {
-      "query": "ASET CEU webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "ASET CEU webinar",
-      "engine": "google_news",
-      "results": 0,
-      "relevant": 0
-    },
-    {
       "query": "ABRET recertification education",
       "engine": "bing",
       "results": 10,
-      "relevant": 0
+      "relevant": 2
     },
     {
       "query": "ABRET recertification education",
@@ -47,7 +35,7 @@
     {
       "query": "epilepsy EEG webinar",
       "engine": "google_news",
-      "results": 7,
+      "results": 5,
       "relevant": 0
     },
     {
@@ -59,7 +47,7 @@
     {
       "query": "clinical neurophysiology webinar",
       "engine": "google_news",
-      "results": 4,
+      "results": 5,
       "relevant": 0
     },
     {
@@ -78,19 +66,40 @@
       "query": "intraoperative monitoring education",
       "engine": "bing",
       "results": 10,
-      "relevant": 1
+      "relevant": 0
     },
     {
       "query": "intraoperative monitoring education",
       "engine": "google_news",
-      "results": 25,
-      "relevant": 1
+      "results": 9,
+      "relevant": 0
+    },
+    {
+      "query": "evoked potentials CEU",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 0
+    },
+    {
+      "query": "evoked potentials CEU",
+      "engine": "google_news",
+      "results": 2,
+      "relevant": 0
     }
   ],
-  "discovery_candidates_added": 2,
+  "discovery_candidates_added": 1,
   "catalog_pages_scanned": 65,
   "catalog_candidates_added": 0,
   "items": [
+    {
+      "title": "Recertification - ABRET",
+      "provider": "abret.org",
+      "url": "https://abret.org/recertification",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-04",
+      "discovery_source": "bing RSS"
+    },
     {
       "title": "INTRAOPERATIVE Definition & Meaning | Merriam-Webster Medical",
       "provider": "www.merriam-webster.com",
