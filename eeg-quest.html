@@ -176,7 +176,7 @@
 <div id="battle" class="battle view" hidden>
 <div class="field"><canvas id="scene" width="320" height="192" aria-label="Your EEG technologist facing a rhythm creature"></canvas>
 <div class="status enemy-status"><div class="name-row"><span id="enemy-name">FOCALON</span><span class="level" id="enemy-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Creature energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="enemy-progress"><div class="hp-fill" id="enemy-hp"></div></div></div></div>
-<div class="status player-status"><div class="name-row"><span id="player-name">FOCALON</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
+<div class="status player-status"><div class="name-row"><span id="player-name">EEG TECH</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
 <div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
 <div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
 <div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
@@ -196,6 +196,8 @@ const QUEST_MOVES=[
  {name:'Lamotrigine',short:'LAMOTRIG.',tag:'PRISM',power:24,max:6,color:'#edb55f'},
  {name:'Lacosamide',short:'LACOSAM.',tag:'SYNC',power:26,max:6,color:'#7cbd92'}
 ];
+// Opponent names combine Pokémon villains with neurophysiology themes.
+const QUEST_VILLAINS=[{"name":"JESSPIKE","inspiration":"Jessie / spike"},{"name":"JAMESYNC","inspiration":"James / synchrony"},{"name":"MEOWCLON","inspiration":"Meowth / myoclonus"},{"name":"GIOICTAL","inspiration":"Giovanni / ictal activity"},{"name":"CYRUSYNC","inspiration":"Cyrus / synchrony"},{"name":"GHETSPIK","inspiration":"Ghetsis / spikes"},{"name":"LYSPIKER","inspiration":"Lysandre / spikes"},{"name":"MAXICTAL","inspiration":"Maxie / ictal activity"},{"name":"ARCHWAVE","inspiration":"Archie / waveforms"},{"name":"LUSABRST","inspiration":"Lusamine / bursts"},{"name":"GUZMAURA","inspiration":"Guzma / aura"},{"name":"ROSESPIK","inspiration":"Rose / spikes"},{"name":"VOLOCLON","inspiration":"Volo / clonic activity"},{"name":"COLRESYN","inspiration":"Colress / synchrony"},{"name":"PROTONIC","inspiration":"Proton / tonic activity"},{"name":"ARIANICT","inspiration":"Ariana / ictal activity"}];
 const QUEST_CREATURES=[
  {name:'FOCALON',term:'Focal seizure',level:4,hp:44,attack:10,color:['#443e63','#8d7ea8','#c1afd3','#eee3f3'],shape:0,move:'SPARK SNAP',story:'A small, sharp eared spark keeper. Its tail never stays still.'},
  {name:'ABSENCUB',term:'Absence seizure',level:7,hp:56,attack:12,color:['#3b5d67','#81b2b5','#c0dcda','#f3faf1'],shape:1,move:'MIST DRIFT',story:'A shy valley spirit that slips in and out of the morning mist.'},
@@ -221,7 +223,7 @@ class QuestBattle{
  shuffle(values){const out=[...values];for(let i=out.length-1;i>0;i--){const j=Math.floor(this.random()*(i+1));[out[i],out[j]]=[out[j],out[i]]}return out}
  begin(){this.reset();this.order=this.shuffle(QUEST_CREATURES.map((_,i)=>i)).slice(0,this.battleCount);this.screen='battle';this.encounter()}
  get moves(){return this.moveIds.map(i=>QUEST_MOVES[i])}
- get enemy(){return {...QUEST_CREATURES[this.order[this.stage]],level:4+this.stage*4,hp:[44,56,68,82,96,114][this.stage],attack:[10,12,14,16,18,21][this.stage]}}
+ get enemy(){return {...QUEST_CREATURES[this.order[this.stage]],name:QUEST_VILLAINS[this.order[this.stage]].name,level:4+this.stage*4,hp:[44,56,68,82,96,114][this.stage],attack:[10,12,14,16,18,21][this.stage]}}
  choosePartner(index){if(!Number.isInteger(index)||index<0||index>=QUEST_CREATURES.length)return false;this.partner=index;return true}
  encounter(){const previous=this.moveIds;this.moveIds=this.shuffle(QUEST_MOVES.map((_,i)=>i)).slice(0,4);if(this.moveIds.every(i=>previous.includes(i)))this.moveIds[3]=QUEST_MOVES.findIndex((_,i)=>!this.moveIds.includes(i));this.charges=this.moves.map(m=>m.max);this.enemyHP=this.enemy.hp;this.turns=0;this.guard=0;const id=this.order[this.stage];if(!this.seen.includes(id))this.seen.push(id)}
  act(kind,index){
@@ -409,7 +411,7 @@ function hp(){
 }
 function encounterUI(){
  showEnemy=true;displayEnemyHP=model.enemyHP;displayFocus=model.focus;
- $('enemy-name').textContent=model.enemy.name.slice(0,8);$('player-name').textContent=QUEST_CREATURES[model.partner].name.slice(0,8);$('enemy-level').textContent=':L'+model.enemy.level;
+ $('enemy-name').textContent=model.enemy.name.slice(0,8);$('player-name').textContent='EEG TECH';$('enemy-level').textContent=':L'+model.enemy.level;
  $('player-level').textContent=':L'+(4+model.stage*4);$('badges').textContent=Array.from({length:6},(_,i)=>i<model.stage?'●':'○').join(' ');
  hp();view('battle');say('Wild '+model.enemy.name+'\nappeared!');renderMenu('intro');
 }
@@ -480,7 +482,7 @@ function openGuide(){
   if(found)sprite(icon.getContext('2d'),i,0,0,2);else{const c=icon.getContext('2d');c.fillStyle='#a3b796';c.font='bold 30px monospace';c.fillText('?',10,30)}
   const text=document.createElement('div'),name=document.createElement('strong'),term=document.createElement('small'),desc=document.createElement('p');
   name.textContent=found?creature.name:'UNDISCOVERED';term.textContent=found?' · '+creature.term:' · Encounter '+(i+1);desc.textContent=found?creature.story:'Keep exploring Neuro Valley to meet this creature.';
-  text.append(name,term,desc);const choose=document.createElement('button');choose.type='button';choose.textContent=model.partner===i?'ACTIVE':'CHOOSE';choose.disabled=model.partner===i;choose.setAttribute('aria-label','Choose '+creature.name);choose.addEventListener('click',()=>{model.choosePartner(i);try{localStorage.setItem('eegmon-partner',String(i))}catch(e){}$('player-name').textContent=creature.name.slice(0,8);view('battle');say('EEG TECH chose\n'+creature.name+'!');renderMenu('intro')});row.append(icon,text,choose);root.append(row);
+  text.append(name,term,desc);const choose=document.createElement('button');choose.type='button';choose.textContent=model.partner===i?'ACTIVE':'CHOOSE';choose.disabled=model.partner===i;choose.setAttribute('aria-label','Choose '+creature.name);choose.addEventListener('click',()=>{model.choosePartner(i);try{localStorage.setItem('eegmon-partner',String(i))}catch(e){}$('player-name').textContent='EEG TECH';view('battle');say('EEG TECH chose\n'+creature.name+'!');renderMenu('intro')});row.append(icon,text,choose);root.append(row);
  });$('guide-back').focus({preventScroll:true});
 }
 function toTitle(){cancelWork();stopMusic();model.reset();showEnemy=true;view('title');$('start').focus({preventScroll:true})}
