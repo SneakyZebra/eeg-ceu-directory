@@ -1,1 +1,21 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071d27"><title>EEGMON • Play with sound</title><style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071d27}iframe{display:block;width:100%;height:100dvh;border:0}</style></head><body><iframe id="game" title="EEGMON with built in game audio" src="eeg-quest.html?v=uploaded20-roster-20261104" allow="autoplay"></iframe><script>const frame=document.getElementById('game');window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===frame.contentWindow&&e.data?.type==='eeg-quest:close')location.href='./'});</script></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#071d27"><title>EEGMON</title>
+<style>html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#071d27;color:#eee9cf;font-family:monospace}iframe{display:block;width:100%;height:100dvh;border:0}#launch{position:fixed;inset:0;display:grid;place-content:center;text-align:center;background:#071d27;z-index:2}#launch[hidden]{display:none}button{font:bold 20px monospace;padding:20px 32px;background:#f5c967;color:#071d27;border:3px solid #eee9cf;cursor:pointer}h1{font-size:40px}</style></head><body>
+<div id="launch"><h1>EEGMON</h1><button id="open" disabled>LOADING…</button></div>
+<iframe id="game" title="EEGMON" src="eeg-quest.html?parentAudio=1&v=full-sprites-menu-fit-20261104" allow="autoplay"></iframe>
+<script>
+const frame=document.getElementById('game'),track=new Audio('eegmon-intro.mp3?v=uploaded20-roster');
+let opened=false,intro=true,soundReady=false;
+track.preload='auto';track.volume=.7;
+track.addEventListener('loadedmetadata',()=>{track.currentTime=Math.min(20,Math.max(0,track.duration-.1))});
+track.addEventListener('ended',()=>{track.currentTime=Math.min(20,Math.max(0,track.duration-.1));if(opened&&intro&&!document.hidden)track.play().catch(()=>{})});
+function playIntro(){if(opened&&intro&&!document.hidden)track.play().then(()=>{soundReady=true;frame.contentWindow.postMessage({type:'eeg-quest:audio-ready'},location.origin)}).catch(()=>{})}
+frame.addEventListener('load',()=>{document.getElementById('open').disabled=false;document.getElementById('open').textContent='OPEN EEGMON';if(opened&&soundReady)frame.contentWindow.postMessage({type:'eeg-quest:audio-ready'},location.origin)});
+document.getElementById('open').addEventListener('click',()=>{opened=true;intro=true;playIntro();document.getElementById('launch').hidden=true;frame.contentWindow.focus()});
+window.addEventListener('message',e=>{
+ if(e.origin!==location.origin||e.source!==frame.contentWindow)return;
+ if(e.data?.type==='eeg-quest:close'){track.pause();location.href='./'}
+ if(e.data?.type==='eeg-quest:intro'){intro=!!e.data.playing;if(intro)playIntro();else{track.pause();if(track.readyState)track.currentTime=Math.min(20,Math.max(0,track.duration-.1))}}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)track.pause();else playIntro()});
+</script></body></html>
