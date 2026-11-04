@@ -1,0 +1,108 @@
+name: Verify arcade glow and surprise attacks
+on:
+  push:
+    branches: ['updates/glow-and-random-brains-20261104']
+    paths: ['.github/workflows/verify-glow-and-brains.yml']
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build and verify exact tested update
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re,subprocess,hashlib
+          p=Path('index.html');s=p.read_text()
+          assert hashlib.sha256(s.encode()).hexdigest()=='86e9d9a9898bb69a9214c6f0cbc092cdb9434615cf553a7598d582080eaf24a3'
+          def change(old,new):
+           global s
+           assert old in s,old[:80]
+           s=s.replace(old,new,1)
+          change('z-index:20;display:none;}','z-index:20;display:none!important;}')
+          change('#flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block;}','#flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block!important;}\n#flappy-easter-box .fb-overlay:not(.zelda-story-intro) #zelda-title-effects{display:none!important;}')
+          change("  syncZeldaIntroMusic();","  zTitleCtx.clearRect(0,0,1448,1086);\n  syncZeldaIntroMusic();")
+          change(" if(!zeldaMode||mode!=='ready')return;\n const c=zTitleCtx,t=zReducedMotion.matches?0:now/1000;"," if(!zeldaMode||mode!=='ready'){zTitleCtx.clearRect(0,0,1448,1086);return;}\n const c=zTitleCtx,t=now/(zReducedMotion.matches?3000:1000);")
+          a=s.index(' // Shimmer each gold triangle separately');b=s.index('\n}\n\nfunction loop(t)',a)
+          s=s[:a]+""" // Eight stepped gold frames produce a clearly visible NES-style glow.
+           const triangles=[[[712,136],[682,177],[738,177]],
+             [[675,190],[648,234],[703,234]],[[747,190],[720,234],[774,234]]];
+           const goldFrames=['#e7a600','#ffc400','#ffdf28','#fff46a','#ffffbe','#fff46a','#ffdf28','#ffc400'];
+           const glowFrame=Math.floor(t*4)%goldFrames.length;
+           for(let i=0;i<triangles.length;i++){
+             c.save();c.beginPath();triangles[i].forEach(([x,y],j)=>j?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.clip();
+             c.fillStyle=goldFrames[glowFrame];c.fillRect(640,125,145,120);
+             // Bright rectangular highlights move in discrete pixel steps.
+             c.fillStyle='rgba(255,255,239,.88)';
+             const scanY=132+((Math.floor(t*6)+i*3)%17)*6;
+             c.fillRect(640,scanY,145,6);
+             c.restore();
+           }
+           // Small square glints pulse beside the triangles without covering the lettering.
+           const glints=[[699,147],[664,218],[757,218]];
+           for(let i=0;i<glints.length;i++){
+             if((glowFrame+i*2)%8<4)continue;
+             const [x,y]=glints[i];c.fillStyle='#ffffed';
+             c.fillRect(x,y,6,6);c.fillRect(x+2,y-4,2,14);c.fillRect(x-4,y+2,14,2);
+           }""" + s[b:]
+          change('let fireQueued=false;','let fireQueued=false,reinforcementTimer=3,reinforcementRemaining=0;')
+          change('function start(){fireQueued=false;buttons.fire=false;','function start(){reinforcementTimer=3;reinforcementRemaining=0;fireQueued=false;buttons.fire=false;')
+          change("const sprite=b.phase==='happy'?null:eegEnemySprites[type][variant];","const sprite=(b.phase==='happy'||b.reinforcement)?null:eegEnemySprites[type][variant];")
+          change('const base=waveColors[(level-1)%waveColors.length];','const base=b.reinforcement?waveColors[0]:waveColors[(level-1)%waveColors.length];')
+          change(' function tick(dt){',""" function spawnBrainReinforcements(){
+             const active=brains.filter(b=>b.reinforcement&&b.phase==='diving').length;
+             const count=Math.min(1+Math.floor((level-3)/3),3,reinforcementRemaining,Math.max(0,6-active));
+             for(let i=0;i<count;i++){
+               const x=rand(28,W-28),y=-26-i*46;
+               brains.push({id:++brainId,reinforcement:true,x,y,baseX:x,baseY:70,row:0,size:17,
+                 phase:'diving',diveAge:1.6,startX:x,startY:y,attack:Math.random()<.5?'direct':'wild',
+                 attackSeed:rand(0,Math.PI*2),turns:1,vy:130+Math.min(150,(level-3)*16),
+                 vx:rand(-45,45),angle:rand(0,6),happy:0});
+               reinforcementRemaining--;
+             }
+             if(count)eegSound('dive');
+             reinforcementTimer=rand(Math.max(1.2,3.1-(level-3)*.15),Math.max(2,5-(level-3)*.2));
+           }
+           function tick(dt){""")
+          change('shotTime-=dt;spawnTime-=dt;invuln-=dt;','''shotTime-=dt;spawnTime-=dt;invuln-=dt;
+           if(level>=3&&reinforcementRemaining>0&&brains.some(b=>!b.reinforcement&&b.phase!=='happy')){
+             reinforcementTimer-=dt;
+             if(reinforcementTimer<=0)spawnBrainReinforcements();
+           }''')
+          change("if(b.y>H+35){b.phase='formation';b.x=b.baseX;b.y=b.baseY}","if(b.y>H+35){if(b.reinforcement){b.phase='gone'}else{b.phase='formation';b.x=b.baseX;b.y=b.baseY}}")
+          change("brains=brains.filter(b=>b.phase!=='happy'||b.happy>0);","brains=brains.filter(b=>b.phase!=='gone'&&(b.phase!=='happy'||b.happy>0));")
+          change("level++;eegSound('level');aggression=Math.max(0,aggression-4);","level++;eegSound('level');aggression=Math.max(0,aggression-4);\n   reinforcementRemaining=level>=3?Math.min(24,4+(level-3)*3):0;reinforcementTimer=rand(1.8,3.2);")
+          p.write_text(s)
+          print(hashlib.sha256(s.encode()).hexdigest())
+          
+          assert hashlib.sha256(s.encode()).hexdigest()=='f6542edcd43474e4a7cd614a08d272567c5c6d3658f55402fda7653cf695891f'
+          original=subprocess.check_output(['git','show','c9b8aafc105de768740f15396010d361fbf7f7b6:index.html'],text=True)
+          def directory(content):
+           a=content.index('<style id="flappy-easter-style">');b=content.index('<script>\n/* Rad EEG is accessible exclusively',a)
+           content=content[:a]+content[b:]
+           return re.sub(r'<style id="recovered-zelda-title-animation">[\s\S]*?</style>','',content)
+          assert directory(original)==directory(s)
+          assert 'qaForcedGame' not in s
+          for m in re.finditer(r'<script\b([^>]*)>([\s\S]*?)</script>',s):
+           if 'application/json' in m[1]:continue
+           Path('/tmp/arcade-check.js').write_text(m[2])
+           subprocess.run(['node','--check','/tmp/arcade-check.js'],check=True)
+          PY
+      - name: Prepare verified index-only commit
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          export GIT_INDEX_FILE=/tmp/glow-and-brains-index
+          git read-tree c9b8aafc105de768740f15396010d361fbf7f7b6
+          git add index.html
+          tree=$(git write-tree)
+          commit=$(git commit-tree "$tree" -p c9b8aafc105de768740f15396010d361fbf7f7b6 -m "Glow Triforce in pixel steps, isolate Zelda effects and add surprise brain attacks")
+          git push origin "$commit:refs/heads/updates/glow-brains-verified-20261104"
