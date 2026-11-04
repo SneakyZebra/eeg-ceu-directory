@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#092b34"><title>EEG Quest • Rhythm Rescue</title>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#092b34"><title>EEGMON • Neurophysiology Battles</title>
 <style>
 :root{color-scheme:dark;--ink:#203b36;--paper:#f6f5e5;--mint:#cbd8b0;--gold:#f5c967;--night:#071d27}
 *{box-sizing:border-box}body{margin:0;background:var(--night);color:#eee9cf;font-family:"Courier New",monospace;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:12px;overflow:auto}button,a{-webkit-tap-highlight-color:transparent;touch-action:manipulation}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #f2b63f;outline-offset:3px}button:disabled{cursor:default;opacity:.45}.cabinet{width:min(94vw,calc((100dvh - 112px)*1.1111),750px);min-width:285px}.topline{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 10px;font-size:11px;font-weight:bold;letter-spacing:1px}.brandmark{color:#bde6b8}.brandmark span{color:var(--gold)}.topbuttons{display:flex;gap:6px}.topbuttons button{border:1px solid #537369;border-radius:4px;background:#143840;color:#e9ecd3;font-size:10px;padding:9px 10px}.screen{position:relative;aspect-ratio:10/9;background:var(--paper);color:var(--ink);border:7px solid #203b36;box-shadow:0 0 0 3px #9ba88a,0 0 0 6px #17333d,0 18px 45px #0007;overflow:hidden}.battle{height:100%;display:grid;grid-template-rows:68% 32%}.field{position:relative;overflow:hidden;background:#f6f5e5}.field canvas{display:block;width:100%;height:100%;image-rendering:pixelated}.status{position:absolute;font-size:clamp(10px,1.7vw,15px);font-weight:bold;line-height:1.3}.enemy-status{left:5%;top:7%;width:48%;padding:0 0 6px 4px;border-bottom:3px solid var(--ink);border-left:3px solid var(--ink)}.player-status{right:5%;bottom:6%;width:49%;padding:4px 6px 4px 0;border-bottom:3px solid var(--ink);border-right:3px solid var(--ink)}.name-row{display:flex;justify-content:space-between;gap:6px}.level{font-size:.85em;white-space:nowrap}.hp-row{display:flex;align-items:center;gap:5px;margin-top:4px}.hp-label{font-size:.7em;color:#826435}.hp-track{height:8px;background:#dde1c3;border:2px solid var(--ink);flex:1;overflow:hidden}.hp-fill{height:100%;background:#539e63;transition:width .4s steps(8)}.hp-fill.low{background:#c5684e}.hp-numbers{text-align:right;margin-top:3px;font-size:.85em}.player-status .xp-track{height:3px;background:#bac9bc;margin-top:5px}.player-status .xp-track i{display:block;height:100%;background:#4f89a3;width:0}.wave-counter{position:absolute;left:5%;bottom:5%;font-size:9px;letter-spacing:2px;color:#55765d}.command-box{display:grid;grid-template-columns:1fr 1fr;border-top:5px double var(--ink);background:var(--paper);min-height:0}.dialogue{padding:clamp(9px,2vw,18px);font-size:clamp(11px,1.8vw,17px);line-height:1.5;min-width:0;display:flex;flex-direction:column;justify-content:space-between}.dialogue p{margin:0;white-space:pre-line}.dialogue small{font-size:8px;letter-spacing:1px;color:#6c7d65;margin-top:4px}.commands{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:7px;border-left:4px double var(--ink);min-height:0;align-content:stretch}.commands button{position:relative;border:0;border-radius:0;background:transparent;color:var(--ink);text-align:left;font-size:clamp(11px,1.8vw,16px);font-weight:bold;padding:5px 4px 5px 15px;min-height:35px;line-height:1.2}.commands button:hover,.commands button:focus{background:#e1e6ca;outline:none}.commands button:focus::before,.commands button:hover::before{content:"▶";position:absolute;left:1px;top:50%;transform:translateY(-50%);font-size:10px}.commands button small{display:block;font-size:clamp(8px,1.1vw,10px);font-weight:normal;margin-top:4px}.menu-back{align-self:flex-start;border:0;background:transparent;color:var(--ink);padding:4px 0;font:bold 10px "Courier New",monospace;min-height:24px}.menu-back[hidden]{display:none}.commands.long{grid-template-columns:1fr}.commands.moves button{font-size:clamp(8px,1.22vw,12px);overflow-wrap:anywhere;padding-left:10px}.commands.moves button::before{font-size:7px}.bottomline{display:flex;justify-content:space-between;gap:6px;font-size:9px;margin-top:12px;color:#9fb5aa;letter-spacing:.4px}.disclaimer{max-width:650px;text-align:center;font:9px/1.5 "Courier New",monospace;color:#98aaa4;margin:9px auto 0}.view[hidden]{display:none!important}.title-screen{position:absolute;inset:0;background:#dce8ca;display:flex;flex-direction:column;align-items:center;text-align:center;padding:7% 7% 4%;overflow:hidden}.title-screen::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,#203b3605 3px,#203b3605 4px);pointer-events:none}.title-eyebrow{font-size:clamp(8px,1.7vw,13px);letter-spacing:3px;font-weight:bold;color:#526852}.title-screen h1{font-size:clamp(39px,8vw,72px);line-height:.85;letter-spacing:-4px;color:#f6d165;text-shadow:3px 0 #203b36,-3px 0 #203b36,0 -3px #203b36,0 3px #203b36,4px 5px #203b36;margin:7% 0 2%;transform:rotate(-3deg)}.title-screen h1 span{display:block;font-size:.9em}.title-sub{font-size:clamp(10px,2vw,17px);font-weight:bold;letter-spacing:3px;margin:3% 0 0}.title-art{width:100%;height:31%;image-rendering:pixelated;flex-shrink:1;margin:2% 0}.title-story{font-size:clamp(9px,1.6vw,14px);line-height:1.45;max-width:430px;margin:2% 0 5%}.start-button{background:var(--ink);color:#fff8dc;border:3px double #f5d37e;padding:12px 25px;font:bold clamp(11px,2vw,17px) "Courier New",monospace;letter-spacing:1px;box-shadow:3px 3px #8aa073}.title-foot{font-size:clamp(8px,1.2vw,10px);margin:5% 0 0;letter-spacing:1px}.result-screen{position:absolute;inset:0;background:var(--paper);padding:9% 7%;display:flex;align-items:center;justify-content:center;flex-direction:column;text-align:center}.result-screen .medal{font-size:58px;color:#b88a31;margin-bottom:12px}.result-screen h2{font-size:clamp(20px,4vw,36px);line-height:1.1;margin:5px 0 14px;letter-spacing:-1px}.result-screen p{max-width:430px;font-size:clamp(11px,1.7vw,15px);line-height:1.6;margin:10px 0}.result-screen .result-buttons{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:20px}.secondary{background:transparent;color:var(--ink);border:2px solid var(--ink);padding:11px;font:bold 12px "Courier New",monospace}.result-score{font-weight:bold!important;letter-spacing:2px}.guide-screen{position:absolute;inset:0;background:var(--paper);padding:6%;display:flex;flex-direction:column}.guide-screen h2{font-size:20px;margin:0 0 5px}.guide-screen>p{font-size:10px;line-height:1.5;margin:0 0 13px}.guide-list{overflow:auto;flex:1;border-top:3px double var(--ink);margin-bottom:14px}.guide-entry{padding:12px 0;border-bottom:1px solid #a7b69e;display:grid;grid-template-columns:40px 1fr;gap:10px}.guide-icon{width:40px;height:40px;image-rendering:pixelated}.guide-entry strong{font-size:12px}.guide-entry p{font-size:10px;line-height:1.5;margin:4px 0 0}.guide-entry small{font-size:9px;color:#58715c}.supply-count{color:#6f7c52}.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:430px){body{padding:7px}.cabinet{width:min(96vw,calc((100dvh - 105px)*1.1111));min-width:270px}.screen{border-width:4px}.topline{font-size:9px;letter-spacing:0}.topbuttons button{font-size:9px;padding:8px}.dialogue{padding:8px;font-size:10px;line-height:1.4}.dialogue small{font-size:7px}.commands{padding:4px;gap:1px}.commands button{padding:4px 2px 4px 11px;min-height:32px;font-size:10px}.commands.moves button{font-size:8px}.commands button small{font-size:7px}.status{font-size:10px}.hp-track{height:6px}.wave-counter{font-size:7px}.bottomline{font-size:8px}.disclaimer{font-size:8px}.title-screen h1{font-size:40px}.title-story{font-size:10px}.title-screen{padding-top:6%}.title-sub{font-size:10px}.title-foot{font-size:8px}.start-button{padding:10px 18px;font-size:12px}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.hp-fill{transition:none}}
@@ -143,9 +143,32 @@
 .start-button,.secondary{background:#fff!important;color:#000!important;box-shadow:none;border-color:#000}
 .result-screen .medal{color:#000}
 @media(prefers-reduced-motion:reduce){.hp-fill{transition:none}}
+</style>
+<style id="eegmon-intro-and-hp-repair">
+@font-face{font-family:EegmonLogo;src:url(data:font/woff;base64,d09GRgABAAAAAAR4AAoAAAAABOgAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABbAAAAEoAAABgQ5Q/zGNtYXAAAAHQAAAAOAAAAEIArwDqZ2x5ZgAAAhgAAAHgAAAB4N1qE4JoZWFkAAAA9AAAADYAAAA2Ddx5xWhoZWEAAAEsAAAAIAAAACQNrQEVaG10eAAAAbgAAAAYAAAAGB82/0lsb2NhAAACCAAAAA4AAAAOAZgBFW1heHAAAAFMAAAAHQAAACACEwAxbmFtZQAAA/gAAABsAAAA8hHlJmBwb3N0AAAEZAAAABMAAAAg/58AMgABAAAAAQAAwl6pNV8PPPUAGwgAAAAAAMHx3j4AAAAA5xFQ2v9M/i0GXgeFAAAABgACAAAAAAAAeJxjYGRg4GD4c5aBgY3hv88/R7Y4BqAICmADAHgSBM54nGNgZGBgYGMwYGBiAAFGMMnFAOUyMAAABk4ARwAAAHicY2BmyWKcwMDKwMA4i7GQgeFPCoRmY2FIYxJiYGDhBkrBACMDElAAAgYHBlcGfw6GP2cZGASS2HphaliesreClDAwAAAYuQrbAAAGAAEABZoACAYA/7wEZv9MBGb/jQTN/6x4nGNgYGBkYAZiBgYeBhYGMyDNAYRMQNqVwZ3B//9/KMv3////+//vY2AAq2UAqoXoZAIAArQJlAAAAAAAHwBpAIkArADwAAAAAQAI/3UGLQZOAAsAABMlFxMlASUDBwMDBZMB7INzAT8Bef26anObMv3LBdMh1QEnCPknOQJW3QEW/gUpAAAC/7z/xQZeBokAFwAvAAABFhEUBgYHDgMjIicmAjUQNzYkJDMyEwYGIyInJiY1NDY3IgYGFRQXFjMyNjU0BXHtO2pAac3Qwl3Yr3abx3UBAgEUkO0hFHpBKR4QFUlQYIdARFJSZYoF27X+0mjdyk+Csm8ydFABVMMBOeOG0Hf+UHCSHxBAHj13LFmKSnQ2QrSFPgAAAf9M/i0E9geFAAsAAAEBAwUTBQETBQMnJwGqAQY5Am4R/o/+hwj+JTmsCAdc/WkCXhn3PBkEKfyTCAd9Kf4AAAH/jf6gBiUHRAANAAAlBQMlAwcTJRMFEyUTBQIMBBkI+k1RjBkEvBn9UBACqBn9UIMx/k5JBeQZAdu1/k1y/shz/piDAAAB/6z+XgVkBo8AJgAAAScTBQMlNhI3BiMiJAIDJjU0EjYkNzIeAhcBJiEiBhUWFhcyNjYC8kpzAjWD/gQbYg5Bxb3+4bgUAkWdARTEgvzSlxf+QC3/ADp6BVRrCS0jAl4hAQbV+64pUgExLyCPAVsBKB07lAEQ24oDPW2dWv7bcKZoT5EFCwl4nGNgYGBlcGJgZmBk4WRgZJBiYICymRh4gDwIm5nBjkENymZh0GBIgbLZGFQYehgCGPIZshlSGXKBdB6DAkMwkM5hyASq8gOyioDiiUC+G1i2hMEXTKcD1RcxWOHRq4Cimzx1WF0CAIoaJFp4nGNgZgCD/3MYjBiwAAAqgwHRAA==) format('woff');font-display:swap}
+.enemy-status .hp-row{padding-left:16px;padding-right:16px}
+.player-status{top:118px}
+.player-status .hp-row{padding-left:0;padding-right:16px}
+.hp-label{white-space:nowrap;flex-shrink:0}
+.hp-numbers{white-space:nowrap}
+.enemy-status,.player-status{z-index:2}
+.screen:has(#title:not([hidden])){filter:none;background:#fff0ff}
+.title-screen.eegmon-title{padding:0;background:#fff0ff;display:block}
+.title-screen.eegmon-title::before{display:none}
+.title-screen.eegmon-title #title-art{position:absolute;inset:0;margin:0;width:320px;height:288px;filter:none;image-rendering:pixelated}
+#start.eegmon-start{position:absolute;inset:0;width:320px;height:288px;display:block;border:0!important;box-shadow:none!important;background:transparent!important;color:#17131b!important;padding:0!important;font:8px/8px QuestPixel,monospace!important;letter-spacing:0;text-align:center}
+#start.eegmon-start span{position:absolute;top:150px;left:0;width:320px;animation:eegmon-start-pulse 1.5s steps(1,end) infinite}
+#start.eegmon-start:focus-visible{outline:2px dashed #53465c;outline-offset:-4px}
+@keyframes eegmon-start-pulse{0%,65%{opacity:1}66%,100%{opacity:.2}}
+#intro-source-panel{width:min(100%,328px);margin:12px auto 0;padding:3px;background:#102d36;border:1px solid #526e70}
+#intro-source-panel[hidden]{display:none}
+#intro-source-panel .music-label{font:9px/15px "Courier New",monospace;color:#c6d6d1;text-align:center}
+#intro-source-frame{display:block;width:100%;height:200px;border:0;background:#000}
+#intro-source-panel a{display:block;font:8px/15px "Courier New",monospace;color:#b7d5cb;text-align:center}
+@media(prefers-reduced-motion:reduce){#start.eegmon-start span{animation:none}}
 </style></head>
-<body><main class="cabinet" aria-label="EEG Quest arcade game">
-<header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Mute game audio" aria-pressed="false">♫ SOUND ON</button><button id="exit" aria-label="Close EEG Quest">✕ CLOSE</button></div></header>
+<body><main class="cabinet" aria-label="EEGMON arcade game">
+<header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Mute game audio" aria-pressed="false">♫ SOUND ON</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
 <section class="screen" aria-label="Game screen"><div id="gb-viewport">
 <div id="battle" class="battle view" hidden>
 <div class="field"><canvas id="scene" width="320" height="192" aria-label="Your EEG technologist facing a rhythm creature"></canvas>
@@ -153,10 +176,10 @@
 <div class="status player-status"><div class="name-row"><span>EEG TECH</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
 <div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
 <div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
-<div id="title" class="title-screen view"><div class="title-eyebrow">A NEURO VALLEY ADVENTURE</div><h1>EEG<span>QUEST</span></h1><div class="title-sub">RHYTHM RESCUE</div><canvas id="title-art" class="title-art" width="320" height="92" aria-hidden="true"></canvas><p class="title-story">Rhythm creatures have scattered across Neuro Valley.<br>You are the EEG tech who can bring the rhythm back.</p><button id="start" class="start-button">▶ START YOUR PATROL</button><p class="title-foot">6 CREATURES · 4 MOVES · ONE CALM MIND</p></div>
+<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
 <div id="result" class="result-screen view" hidden><div class="medal" id="result-medal" aria-hidden="true">✦</div><h2 id="result-title">RHYTHM RESTORED</h2><p id="result-story"></p><p class="result-score" id="result-score"></p><div class="result-buttons"><button class="start-button" id="again">BACK TO TITLE</button></div></div>
 <div id="guide" class="guide-screen view" hidden><h2>CREATURE INDEX</h2><p>Arcade creatures renamed with seizure and epilepsy terminology. Their abilities and medication move powers are fictional.</p><div id="guide-list" class="guide-list"></div><button id="guide-back" class="secondary">◀ BACK TO BATTLE</button></div>
-</div></section><div class="bottomline"><span>← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY</span><span id="best">BEST 0000</span></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
+</div></section><div class="bottomline"><span>← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY</span><span id="best">BEST 0000</span></div><div id="intro-source-panel"><div class="music-label">INTRO MUSIC · FROM 0:20</div><iframe id="intro-source-frame" title="EEGMON intro music from the linked Pokémon Red video" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe><a href="https://www.youtube.com/watch?v=HY_lQXpGRuc&t=20s" target="_blank" rel="noopener noreferrer">Video source · tap its play control if needed</a></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
 </main>
 <script>
 'use strict';
@@ -237,10 +260,37 @@ let active=true,muted=false,audio=null,master=null,musicTimer=0,musicStep=0,busy
 try{best=Number(localStorage.getItem('eeg-quest-best')||0)}catch(e){}
 $('best').textContent='BEST '+String(best).padStart(4,'0');
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const eegmonTrainer=new Image();eegmonTrainer.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAA4AgAAAADg8/2LAAABiUlEQVR42mXQMUhCQRgH8JNKGoQn2htqkeYEIWtKeGa6tKj4XhEFBYq1NbQ0FNYeSLhoi4YSZoNDq0MgL0ISbVAwGpql4T2fFsS9vs53p0PdcPz4+O67/x2C8UJ/2XSM2Of3RgzsvgqUeBPaWUo9AZ0kZQ/gc59SAxikRmxtRFnv4LDFqni7iUKM7wgh1ovMy0uCQcXfXflgF093794IMQdQuyq7CdV7wlKZFJBcAFALlWFIWSTT5s6H7OyQPGfBYV6NhKk1k1VCnQNs7+XX6RVav49ukmQYwJdu8d0SNhzQwNe2ogbIqQjVn5z3gHD6wns8uLRmTgDNZ2zfizFv3APoQbIVTWnEu8kw5MvxIuJnCLHFIRM6afS6iDyuhMEG9kwsCAYVUyj4xBnEUjjysjamYmeUIqpoUJemInVKVQpIz0eUoioq2phAh7Vjapr9mZxSY4yP0cEWfTHwWRxnnE1iaVQNjikL2MqOuRq9yn9OcthKe/FqEPs5ylMOhzXKkgDmPO0lm8LBL5neoMU1boNUAAAAAElFTkSuQmCC";
+const eegmonVersion=new Image();eegmonVersion.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAIAQAAAABGt0WaAAAARUlEQVQI12P4DwcM2Jn8f9r//zf+/6/+P4OagY2yoLHA4cfyDDxLVE4FGQX3eeozqKSoHDNqM34EZKoZtDwWOi/clqwPANZSMuobYyXVAAAAAElFTkSuQmCC";
+const eegmonLogoCanvas=document.createElement('canvas');eegmonLogoCanvas.width=160;eegmonLogoCanvas.height=60;
+const eegmonLogoCtx=eegmonLogoCanvas.getContext('2d');
+function paintEegmonLogo(){
+ const c=eegmonLogoCtx;c.clearRect(0,0,160,60);c.font='36px EegmonLogo';c.textAlign='center';c.textBaseline='alphabetic';c.lineJoin='round';
+ const width=c.measureText('EEGMON').width,scale=Math.min(1,130/width);
+ c.save();c.translate(80,0);c.scale(scale,1);
+ c.strokeStyle='#8e7c96';c.lineWidth=5;c.strokeText('EEGMON',1.5,46);
+ c.strokeStyle='#233a91';c.lineWidth=4;c.strokeText('EEGMON',0,44);
+ c.fillStyle='#ffdc2e';c.fillText('EEGMON',0,44);
+ c.strokeStyle='#304193';c.lineWidth=.55;c.strokeText('EEGMON',0,44);c.restore();
+}
+document.fonts.load('36px EegmonLogo').then(paintEegmonLogo);paintEegmonLogo();
+function stopIntroSource(){
+ const frame=$('intro-source-frame');if(frame&&frame.getAttribute('src'))frame.removeAttribute('src');
+}
+function syncIntroSource(){
+ const panel=$('intro-source-panel'),frame=$('intro-source-frame');
+ const visible=active&&model.screen==='title'&&!$('title').hidden;
+ panel.hidden=!visible;
+ if(visible&&!muted&&!document.hidden){
+  if(!frame.getAttribute('src'))frame.src='https://www.youtube.com/embed/HY_lQXpGRuc?enablejsapi=1&playsinline=1&autoplay=1&start=20&end=68&rel=0&origin='+encodeURIComponent(location.origin);
+ }else stopIntroSource();
+ fitGoldViewport();
+}
+
 const redCreatureImages=["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoAgMAAADxkFD+AAAADFBMVEWte73///8ZEBDetcVpAvB1AAABJ0lEQVQYlWMIhQMGYpipCOYk0chMCDMsNC1tH4QZEurW+g/CjAz9Gb8OwkwM/1nFB2FOjX++gC8KzEytn9fAlQZmuv4LUuCcBmKGiX+qaLCKBDEjw3+eUrCszASJxh990fD02UyQ2vnPlZhn/0wFicYsX9GX9g/EDFV0adg57f+tqUDRUDmmZ3HxV1MZQqP6J1lP/1v/Hiia+n7GOfmvr38B1Ubw66+zX/r6P1DUbb1Wz76l/18/ZQhNW9O/H8ScCWRuEt2/f2H9HyAztSh8//5//Z+WApk/p/37/0FrZSiIOfv0/wNTQY50/cW//j8T2G+R9Z/yP2iCmRGrZu4/NBXMTOJaup8TEmZJkWF/VCHMFUvDFkwFM8PqQiOroIG6MjRsJXFxAQCL07KWNPXxtgAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEWte73///8ZEBDetcVpAvB1AAACWElEQVQoz12TT0gUYRjGX2aJSgdWEG8J0Z9DRjE2xR7aZQQPXpRd04dPZF/25MWb6cdEsazYJejgJTqGHQIZ8FYQnTaGoaiRSeRjTh8G3aRDui0jsdN02Faz9/Ly433e2+8hnBrqLnUahfwHBQPiGBmAVFB/UUFJwb2rxB3BSsnjX0YGCKguxivl6azGYIAgEdUDZzpWshvWrjpY0vVgr4u1HdcZDeMZQIGg6no070+WS1IJEFhUA/tCZFZ5GCC03cKg79ideEcBBK5V7aJl5ztTzCCuTfhRy2x9TLSEIsQ8XrRNuz/kGCDWieWYVvN6IWMJEmkSkm9am1l7CIq4M9kMi5FxNFrQDHLrVs7yrf653HJdgUSDwtxd2qqE24kAoWn/sC4bqlJMAwUS31uG0ezHTC4oSZD71fpsWTdQCe12qgkPcuYavcFYs7MbgPBr9VZzTWH8W5QAxI/26e1TwM/bKYNw2Ni8uQVBF/09pQgWfnsvF2Zp3YkliEOIfW/hofE4yxgkoyG8815v9JlRqiUhu4MX3giNOKWSAnHtPeYvrRpzjqslCOWiWnxCI7MtJ1UguescrpHhPXduawHCTPmIDM+7mqEgQYKj+68W+zbPO9sxQFixmtfueevU0lKBWHygT/MbdqMzDQECr4T0jM7ujekYIMjdgfIVsxDaZwCQwGwUnYucwk9IgCDblS/jeV2fSFiCILA74DSSpaDrhlQ4sAcTf7gbFiyToJrqlEXP2OUp1AV6IgkXuo64J6GEBOJjgd0p6PaJ3tyOgRNjIYQ41YX/mtKbP0DSWGjswdyYAAAAAElFTkSuQmCC","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAgMAAAAqbBEUAAAADFBMVEX///8ZEBDWpQD/5nPgmvRXAAABt0lEQVQYGQXBv0tUcQAA8M+7H4ZDeBIehMNNNTa1tHQPJNryJL9PiUApGjTEISqC6hwDId7QWeTQYoEHYVNQBDr0B9yQU0MtDrZ0gRpXPb99PgAAAAAAAAA1AGgBWkhyIOmhmpNkLSdSVHPqm6lGinpe0+6seAT1VqtaZEZ/QT3kjd1Zlz/DWJa3w7ukUaui/vjBILQqD2tTOP3naG/WaP9SBcvx917I7u9cr2E7/t2/9vVb0k9JYoxH61vt3zspU9tx8KET4s8Edydj5+PicedTBU/nirHBVl9jd5pzrwbZ/ifD7X8VYws//yz/SE/ejuZVLsQYO/debvXPkiy9j8dzx4uxNI8r7WIQ43p8g6T89fC5eBS/oNL8lZV3FLHAqWKeuFNux5Qr0xP6sWj1mj1eJCP6zXaYLh+gctFBcybcSgucOrQ3EkL3WTNlMqzsTYas21nuSUKY2J0LWff10AHCzc5MCN0NSyQLV8NUuNHdMETydnwhDeliDpViaDENK49zqJ2vbpaCdg7pwfhmEmz3YLXX2BjOSuUenFm5szE8m/gOSuWc0pMUJOUca0BpNQXAGgAA+A8pN6qkldPG8AAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoAgMAAADxkFD+AAAADFBMVEX/////pVIZEBDWUjGjU/pQAAABdUlEQVQYlU3QzysEYRgH8O++ZW0ztUeKy3JZhm3OLn4dxFXRctikNj/WH0C0O40Ipz0YRE1DqdnxYzlwoIz8BUqhpEYJu8XVtGVez7s5eA7fPr3P+/b0PgDVRxuqFdWktT2LWcSWWHHnrRKZJG6N8ssvvjtBLKTK358HS2WALT/l3SD8vqEhZFxA9XGcugZLZ/pVv6k0p4FNvdx2/dQOlIjjm+7dQ3C/qkHxrtSfnH8l28jrvuIGtqr3wrnx05nSiLroQGGf3XXroXnNhrmneaFuia2ZMLf1qMYsfd9E/HwmNBZBh7mA+JFdM5LGdGUWDU7YSJ0N5h0LsUkoJ1EbrUk0Vw7Et8rFLchZngfC3PUgd/JXoLHKLH8E4gFR5e4wYATcR4IXBSvEdl7oI5ardMLAklO9YC0DukSUubUCNEvcE/QA+Y9isCB79gTlHO1hSKwTrUQYs4KJFEVMBE6TFJF6eiddjxGZ4VO/RxM95YROD/G/fgGIo6DOsmqejgAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEX///8ZEBDWpQD/5nPgmvRXAAACTElEQVQoz13TsWsTcQDF8e/lEutBmt+BRsGpS/aUDtKSNL+0SpdCg/aXpEnFCHYwKESkQ6XgQf+BDDmKtdIlRXqLrg42J+ImkkFBENsOzZDtoA4mNDmHqy34tg9vfDw4j1EEYDFQSCkL0N5LABJ5/wcwIhpB2fKHQJgOgFH2vAFg0pNAouW5woIxvuaATU+4uoR14W9DaDkZ9TiCeS/TjGDUkimBCQtMdOMy4iZd/VM74FWZcCfAN2GBu10pr5OCpAnPPs51s2xzGrD2ebx7i3X9C5wegfyeXFmkJnREVIL5LVn+lfVSupsUFpip8Z3Dl57HiTsKmNGbvt85cfVThkBYHPp+r4UvxB8grP/0/c66QPfagCbeuP7BW4+CkAAv5sjM7vidvTUAbjwlM/PKL/frAESeuOlYqdcaBtSWrNHJUt7NBETJUaUKiOYFV4roxwHjVkzZy+e8hthUy9ALmHDFgX3BSC1TsguQPmvvD6q7ymVaAtiq0HWcUg0hAU23q8pxthro9WDB/T3HKXTQ28Bler5T3c33JMfAGMOFvr2khkV+AybD2czWB7WvmARMvT8/XR6o54syDYyJbnTy8WC1+tCMAVammUxU0rdLj8JCghw2vNfFqdXyfnbDAtnPzqzknaV7on6lDRtd4upBVeVph9uERBNDWXGVUzmtjRarE8lDIgdU0KYkiQoYd5QFhHoQtyCk1orAyDHE1TswCg1gpA6GKgJ2HrgkIbSWBwxlQQRg07YAuwJhAENJwMj9u4VdgbMqGAZA47/8BbUL08JDAVn7AAAAAElFTkSuQmCC","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEWUpd7///8ZEBBae71q4DC8AAACvUlEQVQokTXTX0hTURwH8J/TgS5y7mFBvRTFpK0HHyIQhTJdhQUmbr8z7xWnqLfYrCaEUBBy1XxYLxF0RlOSVdzhPVdcQQkucZJFf4geJAPppYQlU9D14MNucte9zp2Xcz7whXN+5/wOYGEIiLI+gbHeQVxFhdunj0PC9RuBPRIOffxKKy2yGbnzaMJ9djYT6UKDRUK/wcHOCm6wCtwcClTnKnem73FjzOZAWmB1bDnx6RL1EyM82efk+7OmI5huLNCBCYCZSW8FgoSjr9NYDpDKtOpM4m0x3WqCkpocWBBCUu8oBRDNVzSwBaAj17Mk6rS3aeAmwGk9HtHFmN2bGrZxQLpmPEw/vQip+xclIL6Ep8SXZwDzw04KvrKoJ6+xmFXNrkUpcA1yk8YWj2mJJSens02+qvAQYinIIAXCl7tohznIdk9HjRLi78TxO3Yluft1j9KNky7FMrOVrxMMfiGxmmmT8jafMUj6JL4czLyiypLLCLuoCOg1sTjTK8KbTB4wf4dKbQqey4Acm+3uAtDyqqhGAPmNN0/vAZO9+RonB9i9IUWzdW438gtUZ09wdj1rfWTDoIw6wxsH1hbZe8R+FYnOKah9AEcRE3n9znzOaaiNlzXsYOKjqAKpjkHt2LOqg2zb/jsIxPESjh9udzelGN3wAwnMiyNRYrNsptbVBeB7UqFwlLhD2u6/bQ1CSuhWRbSTntD+1m/n4NsEzzvCHB1VPwyN5iAcjUw5woM600O9GRgX7jbSz4LwcGtOC85BRPDJxBEYtyTrc705EPT3IcKPYEJtyb1IA2/0mRDpO7fp//Nrbq9FyfWIYM20bA4UiD8DtHLh7KuByQIjca+iaWMj/gID7UzTkivLvgJ5qcGaVOxFIvWWJicONRe54i3N8KcuFym0WiV8Eo7v0w8uffvwtX2iavwEgfsParBfoFFFM0UAAAAASUVORK5CYII="].map(src=>{const im=new Image();im.src=src;return im});
 const redTrainerImage=new Image();redTrainerImage.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgAAAAAcoT2JAAAAx0lEQVR42mP4////gXogwfD//x+tZgjj0KoVYMYf0VkQxsfQtFX1IMbR0MhV9hBGWhYzhBEa/gfE+MoYWn8YojhABKzmAwPDCRijB2IgA0M/2Jy/DIz6YKn/DlIQKy6wOrqDGH+1FoB0/2f4lrWK5TiI8XHmDKE/IMZRtsSgzzby/xkOfAwM6j/8+T+DKQNrkP5pIIM1lNVL++tfEMPVYdXnGqDiUFeRVYtPgBlCWouZ/zN8CA3wONUAsouBJfgDP9h2CMDDAAD5U7F+L+mRHwAAAABJRU5ErkJggg==";
 
-function fitGoldViewport(){const available=Math.max(160,Math.min(window.innerWidth*.94,(window.innerHeight-112)*10/9,960));const width=available>=320?Math.floor(available/160)*160:available;document.querySelector('.cabinet').style.width=width+'px';$('gb-viewport').style.transform='scale('+(width/320)+')'}
+function fitGoldViewport(){const available=Math.max(160,Math.min(window.innerWidth*.94,(window.innerHeight-((model.screen==='title')?360:112))*10/9,960));const width=available>=320?Math.floor(available/160)*160:available;document.querySelector('.cabinet').style.width=width+'px';$('gb-viewport').style.transform='scale('+(width/320)+')'}
 window.addEventListener('resize',fitGoldViewport);
 const goldResizeObserver=new ResizeObserver(fitGoldViewport);goldResizeObserver.observe(document.querySelector('.screen'));fitGoldViewport();
 function sprite(g,which,x,y,scale=1,custom=null){
@@ -266,13 +316,16 @@ function rect(g,x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
 function draw(time){
  const t=motion.matches?0:time/1000;
  if(model.screen==='title'){
-  const g=titleCtx;g.clearRect(0,0,320,92);g.imageSmoothingEnabled=false;
-  rect(g,0,68,320,20,'#acc398');rect(g,0,68,320,2,'#57785c');rect(g,0,88,320,4,'#779270');
-  for(let i=0;i<30;i++){rect(g,i*13%320,72+(i%3)*6,5,2,'#71966d')}
-  tech(g,144,13,1.2);
-  sprite(g,0,34,38+Math.round(Math.sin(t*2)*2),1.6);sprite(g,1,88,37+Math.round(Math.sin(t*2+1)*2),1.5);
-  sprite(g,2,199,37+Math.round(Math.sin(t*2+2)*2),1.5);sprite(g,4,256,37+Math.round(Math.sin(t*2+3)*2),1.5);
-  g.strokeStyle='#547c69';g.lineWidth=1;g.beginPath();for(let x=0;x<320;x++){const y=12+Math.sin(x*.14+t)*2+(x%70>60?Math.sin(x*.8)*5:0);x?g.lineTo(x,y):g.moveTo(x,y)}g.stroke();
+  const c=titleCtx;c.imageSmoothingEnabled=false;c.clearRect(0,0,320,288);
+  rect(c,0,0,320,288,'#fff0ff');
+  c.drawImage(eegmonLogoCanvas,0,12,320,120);
+  c.fillStyle='#a81732';c.font='10px QuestPixel';c.textAlign='center';c.fillText('Red Version',160,141);
+  c.save();c.globalCompositeOperation='multiply';
+  if(eegmonTrainer.complete&&eegmonTrainer.naturalWidth)c.drawImage(eegmonTrainer,128,160,80,112);
+  const index=Math.floor((motion.matches?0:time/1000)/6)%redCreatureImages.length;
+  const im=redCreatureImages[index];
+  if(im.complete&&im.naturalWidth){const w=im.naturalWidth*2,h=im.naturalHeight*2;c.drawImage(im,Math.round(90-w/2),272-h,w,h)}
+  c.restore();c.fillStyle='#181018';c.font='10px QuestPixel';c.textAlign='center';c.textBaseline='alphabetic';c.fillText('2026 NEURO ARCADE',160,286);
   return;
  }
  ctx.clearRect(0,0,320,192);ctx.imageSmoothingEnabled=false;
@@ -297,7 +350,7 @@ function draw(time){
 function frame(time){if(active&&!document.hidden){draw(time)}raf=requestAnimationFrame(frame)}
 function cancelWork(){epoch++;for(const id of timers)clearTimeout(id);timers.clear();busy=false;fx=null}
 function later(fn,delay){const token=epoch;const id=setTimeout(()=>{timers.delete(id);if(token===epoch&&active)fn()},delay);timers.add(id)}
-function view(id){for(const name of ['title','battle','result','guide'])$(name).hidden=name!==id}
+function view(id){for(const name of ['title','battle','result','guide'])$(name).hidden=name!==id;syncIntroSource()}
 function say(text,hint='CHOOSE YOUR NEXT MOVE'){$('message').textContent=text;$('menu-hint').textContent=hint}
 function hp(){
  const enemyPct=Math.max(0,displayEnemyHP/model.enemy.hp*100);
@@ -404,7 +457,7 @@ function startMusic(){
 function stopMusic(){clearInterval(musicTimer);musicTimer=0}
 function victoryTune(){[523,659,784,1046].forEach((n,i)=>tone(n,.16,'square',i*.12))}
 function closeGame(){
- cancelWork();active=false;stopMusic();if(audio)audio.suspend().catch(()=>{});
+ cancelWork();active=false;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{});
  if(window.parent!==window)window.parent.postMessage({type:'eeg-quest:close'},location.origin);else location.href='./';
 }
 $('message').addEventListener('click',()=>{if(menu==='intro'&&!busy){say('What will EEG TECH do?');renderMenu('root')}});
@@ -413,13 +466,13 @@ $('start').addEventListener('click',begin);$('again').addEventListener('click',t
 $('guide-back').addEventListener('click',()=>{view('battle');say('What will EEG TECH do?');renderMenu('root')});
 $('sound').addEventListener('click',()=>{
  muted=!muted;$('sound').textContent=muted?'♫ SOUND OFF':'♫ SOUND ON';$('sound').setAttribute('aria-label',muted?'Enable game audio':'Mute game audio');$('sound').setAttribute('aria-pressed',String(muted));
- if(muted){stopMusic();if(audio)audio.suspend().catch(()=>{})}else{initAudio();if(model.screen!=='title')startMusic();tone(660,.1,'triangle')}
+ if(muted){stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}else{initAudio();if(model.screen!=='title')startMusic();tone(660,.1,'triangle')}syncIntroSource()
 });
-document.addEventListener('visibilitychange',()=>{if(document.hidden){stopMusic();if(audio)audio.suspend().catch(()=>{})}else if(active&&model.screen!=='title'&&!['complete','defeat'].includes(model.screen)){initAudio();startMusic()}});
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();if(audio)audio.suspend().catch(()=>{})}});
+document.addEventListener('visibilitychange',()=>{syncIntroSource();if(document.hidden){stopMusic();if(audio)audio.suspend().catch(()=>{})}else if(active&&model.screen!=='title'&&!['complete','defeat'].includes(model.screen)){initAudio();startMusic()}});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}});
 document.addEventListener('keydown',e=>{
  if(!active||e.altKey||e.ctrlKey||e.metaKey)return;
- if(e.target.closest('button')&&['sound','exit','menu-back'].includes(e.target.id)&&!e.key.startsWith('Arrow'))return;
+ if(e.target.closest('button')&&['sound','exit','menu-back'].includes(e.target.closest('button').id)&&!e.key.startsWith('Arrow'))return;
  if(e.key==='Escape'||e.key==='Backspace'){
   e.preventDefault();if(busy)return;if(!$('guide').hidden){$('guide-back').click();return}
   if(model.screen==='battle'){say('What will EEG TECH do?');renderMenu('root')}else if(model.screen!=='title')toTitle();return;
@@ -434,5 +487,5 @@ document.addEventListener('keydown',e=>{
  }else if(/^[1-4]$/.test(e.key)){e.preventDefault();if(!e.repeat)buttons[Number(e.key)-1]?.click()}
  else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();if(!e.repeat)buttons[selected].click()}
 });
-raf=requestAnimationFrame(frame);
+syncIntroSource();raf=requestAnimationFrame(frame);
 </script><script id="red-visual-credits" type="application/json">{"visualReference":"Pokémon Red and Blue","spriteSources":["https://github.com/PokeAPI/sprites","https://github.com/pret/pokered"],"note":"Pokémon game graphics belong to their respective rights holders. Neuro names and arcade mechanics are fictional."}</script></body></html>
