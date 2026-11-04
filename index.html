@@ -431,8 +431,9 @@ document.addEventListener('DOMContentLoaded', function() {
 #flappy-easter-box .fb-overlay.zelda-story-intro{position:absolute!important;isolation:isolate;}
 #flappy-easter-box .fb-overlay.zelda-story-intro::before,
 #flappy-easter-box .fb-overlay.zelda-story-intro::after{display:none!important;}
-#zelda-title-effects{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;image-rendering:pixelated;z-index:20;display:none;}
-#flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block;}
+#zelda-title-effects{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;image-rendering:pixelated;z-index:20;display:none!important;}
+#flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block!important;}
+#flappy-easter-box .fb-overlay:not(.zelda-story-intro) #zelda-title-effects{display:none!important;}
 </style>
 <style id="recovered-arcade-canvas-fit">
 #flappy-easter-box #fb-canvas {object-fit:contain!important;image-rendering:pixelated!important}
@@ -908,6 +909,7 @@ function show(title,msg,btn){
   $('fb-overlay').style.display='flex';
   $('fb-overlay').classList.toggle('zelda-story-intro',zeldaMode&&mode==='ready');
   $('fb-overlay').classList.toggle('flappy-brain-title-screen',!zeldaMode&&!marioMode&&mode==='ready');
+  zTitleCtx.clearRect(0,0,1448,1086);
   syncZeldaIntroMusic();
   if(zeldaMode&&mode==='ready'){
     $('fb-overlay').onclick=(e)=>{if(mode==='ready'&&zeldaMode){e.preventDefault();start()}};
@@ -1595,8 +1597,8 @@ $('fb-overlay').appendChild(zeldaTitleEffects);
 const zTitleCtx=zeldaTitleEffects.getContext('2d');
 const zReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
 function drawZeldaTitleEffects(now){
- if(!zeldaMode||mode!=='ready')return;
- const c=zTitleCtx,t=zReducedMotion.matches?0:now/1000;
+ if(!zeldaMode||mode!=='ready'){zTitleCtx.clearRect(0,0,1448,1086);return;}
+ const c=zTitleCtx,t=now/(zReducedMotion.matches?3000:1000);
  c.clearRect(0,0,1448,1086);c.imageSmoothingEnabled=false;
  // White pixel foam flows downward inside the existing turquoise waterfall.
  c.save();c.beginPath();c.rect(502,914,139,152);c.clip();
@@ -1611,18 +1613,26 @@ function drawZeldaTitleEffects(now){
    }
  }
  c.restore();
- // Shimmer each gold triangle separately, preserving the pink center and black outline.
+ // Eight stepped gold frames produce a clearly visible NES-style glow.
  const triangles=[[[712,136],[682,177],[738,177]],
    [[675,190],[648,234],[703,234]],[[747,190],[720,234],[774,234]]];
+ const goldFrames=['#e7a600','#ffc400','#ffdf28','#fff46a','#ffffbe','#fff46a','#ffdf28','#ffc400'];
+ const glowFrame=Math.floor(t*4)%goldFrames.length;
  for(let i=0;i<triangles.length;i++){
    c.save();c.beginPath();triangles[i].forEach(([x,y],j)=>j?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.clip();
-   c.fillStyle='rgba(255,236,89,'+(.1+.18*(.5+.5*Math.sin(t*3+i*.5)))+')';c.fillRect(640,125,145,120);
-   const sweep=620+((t*92+i*12)%210);
-   const shine=c.createLinearGradient(sweep-22,0,sweep+22,0);
-   shine.addColorStop(0,'rgba(255,255,225,0)');
-   shine.addColorStop(.5,'rgba(255,255,225,.9)');
-   shine.addColorStop(1,'rgba(255,255,225,0)');
-   c.fillStyle=shine;c.fillRect(640,125,145,120);c.restore();
+   c.fillStyle=goldFrames[glowFrame];c.fillRect(640,125,145,120);
+   // Bright rectangular highlights move in discrete pixel steps.
+   c.fillStyle='rgba(255,255,239,.88)';
+   const scanY=132+((Math.floor(t*6)+i*3)%17)*6;
+   c.fillRect(640,scanY,145,6);
+   c.restore();
+ }
+ // Small square glints pulse beside the triangles without covering the lettering.
+ const glints=[[699,147],[664,218],[757,218]];
+ for(let i=0;i<glints.length;i++){
+   if((glowFrame+i*2)%8<4)continue;
+   const [x,y]=glints[i];c.fillStyle='#ffffed';
+   c.fillRect(x,y,6,6);c.fillRect(x+2,y-4,2,14);c.fillRect(x-4,y+2,14,2);
  }
 }
 
@@ -1839,11 +1849,11 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
      audio.currentTime=0;audio.play().catch(()=>{});
    }catch(e){}
  }
- let fireQueued=false;
+ let fireQueued=false,reinforcementTimer=3,reinforcementRemaining=0;
  const W=500,H=546,buttons={fire:false};let active=false,playing=false,raf=0,last=0,shipX=250,shipDirection=1,score=0,lives=3,level=1,shotTime=0,spawnTime=0,invuln=0,gameId=0,frame=0,brainId=0;
  let brains=[],shots=[],sparks=[];let aggression=0;const rand=(a,b)=>a+Math.random()*(b-a);
  const phrases=['Time for a meal or rest break','Time for a skin check','Time for a stretch break','Time to archive some studies','Time to check your PerfectServe messages','Time to check your Epic messages','Go get some lunch','All outta 10–20 paste','Looks like Citrix is down again','Time to DC a patient','Have you checked how many CEUs you have','Time to hydrate','You lost, but you are still fantastic'];
- function start(){fireQueued=false;buttons.fire=false;eegAudioEnabled=true;playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;aggression=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
+ function start(){reinforcementTimer=3;reinforcementRemaining=0;fireQueued=false;buttons.fire=false;eegAudioEnabled=true;playing=true;layer.hidden=true;shipX=250;shipDirection=1;score=0;lives=3;level=1;shotTime=0;spawnTime=0;invuln=0;frame=0;aggression=0;brains=[];shots=[];sparks=[];gameId++;for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,hp:1,phase:'formation',timer:rand(1,3),vx:0,vy:0,angle:rand(0,6),happy:0});updateHud()}
  function updateHud(){document.getElementById('galaga-brain-score').textContent='LEVEL '+level+'  •  SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
  // Static pixel positions and CSS-only flicker keep the title screen lightweight.
  const introStarColors=['#ffffff','#b3caff','#ff9090','#8fe0b2','#f9db82','#b8a2f7'];
@@ -1932,7 +1942,7 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
    }
    const type=b.phase==='diving'?'attack':'idle';
    const variant=(level-1+b.row*2+b.id)%7;
-   const sprite=b.phase==='happy'?null:eegEnemySprites[type][variant]; // Happy brains are always drawn as a complete pink sprite, with no debris.
+   const sprite=(b.phase==='happy'||b.reinforcement)?null:eegEnemySprites[type][variant]; // Happy brains are always drawn as a complete pink sprite, with no debris.
    if(sprite&&sprite.complete&&sprite.naturalWidth){
      const w=b.size*2.8,h=w*sprite.naturalHeight/sprite.naturalWidth;
      if(b.phase==='diving'){ctx.save();ctx.translate(b.x,b.y);ctx.rotate(Math.sin((b.diveAge||0)*8)*.12);ctx.drawImage(sprite,-w/2,-h/2,w,h);ctx.restore()}
@@ -1951,7 +1961,7 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
      ['#4d186d','#8430b4','#c169f2','#efd0ff'], // violet
      ['#671a53','#ae3588','#ef70ca','#ffd3f1']  // magenta
    ];
-   const base=waveColors[(level-1)%waveColors.length];
+   const base=b.reinforcement?waveColors[0]:waveColors[(level-1)%waveColors.length];
    const palette=happy?['#8e2759','#e96ba7','#ffa5d2','#ffe0ed']:base.map((c,i)=>{
      // Subtle row shading keeps the four formation rows visually distinct.
      const n=parseInt(c.slice(1),16),f=1-(b.row*.055),r=Math.round(((n>>16)&255)*f),g=Math.round(((n>>8)&255)*f),bl=Math.round((n&255)*f);
@@ -1994,12 +2004,30 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
    return {diveInterval:Math.max(.28,1.9/(1+step*.24)),
      diveBoost:Math.min(160,step*5),swayRate:.7+Math.min(.65,step*.045)};
  }
+ function spawnBrainReinforcements(){
+   const active=brains.filter(b=>b.reinforcement&&b.phase==='diving').length;
+   const count=Math.min(1+Math.floor((level-3)/3),3,reinforcementRemaining,Math.max(0,6-active));
+   for(let i=0;i<count;i++){
+     const x=rand(28,W-28),y=-26-i*46;
+     brains.push({id:++brainId,reinforcement:true,x,y,baseX:x,baseY:70,row:0,size:17,
+       phase:'diving',diveAge:1.6,startX:x,startY:y,attack:Math.random()<.5?'direct':'wild',
+       attackSeed:rand(0,Math.PI*2),turns:1,vy:130+Math.min(150,(level-3)*16),
+       vx:rand(-45,45),angle:rand(0,6),happy:0});
+     reinforcementRemaining--;
+   }
+   if(count)eegSound('dive');
+   reinforcementTimer=rand(Math.max(1.2,3.1-(level-3)*.15),Math.max(2,5-(level-3)*.2));
+ }
  function tick(dt){
  const difficulty=brainWarsDifficulty(level);
  frame+=dt;const speed=dt*60;
  shipX+=shipDirection*(2.65+Math.min(1.5,(level-1)*.13))*speed;
  if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}
  shotTime-=dt;spawnTime-=dt;invuln-=dt;
+ if(level>=3&&reinforcementRemaining>0&&brains.some(b=>!b.reinforcement&&b.phase!=='happy')){
+   reinforcementTimer-=dt;
+   if(reinforcementTimer<=0)spawnBrainReinforcements();
+ }
  if((buttons.fire||fireQueued)&&shotTime<=0){
    fireQueued=false;
    eegSound('fire');
@@ -2055,7 +2083,7 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
        if(b.attack==='wild')b.x+=Math.sin(t*23+b.attackSeed)*85*dt;
      }
      b.x=Math.max(18,Math.min(W-18,b.x));
-     if(b.y>H+35){b.phase='formation';b.x=b.baseX;b.y=b.baseY}
+     if(b.y>H+35){if(b.reinforcement){b.phase='gone'}else{b.phase='formation';b.x=b.baseX;b.y=b.baseY}}
    }
    for(const shot of shots){
      if(shot.y<0||b.phase==='happy')continue;
@@ -2074,10 +2102,11 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
      if(lives<=0){end();return}
    }
  }
- brains=brains.filter(b=>b.phase!=='happy'||b.happy>0);
+ brains=brains.filter(b=>b.phase!=='gone'&&(b.phase!=='happy'||b.happy>0));
  sparks.forEach(s=>s.t-=dt);sparks=sparks.filter(s=>s.t>0);
  if(!brains.length){
    level++;eegSound('level');aggression=Math.max(0,aggression-4);
+   reinforcementRemaining=level>=3?Math.min(24,4+(level-3)*3):0;reinforcementTimer=rand(1.8,3.2);
    for(let row=0;row<4;row++)for(let col=0;col<7;col++)brains.push({id:++brainId,x:76+col*58,y:65+row*39,baseX:76+col*58,baseY:65+row*39,row,size:row===0?13:row===1?15:row===2?17:19,phase:'formation',timer:0,vx:0,vy:0,angle:rand(0,6),happy:0});
    lives=Math.min(3,lives+1);spawnTime=.8;updateHud();
  }
