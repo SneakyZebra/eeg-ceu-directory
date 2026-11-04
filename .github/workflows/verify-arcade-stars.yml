@@ -1,0 +1,132 @@
+name: Verify arcade stars and title animation
+on:
+  push:
+    branches: ['updates/arcade-stars-20261104']
+    paths: ['.github/workflows/verify-arcade-stars.yml']
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Build exact tested arcade update
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re,subprocess,hashlib
+          p=Path('index.html')
+          s=p.read_text()
+          assert hashlib.sha256(s.encode()).hexdigest()=='529bcc7beed8a816dfe298d7d3377baef0cdea61faf99b68faf0a5904c0f251d', 'Source has changed'
+          def change(old,new):
+           global s
+           assert old in s, old[:100]
+           s=s.replace(old,new,1)
+          change("for(let i=0;i<195;i++){","for(let i=0;i<360;i++){")
+          change("// Level 1 fires one bolt, each following level adds one more in a centered spread.","// Level 1 fires one bolt; level 2 and all later levels fire two.")
+          change("const boltCount=level, spacing=","const boltCount=Math.min(2,level), spacing=")
+          change(" function tick(dt){\n frame+=dt;", """ function brainWarsDifficulty(stage){
+             const step=Math.max(0,stage-1);
+             return {diveInterval:Math.max(.28,1.9/(1+step*.24)),
+               diveBoost:Math.min(160,step*5),swayRate:.7+Math.min(.65,step*.045)};
+           }
+           function tick(dt){
+           const difficulty=brainWarsDifficulty(level);
+           frame+=dt;""")
+          change("b.vy=55+level*22+aggression*8+rand(0,20+level*5);","b.vy=55+level*22+difficulty.diveBoost+aggression*8+rand(0,20+level*5);")
+          change("spawnTime=Math.max(.16,2.1-level*.24-aggression*.06);","spawnTime=Math.max(.18,difficulty.diveInterval/(1+aggression*.07));")
+          change("Math.sin(frame*.7+b.row*.8)*16","Math.sin(frame*difficulty.swayRate+b.row*.8)*16")
+          change("const galagaStars=Array.from({length:225}","const galagaStars=Array.from({length:420}")
+          change("size:Math.random()<.66?1:(Math.random()<.70?2:(Math.random()<.80?3:4)),phase:Math.random()*Math.PI*2,","size:Math.random()<.55?1:(Math.random()<.72?2:3),phase:Math.random()*Math.PI*2,\n   sparkle:Math.random()<.24,twinkleRate:1.8+Math.random()*4.2,")
+          change("const twinkle=.06+.94*Math.pow(.5+.5*Math.sin(frame*(3.0+star.drift*.85)+star.phase),1.35);","const twinkle=.18+.82*Math.pow(.5+.5*Math.sin(frame*star.twinkleRate+star.phase),2);")
+          change("ctx.fillRect(Math.round(star.x),Math.round((star.y+frame*star.drift*.035)%H),star.size,star.size);","""const x=Math.round(star.x),y=Math.round((star.y+frame*star.drift*.12)%H);
+               ctx.fillRect(x,y,star.size,star.size);
+               if(star.sparkle&&twinkle>.82){
+                 ctx.globalAlpha=(twinkle-.82)/.18*.7;
+                 ctx.fillStyle='#fffbe2';
+                 const arm=star.size+1;
+                 ctx.fillRect(x-arm,y,arm*2+star.size,1);
+                 ctx.fillRect(x,y-arm,1,arm*2+star.size);
+               }""")
+          effects_css="""<style id="recovered-zelda-title-animation">
+          #flappy-easter-box .fb-overlay.zelda-story-intro{position:absolute!important;isolation:isolate;}
+          #flappy-easter-box .fb-overlay.zelda-story-intro::before,
+          #flappy-easter-box .fb-overlay.zelda-story-intro::after{display:none!important;}
+          #zelda-title-effects{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;image-rendering:pixelated;z-index:20;display:none;}
+          #flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block;}
+          </style>"""
+          s,n=re.subn(r'<style id="recovered-zelda-title-animation">[\s\S]*?</style>',lambda _:effects_css,s);assert n==1
+          animation="""// Match the transparent effects canvas to the exact 1448 by 1086 intro artwork.
+          const zeldaTitleEffects=document.createElement('canvas');
+          zeldaTitleEffects.id='zelda-title-effects';
+          zeldaTitleEffects.width=1448;zeldaTitleEffects.height=1086;
+          zeldaTitleEffects.setAttribute('aria-hidden','true');
+          $('fb-overlay').appendChild(zeldaTitleEffects);
+          const zTitleCtx=zeldaTitleEffects.getContext('2d');
+          const zReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+          function drawZeldaTitleEffects(now){
+           if(!zeldaMode||mode!=='ready')return;
+           const c=zTitleCtx,t=zReducedMotion.matches?0:now/1000;
+           c.clearRect(0,0,1448,1086);c.imageSmoothingEnabled=false;
+           // White pixel foam flows downward inside the existing turquoise waterfall.
+           c.save();c.beginPath();c.rect(502,914,139,152);c.clip();
+           c.fillStyle='rgba(0,240,226,.48)';c.fillRect(502,914,139,152);
+           for(let row=-1;row<7;row++){
+             const y=914+((row*31+t*72)%186+186)%186-20;
+             for(let col=0;col<13;col++){
+               const x=502+col*11,step=((col+row+12)%4)*3;
+               c.fillStyle=(col+row)%3?'rgba(241,255,255,.87)':'rgba(164,255,252,.8)';
+               c.fillRect(x,y+step,11,5);
+               if((col+row)%4===0)c.fillRect(x+4,y+step+5,5,7);
+             }
+           }
+           c.restore();
+           // Shimmer each gold triangle separately, preserving the pink center and black outline.
+           const triangles=[[[712,136],[682,177],[738,177]],
+             [[675,190],[648,234],[703,234]],[[747,190],[720,234],[774,234]]];
+           for(let i=0;i<triangles.length;i++){
+             c.save();c.beginPath();triangles[i].forEach(([x,y],j)=>j?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.clip();
+             c.fillStyle='rgba(255,236,89,'+(.1+.18*(.5+.5*Math.sin(t*3+i*.5)))+')';c.fillRect(640,125,145,120);
+             const sweep=620+((t*92+i*12)%210);
+             const shine=c.createLinearGradient(sweep-22,0,sweep+22,0);
+             shine.addColorStop(0,'rgba(255,255,225,0)');
+             shine.addColorStop(.5,'rgba(255,255,225,.9)');
+             shine.addColorStop(1,'rgba(255,255,225,0)');
+             c.fillStyle=shine;c.fillRect(640,125,145,120);c.restore();
+           }
+          }
+          """
+          change("function loop(t){",animation+"\nfunction loop(t){")
+          change("update(dt);draw()}}","update(dt);draw();drawZeldaTitleEffects(t)}}")
+          p.write_text(s)
+          print('Updated HTML SHA256:',hashlib.sha256(s.encode()).hexdigest())
+          
+          assert hashlib.sha256(s.encode()).hexdigest()=='86e9d9a9898bb69a9214c6f0cbc092cdb9434615cf553a7598d582080eaf24a3'
+          assert 'qaForcedGame' not in s
+          original=subprocess.check_output(['git','show','04c7782a8d5acfef0023407653644b9e33630a0e:index.html'],text=True)
+          def directory(content):
+           a=content.index('<style id="flappy-easter-style">');b=content.index('<script>\n/* Rad EEG is accessible exclusively',a)
+           content=content[:a]+content[b:]
+           return re.sub(r'<style id="recovered-zelda-title-animation">[\s\S]*?</style>','',content)
+          assert directory(original)==directory(s)
+          for m in re.finditer(r'<script\b([^>]*)>([\s\S]*?)</script>',s):
+           if 'application/json' in m[1]:continue
+           Path('/tmp/arcade-check.js').write_text(m[2])
+           subprocess.run(['node','--check','/tmp/arcade-check.js'],check=True)
+          PY
+      - name: Prepare verified commit with only index.html changed
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          export GIT_INDEX_FILE=/tmp/arcade-stars-index
+          git read-tree 04c7782a8d5acfef0023407653644b9e33630a0e
+          git add index.html
+          tree=$(git write-tree)
+          commit=$(git commit-tree "$tree" -p 04c7782a8d5acfef0023407653644b9e33630a0e -m "Add sparkling stars, cap Brain Wars shots, tune difficulty and animate Zelda title")
+          git push origin "$commit:refs/heads/updates/arcade-stars-verified-20261104"
