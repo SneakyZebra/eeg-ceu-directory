@@ -367,11 +367,43 @@ function tech(g,x,y,scale=1){
  r(7,40,6,4,'#273f48');r(16,40,6,4,'#273f48');
 }
 function rect(g,x,y,w,h,c){g.fillStyle=c;g.fillRect(x,y,w,h)}
+// Draw waveform segments on the native pixel grid rather than smoothing them.
+function pixelTraceSegment(g,x0,y0,x1,y1,size=1){
+ x0=Math.round(x0);y0=Math.round(y0);x1=Math.round(x1);y1=Math.round(y1);
+ const dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let error=dx+dy;
+ for(;;){g.fillRect(x0,y0,size,size);if(x0===x1&&y0===y1)break;const twice=2*error;if(twice>=dy){error+=dy;x0+=sx}if(twice<=dx){error+=dx;y0+=sy}}
+}
+function drawIntroEEG(g,time){
+ g.save();g.fillStyle='#9986a4';g.globalAlpha=.38;
+ for(let row=0;row<6;row++){
+  const base=27+row*43,phase=time*(row%2?22:15)+row*19,frequency=[.13,.2,.09,.16,.11,.23][row];
+  let lastX=0,lastY=base;
+  for(let x=0;x<=320;x+=2){
+   const p=x+phase,y=base+Math.round(Math.sin(p*frequency)*6+Math.sin(p*frequency*.46+row)*3+Math.sin(p*.57)*1.5);
+   if(x)pixelTraceSegment(g,lastX,lastY,x,y);lastX=x;lastY=y;
+  }
+ }
+ g.restore();
+}
+function drawAttackEEG(g,progress,time,reverse=false){
+ const from=reverse?{x:248,y:64}:{x:90,y:140},to=reverse?{x:86,y:148}:{x:248,y:64};
+ const dx=to.x-from.x,dy=to.y-from.y,length=Math.hypot(dx,dy),normalX=-dy/length,normalY=dx/length;
+ const start=Math.max(0,progress-.48);let previous=null;
+ g.save();
+ for(let p=start;p<=progress+.0001;p+=.012){
+  const age=progress-p,fade=Math.max(.12,1-age/.48),wave=Math.sin(p*length*.35-time*.032)*7*fade;
+  const point={x:from.x+dx*p+normalX*wave,y:from.y+dy*p+normalY*wave};
+  g.globalAlpha=.25+.75*fade;g.fillStyle=reverse?'#8b334e':'#435b82';
+  if(previous)pixelTraceSegment(g,previous.x,previous.y,point.x,point.y,2);previous=point;
+ }
+ g.restore();
+}
 function draw(time){
  const t=motion.matches?0:time/1000;
  if(model.screen==='title'){
   const c=titleCtx;c.imageSmoothingEnabled=false;c.clearRect(0,0,320,288);
   rect(c,0,0,320,288,'#fff0ff');
+  drawIntroEEG(c,motion.matches?0:time/1000);
   c.drawImage(eegmonLogoCanvas,0,12,320,120);
   c.fillStyle='#a81732';c.font='16px QuestPixel';c.textAlign='center';c.fillText('RED VERSION',160,142);
   c.save();c.globalCompositeOperation='multiply';
@@ -393,10 +425,11 @@ function draw(time){
  if(fx){
   const progress=Math.min(1,(time-fx.start)/fx.duration);
   if(fx.kind==='move'){
-   const x=90+progress*148,y=140-progress*63;
+   const x=90+progress*158,y=140-progress*76;
+   drawAttackEEG(ctx,progress,motion.matches?0:time);
    rect(ctx,Math.round(x)-5,Math.round(y)-5,10,10,fx.color);rect(ctx,Math.round(x)-2,Math.round(y)-8,4,16,'#fff7c5');
-   if(!motion.matches)for(let i=1;i<=3;i++)rect(ctx,Math.round(x)-i*9,Math.round(y)+i*4,3,3,fx.color);
   }
+  if(fx.kind==='counter'){drawAttackEEG(ctx,progress,motion.matches?0:time,true);const x=248-progress*162,y=64+progress*84;rect(ctx,Math.round(x)-3,Math.round(y)-3,6,6,'#8b334e')}
   if(fx.kind==='rest'){for(let i=0;i<4;i++)rect(ctx,44+i*16,120-Math.round(progress*25),4,4,'#71a47c')}
   if(fx.kind==='guard'){rect(ctx,39,113,2,62,'#8ab5c5');rect(ctx,98,113,2,62,'#8ab5c5');rect(ctx,39,113,61,2,'#8ab5c5')}
  }
