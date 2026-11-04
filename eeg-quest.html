@@ -238,11 +238,11 @@ class QuestBattle{
   }else if(kind==='item'){
    if(!Number.isInteger(index)||index<0||index>2||this.items[index]<=0)return {ok:false,text:'That toolkit supply is empty.'};
    if(index===0&&this.focus===100)return {ok:false,text:'Your focus is already full. Save the break for later.'};
-   if(index===2&&this.charges.every((n,i)=>n===this.moves[i].max))return {ok:false,text:'All move charges are full.'};
+   if(index===2&&this.focus===100&&this.charges.every((n,i)=>n===this.moves[i].max))return {ok:false,text:'Health and move charges are already full.'};
    this.items[index]--;
    if(index===0){restored=Math.min(40,100-this.focus);this.focus+=restored;text='A quiet FOCUS BREAK.\n'+restored+' focus points restored.'}
    if(index===1){this.guard=2;text='ARTIFACT SHIELD up!\nThe next two counterattacks are softened.'}
-   if(index===2){this.charges=this.charges.map((n,i)=>Math.min(this.moves[i].max,n+3));text='RECHARGE complete!\nEach move recovered three arcade charges.'}
+   if(index===2){restored=Math.min(40,100-this.focus);this.focus+=restored;this.charges=this.charges.map((n,i)=>Math.min(this.moves[i].max,n+3));text='RECHARGE complete!\n+'+restored+' HEALTH / +3 MOVE CHARGES';}
   }else return {ok:false,text:'Choose a battle command.'};
   this.turns++;
   if(this.enemyHP<=0){
@@ -250,6 +250,7 @@ class QuestBattle{
    this.screen=this.stage===this.battleCount-1?'complete':'won';
    return {ok:true,dealt,restored,critical,text,enemyDamage:0,victory:true,complete:this.screen==='complete'};
   }
+  if(kind==='item'&&index===2)return {ok:true,dealt,restored,critical,text,enemyDamage:0,noCounterattack:true,defeat:false};
   let enemyDamage=this.enemy.attack+Math.floor(this.random()*6);
   if(this.guard>0){enemyDamage=Math.max(1,Math.floor(enemyDamage*.35));this.guard--}
   enemyDamage=Math.min(this.focus,enemyDamage);this.focus-=enemyDamage;
@@ -435,7 +436,7 @@ function renderMenu(next){
  }else if(next==='kit'){
   button('BREAK','+40 FOCUS · '+model.items[0]+' LEFT',()=>perform('item',0));
   button('SHIELD','2 TURNS · '+model.items[1]+' LEFT',()=>perform('item',1));
-  button('RECHARGE','+3 CHG · '+model.items[2]+' LEFT',()=>perform('item',2));
+  button('RECHARGE','+40 HP / +3 CHG · '+model.items[2]+' LEFT',()=>perform('item',2));
   button('BACK',null,()=>{say('What will EEG TECH do?');renderMenu('root')});
  }else if(next==='won'){
   button('NEXT ENCOUNTER','+36 FOCUS · NEW MOVES',()=>{model.next();encounterUI()});
@@ -453,6 +454,7 @@ function perform(kind,index){
  if(kind==='move'){tone(550+index*90,.12,'square');tone(880+index*50,.12,'triangle',.1)}else tone(540,.15,'triangle');
  later(()=>{
   displayEnemyHP=model.enemyHP;hp();fx={kind:'hit',start:performance.now(),duration:160};
+  if(result.noCounterattack){fx=null;displayFocus=model.focus;hp();busy=false;renderMenu('root');return}
   if(result.victory){
    showEnemy=false;fx=null;saveBest();victoryTune();
    say(model.enemy.name+'\nCALMED\u00a0DOWN!\n+'+(150+model.stage*40+Math.max(0,9-model.turns)*15)+' POINTS','ENCOUNTER COMPLETE');
