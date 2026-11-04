@@ -1,0 +1,80 @@
+name: Recover verified arcade snapshot
+on:
+  push:
+    branches: ['recovery/arcade-20261104']
+    paths: ['.github/workflows/recover-verified-arcade.yml']
+permissions:
+  contents: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct and verify browser-tested index
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re,subprocess,hashlib
+          base='3f3729c8ed0063fbaee4ce6a82512a172e1feb10'
+          source='7950963fad4a7d496191867a67bb1e3cc3441995'
+          cur=subprocess.check_output(['git','show',base+':index.html'],text=True)
+          old=subprocess.check_output(['git','show',source+':index.html'],text=True)
+          original=cur
+          start='<style id="flappy-easter-style">'
+          end='<script>\n/* Rad EEG is accessible exclusively'
+          a,b=cur.index(start),cur.index(end)
+          x,y=old.index(start),old.index(end)
+          cur=cur[:a]+old[x:y]+cur[b:]
+          ids=['rad-eeg-nes-intro-20261103','racer-intro-display-fix-20261103','brain-wars-gentle-twinkling-stars-20261103']
+          styles=[]
+          for id in ids:
+           styles.append(re.search(r'<style id="'+id+r'">[\s\S]*?</style>',old).group())
+          a=old.index('/* Visible pixel animations on the Zelda intro art only. */');b=old.index('</style>',a)
+          styles.append('<style id="recovered-zelda-title-animation">'+old[a:b]+'</style>')
+          styles.append('''<style id="recovered-arcade-canvas-fit">
+          #flappy-easter-box #fb-canvas {object-fit:contain!important;image-rendering:pixelated!important}
+          </style>''')
+          cur=cur.replace('</head>','\n'.join(styles)+'\n</head>')
+          a,b=cur.index(start),cur.index(end)
+          game=cur[a:b].replace('Rad EEG','EEG Racer').replace('RAD EEG','EEG RACER')
+          cur=cur[:a]+game+cur[b:]
+          cur=cur.replace("const W=500,H=546,buttons={fire:false};let active", "let fireQueued=false;\n const W=500,H=546,buttons={fire:false};let active")
+          cur=cur.replace("function start(){eegAudioEnabled=true;playing=true;", "function start(){fireQueued=false;buttons.fire=false;eegAudioEnabled=true;playing=true;")
+          cur=cur.replace("function close(){active=false;playing=false;", "function close(){fireQueued=false;active=false;playing=false;")
+          cur=cur.replace("buttons[key]=true;try{btn.setPointerCapture", "buttons[key]=true;fireQueued=true;try{btn.setPointerCapture")
+          cur=cur.replace("if(playing)buttons[k]=true}","if(playing){buttons[k]=true;if(!e.repeat)fireQueued=true}}")
+          cur=cur.replace("e.preventDefault();buttons.fire=true});canvas", "e.preventDefault();buttons.fire=true;fireQueued=true});canvas")
+          cur=cur.replace("if(buttons.fire&&shotTime<=0){\n   eegSound", "if((buttons.fire||fireQueued)&&shotTime<=0){\n   fireQueued=false;\n   eegSound")
+          cur=cur.replace('.fb-overlay.zelda-story-intro{position:relative!important;isolation:isolate;}', '.fb-overlay.zelda-story-intro{position:absolute!important;isolation:isolate;}')
+          def directory(s):
+           a,b=s.index(start),s.index(end);s=s[:a]+s[b:]
+           for id in ids+['recovered-zelda-title-animation','recovered-arcade-canvas-fit']:
+            s=re.sub(r'<style id="'+id+r'">[\s\S]*?</style>\n?', '',s)
+           return s
+          assert directory(original)==directory(cur)
+          assert hashlib.sha256(cur.encode()).hexdigest()=='529bcc7beed8a816dfe298d7d3377baef0cdea61faf99b68faf0a5904c0f251d'
+          assert 'qaForcedGame' not in cur and 'qa-only' not in cur
+          Path('index.html').write_text(cur)
+          for i,m in enumerate(re.finditer(r'<script\b([^>]*)>([\s\S]*?)</script>',cur)):
+           if 'application/json' in m[1]: continue
+           Path('/tmp/arcade-check.js').write_text(m[2])
+           subprocess.run(['node','--check','/tmp/arcade-check.js'],check=True)
+          print('Verified: exact browser-tested HTML; educational directory unchanged.')
+          PY
+      - name: Create clean recovery commit without workflow files
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          export GIT_INDEX_FILE=/tmp/arcade-recovery-index
+          git read-tree 3f3729c8ed0063fbaee4ce6a82512a172e1feb10
+          git add index.html
+          tree=$(git write-tree)
+          commit=$(git commit-tree "$tree" -p 3f3729c8ed0063fbaee4ce6a82512a172e1feb10 -m "Restore verified custom arcade games and preserve educational directory")
+          git push origin "$commit:refs/heads/recovery/arcade-verified-20261104"
+          echo "Verified recovery commit: $commit"
