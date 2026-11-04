@@ -427,31 +427,12 @@ document.addEventListener('DOMContentLoaded', function() {
 @keyframes brainWarsTwinkleB{0%{opacity:.8}50%{opacity:.3}100%{opacity:.9}}
 @media(prefers-reduced-motion:reduce){#galaga-brain-layer.intro::before,#galaga-brain-layer.intro::after{animation:none;opacity:.65}}
 </style>
-<style id="recovered-zelda-title-animation">/* Visible pixel animations on the Zelda intro art only. */
+<style id="recovered-zelda-title-animation">
 #flappy-easter-box .fb-overlay.zelda-story-intro{position:absolute!important;isolation:isolate;}
 #flappy-easter-box .fb-overlay.zelda-story-intro::before,
-#flappy-easter-box .fb-overlay.zelda-story-intro::after{content:""!important;display:block!important;position:absolute!important;pointer-events:none!important;z-index:20!important;}
-/* Flowing turquoise/white highlights across the painted waterfall at bottom left. */
-#flappy-easter-box .fb-overlay.zelda-story-intro::before{
- left:29.6%!important;top:82.3%!important;width:11.4%!important;height:17.7%!important;
- background:repeating-linear-gradient(to bottom,rgba(239,255,255,.95) 0px,rgba(239,255,255,.95) 4px,rgba(39,222,255,.32) 5px,transparent 12px,transparent 22px)!important;
- background-size:100% 44px!important;
- clip-path:polygon(0 0,96% 0,96% 100%,0 100%)!important;
- opacity:.82!important;mix-blend-mode:screen;
- animation:eegWaterfallFlowVisible .65s linear infinite!important;
-}
-/* A visible, periodic gold shimmer across the three existing Triforce triangles. */
-#flappy-easter-box .fb-overlay.zelda-story-intro::after{
- left:43.7%!important;top:19.3%!important;width:14.7%!important;height:23.2%!important;
- background:linear-gradient(125deg,transparent 0%,rgba(255,255,175,.18) 30%,rgba(255,255,185,.95) 48%,rgba(255,238,73,.40) 60%,transparent 85%)!important;
- background-size:240% 100%!important;
- clip-path:polygon(50% 0,100% 100%,0 100%)!important;
- mix-blend-mode:screen;opacity:.8!important;
- animation:eegTriforceShimmerVisible 2.2s steps(18) infinite!important;
-}
-@keyframes eegWaterfallFlowVisible{from{background-position:0 0}to{background-position:0 44px}}
-@keyframes eegTriforceShimmerVisible{0%{background-position:150% 0;filter:brightness(1)}55%{background-position:0 0;filter:brightness(1.5)}100%{background-position:-140% 0;filter:brightness(1)}}
-@media(prefers-reduced-motion:reduce){#flappy-easter-box .fb-overlay.zelda-story-intro::before,#flappy-easter-box .fb-overlay.zelda-story-intro::after{animation-duration:2.5s!important}}
+#flappy-easter-box .fb-overlay.zelda-story-intro::after{display:none!important;}
+#zelda-title-effects{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;image-rendering:pixelated;z-index:20;display:none;}
+#flappy-easter-box .fb-overlay.zelda-story-intro #zelda-title-effects{display:block;}
 </style>
 <style id="recovered-arcade-canvas-fit">
 #flappy-easter-box #fb-canvas {object-fit:contain!important;image-rendering:pixelated!important}
@@ -1605,9 +1586,49 @@ function draw(){
   g.restore();
 }
 function update(dt){if(mode!=='running')return;const d=Math.min(dt/16.67,2);if(zeldaMode){zUpdate(d);return;}tick+=d;hero.vy+=.3*d;hero.y+=hero.vy*d;speed=Math.min(8.5,3+Math.floor(score/4)*.55);spawn-=d;if(spawn<=0){const gap=Math.max(158,204-score*2);const playableBottom=H-79;const minTop=42;const maxTop=Math.max(minTop+1,playableBottom-gap-42);const top=minTop+Math.random()*(maxTop-minTop);pipes.push({x:W+10,top,gap,passed:false});spawn=90+Math.random()*45}for(const p of pipes){p.x-=speed*d;if(!p.passed&&p.x+73<hero.x){p.passed=true;score++;scoreSound()}const bx=hero.x+17,by=hero.y+13,bw=hero.w-34,bh=hero.h-27;if(bx<p.x+73&&bx+bw>p.x&&(by<p.top||by+bh>p.top+p.gap)){end();break}}pipes=pipes.filter(p=>p.x+73>0);if(hero.y<0||hero.y+hero.h>H-79)end();hud()}
+// Match the transparent effects canvas to the exact 1448 by 1086 intro artwork.
+const zeldaTitleEffects=document.createElement('canvas');
+zeldaTitleEffects.id='zelda-title-effects';
+zeldaTitleEffects.width=1448;zeldaTitleEffects.height=1086;
+zeldaTitleEffects.setAttribute('aria-hidden','true');
+$('fb-overlay').appendChild(zeldaTitleEffects);
+const zTitleCtx=zeldaTitleEffects.getContext('2d');
+const zReducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+function drawZeldaTitleEffects(now){
+ if(!zeldaMode||mode!=='ready')return;
+ const c=zTitleCtx,t=zReducedMotion.matches?0:now/1000;
+ c.clearRect(0,0,1448,1086);c.imageSmoothingEnabled=false;
+ // White pixel foam flows downward inside the existing turquoise waterfall.
+ c.save();c.beginPath();c.rect(502,914,139,152);c.clip();
+ c.fillStyle='rgba(0,240,226,.48)';c.fillRect(502,914,139,152);
+ for(let row=-1;row<7;row++){
+   const y=914+((row*31+t*72)%186+186)%186-20;
+   for(let col=0;col<13;col++){
+     const x=502+col*11,step=((col+row+12)%4)*3;
+     c.fillStyle=(col+row)%3?'rgba(241,255,255,.87)':'rgba(164,255,252,.8)';
+     c.fillRect(x,y+step,11,5);
+     if((col+row)%4===0)c.fillRect(x+4,y+step+5,5,7);
+   }
+ }
+ c.restore();
+ // Shimmer each gold triangle separately, preserving the pink center and black outline.
+ const triangles=[[[712,136],[682,177],[738,177]],
+   [[675,190],[648,234],[703,234]],[[747,190],[720,234],[774,234]]];
+ for(let i=0;i<triangles.length;i++){
+   c.save();c.beginPath();triangles[i].forEach(([x,y],j)=>j?c.lineTo(x,y):c.moveTo(x,y));c.closePath();c.clip();
+   c.fillStyle='rgba(255,236,89,'+(.1+.18*(.5+.5*Math.sin(t*3+i*.5)))+')';c.fillRect(640,125,145,120);
+   const sweep=620+((t*92+i*12)%210);
+   const shine=c.createLinearGradient(sweep-22,0,sweep+22,0);
+   shine.addColorStop(0,'rgba(255,255,225,0)');
+   shine.addColorStop(.5,'rgba(255,255,225,.9)');
+   shine.addColorStop(1,'rgba(255,255,225,0)');
+   c.fillStyle=shine;c.fillRect(640,125,145,120);c.restore();
+ }
+}
+
 function loop(t){
   const dt=last?Math.min(34,t-last):16.67;last=t;
-  try{if(modal.classList.contains('open')){update(dt);draw()}}
+  try{if(modal.classList.contains('open')){update(dt);draw();drawZeldaTitleEffects(t)}}
   catch(e){console.error('Flappy render error:',e)}
   finally{requestAnimationFrame(loop)}
 }
@@ -1826,7 +1847,7 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
  function updateHud(){document.getElementById('galaga-brain-score').textContent='LEVEL '+level+'  •  SCORE '+String(score).padStart(4,'0');document.getElementById('galaga-brain-lives').textContent='♥ '.repeat(lives)}
  // Static pixel positions and CSS-only flicker keep the title screen lightweight.
  const introStarColors=['#ffffff','#b3caff','#ff9090','#8fe0b2','#f9db82','#b8a2f7'];
- for(let i=0;i<195;i++){
+ for(let i=0;i<360;i++){
    const star=document.createElement('i');star.className='bw-intro-star';
    const size=Math.random()<.67?1:(Math.random()<.75?2:(Math.random()<.82?3:4));
    star.style.left=(Math.random()*98+1)+'%';star.style.top=(Math.random()*97+1)+'%';
@@ -1968,7 +1989,13 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
    }
    ctx.restore();
  }
+ function brainWarsDifficulty(stage){
+   const step=Math.max(0,stage-1);
+   return {diveInterval:Math.max(.28,1.9/(1+step*.24)),
+     diveBoost:Math.min(160,step*5),swayRate:.7+Math.min(.65,step*.045)};
+ }
  function tick(dt){
+ const difficulty=brainWarsDifficulty(level);
  frame+=dt;const speed=dt*60;
  shipX+=shipDirection*(2.65+Math.min(1.5,(level-1)*.13))*speed;
  if(shipX>=474){shipX=474;shipDirection=-1}else if(shipX<=26){shipX=26;shipDirection=1}
@@ -1976,8 +2003,8 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
  if((buttons.fire||fireQueued)&&shotTime<=0){
    fireQueued=false;
    eegSound('fire');
-   // Level 1 fires one bolt, each following level adds one more in a centered spread.
-   const boltCount=level, spacing=Math.max(3,Math.min(14,116/Math.max(1,boltCount-1)));
+   // Level 1 fires one bolt; level 2 and all later levels fire two.
+   const boltCount=Math.min(2,level), spacing=Math.max(3,Math.min(14,116/Math.max(1,boltCount-1)));
    for(let i=0;i<boltCount;i++){
      const offset=(i-(boltCount-1)/2)*spacing;
      shots.push({x:Math.max(3,Math.min(W-3,shipX+offset)),y:499,vy:-430-level*5});
@@ -1991,9 +2018,9 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
      b.phase='diving';if(Math.random()<.65)eegSound('dive');b.diveAge=0;b.startX=b.x;b.startY=b.y;
      b.attack=['direct','circle','zigzag','wild'][Math.floor(Math.random()*4)];
      b.attackSeed=rand(0,Math.PI*2);b.turns=rand(1.1,2.0);
-     b.vy=55+level*22+aggression*8+rand(0,20+level*5);
+     b.vy=55+level*22+difficulty.diveBoost+aggression*8+rand(0,20+level*5);
      b.vx=(shipX-b.x)*.20;b.fireCooldown=rand(.5,1.8);
-     spawnTime=Math.max(.16,2.1-level*.24-aggression*.06);
+     spawnTime=Math.max(.18,difficulty.diveInterval/(1+aggression*.07));
    }else spawnTime=.65;
  }
  for(const shot of shots)shot.y+=shot.vy*dt;
@@ -2001,7 +2028,7 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
  for(const b of brains){
    if(b.phase==='happy'){b.happy-=dt;continue}
    if(b.phase==='formation'){
-     b.x=b.baseX+Math.sin(frame*.7+b.row*.8)*16;
+     b.x=b.baseX+Math.sin(frame*difficulty.swayRate+b.row*.8)*16;
      b.y=b.baseY+Math.sin(frame*1.1+b.angle)*3;
    }else if(b.phase==='diving'){
      b.diveAge=(b.diveAge||0)+dt;
@@ -2058,18 +2085,27 @@ radial-gradient(1px 1px at 8% 16%,#8da5ff 98%,transparent),radial-gradient(2px 2
  // Small multicolored pixel stars inspired by the supplied Galaga reference.
  // The original reference background remains underneath this subtle animated starfield.
  const galagaStarColors=['#f2f2e9','#7a9bff','#e75c64','#59d98a','#c064ef','#e5cc59','#6bbbd8'];
- const galagaStars=Array.from({length:225},(_,i)=>({
+ const galagaStars=Array.from({length:420},(_,i)=>({
    x:Math.random()*W,y:Math.random()*H,
    color:galagaStarColors[Math.floor(Math.random()*galagaStarColors.length)],
-   size:Math.random()<.66?1:(Math.random()<.70?2:(Math.random()<.80?3:4)),phase:Math.random()*Math.PI*2,
+   size:Math.random()<.55?1:(Math.random()<.72?2:3),phase:Math.random()*Math.PI*2,
+   sparkle:Math.random()<.24,twinkleRate:1.8+Math.random()*4.2,
    drift:.9+Math.random()*3.2
  }));
  function drawGalagaStars(){
    for(const star of galagaStars){
-     const twinkle=.06+.94*Math.pow(.5+.5*Math.sin(frame*(3.0+star.drift*.85)+star.phase),1.35);
+     const twinkle=.18+.82*Math.pow(.5+.5*Math.sin(frame*star.twinkleRate+star.phase),2);
      ctx.globalAlpha=twinkle;
      ctx.fillStyle=star.color;
-     ctx.fillRect(Math.round(star.x),Math.round((star.y+frame*star.drift*.035)%H),star.size,star.size);
+     const x=Math.round(star.x),y=Math.round((star.y+frame*star.drift*.12)%H);
+     ctx.fillRect(x,y,star.size,star.size);
+     if(star.sparkle&&twinkle>.82){
+       ctx.globalAlpha=(twinkle-.82)/.18*.7;
+       ctx.fillStyle='#fffbe2';
+       const arm=star.size+1;
+       ctx.fillRect(x-arm,y,arm*2+star.size,1);
+       ctx.fillRect(x,y-arm,1,arm*2+star.size);
+     }
    }
    ctx.globalAlpha=1;
  }
