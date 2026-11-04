@@ -1,0 +1,54 @@
+name: Verify EEG Quest integration
+on:
+  push:
+    branches: ['feature/eeg-quest-20261104']
+    paths: ['.github/workflows/verify-eeg-quest.yml']
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reproduce exact tested arcade integration
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('index.html');s=p.read_text()
+          assert hashlib.sha256(s.encode()).hexdigest()=='f6542edcd43474e4a7cd614a08d272567c5c6d3658f55402fda7653cf695891f'
+          s=s.replace('gameBag=[0,1,2,3];','gameBag=[0,1,2,3,4];',1)
+          s=s.replace('// Shuffle all four games for this visit. Each game appears once per round.','// Shuffle all five games for this visit. Each game appears once per round.',1)
+          s=s.replace("const gameNames=['Flappy Brain','The Legend of EEG Tech','Brain Wars','EEG Racer'];","const gameNames=['Flappy Brain','The Legend of EEG Tech','Brain Wars','EEG Racer','EEG Quest'];",1)
+          s=s.replace("if(worldIndex===3){rotateSecret();window.eegRadOpen();return;}","if(worldIndex===3){rotateSecret();window.eegRadOpen();return;}\nif(worldIndex===4){rotateSecret();window.eegQuestOpen();return;}",1)
+          integration="\n<!-- EEG Quest: scoped arcade integration, separate from the education directory. -->\n<style id=\"eeg-quest-modal-style\">\n#eeg-quest-modal{display:none;position:fixed;inset:0;z-index:2147483200;background:#00101bea;align-items:center;justify-content:center;padding:2vmin}\n#eeg-quest-modal.open{display:flex}\n#eeg-quest-frame{width:94vw;height:94dvh;border:2px solid #69be28;border-radius:10px;background:#071d27;max-width:1250px}\n</style>\n<div id=\"eeg-quest-modal\" role=\"dialog\" aria-modal=\"true\" aria-label=\"EEG Quest Rhythm Rescue\" aria-hidden=\"true\"><iframe id=\"eeg-quest-frame\" title=\"EEG Quest Rhythm Rescue battle game\" allow=\"autoplay\"></iframe></div>\n<script id=\"eeg-quest-integration\">\n(()=>{\n const modal=document.getElementById('eeg-quest-modal'),frame=document.getElementById('eeg-quest-frame');\n let priorOverflow='',returnFocus=null;\n function close(){\n  frame.contentWindow?.postMessage({type:'eeg-quest:hide'},location.origin);\n  modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=priorOverflow;returnFocus?.focus({preventScroll:true});\n }\n window.eegQuestOpen=()=>{\n  returnFocus=document.activeElement;priorOverflow=document.body.style.overflow;document.body.style.overflow='hidden';\n  modal.classList.add('open');modal.setAttribute('aria-hidden','false');\n  if(!frame.getAttribute('src'))frame.src='eeg-quest.html?embedded=1';else frame.contentWindow?.postMessage({type:'eeg-quest:open'},location.origin);\n  frame.focus();\n };\n window.addEventListener('message',e=>{if(e.origin===location.origin&&e.source===frame.contentWindow&&e.data?.type==='eeg-quest:close')close()});\n modal.addEventListener('pointerdown',e=>{if(e.target===modal)close()});\n window.addEventListener('keydown',e=>{if(modal.classList.contains('open')&&e.key==='Escape'){e.preventDefault();close()}});\n})();\n</script>\n"
+          assert '</body>' in s
+          s=s.replace('</body>',integration+'</body>',1)
+          p.write_text(s)
+          print('Integrated EEG Quest; index SHA256:',hashlib.sha256(s.encode()).hexdigest())
+          
+          import re,subprocess
+          assert hashlib.sha256(s.encode()).hexdigest()=='971447c1625af52e79a0b9e9205a19a9b0ed5decbf028e8ad42c1e5a097f3a99'
+          assert hashlib.sha256(Path('eeg-quest.html').read_bytes()).hexdigest()=='07cb865f010f66913c3f078a5fdb22ffd7d3a4cfffe053a8cc7d46482b361146'
+          for file in ['index.html','eeg-quest.html']:
+           for m in re.finditer(r'<script\b([^>]*)>([\s\S]*?)</script>',Path(file).read_text()):
+            if 'application/json' in m[1]:continue
+            Path('/tmp/quest-check.js').write_text(m[2])
+            subprocess.run(['node','--check','/tmp/quest-check.js'],check=True)
+          PY
+      - name: Create clean game and integration commit
+        env:
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+          GIT_COMMITTER_NAME: github-actions[bot]
+          GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+        run: |
+          export GIT_INDEX_FILE=/tmp/eeg-quest-index
+          git read-tree 7b00ce0d590fe53ee66bbedb907a6498ce058b01
+          git add index.html eeg-quest.html
+          tree=$(git write-tree)
+          commit=$(git commit-tree "$tree" -p 7b00ce0d590fe53ee66bbedb907a6498ce058b01 -m "Add EEG Quest with six retro battles, original sprites, toolkit and chiptune audio")
+          git push origin "$commit:refs/heads/feature/eeg-quest-verified-20261104"
