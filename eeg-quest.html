@@ -160,15 +160,10 @@
 #start.eegmon-start span{position:absolute;top:150px;left:0;width:320px;animation:eegmon-start-pulse 1.5s steps(1,end) infinite}
 #start.eegmon-start:focus-visible{outline:2px dashed #53465c;outline-offset:-4px}
 @keyframes eegmon-start-pulse{0%,65%{opacity:1}66%,100%{opacity:.2}}
-#intro-source-panel{width:min(100%,328px);margin:12px auto 0;padding:3px;background:#102d36;border:1px solid #526e70}
-#intro-source-panel[hidden]{display:none}
-#intro-source-panel .music-label{font:9px/15px "Courier New",monospace;color:#c6d6d1;text-align:center}
-#intro-source-frame{display:block;width:100%;height:200px;border:0;background:#000}
-#intro-source-panel a{display:block;font:8px/15px "Courier New",monospace;color:#b7d5cb;text-align:center}
 @media(prefers-reduced-motion:reduce){#start.eegmon-start span{animation:none}}
 </style></head>
 <body><main class="cabinet" aria-label="EEGMON arcade game">
-<header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Mute game audio" aria-pressed="false">♫ SOUND ON</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
+<header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Enable game audio" aria-pressed="false">♫ ENABLE SOUND</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
 <section class="screen" aria-label="Game screen"><div id="gb-viewport">
 <div id="battle" class="battle view" hidden>
 <div class="field"><canvas id="scene" width="320" height="192" aria-label="Your EEG technologist facing a rhythm creature"></canvas>
@@ -176,10 +171,10 @@
 <div class="status player-status"><div class="name-row"><span>EEG TECH</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
 <div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
 <div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
-<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
+<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>TAP FOR SOUND</span></button></div>
 <div id="result" class="result-screen view" hidden><div class="medal" id="result-medal" aria-hidden="true">✦</div><h2 id="result-title">RHYTHM RESTORED</h2><p id="result-story"></p><p class="result-score" id="result-score"></p><div class="result-buttons"><button class="start-button" id="again">BACK TO TITLE</button></div></div>
 <div id="guide" class="guide-screen view" hidden><h2>CREATURE INDEX</h2><p>Arcade creatures renamed with seizure and epilepsy terminology. Their abilities and medication move powers are fictional.</p><div id="guide-list" class="guide-list"></div><button id="guide-back" class="secondary">◀ BACK TO BATTLE</button></div>
-</div></section><div class="bottomline"><span>← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY</span><span id="best">BEST 0000</span></div><div id="intro-source-panel"><div class="music-label">INTRO MUSIC · FROM 0:20</div><iframe id="intro-source-frame" title="EEGMON intro music from the linked Pokémon Red video" allow="autoplay; encrypted-media; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin"></iframe><a href="https://www.youtube.com/watch?v=HY_lQXpGRuc&t=20s" target="_blank" rel="noopener noreferrer">Video source · tap its play control if needed</a></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
+</div></section><div class="bottomline"><span id="audio-status" role="status">TAP INTRO FOR MUSIC · TAP AGAIN TO START</span><span id="best">BEST 0000</span></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
 </main>
 <script>
 'use strict';
@@ -274,23 +269,51 @@ function paintEegmonLogo(){
  c.strokeStyle='#304193';c.lineWidth=.55;c.strokeText('EEGMON',0,44);c.restore();
 }
 document.fonts.load('36px EegmonLogo').then(paintEegmonLogo);paintEegmonLogo();
-function stopIntroSource(){
- const frame=$('intro-source-frame');if(frame&&frame.getAttribute('src'))frame.removeAttribute('src');
+
+let audioUnlocked=false,enablingSound=false;
+const introTrack=new Audio('eegmon-intro.mp3?v=native1');
+introTrack.id='eegmon-intro-audio';introTrack.preload='auto';introTrack.loop=true;introTrack.volume=.7;introTrack.hidden=true;document.body.appendChild(introTrack);
+function updateSoundUI(){
+ const ready=audioUnlocked&&!muted;
+ $('sound').textContent=!audioUnlocked?'♫ ENABLE SOUND':muted?'♫ SOUND OFF':'♫ SOUND ON';
+ $('sound').setAttribute('aria-label',ready?'Mute game audio':'Enable game audio');
+ $('sound').setAttribute('aria-pressed',String(muted));
+ $('start').querySelector('span').textContent=ready?'PRESS START':'TAP FOR SOUND';
+ $('audio-status').textContent=ready?'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY':'TAP INTRO FOR MUSIC · TAP AGAIN TO START';
 }
+function stopIntroSource(){introTrack.pause();introTrack.currentTime=0}
 function syncIntroSource(){
- const panel=$('intro-source-panel'),frame=$('intro-source-frame');
- const visible=active&&model.screen==='title'&&!$('title').hidden;
- panel.hidden=!visible;
- if(visible&&!muted&&!document.hidden){
-  if(!frame.getAttribute('src'))frame.src='https://www.youtube.com/embed/HY_lQXpGRuc?enablejsapi=1&playsinline=1&autoplay=1&start=20&end=68&rel=0&origin='+encodeURIComponent(location.origin);
+ if(active&&audioUnlocked&&!muted&&!document.hidden&&model.screen==='title'&&!$('title').hidden){
+  const attempt=introTrack.play();if(attempt&&attempt.catch)attempt.catch(()=>{$('audio-status').textContent='TAP SOUND TO RESUME MUSIC'});
  }else stopIntroSource();
  fitGoldViewport();
+}
+async function enableGameSound(){
+ if(enablingSound)return false;enablingSound=true;muted=false;
+ $('audio-status').textContent='ENABLING SOUND…';
+ try{
+  // Start media playback in the original user gesture, before awaiting anything.
+  introTrack.muted=false;
+  const mediaAttempt=model.screen==='title'?introTrack.play():Promise.resolve();
+  initAudio();
+  const contextAttempt=audio&&audio.state==='suspended'?audio.resume():Promise.resolve();
+  await Promise.all([mediaAttempt,contextAttempt]);
+  audioUnlocked=true;updateSoundUI();syncIntroSource();
+  if(model.screen!=='title')startMusic();
+  return true;
+ }catch(e){
+  audioUnlocked=false;muted=true;updateSoundUI();$('audio-status').textContent='SOUND DID NOT START · TAP SOUND TO RETRY';return false;
+ }finally{enablingSound=false}
+}
+function requestStart(){
+ if(!audioUnlocked||muted){enableGameSound();return}
+ begin();
 }
 
 const redCreatureImages=["data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoAgMAAADxkFD+AAAADFBMVEWte73///8ZEBDetcVpAvB1AAABJ0lEQVQYlWMIhQMGYpipCOYk0chMCDMsNC1tH4QZEurW+g/CjAz9Gb8OwkwM/1nFB2FOjX++gC8KzEytn9fAlQZmuv4LUuCcBmKGiX+qaLCKBDEjw3+eUrCszASJxh990fD02UyQ2vnPlZhn/0wFicYsX9GX9g/EDFV0adg57f+tqUDRUDmmZ3HxV1MZQqP6J1lP/1v/Hiia+n7GOfmvr38B1Ubw66+zX/r6P1DUbb1Wz76l/18/ZQhNW9O/H8ScCWRuEt2/f2H9HyAztSh8//5//Z+WApk/p/37/0FrZSiIOfv0/wNTQY50/cW//j8T2G+R9Z/yP2iCmRGrZu4/NBXMTOJaup8TEmZJkWF/VCHMFUvDFkwFM8PqQiOroIG6MjRsJXFxAQCL07KWNPXxtgAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEWte73///8ZEBDetcVpAvB1AAACWElEQVQoz12TT0gUYRjGX2aJSgdWEG8J0Z9DRjE2xR7aZQQPXpRd04dPZF/25MWb6cdEsazYJejgJTqGHQIZ8FYQnTaGoaiRSeRjTh8G3aRDui0jsdN02Faz9/Ly433e2+8hnBrqLnUahfwHBQPiGBmAVFB/UUFJwb2rxB3BSsnjX0YGCKguxivl6azGYIAgEdUDZzpWshvWrjpY0vVgr4u1HdcZDeMZQIGg6no070+WS1IJEFhUA/tCZFZ5GCC03cKg79ideEcBBK5V7aJl5ztTzCCuTfhRy2x9TLSEIsQ8XrRNuz/kGCDWieWYVvN6IWMJEmkSkm9am1l7CIq4M9kMi5FxNFrQDHLrVs7yrf653HJdgUSDwtxd2qqE24kAoWn/sC4bqlJMAwUS31uG0ezHTC4oSZD71fpsWTdQCe12qgkPcuYavcFYs7MbgPBr9VZzTWH8W5QAxI/26e1TwM/bKYNw2Ni8uQVBF/09pQgWfnsvF2Zp3YkliEOIfW/hofE4yxgkoyG8815v9JlRqiUhu4MX3giNOKWSAnHtPeYvrRpzjqslCOWiWnxCI7MtJ1UguescrpHhPXduawHCTPmIDM+7mqEgQYKj+68W+zbPO9sxQFixmtfueevU0lKBWHygT/MbdqMzDQECr4T0jM7ujekYIMjdgfIVsxDaZwCQwGwUnYucwk9IgCDblS/jeV2fSFiCILA74DSSpaDrhlQ4sAcTf7gbFiyToJrqlEXP2OUp1AV6IgkXuo64J6GEBOJjgd0p6PaJ3tyOgRNjIYQ41YX/mtKbP0DSWGjswdyYAAAAAElFTkSuQmCC","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwAgMAAAAqbBEUAAAADFBMVEX///8ZEBDWpQD/5nPgmvRXAAABt0lEQVQYGQXBv0tUcQAA8M+7H4ZDeBIehMNNNTa1tHQPJNryJL9PiUApGjTEISqC6hwDId7QWeTQYoEHYVNQBDr0B9yQU0MtDrZ0gRpXPb99PgAAAAAAAAA1AGgBWkhyIOmhmpNkLSdSVHPqm6lGinpe0+6seAT1VqtaZEZ/QT3kjd1Zlz/DWJa3w7ukUaui/vjBILQqD2tTOP3naG/WaP9SBcvx917I7u9cr2E7/t2/9vVb0k9JYoxH61vt3zspU9tx8KET4s8Edydj5+PicedTBU/nirHBVl9jd5pzrwbZ/ifD7X8VYws//yz/SE/ejuZVLsQYO/debvXPkiy9j8dzx4uxNI8r7WIQ43p8g6T89fC5eBS/oNL8lZV3FLHAqWKeuFNux5Qr0xP6sWj1mj1eJCP6zXaYLh+gctFBcybcSgucOrQ3EkL3WTNlMqzsTYas21nuSUKY2J0LWff10AHCzc5MCN0NSyQLV8NUuNHdMETydnwhDeliDpViaDENK49zqJ2vbpaCdg7pwfhmEmz3YLXX2BjOSuUenFm5szE8m/gOSuWc0pMUJOUca0BpNQXAGgAA+A8pN6qkldPG8AAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoAgMAAADxkFD+AAAADFBMVEX/////pVIZEBDWUjGjU/pQAAABdUlEQVQYlU3QzysEYRgH8O++ZW0ztUeKy3JZhm3OLn4dxFXRctikNj/WH0C0O40Ipz0YRE1DqdnxYzlwoIz8BUqhpEYJu8XVtGVez7s5eA7fPr3P+/b0PgDVRxuqFdWktT2LWcSWWHHnrRKZJG6N8ssvvjtBLKTK358HS2WALT/l3SD8vqEhZFxA9XGcugZLZ/pVv6k0p4FNvdx2/dQOlIjjm+7dQ3C/qkHxrtSfnH8l28jrvuIGtqr3wrnx05nSiLroQGGf3XXroXnNhrmneaFuia2ZMLf1qMYsfd9E/HwmNBZBh7mA+JFdM5LGdGUWDU7YSJ0N5h0LsUkoJ1EbrUk0Vw7Et8rFLchZngfC3PUgd/JXoLHKLH8E4gFR5e4wYATcR4IXBSvEdl7oI5ardMLAklO9YC0DukSUubUCNEvcE/QA+Y9isCB79gTlHO1hSKwTrUQYs4KJFEVMBE6TFJF6eiddjxGZ4VO/RxM95YROD/G/fgGIo6DOsmqejgAAAABJRU5ErkJggg==","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEX///8ZEBDWpQD/5nPgmvRXAAACTElEQVQoz13TsWsTcQDF8e/lEutBmt+BRsGpS/aUDtKSNL+0SpdCg/aXpEnFCHYwKESkQ6XgQf+BDDmKtdIlRXqLrg42J+ImkkFBENsOzZDtoA4mNDmHqy34tg9vfDw4j1EEYDFQSCkL0N5LABJ5/wcwIhpB2fKHQJgOgFH2vAFg0pNAouW5woIxvuaATU+4uoR14W9DaDkZ9TiCeS/TjGDUkimBCQtMdOMy4iZd/VM74FWZcCfAN2GBu10pr5OCpAnPPs51s2xzGrD2ebx7i3X9C5wegfyeXFmkJnREVIL5LVn+lfVSupsUFpip8Z3Dl57HiTsKmNGbvt85cfVThkBYHPp+r4UvxB8grP/0/c66QPfagCbeuP7BW4+CkAAv5sjM7vidvTUAbjwlM/PKL/frAESeuOlYqdcaBtSWrNHJUt7NBETJUaUKiOYFV4roxwHjVkzZy+e8hthUy9ALmHDFgX3BSC1TsguQPmvvD6q7ymVaAtiq0HWcUg0hAU23q8pxthro9WDB/T3HKXTQ28Bler5T3c33JMfAGMOFvr2khkV+AybD2czWB7WvmARMvT8/XR6o54syDYyJbnTy8WC1+tCMAVammUxU0rdLj8JCghw2vNfFqdXyfnbDAtnPzqzknaV7on6lDRtd4upBVeVph9uERBNDWXGVUzmtjRarE8lDIgdU0KYkiQoYd5QFhHoQtyCk1orAyDHE1TswCg1gpA6GKgJ2HrgkIbSWBwxlQQRg07YAuwJhAENJwMj9u4VdgbMqGAZA47/8BbUL08JDAVn7AAAAAElFTkSuQmCC","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4AgMAAADV6NONAAAADFBMVEWUpd7///8ZEBBae71q4DC8AAACvUlEQVQokTXTX0hTURwH8J/TgS5y7mFBvRTFpK0HHyIQhTJdhQUmbr8z7xWnqLfYrCaEUBBy1XxYLxF0RlOSVdzhPVdcQQkucZJFf4geJAPppYQlU9D14MNucte9zp2Xcz7whXN+5/wOYGEIiLI+gbHeQVxFhdunj0PC9RuBPRIOffxKKy2yGbnzaMJ9djYT6UKDRUK/wcHOCm6wCtwcClTnKnem73FjzOZAWmB1bDnx6RL1EyM82efk+7OmI5huLNCBCYCZSW8FgoSjr9NYDpDKtOpM4m0x3WqCkpocWBBCUu8oBRDNVzSwBaAj17Mk6rS3aeAmwGk9HtHFmN2bGrZxQLpmPEw/vQip+xclIL6Ep8SXZwDzw04KvrKoJ6+xmFXNrkUpcA1yk8YWj2mJJSens02+qvAQYinIIAXCl7tohznIdk9HjRLi78TxO3Yluft1j9KNky7FMrOVrxMMfiGxmmmT8jafMUj6JL4czLyiypLLCLuoCOg1sTjTK8KbTB4wf4dKbQqey4Acm+3uAtDyqqhGAPmNN0/vAZO9+RonB9i9IUWzdW438gtUZ09wdj1rfWTDoIw6wxsH1hbZe8R+FYnOKah9AEcRE3n9znzOaaiNlzXsYOKjqAKpjkHt2LOqg2zb/jsIxPESjh9udzelGN3wAwnMiyNRYrNsptbVBeB7UqFwlLhD2u6/bQ1CSuhWRbSTntD+1m/n4NsEzzvCHB1VPwyN5iAcjUw5woM600O9GRgX7jbSz4LwcGtOC85BRPDJxBEYtyTrc705EPT3IcKPYEJtyb1IA2/0mRDpO7fp//Nrbq9FyfWIYM20bA4UiD8DtHLh7KuByQIjca+iaWMj/gID7UzTkivLvgJ5qcGaVOxFIvWWJicONRe54i3N8KcuFym0WiV8Eo7v0w8uffvwtX2iavwEgfsParBfoFFFM0UAAAAASUVORK5CYII="].map(src=>{const im=new Image();im.src=src;return im});
 const redTrainerImage=new Image();redTrainerImage.src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAgAAAAAcoT2JAAAAx0lEQVR42mP4////gXogwfD//x+tZgjj0KoVYMYf0VkQxsfQtFX1IMbR0MhV9hBGWhYzhBEa/gfE+MoYWn8YojhABKzmAwPDCRijB2IgA0M/2Jy/DIz6YKn/DlIQKy6wOrqDGH+1FoB0/2f4lrWK5TiI8XHmDKE/IMZRtsSgzzby/xkOfAwM6j/8+T+DKQNrkP5pIIM1lNVL++tfEMPVYdXnGqDiUFeRVYtPgBlCWouZ/zN8CA3wONUAsouBJfgDP9h2CMDDAAD5U7F+L+mRHwAAAABJRU5ErkJggg==";
 
-function fitGoldViewport(){const available=Math.max(160,Math.min(window.innerWidth*.94,(window.innerHeight-((model.screen==='title')?360:112))*10/9,960));const width=available>=320?Math.floor(available/160)*160:available;document.querySelector('.cabinet').style.width=width+'px';$('gb-viewport').style.transform='scale('+(width/320)+')'}
+function fitGoldViewport(){const available=Math.max(160,Math.min(window.innerWidth*.94,(window.innerHeight-112)*10/9,960));const width=available>=320?Math.floor(available/160)*160:available;document.querySelector('.cabinet').style.width=width+'px';$('gb-viewport').style.transform='scale('+(width/320)+')'}
 window.addEventListener('resize',fitGoldViewport);
 const goldResizeObserver=new ResizeObserver(fitGoldViewport);goldResizeObserver.observe(document.querySelector('.screen'));fitGoldViewport();
 function sprite(g,which,x,y,scale=1,custom=null){
@@ -439,15 +462,15 @@ function toTitle(){cancelWork();stopMusic();model.reset();showEnemy=true;view('t
 function begin(){cancelWork();active=true;model.begin();initAudio();startMusic();encounterUI()}
 function initAudio(){
  if(muted)return;
- try{if(!audio){audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=.09;master.connect(audio.destination)}if(audio.state==='suspended')audio.resume().catch(()=>{})}catch(e){}
+ try{if(!audio){audio=new(window.AudioContext||window.webkitAudioContext)();master=audio.createGain();master.gain.value=.24;master.connect(audio.destination)}if(audio.state==='suspended')audio.resume().catch(()=>{})}catch(e){}
 }
 function tone(hz,duration=.1,type='square',delay=0){
- if(muted||!active||document.hidden)return;initAudio();if(!audio)return;
+ if(muted||!audioUnlocked||!active||document.hidden)return;initAudio();if(!audio)return;
  const o=audio.createOscillator(),g=audio.createGain(),now=audio.currentTime+delay;o.type=type;o.frequency.value=hz;g.gain.setValueAtTime(.25,now);g.gain.exponentialRampToValueAtTime(.001,now+duration);o.connect(g);g.connect(master);o.start(now);o.stop(now+duration+.01);
 }
 const tune=[392,0,523,587,659,587,523,440,392,0,330,392,440,523,440,330,349,0,440,523,587,523,440,392,330,0,392,440,523,440,392,294];
 function startMusic(){
- stopMusic();if(muted||!active||document.hidden)return;
+ stopMusic();if(muted||!audioUnlocked||!active||document.hidden)return;
  initAudio();musicTimer=setInterval(()=>{
   if(model.screen==='title'||['complete','defeat'].includes(model.screen)||!active||document.hidden)return;
   const note=tune[musicStep%tune.length];if(note)tone(note,.11,'square');
@@ -462,11 +485,11 @@ function closeGame(){
 }
 $('message').addEventListener('click',()=>{if(menu==='intro'&&!busy){say('What will EEG TECH do?');renderMenu('root')}});
 $('menu-back').addEventListener('click',()=>{say('What will EEG TECH do?');renderMenu('root')});
-$('start').addEventListener('click',begin);$('again').addEventListener('click',toTitle);$('exit').addEventListener('click',closeGame);
+$('start').addEventListener('click',requestStart);$('again').addEventListener('click',toTitle);$('exit').addEventListener('click',closeGame);
 $('guide-back').addEventListener('click',()=>{view('battle');say('What will EEG TECH do?');renderMenu('root')});
 $('sound').addEventListener('click',()=>{
- muted=!muted;$('sound').textContent=muted?'♫ SOUND OFF':'♫ SOUND ON';$('sound').setAttribute('aria-label',muted?'Enable game audio':'Mute game audio');$('sound').setAttribute('aria-pressed',String(muted));
- if(muted){stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}else{initAudio();if(model.screen!=='title')startMusic();tone(660,.1,'triangle')}syncIntroSource()
+ if(!audioUnlocked||muted){enableGameSound();return}
+ muted=true;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{});updateSoundUI();
 });
 document.addEventListener('visibilitychange',()=>{syncIntroSource();if(document.hidden){stopMusic();if(audio)audio.suspend().catch(()=>{})}else if(active&&model.screen!=='title'&&!['complete','defeat'].includes(model.screen)){initAudio();startMusic()}});
 window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}});
@@ -487,5 +510,5 @@ document.addEventListener('keydown',e=>{
  }else if(/^[1-4]$/.test(e.key)){e.preventDefault();if(!e.repeat)buttons[Number(e.key)-1]?.click()}
  else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();if(!e.repeat)buttons[selected].click()}
 });
-syncIntroSource();raf=requestAnimationFrame(frame);
-</script><script id="red-visual-credits" type="application/json">{"visualReference":"Pokémon Red and Blue","spriteSources":["https://github.com/PokeAPI/sprites","https://github.com/pret/pokered"],"note":"Pokémon game graphics belong to their respective rights holders. Neuro names and arcade mechanics are fictional."}</script></body></html>
+updateSoundUI();syncIntroSource();raf=requestAnimationFrame(frame);
+</script><script id="red-visual-credits" type="application/json">{"visualReference":"Pokémon Red and Blue","spriteSources":["https://github.com/PokeAPI/sprites","https://github.com/pret/pokered"],"note":"Pokémon game graphics belong to their respective rights holders. Neuro names and arcade mechanics are fictional. Native intro music is an original Neuro Arcade chiptune, not the linked video recording."}</script></body></html>
