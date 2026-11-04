@@ -162,6 +162,13 @@
 #start.eegmon-start:focus-visible{outline:2px dashed #53465c;outline-offset:-4px}
 @keyframes eegmon-start-pulse{0%,65%{opacity:1}66%,100%{opacity:.2}}
 @media(prefers-reduced-motion:reduce){#start.eegmon-start span{animation:none}}
+</style><style id="eegmon-menu-fit">
+.commands.kit{padding:8px 14px!important;grid-template-rows:repeat(4,18px)}
+.commands.kit button{font:10px/16px QuestPixel,monospace!important;min-width:0;white-space:nowrap;gap:8px;padding-left:14px!important}
+.commands.kit button small{font:6px/10px QuestPixel,monospace;flex-shrink:0}
+.commands.moves button{font-size:12px!important}
+.commands.retreat button{font-size:10px!important}
+.dialogue p{font-size:12px;line-height:20px;max-height:68px;overflow-wrap:anywhere}
 </style></head>
 <body><main class="cabinet" aria-label="EEGMON arcade game">
 <header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Enable game audio" aria-pressed="false">♫ ENABLE SOUND</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
@@ -172,10 +179,10 @@
 <div class="status player-status"><div class="name-row"><span id="player-name">FOCALON</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
 <div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
 <div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
-<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>TAP FOR SOUND</span></button></div>
+<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
 <div id="result" class="result-screen view" hidden><div class="medal" id="result-medal" aria-hidden="true">✦</div><h2 id="result-title">RHYTHM RESTORED</h2><p id="result-story"></p><p class="result-score" id="result-score"></p><div class="result-buttons"><button class="start-button" id="again">BACK TO TITLE</button></div></div>
 <div id="guide" class="guide-screen view" hidden><h2>NEURODEX</h2><p>Choose your companion. All companions share your focus. Four medication moves are randomized every battle. Arcade powers are fictional.</p><div id="guide-list" class="guide-list"></div><button id="guide-back" class="secondary">◀ BACK TO BATTLE</button></div>
-</div></section><div class="bottomline"><span id="audio-status" role="status">TAP INTRO FOR MUSIC · TAP AGAIN TO START</span><span id="best">BEST 0000</span></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
+</div></section><div class="bottomline"><span id="audio-status" role="status">← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY</span><span id="best">BEST 0000</span></div><p class="disclaimer">Fictional arcade battles. Medication names are game themes, not treatment guidance. No real doses or drug matchups are used.</p>
 </main>
 <script>
 'use strict';
@@ -287,19 +294,20 @@ document.fonts.load('36px EegmonLogo').then(paintEegmonLogo);paintEegmonLogo();
 
 let audioUnlocked=false,enablingSound=false;
 const introTrack=new Audio('eegmon-intro.mp3?v=uploaded20-roster');
-introTrack.id='eegmon-intro-audio';introTrack.preload='auto';introTrack.loop=true;introTrack.volume=.7;introTrack.hidden=true;document.body.appendChild(introTrack);
+introTrack.id='eegmon-intro-audio';introTrack.preload='auto';introTrack.loop=true;introTrack.addEventListener('loadedmetadata',()=>{introTrack.currentTime=20});introTrack.volume=.7;introTrack.hidden=true;document.body.appendChild(introTrack);
 function updateSoundUI(){
  const ready=audioUnlocked&&!muted;
  $('sound').textContent=!audioUnlocked?'♫ ENABLE SOUND':muted?'♫ SOUND OFF':'♫ SOUND ON';
  $('sound').setAttribute('aria-label',ready?'Mute game audio':'Enable game audio');
  $('sound').setAttribute('aria-pressed',String(muted));
- $('start').querySelector('span').textContent=ready?'PRESS START':'TAP FOR SOUND';
- $('audio-status').textContent=ready?'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY':'TAP INTRO FOR MUSIC · TAP AGAIN TO START';
+ $('start').querySelector('span').textContent='PRESS START';
+ $('audio-status').textContent=ready?'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY':'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY';
 }
-function stopIntroSource(){introTrack.pause();introTrack.currentTime=0}
+function stopIntroSource(){introTrack.pause();introTrack.currentTime=20}
 function syncIntroSource(){
+ if(window.parent!==window&&new URLSearchParams(location.search).has('parentAudio')){window.parent.postMessage({type:'eeg-quest:intro',playing:active&&!muted&&!document.hidden&&model.screen==='title'&&!$('title').hidden},location.origin);fitGoldViewport();return}
  if(active&&!muted&&!document.hidden&&model.screen==='title'&&!$('title').hidden){
-  const attempt=introTrack.play();if(attempt&&attempt.then)attempt.then(()=>{audioUnlocked=true;updateSoundUI()}).catch(()=>{$('audio-status').textContent='TAP INTRO TO ENABLE MUSIC'});
+  const attempt=introTrack.play();if(attempt&&attempt.then)attempt.then(()=>{audioUnlocked=true;updateSoundUI()}).catch(()=>{});
  }else stopIntroSource();
  fitGoldViewport();
 }
@@ -321,7 +329,7 @@ async function enableGameSound(){
  }finally{enablingSound=false}
 }
 function requestStart(){
- if(!audioUnlocked||muted){enableGameSound();return}
+ if(!audioUnlocked&&!muted)enableGameSound();
  begin();
 }
 
@@ -373,7 +381,7 @@ function draw(time){
  let heroShake=0,enemyShake=0;
  if(fx&&fx.kind==='counter'&&!motion.matches)heroShake=Math.round(Math.sin(time*.08)*2);
  if(fx&&fx.kind==='hit'&&!motion.matches)enemyShake=Math.round(Math.sin(time*.08)*2);
- const partner=redBackImages[model.partner];if(partner.complete&&partner.naturalWidth)ctx.drawImage(partner,16+heroShake,192-partner.naturalHeight*4,partner.naturalWidth*4,partner.naturalHeight*4);else tech(ctx,32+heroShake,100,2.8);
+ const partner=redCreatureImages[model.partner];if(partner.complete&&partner.naturalWidth){const scale=Math.min(2,128/partner.naturalWidth,112/partner.naturalHeight),w=Math.round(partner.naturalWidth*scale),h=Math.round(partner.naturalHeight*scale);ctx.drawImage(partner,Math.round(80-w/2)+heroShake,184-h,w,h)}else tech(ctx,32+heroShake,100,2);
  if(showEnemy){const im=redCreatureImages[model.order[model.stage]];if(im?.complete&&im.naturalWidth){const w=im.naturalWidth*2,h=im.naturalHeight*2;ctx.drawImage(im,248-w/2+enemyShake,112-h,w,h)}else sprite(ctx,model.order[model.stage],212+enemyShake,42,3.5);}
  if(fx){
   const progress=Math.min(1,(time-fx.start)/fx.duration);
@@ -508,7 +516,7 @@ $('sound').addEventListener('click',()=>{
  muted=true;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{});updateSoundUI();
 });
 document.addEventListener('visibilitychange',()=>{syncIntroSource();if(document.hidden){stopMusic();if(audio)audio.suspend().catch(()=>{})}else if(active&&model.screen!=='title'&&!['complete','defeat'].includes(model.screen)){initAudio();startMusic()}});
-window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}});
+window.addEventListener('message',e=>{if(e.origin!==location.origin||e.source!==window.parent)return;if(e.data?.type==='eeg-quest:open'){active=true;toTitle()}if(e.data?.type==='eeg-quest:audio-ready'){audioUnlocked=true;updateSoundUI()}if(e.data?.type==='eeg-quest:hide'){cancelWork();active=false;stopMusic();stopIntroSource();if(audio)audio.suspend().catch(()=>{})}});
 document.addEventListener('keydown',e=>{
  if(!active||e.altKey||e.ctrlKey||e.metaKey)return;
  if(e.target.closest('button')&&['sound','exit','menu-back'].includes(e.target.closest('button').id)&&!e.key.startsWith('Arrow'))return;
@@ -528,3 +536,4 @@ document.addEventListener('keydown',e=>{
 });
 updateSoundUI();syncIntroSource();raf=requestAnimationFrame(frame);
 </script><script id="red-visual-credits" type="application/json">{"visualReference":"Pokémon Red and Blue","spriteSources":["https://github.com/PokeAPI/sprites","https://github.com/pret/pokered"],"note":"Pokémon game graphics belong to their respective rights holders. Neuro names and arcade mechanics are fictional. Native intro music is an original Neuro Arcade chiptune, not the linked video recording."}</script></body></html>
+
