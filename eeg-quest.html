@@ -191,10 +191,10 @@ const QUEST_MOVES=[
  {name:'Keppra',tag:'PULSE',power:24,max:7,color:'#d1a1cd'},
  {name:'Depakote',tag:'BURST',power:30,max:5,color:'#edb55f'},
  {name:'Topamax',tag:'PRISM',power:26,max:6,color:'#7cbd92'},
- {name:'Clonazepam',short:'CLONAZEP.',tag:'SYNC',power:27,max:5,color:'#6cb9d1'},
+ {name:'Clonazepam',short:'CLONAZEP',tag:'SYNC',power:27,max:5,color:'#6cb9d1'},
  {name:'Diazepam',tag:'CALM',power:29,max:5,color:'#d1a1cd'},
- {name:'Lamotrigine',short:'LAMOTRIG.',tag:'PRISM',power:24,max:6,color:'#edb55f'},
- {name:'Lacosamide',short:'LACOSAM.',tag:'SYNC',power:26,max:6,color:'#7cbd92'}
+ {name:'Lamotrigine',short:'LAMOTRIG',tag:'PRISM',power:24,max:6,color:'#edb55f'},
+ {name:'Lacosamide',short:'LACOSAM',tag:'SYNC',power:26,max:6,color:'#7cbd92'}
 ];
 // Opponent names combine Pokémon villains with neurophysiology themes.
 const QUEST_VILLAINS=[{"name":"SEIZURE JESSIE"},{"name":"SPIKE WAVE JAMES"},{"name":"MYOCLONIC MEOWTH"},{"name":"ICTAL GIOVANNI"},{"name":"ABSENCE CYRUS"},{"name":"STATUS GHETSIS"},{"name":"TONIC LYSANDRE"},{"name":"CLONIC MAXIE"},{"name":"POLYSPIKE ARCHIE"},{"name":"BURST LUSAMINE"},{"name":"FOCAL GUZMA"},{"name":"ICTAL ROSE"},{"name":"SPASM VOLO"},{"name":"EEG COLRESS"},{"name":"TONIC PROTON"},{"name":"SEIZURE ARIANA"}];
@@ -387,7 +387,7 @@ function draw(time){
  if(fx&&fx.kind==='counter'&&!motion.matches)heroShake=Math.round(Math.sin(time*.08)*2);
  if(fx&&fx.kind==='hit'&&!motion.matches)enemyShake=Math.round(Math.sin(time*.08)*2);
  const partner=redCreatureImages[model.partner];if(partner.complete&&partner.naturalWidth){const scale=Math.min(2,128/partner.naturalWidth,112/partner.naturalHeight),w=Math.round(partner.naturalWidth*scale),h=Math.round(partner.naturalHeight*scale);ctx.drawImage(partner,Math.round(80-w/2)+heroShake,184-h,w,h)}else tech(ctx,32+heroShake,100,2);
- if(showEnemy){const im=redCreatureImages[model.order[model.stage]];if(im?.complete&&im.naturalWidth){const w=im.naturalWidth*2,h=im.naturalHeight*2;ctx.drawImage(im,248-w/2+enemyShake,112-h,w,h)}else sprite(ctx,model.order[model.stage],212+enemyShake,42,3.5);}
+ if(showEnemy){const im=redCreatureImages[model.order[model.stage]];if(im?.complete&&im.naturalWidth){const scale=Math.min(2,88/im.naturalHeight),w=Math.round(im.naturalWidth*scale),h=Math.round(im.naturalHeight*scale);ctx.drawImage(im,Math.round(248-w/2)+enemyShake,96-h,w,h)}else sprite(ctx,model.order[model.stage],212+enemyShake,26,3.5);}
  if(fx){
   const progress=Math.min(1,(time-fx.start)/fx.duration);
   if(fx.kind==='move'){
