@@ -81,36 +81,31 @@
 #flappy-easter-box .fb-overlay.zelda-story-intro > #fb-message,
 #flappy-easter-box .fb-overlay.zelda-story-intro > #fb-start{display:none !important;}
 
-/* Subtle NES-style animation, limited to the Zelda intro artwork. */
-#flappy-easter-box .fb-overlay.zelda-story-intro{position:relative;isolation:isolate;}
+/* Visible pixel animations on the Zelda intro art only. */
+#flappy-easter-box .fb-overlay.zelda-story-intro{position:relative!important;isolation:isolate;}
 #flappy-easter-box .fb-overlay.zelda-story-intro::before,
-#flappy-easter-box .fb-overlay.zelda-story-intro::after{
- content:"";position:absolute;pointer-events:none;z-index:1;
-}
-/* The cyan waterfall is already painted into the title image. Animate
-   a few bright water streaks over its lower opening, not the rocks. */
+#flappy-easter-box .fb-overlay.zelda-story-intro::after{content:""!important;display:block!important;position:absolute!important;pointer-events:none!important;z-index:20!important;}
+/* Flowing turquoise/white highlights across the painted waterfall at bottom left. */
 #flappy-easter-box .fb-overlay.zelda-story-intro::before{
- left:29.5%;top:82%;width:11%;height:18%;
- background:repeating-linear-gradient(180deg,
-  transparent 0 9%,rgba(224,255,255,.65) 10% 12%,
-  transparent 13% 27%,rgba(80,239,255,.42) 28% 31%,transparent 32% 46%);
- clip-path:polygon(5% 0,97% 0,97% 100%,0 100%);
- opacity:.62;animation:eegWaterfallFlow 1.2s steps(8) infinite;
+ left:29.6%!important;top:82.3%!important;width:11.4%!important;height:17.7%!important;
+ background:repeating-linear-gradient(to bottom,rgba(239,255,255,.95) 0px,rgba(239,255,255,.95) 4px,rgba(39,222,255,.32) 5px,transparent 12px,transparent 22px)!important;
+ background-size:100% 44px!important;
+ clip-path:polygon(0 0,96% 0,96% 100%,0 100%)!important;
+ opacity:.82!important;mix-blend-mode:screen;
+ animation:eegWaterfallFlowVisible .65s linear infinite!important;
 }
-/* A restrained golden pulse over the existing Triforce triangles. */
+/* A visible, periodic gold shimmer across the three existing Triforce triangles. */
 #flappy-easter-box .fb-overlay.zelda-story-intro::after{
- left:43.4%;top:19.2%;width:14%;height:23%;
- background:rgba(255,248,125,.55);
- clip-path:polygon(50% 0%,75% 47%,100% 100%,0 100%,25% 47%);
- mix-blend-mode:screen;opacity:0;
- animation:eegTriforceGlow 2.7s steps(8) infinite;
+ left:43.7%!important;top:19.3%!important;width:14.7%!important;height:23.2%!important;
+ background:linear-gradient(125deg,transparent 0%,rgba(255,255,175,.18) 30%,rgba(255,255,185,.95) 48%,rgba(255,238,73,.40) 60%,transparent 85%)!important;
+ background-size:240% 100%!important;
+ clip-path:polygon(50% 0,100% 100%,0 100%)!important;
+ mix-blend-mode:screen;opacity:.8!important;
+ animation:eegTriforceShimmerVisible 2.2s steps(18) infinite!important;
 }
-@keyframes eegWaterfallFlow{from{background-position:0 0}to{background-position:0 90px}}
-@keyframes eegTriforceGlow{0%,100%{opacity:0}45%{opacity:.20}60%{opacity:.35}75%{opacity:.12}}
-@media(prefers-reduced-motion:reduce){
- #flappy-easter-box .fb-overlay.zelda-story-intro::before,
- #flappy-easter-box .fb-overlay.zelda-story-intro::after{animation:none;opacity:0}
-}
+@keyframes eegWaterfallFlowVisible{from{background-position:0 0}to{background-position:0 44px}}
+@keyframes eegTriforceShimmerVisible{0%{background-position:150% 0;filter:brightness(1)}55%{background-position:0 0;filter:brightness(1.5)}100%{background-position:-140% 0;filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){#flappy-easter-box .fb-overlay.zelda-story-intro::before,#flappy-easter-box .fb-overlay.zelda-story-intro::after{animation-duration:2.5s!important}}
 </style><style>
 .ceu-tabs{max-width:1280px;margin:20px auto 0;padding:0 20px;display:flex;gap:10px;border-bottom:1px solid #31566c}
 .ceu-tab{background:transparent;color:#bfd1dc;border:1px solid #31566c;border-bottom:0;border-radius:9px 9px 0 0;padding:13px 22px;font-size:14px;font-weight:750;cursor:pointer}
