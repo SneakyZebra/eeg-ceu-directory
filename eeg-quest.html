@@ -293,8 +293,8 @@ function paintEegmonLogo(){
 document.fonts.load('36px EegmonLogo').then(paintEegmonLogo);paintEegmonLogo();
 
 let audioUnlocked=false,enablingSound=false;
-const introTrack=new Audio('eegmon-intro.mp3?v=uploaded20-roster');
-introTrack.id='eegmon-intro-audio';introTrack.preload='auto';introTrack.loop=true;introTrack.addEventListener('loadedmetadata',()=>{introTrack.currentTime=20});introTrack.volume=.7;introTrack.hidden=true;document.body.appendChild(introTrack);
+const introTrack=new Audio('eegmon-intro.mp3?v=original-full-20261104');
+introTrack.id='eegmon-intro-audio';introTrack.preload='auto';introTrack.loop=false;introTrack.addEventListener('loadedmetadata',()=>{introTrack.currentTime=introTrack.duration>20?20:0});introTrack.addEventListener('ended',()=>{introTrack.currentTime=introTrack.duration>20?20:0;syncIntroSource()});introTrack.volume=.7;introTrack.hidden=true;document.body.appendChild(introTrack);
 function updateSoundUI(){
  const ready=audioUnlocked&&!muted;
  $('sound').textContent=!audioUnlocked?'♫ ENABLE SOUND':muted?'♫ SOUND OFF':'♫ SOUND ON';
@@ -303,7 +303,7 @@ function updateSoundUI(){
  $('start').querySelector('span').textContent='PRESS START';
  $('audio-status').textContent=ready?'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY':'← ↑ ↓ → + ENTER / SPACE · TAP TO PLAY';
 }
-function stopIntroSource(){introTrack.pause();introTrack.currentTime=20}
+function stopIntroSource(){introTrack.pause();if(introTrack.readyState)introTrack.currentTime=introTrack.duration>20?20:0}
 function syncIntroSource(){
  if(window.parent!==window&&new URLSearchParams(location.search).has('parentAudio')){window.parent.postMessage({type:'eeg-quest:intro',playing:active&&!muted&&!document.hidden&&model.screen==='title'&&!$('title').hidden},location.origin);fitGoldViewport();return}
  if(active&&!muted&&!document.hidden&&model.screen==='title'&&!$('title').hidden){
@@ -534,6 +534,13 @@ document.addEventListener('keydown',e=>{
  }else if(/^[1-4]$/.test(e.key)){e.preventDefault();if(!e.repeat)buttons[Number(e.key)-1]?.click()}
  else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();if(!e.repeat)buttons[selected].click()}
 });
+function unlockIntroFromGesture(e){
+ if(!active||muted||model.screen!=='title')return;
+ if(window.parent!==window&&new URLSearchParams(location.search).has('parentAudio'))window.parent.postMessage({type:'eeg-quest:unlock-audio'},location.origin);
+ else syncIntroSource();
+}
+document.addEventListener('pointerdown',unlockIntroFromGesture,{capture:true});
+document.addEventListener('keydown',unlockIntroFromGesture,{capture:true});
 updateSoundUI();syncIntroSource();raf=requestAnimationFrame(frame);
 </script><script id="red-visual-credits" type="application/json">{"visualReference":"Pokémon Red and Blue","spriteSources":["https://github.com/PokeAPI/sprites","https://github.com/pret/pokered"],"note":"Pokémon game graphics belong to their respective rights holders. Neuro names and arcade mechanics are fictional. Native intro music is an original Neuro Arcade chiptune, not the linked video recording."}</script></body></html>
 
