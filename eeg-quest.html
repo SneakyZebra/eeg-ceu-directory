@@ -169,7 +169,11 @@
 .commands.moves button{font-size:12px!important}
 .commands.retreat button{font-size:10px!important}
 .dialogue p{font-size:12px;line-height:20px;max-height:68px;overflow-wrap:anywhere}
-</style><style id="eegmon-readable-victory">.battle[data-red-menu="won"] .dialogue p{font:12px/20px QuestPixel,monospace;letter-spacing:0;word-spacing:0;text-align:left;white-space:pre-line;overflow-wrap:normal;word-break:normal;max-height:60px}.enemy-status .name-row>span:first-child{display:block;white-space:nowrap}</style></head>
+</style><style id="eegmon-readable-victory">.battle[data-red-menu="won"] .dialogue p{font:12px/20px QuestPixel,monospace;letter-spacing:0;word-spacing:0;text-align:left;white-space:pre-line;overflow-wrap:normal;word-break:normal;max-height:60px}.enemy-status .name-row>span:first-child{display:block;white-space:nowrap}</style><style id="eegmon-consistent-pixel-text">
+#gb-viewport,#gb-viewport *{text-transform:uppercase;letter-spacing:0!important;word-spacing:0!important;font-kerning:none;font-variant-ligatures:none}
+#gb-viewport .dialogue p{white-space:pre-line;word-break:normal;overflow-wrap:normal;text-align:left}
+#gb-viewport .result-screen p,#gb-viewport .guide-entry p{line-height:1.6}
+</style></head>
 <body><main class="cabinet" aria-label="EEGMON arcade game">
 <header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Enable game audio" aria-pressed="false">♫ ENABLE SOUND</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
 <section class="screen" aria-label="Game screen"><div id="gb-viewport">
@@ -373,13 +377,17 @@ function pixelTraceSegment(g,x0,y0,x1,y1,size=1){
  const dx=Math.abs(x1-x0),dy=-Math.abs(y1-y0),sx=x0<x1?1:-1,sy=y0<y1?1:-1;let error=dx+dy;
  for(;;){g.fillRect(x0,y0,size,size);if(x0===x1&&y0===y1)break;const twice=2*error;if(twice>=dy){error+=dy;x0+=sx}if(twice<=dx){error+=dx;y0+=sy}}
 }
+function eegTraceOffset(position,row=0){
+ const frequency=[.13,.2,.09,.16,.11,.23][row%6];
+ return Math.sin(position*frequency)*6+Math.sin(position*frequency*.46+row)*3+Math.sin(position*.57)*1.5;
+}
 function drawIntroEEG(g,time){
  g.save();g.fillStyle='#9986a4';g.globalAlpha=.38;
  for(let row=0;row<6;row++){
-  const base=27+row*43,phase=time*(row%2?22:15)+row*19,frequency=[.13,.2,.09,.16,.11,.23][row];
+  const base=27+row*43,phase=time*(row%2?22:15)+row*19;
   let lastX=0,lastY=base;
   for(let x=0;x<=320;x+=2){
-   const p=x+phase,y=base+Math.round(Math.sin(p*frequency)*6+Math.sin(p*frequency*.46+row)*3+Math.sin(p*.57)*1.5);
+   const p=x+phase,y=base+Math.round(eegTraceOffset(p,row));
    if(x)pixelTraceSegment(g,lastX,lastY,x,y);lastX=x;lastY=y;
   }
  }
@@ -391,7 +399,7 @@ function drawAttackEEG(g,progress,time,reverse=false){
  const start=Math.max(0,progress-.48);let previous=null;
  g.save();
  for(let p=start;p<=progress+.0001;p+=.012){
-  const age=progress-p,fade=Math.max(.12,1-age/.48),wave=Math.sin(p*length*.35-time*.032)*7*fade;
+  const age=progress-p,fade=Math.max(.12,1-age/.48),attachment=Math.min(1,age/.04),wave=eegTraceOffset(p*length+time*.015,0)*.45*fade*attachment;
   const point={x:from.x+dx*p+normalX*wave,y:from.y+dy*p+normalY*wave};
   g.globalAlpha=.25+.75*fade;g.fillStyle=reverse?'#8b334e':'#435b82';
   if(previous)pixelTraceSegment(g,previous.x,previous.y,point.x,point.y,2);previous=point;
