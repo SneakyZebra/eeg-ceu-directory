@@ -1,0 +1,53 @@
+name: Apply stacked CEU directory layout
+on:
+  push:
+    paths:
+      - '.github/workflows/stack-ceu-directory.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  layout:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Stack directory categories
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css='''<style id="ceu-directory-stacked-layout">
+          #ceu-directory-view > .grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+          #ceu-directory-view > .grid > .column { min-width: 0; }
+          #ceu-directory-view .entries { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: stretch; }
+          #ceu-directory-view .entry { min-width: 0; margin-bottom: 0; }
+          @media (max-width: 850px) { #ceu-directory-view .entries { grid-template-columns: minmax(0, 1fr); } }
+          </style>
+          '''
+          if 'id="ceu-directory-stacked-layout"' not in s:
+              assert '</head>' in s
+              p.write_text(s.replace('</head>',css+'</head>',1))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Stack CEU directory categories with existing icons'
+          git push
+      - name: Prepare public files
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy website
+        id: deployment
+        uses: actions/deploy-pages@v4
