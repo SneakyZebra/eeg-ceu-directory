@@ -3,6 +3,12 @@ on:
   push:
     paths:
       - '.github/workflows/publish-current-learning-hub.yml'
+      - 'index.html'
+      - 'ceu-offerings.json'
+      - 'data/**'
+      - '*.js'
+      - '*.css'
+  workflow_dispatch:
 permissions:
   contents: read
   pages: write
@@ -18,6 +24,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - name: Clear failed stale deployment
         uses: actions/github-script@v7
         with:
