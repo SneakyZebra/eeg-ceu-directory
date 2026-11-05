@@ -1,0 +1,46 @@
+name: Update Videos introduction
+on:
+  push:
+    paths:
+      - '.github/workflows/update-videos-intro.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace Videos introduction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old="Free EEG lectures and video modules. Links open the relevant video collection or course rather than a provider homepage."
+          alternate="Links direct you to specific video collections or courses rather than general provider homepages."
+          new="Explore EEG lectures, educational videos, and learning modules designed to expand your knowledge and clinical skills. Links connect you to educational content and resources offered by various providers."
+          assert old in s or alternate in s or new in s, 'Expected Videos introduction was not found'
+          p.write_text(s.replace(old,new).replace(alternate,new))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Update Videos introduction with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
