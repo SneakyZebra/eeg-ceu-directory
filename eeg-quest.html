@@ -445,8 +445,10 @@ function draw(time){
  let heroShake=0,enemyShake=0;
  if(fx&&fx.kind==='counter'&&!motion.matches)heroShake=Math.round(Math.sin(time*.08)*2);
  if(fx&&fx.kind==='hit'&&!motion.matches)enemyShake=Math.round(Math.sin(time*.08)*2);
+ ctx.save();ctx.globalCompositeOperation='multiply';
  const partner=redCreatureImages[model.partner];if(partner.complete&&partner.naturalWidth){const scale=Math.min(2,128/partner.naturalWidth,112/partner.naturalHeight),w=Math.round(partner.naturalWidth*scale),h=Math.round(partner.naturalHeight*scale);ctx.drawImage(partner,Math.round(80-w/2)+heroShake,184-h,w,h)}else tech(ctx,32+heroShake,100,2);
  if(showEnemy){const im=redCreatureImages[model.order[model.stage]];if(im?.complete&&im.naturalWidth){const scale=Math.min(2,88/im.naturalHeight),w=Math.round(im.naturalWidth*scale),h=Math.round(im.naturalHeight*scale);ctx.drawImage(im,Math.round(248-w/2)+enemyShake,96-h,w,h)}else sprite(ctx,model.order[model.stage],212+enemyShake,26,3.5);}
+ ctx.restore();
  if(fx){
   const progress=Math.min(1,(time-fx.start)/fx.duration);
   if(fx.kind==='move'){
