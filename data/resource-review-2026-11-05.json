@@ -49,5 +49,17 @@
     "Ten recently verified public videos retained.",
     "Unreviewed discovery candidates retained in research data but withheld from public listings.",
     "Existing ASET flashcards link corrected; generic marketplace removed."
-  ]
+  ],
+  "link_audit": {
+    "total": 74,
+    "reachable": 69,
+    "fixed_404": "ASET Foundation scholarship link",
+    "unconfirmed": [
+      "https://eegmaster.com/",
+      "https://eegpedia.org/index.php?title=Main_Page",
+      "https://eegplatform.com/",
+      "https://pocketneurodiagnostics.com/"
+    ],
+    "note": "Four servers returned 406 or 503 to the automated check; this does not establish that the resource is unavailable to visitors."
+  }
 }
