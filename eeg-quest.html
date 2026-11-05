@@ -106,7 +106,7 @@
 .enemy-status::before{content:"";position:absolute;right:2px;top:50px;border-left:8px solid #000;border-top:4px solid transparent;pointer-events:none}
 .player-status::after{content:"";position:absolute;right:8px;top:32px;width:132px;height:38px;border-right:2px solid #000;border-bottom:2px solid #000;pointer-events:none}
 .command-box{display:block;position:relative;height:96px;background:#fff;box-shadow:none;border:0}
-.dialogue,.commands{border:6px solid transparent;border-image-source:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E");border-image-slice:3 fill;border-image-width:6px;border-image-repeat:stretch;image-rendering:pixelated;background:transparent}
+.dialogue,.commands{border:6px solid transparent;border-image-source:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E");border-image-slice:3 fill;border-image-width:6px;border-image-repeat:stretch;image-rendering:pixelated;background:transparent}
 .dialogue{position:absolute;left:0;top:0;width:128px;height:96px;padding:12px 10px;font:16px/32px QuestPixel,monospace}
 .dialogue p{font:16px/32px QuestPixel,monospace;letter-spacing:0;max-height:64px;overflow:auto;white-space:pre-line;overflow-wrap:normal}
 .commands{position:absolute;left:128px;top:0;width:192px;height:96px;padding:16px 4px 4px 12px;display:grid;grid-template-columns:96px 64px;grid-template-rows:32px 32px;gap:0}
@@ -120,10 +120,10 @@
 .battle[data-red-menu="intro"] .commands button{padding:0!important;font:16px/16px QuestPixel,monospace!important}
 .battle[data-red-menu="intro"] .commands button::before{content:none!important}
 .commands.moves{left:0;top:0;inset:0;width:320px;height:96px;border:0;border-image:none;padding:6px 8px 6px 144px!important;grid-template-columns:1fr;grid-template-rows:repeat(4,21px);background:none}
-.commands.moves::before{content:"";position:absolute;left:128px;top:0;width:192px;height:96px;box-sizing:border-box;border:6px solid transparent;border-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E") 3 fill / 6px stretch;pointer-events:none;z-index:-1}
+.commands.moves::before{content:"";position:absolute;left:128px;top:0;width:192px;height:96px;box-sizing:border-box;border:6px solid transparent;border-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E") 3 fill / 6px stretch;pointer-events:none;z-index:-1}
 .commands.moves{isolation:isolate}
 .commands.moves button{font:16px/16px QuestPixel,monospace!important;padding:0 0 0 14px!important;letter-spacing:0;z-index:1}
-.commands.moves::after{content:attr(data-detail);left:0;right:auto;top:0;width:128px;height:96px;box-sizing:border-box;padding:6px 8px;border:6px solid transparent;border-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22white%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E") 3 fill / 6px stretch;font:16px/24px QuestPixel,monospace;letter-spacing:0;white-space:pre;z-index:0}
+.commands.moves::after{content:attr(data-detail);left:0;right:auto;top:0;width:128px;height:96px;box-sizing:border-box;padding:6px 8px;border:6px solid transparent;border-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%228%22%20height%3D%228%22%20shape-rendering%3D%22crispEdges%22%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M0%200H8V8H0Z%22%2F%3E%3Cpath%20fill%3D%22black%22%20d%3D%22M2%200H6V1H7V2H8V6H7V7H6V8H2V7H1V6H0V2H1V1H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M2%201H6V2H7V6H6V7H2V6H1V2H2Z%22%2F%3E%3Cpath%20d%3D%22M2%202H6V6H2Z%22%2F%3E%3Cpath%20fill%3D%22%23f8e5fa%22%20d%3D%22M3%203H5V5H3Z%22%2F%3E%3C%2Fsvg%3E") 3 fill / 6px stretch;font:16px/24px QuestPixel,monospace;letter-spacing:0;white-space:pre;z-index:0}
 .commands.moves button.gb-cursor::before{left:0!important;font-size:16px!important}
 .menu-back{font:8px/8px QuestPixel,monospace!important;top:-18px;left:4px;padding:3px 4px!important;height:16px;min-height:16px;background:#fff!important;color:#000}
 .commands.kit{inset:0;left:0;width:320px;height:96px;padding:6px 12px;grid-template-columns:1fr;grid-template-rows:repeat(4,21px)}
@@ -173,6 +173,18 @@
 #gb-viewport,#gb-viewport *{text-transform:uppercase;letter-spacing:0!important;word-spacing:0!important;font-kerning:none;font-variant-ligatures:none}
 #gb-viewport .dialogue p{white-space:pre-line;word-break:normal;overflow-wrap:normal;text-align:left}
 #gb-viewport .result-screen p,#gb-viewport .guide-entry p{line-height:1.6}
+</style><style id="eegmon-color-edition">
+:root{--paper:#f8e5fa}
+.screen,#gb-viewport,.field,.command-box{background:#f8e5fa;filter:none}
+.field canvas,.title-art,.guide-icon{filter:none}
+.title-screen,.result-screen,.guide-screen{background:#f8e5fa}
+.hp-track{background:#fff8ef}
+.hp-fill{background:#40a84e}
+.hp-fill.low{background:#d94e48}
+.menu-back,.battle[data-red-menu="won"] .commands{background:#f8e5fa!important}
+.result-screen h2{font:12px/18px QuestPixel,monospace;max-width:280px;white-space:normal;overflow-wrap:normal;word-break:normal}
+.result-screen .medal{font-size:30px;line-height:32px;margin-bottom:4px}
+.result-screen p{margin:6px 0}
 </style></head>
 <body><main class="cabinet" aria-label="EEGMON arcade game">
 <header class="topline"><div class="brandmark">NEURO <span>ARCADE</span> / 05</div><div class="topbuttons"><button id="sound" aria-label="Enable game audio" aria-pressed="false">♫ ENABLE SOUND</button><button id="exit" aria-label="Close EEGMON">✕ CLOSE</button></div></header>
@@ -183,7 +195,7 @@
 <div class="status player-status"><div class="name-row"><span id="player-name">EEG TECH</span><span class="level" id="player-level">Lv 1</span></div><div class="hp-row"><span class="hp-label">HP:</span><div class="hp-track" role="progressbar" aria-label="Technologist focus" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="focus-progress"><div class="hp-fill" id="focus-hp"></div></div></div><div class="hp-numbers" id="focus-number">100/100</div><div class="xp-track" aria-hidden="true"><i id="journey"></i></div></div>
 <div class="wave-counter" id="badges" aria-label="Encounters completed">○ ○ ○ ○ ○ ○</div></div>
 <div class="command-box"><div class="dialogue"><p id="message" role="status" aria-live="polite">A wild FOCALON appeared!</p><small id="menu-hint">CHOOSE YOUR NEXT MOVE</small><button id="menu-back" class="menu-back" type="button" hidden>◀ BACK</button></div><div class="commands" id="commands" role="group" aria-label="Battle commands"></div></div></div>
-<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Red Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
+<div id="title" class="title-screen eegmon-title view"><h1 class="sr">EEGMON</h1><canvas id="title-art" width="320" height="288" aria-label="EEGMON Color Version title screen with a trainer and rotating creatures"></canvas><button id="start" class="eegmon-start" type="button" aria-label="Start EEGMON"><span>PRESS START</span></button></div>
 <div id="result" class="result-screen view" hidden><div class="medal" id="result-medal" aria-hidden="true">✦</div><h2 id="result-title">RHYTHM RESTORED</h2><p id="result-story"></p><p class="result-score" id="result-score"></p><div class="result-buttons"><button class="start-button" id="again">BACK TO TITLE</button></div></div>
 <div id="guide" class="guide-screen view" hidden><h2>NEURODEX</h2><p>Choose your companion. All companions share your focus. Four medication moves are randomized every battle. Arcade powers are fictional.</p><div id="guide-list" class="guide-list"></div><button id="guide-back" class="secondary">◀ BACK TO BATTLE</button></div>
 </div></section><div hidden><span id="audio-status"></span><span id="best"></span></div>
@@ -418,7 +430,7 @@ function draw(time){
   rect(c,0,0,320,288,'#fff0ff');
   drawIntroEEG(c,motion.matches?0:time/1000);
   c.drawImage(eegmonLogoCanvas,0,12,320,120);
-  c.fillStyle='#a81732';c.font='16px QuestPixel';c.textAlign='center';c.fillText('RED VERSION',160,142);
+  c.fillStyle='#a81732';c.font='16px QuestPixel';c.textAlign='center';c.fillText('COLOR VERSION',160,142);
   c.save();c.globalCompositeOperation='multiply';
   if(eegmonTrainer.complete&&eegmonTrainer.naturalWidth)c.drawImage(eegmonTrainer,128,160,80,112);
   const index=Math.floor((motion.matches?0:time/1000)/6)%redCreatureImages.length;
@@ -428,7 +440,7 @@ function draw(time){
   return;
  }
  ctx.clearRect(0,0,320,192);ctx.imageSmoothingEnabled=false;
- rect(ctx,0,0,320,192,'#fff');
+ rect(ctx,0,0,320,192,'#f8e5fa');
  // The Gold-era battle stage is plain, with back-facing trainer and opposing creature.
  let heroShake=0,enemyShake=0;
  if(fx&&fx.kind==='counter'&&!motion.matches)heroShake=Math.round(Math.sin(time*.08)*2);
@@ -454,9 +466,9 @@ function view(id){for(const name of ['title','battle','result','guide'])$(name).
 function say(text,hint='CHOOSE YOUR NEXT MOVE'){$('message').textContent=text;$('menu-hint').textContent=hint}
 function hp(){
  const enemyPct=Math.max(0,displayEnemyHP/model.enemy.hp*100);
- $('enemy-hp').style.width=enemyPct+'%';$('enemy-hp').classList.toggle('low',enemyPct<30);
+ $('enemy-hp').style.width=enemyPct+'%';$('enemy-hp').style.backgroundColor=enemyPct>50?'#40a84e':enemyPct>20?'#d8b735':'#d94e48';$('enemy-hp').classList.toggle('low',enemyPct<30);
  $('enemy-progress').setAttribute('aria-valuemax',String(model.enemy.hp));$('enemy-progress').setAttribute('aria-valuenow',String(displayEnemyHP));
- $('focus-hp').style.width=displayFocus+'%';$('focus-hp').classList.toggle('low',displayFocus<30);$('focus-progress').setAttribute('aria-valuenow',String(displayFocus));
+ $('focus-hp').style.width=displayFocus+'%';$('focus-hp').style.backgroundColor=displayFocus>50?'#40a84e':displayFocus>20?'#d8b735':'#d94e48';$('focus-hp').classList.toggle('low',displayFocus<30);$('focus-progress').setAttribute('aria-valuenow',String(displayFocus));
  $('focus-number').textContent=displayFocus+'/100';$('journey').style.width=(model.stage/6*100)+'%';
 }
 function encounterUI(){
@@ -518,10 +530,13 @@ function perform(kind,index){
  },550);
 }
 function saveBest(){if(model.score>best){best=model.score;try{localStorage.setItem('eeg-quest-best',String(best))}catch(e){}$('best').textContent='BEST '+String(best).padStart(4,'0')}}
+const END_MESSAGES=["Time for a meal or rest break","Time for a skin check","Time for a stretch break","Time to archive some studies","Time to check your PerfectServe messages","Good time to check your Epic messages","Go get some lunch","All outta 10-20 paste.","Looks like Citrix is down again","Time to DC a patient","Have you checked how many CEUs you have","Time to hydrate","You lost, but you are still fantastic"];
+let lastEndMessage=-1;
+function randomEndMessage(){let index=Math.floor(Math.random()*END_MESSAGES.length);if(index===lastEndMessage)index=(index+1)%END_MESSAGES.length;lastEndMessage=index;return END_MESSAGES[index]}
 function showResult(won){
  stopMusic();view('result');$('result-medal').textContent=won?'✦':'◇';
- $('result-title').textContent=won?'RHYTHM RESTORED!':'TIME TO RECHARGE';
- $('result-story').textContent=won?'Six creatures calmed. Six rhythm badges earned. Neuro Valley has found its steady beat again. Great work, EEG TECH.':'Even great technologists need a break. Your patrol ends here, but a fresh adventure is waiting on the title screen.';
+ $('result-title').textContent=won?'RHYTHM RESTORED!':randomEndMessage();
+ $('result-story').textContent=won?'Six creatures calmed. Six rhythm badges earned. Neuro Valley has found its steady beat again. Great work, EEG TECH.':'Press START for a fresh patrol.';
  $('result-score').textContent='SCORE '+String(model.score).padStart(4,'0')+'  ·  '+(won?6:model.stage)+'/6 BADGES';
  $('again').focus({preventScroll:true});
 }
