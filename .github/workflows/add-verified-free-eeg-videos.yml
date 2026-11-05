@@ -1,0 +1,73 @@
+name: Add verified free EEG videos
+on:
+  push:
+    paths:
+      - '.github/workflows/add-verified-free-eeg-videos.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install Pillow
+      - name: Add verified public EEG videos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          from pathlib import Path
+          import json,re,html,urllib.request,io,base64
+          from PIL import Image
+          p=Path('index.html');s=p.read_text()
+          videos=json.loads("[{\"id\":\"h7Rg-mEzQaY\",\"status\":\"OK\",\"title\":\"ILAE: EEG Concepts and Device Components\",\"author\":\"ILAE - International League Against Epilepsy\",\"seconds\":\"1652\",\"private\":false,\"live\":false,\"description\":\"A practical introduction to EEG concepts and recording equipment.\",\"providerHost\":\"www.ilae.org\"},{\"id\":\"-W10ffKtI64\",\"status\":\"OK\",\"title\":\"ILAE: Artifact Identification and Management\",\"author\":\"ILAE - International League Against Epilepsy\",\"seconds\":\"1108\",\"private\":false,\"live\":false,\"description\":\"Recognizing and managing artifacts during EEG acquisition.\",\"providerHost\":\"www.ilae.org\"},{\"id\":\"w7vvdSWRCCY\",\"status\":\"OK\",\"title\":\"ILAE: EEG Artifacts Case Study\",\"author\":\"ILAE - International League Against Epilepsy\",\"seconds\":\"717\",\"private\":false,\"live\":false,\"description\":\"Case based EEG artifact teaching from ILAE Asia and Oceania and ASEPA.\",\"providerHost\":\"www.ilae.org\"},{\"id\":\"3POlpImPILM\",\"status\":\"OK\",\"title\":\"CortiCare: Cortical and Noncortical Myoclonus After Cardiac Arrest\",\"author\":\"CortiCare EEG Services\",\"seconds\":\"3766\",\"private\":false,\"live\":false,\"description\":\"Recorded teaching on myoclonus and EEG following cardiac arrest.\",\"providerHost\":\"corticare.com\"},{\"id\":\"GpJBX1Ut5gY\",\"status\":\"OK\",\"title\":\"CortiCare: Comparing EMU and ICU Monitoring\",\"author\":\"CortiCare EEG Services\",\"seconds\":\"3735\",\"private\":false,\"live\":false,\"description\":\"Differences between epilepsy monitoring unit and intensive care EEG monitoring.\",\"providerHost\":\"corticare.com\"},{\"id\":\"ja4tTbPjoI4\",\"status\":\"OK\",\"title\":\"CortiCare: Neonatal EEG, Think Beyond the Spike\",\"author\":\"CortiCare EEG Services\",\"seconds\":\"4247\",\"private\":false,\"live\":false,\"description\":\"A neonatal EEG webinar for neurodiagnostic professionals.\",\"providerHost\":\"corticare.com\"},{\"id\":\"dvbCiQU0UKM\",\"status\":\"OK\",\"title\":\"Persyst: Alpha Delta Ratio in EEG\",\"author\":\"Persyst\",\"seconds\":\"4352\",\"private\":false,\"live\":false,\"description\":\"Quantitative EEG and alpha delta ratio applications with Dr. Ayman Alboudi.\",\"providerHost\":\"www.persyst.com\"},{\"id\":\"72BTf-oJDko\",\"status\":\"OK\",\"title\":\"Persyst: Macroperiodic Oscillations in the ICU\",\"author\":\"Persyst\",\"seconds\":\"4549\",\"private\":false,\"live\":false,\"description\":\"Recognizing macroperiodic oscillations on quantitative EEG displays with Dr. Stuart Tomko.\",\"providerHost\":\"www.persyst.com\"},{\"id\":\"kVyF-m_4Al0\",\"status\":\"OK\",\"title\":\"Persyst: BIRDs Watching in the Hospital\",\"author\":\"Persyst\",\"seconds\":\"3431\",\"private\":false,\"live\":false,\"description\":\"Brief potentially ictal rhythmic discharges and their clinical significance with Dr. Jiyeoun Yoo.\",\"providerHost\":\"www.persyst.com\"},{\"id\":\"78CK73-bF9g\",\"status\":\"OK\",\"title\":\"Persyst: Paired Scalp and Intracranial EEG\",\"author\":\"Persyst\",\"seconds\":\"4626\",\"private\":false,\"live\":false,\"description\":\"Ictal and interictal insights from paired recordings with Dr. Naoum Issa.\",\"providerHost\":\"www.persyst.com\"}]")
+          m=re.search(r'(<script id="eeg-logo-data" type="application/json">)(.*?)(</script>)',s,re.S)
+          logos=json.loads(m.group(2))
+          assets={'corticare.com':'https://corticare.com/wp-content/uploads/2026/06/cropped-Screenshot-2026-06-01-at-4.41.19-PM-192x192.png','www.persyst.com':'https://www.persyst.com/wp-content/uploads/2018/04/Persyst_icon_114x114.png'}
+          for host,url in assets.items():
+              try:
+                  raw=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=15).read()
+                  im=Image.open(io.BytesIO(raw)).convert('RGBA');out=io.BytesIO();im.save(out,format='PNG')
+                  logos[host]='data:image/png;base64,'+base64.b64encode(out.getvalue()).decode()
+                  logos[host.removeprefix('www.')]=logos[host]
+              except Exception as e:print('Logo unavailable:',host,str(e))
+          s=s[:m.start(2)]+json.dumps(logos,separators=(',',':'))+s[m.end(2):]
+          view=s.index('id="videos-view"');grid=s.index('<div class="eeg-video-grid">',view)+len('<div class="eeg-video-grid">')
+          cards=[]
+          for v in videos:
+              if 'data-verified-video="'+v['id']+'"' in s:continue
+              seconds=int(v['seconds']);hours,remainder=divmod(seconds,3600);minutes,secs=divmod(remainder,60)
+              duration=(str(hours)+':'+str(minutes).zfill(2)+':'+str(secs).zfill(2)) if hours else str(minutes)+':'+str(secs).zfill(2)
+              provider='ILAE' if v['providerHost']=='www.ilae.org' else 'CortiCare' if v['providerHost']=='corticare.com' else 'Persyst'
+              image=logos.get(v['providerHost']) or logos.get(v['providerHost'].removeprefix('www.')) or 'https://'+v['providerHost']+'/favicon.ico'
+              esc=html.escape
+              card='<article class="eeg-video-card" data-verified-video="'+v['id']+'" data-free-checked="2026-11-05"><div class="eeg-video-mark eeg-video-brand" aria-hidden="true"><img data-provider-host="www.youtube.com" src="'+esc(image,quote=True)+'" alt="'+provider+' logo" loading="lazy"></div><div class="eeg-video-info"><h3>'+esc(v['title'])+'</h3><p class="eeg-video-meta">'+provider+' · Free video · '+duration+'</p><p>'+esc(v['description'])+'</p><a href="https://www.youtube.com/watch?v='+v['id']+'" target="_blank" rel="noopener noreferrer">Watch video <span aria-hidden="true">↗</span></a></div></article>'
+              cards.append(card)
+          s=s[:grid]+''.join(cards)+s[grid:]
+          assert len(cards)==10 or all('data-verified-video="'+v['id']+'"' in s for v in videos)
+          p.write_text(s)
+          print('Added verified public videos:',len(cards))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Add verified free EEG videos with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
