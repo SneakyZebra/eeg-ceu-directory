@@ -894,5 +894,2083 @@
         "price_status": "Unverified"
       }
     ]
+  },
+  {
+    "source": "ASET Education",
+    "source_url": "https://www.aset.org/education/",
+    "status": "fetch_error",
+    "candidates": [],
+    "error": "HTTP Error 520: <none>"
+  },
+  {
+    "source": "ABRET Education Links",
+    "source_url": "https://abret.org/about/links",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Programs & Education",
+        "url": "https://abret.org/resources/programs-education/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "List Service",
+        "url": "https://www.infocusmarketing.com/lists/ABRET-Neurodiagnostic-Credentialing-and-Accreditation-Mailing-Email-Lists",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "American Epilepsy Society",
+        "url": "http://www.aesnet.org/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Commission on Accreditation of Allied Health Education Programs",
+        "url": "http://www.caahep.org/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Foundation of America",
+        "url": "http://www.epilepsyfoundation.org/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Acceptable Continuing Education",
+        "url": "https://abret.org/recertification/acceptable-continuing-education/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "LAB-EEG",
+        "url": "https://abret.org/lab/eeg/introduction/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "AES Learning Center",
+    "source_url": "https://learn.aesnet.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Review resource",
+        "url": "https://learn.aesnet.org/URL/Catalog/Learning-Format-165/Features-Courses-1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "All Courses Catalog",
+        "url": "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?SearchMode=1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "My Courses",
+        "url": "https://learn.aesnet.org/Users/Home.aspx",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://learn.aesnet.org/URL/Catalog/Topic-167/EEG-587",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://learn.aesnet.org/URL/CourseGroup/PI-CME-Activites",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://learn.aesnet.org/URL/CourseGroup/Self-Assessment-Examinations",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://learn.aesnet.org/URL/Catalog/Learning-Format-165/On-Demand-Webinar-576",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "ILAE Webinars",
+    "source_url": "https://www.ilae.org/congresses/webinars",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "International Epilepsy Policy",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/international-epilepsy-policy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Intersectoral Global Action Plan on Epilepsy and Other Neurological Disorders",
+        "url": "https://www.ilae.org/about-ilae/how-the-ilae-works/policy-and-advocacy/international-epilepsy-policy/intersectoral-global-action-plan-on-epilepsy-and-other-neurological-disorders",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "IGAP Strategic Objectives & Global Targets",
+        "url": "https://www.ilae.org/about-ilae/how-the-ilae-works/policy-and-advocacy/international-epilepsy-policy/draft-intersectoral-global-action-plan-on-epilepsy-and-other-neurological-disorders/igap-strategic-objectives-and-global-targets",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Global Epilepsy Report 2019",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/international-public-policy-activities/global-epilepsy-report-2019",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy: A public health priority",
+        "url": "https://www.ilae.org/about-ilae/public-policy-and-advocacy/who-and-epilepsy/epilepsy-a-public-health-priority",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "WHA Side Event: Epilepsy: A public health priority",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/international-public-policy-activities/wha-side-event-epilepsy-a-public-health-priority",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "WHO Resolution on the Global Burden of Epilepsy",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/international-public-policy-activities/who-resolution-on-the-global-burden-of-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Global Campaign Against Epilepsy",
+        "url": "https://www.ilae.org/about-ilae/public-policy-and-advocacy/global-campaign-against-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Regional Epilepsy Policy",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/regional-epilepsy-policy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy in Guatemala",
+        "url": "https://www.ilae.org/about-ilae/public-policy-and-advocacy/national-public-policy-activities/epilepsy-in-guatemala",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy and Law in India",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/regional-epilepsy-policy/epilepsy-and-law-in-india",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CDC Report: Risk Factors of Epilepsy Outcomes: Comorbidities in a Population with Epilepsy",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/regional-epilepsy-policy/cdc-report-risk-factors-of-epilepsy-outcomes-comorbidities-in-a-population-with-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Brazilian Ministry of Health to intensify assistance to Epilepsy in 2013",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/regional-epilepsy-policy/brazilian-ministry-of-health-to-intensify-assistance-to-epilepsy-in-2013",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Colombian Law Provides Protection for Individuals Suffering from Epilepsy",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/regional-epilepsy-policy/colombian-law-provides-protection-for-individuals-suffering-from-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy and Sport Project: Stand Up For Epilepsy®",
+        "url": "https://www.ilae.org/about-ilae/public-policy-and-advocacy/epilepsy-and-sport-project-stand-up-for-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "PAHO - Governments in the Americas Will Create Epilepsy Care Programs",
+        "url": "https://www.ilae.org/about-ilae/public-policy-and-advocacy/pan-american-health-organization-paho/paho-governments-in-the-americas-will-create-epilepsy-care-programs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Advocacy for Epilepsy Research",
+        "url": "https://www.ilae.org/about-ilae/policy-and-advocacy/advocacy-for-epilepsy-research",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Classification and Definition of Epilepsy Syndromes",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/classification-and-definition-of-epilepsy-syndromes",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Definition of Epilepsy 2014",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/definition-of-epilepsy-2014",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The 2014 Definition of Epilepsy: A perspective for patients and caregivers",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/the-2014-definition-of-epilepsy-a-perspective-for-patients-and-caregivers",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Autism in Children and Adolescents with Epilepsy – Scoping Review and Adaptation of Clinical Practice Guidelines for Recognition, Referral and Diagnosis: A Repo",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/autism-in-children-and-adolescents-with-epilepsy-scoping-review-and-adaptation-of-clinical-practice-guidelines-for-recognition-referral-and-diagnosis-a-report-of-the-ilae-task-force-on-paediatric-psychiatric-is1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Recommendations for structural magnetic resonance imaging in infants with first afebrile seizure or new onset epilepsy",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-report/recommendations-for-structural-magnetic-resonance-imaging-in-infants-with-first-afebrile-seizure-or-new-onset-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Updated Classification of Epileptic Seizures: Position paper of the International League Against Epilepsy",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/updated-classification-of-epileptic-seizures-position-paper-of-the-international-league-against-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Consensus-Based Standards for the Diagnosis and Treatment of Anxiety and Depression in Children and Adolescents with Epilepsy",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/consensus-based-standards-for-the-diagnosis-and-treatment-of-anxiety-and-depression-in-children-and-adolescents-with-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed terms for medications used in the treatment of epilepsy",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/proposed-terms-for-medications-used-in-the-treatment-of-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed Guideline: Minimum standards for recording routine and sleep EEG",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/proposed-guideline-minimum-standards-for-recording-routine-and-sleep-eeg",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed Classification and Definition of Epilepsy Syndromes",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/archive-of-draft-guidelines/proposed-classification-and-definition-of-epilepsy-syndromes",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed classification: Syndromes in Neonates and Infants",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/proposed-classification-and-definition-of-epilepsy-syndromes/proposed-classification-syndromes-in-neonates-and-infants",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed classification: Syndromes in Children",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/proposed-classification-and-definition-of-epilepsy-syndromes/proposed-classification-syndromes-in-children",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed classification: Syndromes with onset at variable ages",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/proposed-classification-and-definition-of-epilepsy-syndromes/proposed-classification-syndromes-with-onset-at-variable-ages",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed classification: Idiopathic Generalized Epilepsies",
+        "url": "https://www.ilae.org/guidelines/definition-and-classification/proposed-classification-and-definition-of-epilepsy-syndromes/proposed-classification-idiopathic-generalized-epilepsies",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed clinical practice guidelines for the treatment of depression in adults with epilepsy",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/proposed-clinical-practice-guidelines-for-the-treatment-of-depression-in-adults-with-epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Proposed Guideline: Minimum standards for long-term video-EEG monitoring",
+        "url": "https://www.ilae.org/guidelines/guidelines-and-reports/proposed-guideline-minimum-standards-for-long-term-video-eeg-monitoring",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EpilepsyDiagnosis.org",
+        "url": "https://www.ilae.org/guidelines/epilepsydiagnosis-org",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ILAE Sponsored Meetings and Courses",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Baltic Sea Summer School on Epilepsy (BSSSE)",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/baltic-sea-summer-school-on-epilepsy-bssse",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dianalund Summer School on EEG and Epilepsy (DSSEE)",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/dianalund-summer-school-on-eeg-and-epilepsy-dssee",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Regional Teaching Course, Kinshasa",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/epilepsy-regional-teaching-course-kinshasa",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Francophone Teaching Course of the Commission on African Affairs",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/francophone-teaching-course-of-the-commission-on-african-affairs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ILAE School on EEG in the First Year of Life",
+        "url": "https://www.ilae.org/congresses/ilae-sponsored-meetings-and-courses/ilae-school-on-eeg-in-the-first-year-of-life",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Neuro Pathway CEUs",
+    "source_url": "https://myneuropathway.com/ceus/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to content",
+        "url": "https://myneuropathway.com/ceus/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Free Prep Courses",
+        "url": "https://myneuropathway.com/cltm-prep-courses/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Fun Facts",
+        "url": "https://myneuropathway.com/fun-fact-friday/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The ECG and EEG Connection",
+        "url": "https://vimeo.com/1196756320/e0509b389c?share=copy&fl=sv&fe=ci",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Report Writing",
+        "url": "https://vimeo.com/1187530634/37ff5ebeb7?share=copy&fl=sv&fe=ci",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Types of Seizures, Epilepsy, and Epilepsy Disorders",
+        "url": "https://vimeo.com/1131542638/e4b5a199e7?share=copy&fl=sv&fe=ci",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Beyond the Lab - A Technologist Guide to Remote EEG Work",
+        "url": "https://vimeo.com/1097025024/cdac7b69af?share=copy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "From Flashing Lights to Malicious Melodies: The Full Spectrum of EEG Activation",
+        "url": "https://vimeo.com/1086970732/821ee22f08?share=copy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Role of SEMG in Epilepsy Monitoring",
+        "url": "https://vimeo.com/1078442237/df9c9b3b98?share=copy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Electric Echoes: Unveiling the Mysteries of EEG Artifact",
+        "url": "https://vimeo.com/985764882/1e6f2553e7?share=copy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Path to Epilepsy Surgery",
+        "url": "https://vimeo.com/manage/videos/938860737/cebde35780/interactivity",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Pharmacology in EEG",
+        "url": "https://vimeo.com/928383723/90b85424eb?share=copy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neonatal EEG",
+        "url": "https://vimeo.com/868559819/741943a1a2",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Encephalopathy and the EEG",
+        "url": "https://vimeo.com/852518427/e1a307c29e",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Seizures, Epilepsy Syndromes and Treatment",
+        "url": "https://vimeo.com/846758413/d1e00fc700",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "What Am I Looking At? A Guide To Understanding and Applying EEG Terminology",
+        "url": "https://vimeo.com/manage/videos/828119649/650a7d017a",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Properties, Placements, and Particulars of Placing Electrodes in EEG",
+        "url": "https://vimeo.com/820265220/7d4b44929d",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The Fundamentals of Neuroanatomy, Neurophysiology, & Neuropathology",
+        "url": "https://vimeo.com/manage/videos/778340119/5ac74135e5",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "How do pharmaceuticals affect the EEG?",
+        "url": "https://vimeo.com/768289304/7b48ad4ee7",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://jobs.myneuropathway.com/job-listings?category=eeg&hsLang=en",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://myneuropathway.com/blog/the-essential-guide-to-eeg-and-ionm-career-opportunities/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://myneuropathway.com/blog/eeg-artifact-identification-whats-real-vs-error/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Locations",
+        "url": "https://myneuropathway.com/where-we-place-professional-technologists/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "NGN Institute",
+    "source_url": "https://www.teamngn.com/ngngivesback-sponsor",
+    "status": "ok",
+    "candidates": []
+  },
+  {
+    "source": "Natus Neuro Training Academy",
+    "source_url": "https://neuro-training.academy/eeg-ltm/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Review resource",
+        "url": "https://neuro-training.academy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "About",
+        "url": "https://neuro-training.academy/about/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Contact",
+        "url": "https://neuro-training.academy/contact/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Login / Register Login",
+        "url": "https://neuro-training.academy/eeg-ltm/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CLINICAL LITERATURE",
+        "url": "https://neuro-training.academy/clinical-literature/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "PRODUCT TRAINING",
+        "url": "https://neuro-training.academy/product-training/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EVENTS",
+        "url": "https://neuro-training.academy/events",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "eSeminars",
+        "url": "https://neuro-training.academy/eseminars/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "In-person courses",
+        "url": "https://neuro-training.academy/in-person-courses/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Online courses",
+        "url": "https://neuro-training.academy/online-courses/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Recorded eseminars",
+        "url": "https://neuro-training.academy/recorded-eseminars/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "6-minute synapse series",
+        "url": "https://neuro-training.academy/6-minute-synapse-series/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EMG/NCS/EP",
+        "url": "https://neuro-training.academy/emg-ncs-ep/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuromuscular Ultrasound",
+        "url": "https://neuro-training.academy/neuromuscular-ultrasound/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "PSG/Sleep",
+        "url": "https://neuro-training.academy/psg-sleep/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neurocritical Care/ Intensive Care",
+        "url": "https://neuro-training.academy/neurocritical-care-intensive-care/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Point-of-Care EEG",
+        "url": "https://neuro-training.academy/point-of-care-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Newborn Brain Monitoring/aEEG",
+        "url": "https://neuro-training.academy/newborn-brain-monitoring-aeeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Featured American Epilepsy Society (AES) Annual Meeting EEG/LTM December 4-8, 2026 Denver, CO, USA",
+        "url": "https://aesnet.org/AES-annual-meeting/general-information",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "View all events",
+        "url": "https://neuro-training.academy/events/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "External supported trainings",
+        "url": "https://neuro-training.academy/external-supported-trainings/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Watch eSeminar",
+        "url": "https://neuro-training.academy/recorded-eseminars/ai-in-eeg-analysis-insights-from-the-development-of-score-ai-autoscore-by-harald-aurlien/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "How to Interpret SEEG Recordings Philippe Kahane, MD, PhD This recorded eSeminar discusses interpretation of SEEG recordings and differentiation of activity wit",
+        "url": "https://neuro-training.academy/recorded-eseminars/how-to-interpret-seeg-recordings/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "From Seizures to Syndromes: The 2025 ILAE Operational Classifications and Their Clinical Impact Nicola Specchio, MD, PhD, FRCP This recorded eSeminar reviews th",
+        "url": "https://neuro-training.academy/recorded-eseminars/from-seizures-to-syndromes-the-2025-ilae-operational-classifications-and-their-clinical-impact/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Continuous EEG in Post-Anoxic Coma Nicolas Gaspard, MD Phd This recorded eSeminar discusses EEG in patients who remain comatose following cardiac arrest, includ",
+        "url": "https://neuro-training.academy/recorded-eseminars/continuous-eeg-in-post-anoxic-coma/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Semiology of focal paediatric seizures Mathilde Chipaux-Raffo, MD This recorded eSeminar discusses focal paediatric seizure semiology and localization of the ep",
+        "url": "https://neuro-training.academy/recorded-eseminars/semiology-of-focal-paediatric-seizures/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Visualizing Ripples and Fast Ripples in Scalp and Intracranial EEG Shennan Weiss, M.D. Ph.D., FAES This recorded eSeminar discusses visualization of ripples and",
+        "url": "https://neuro-training.academy/recorded-eseminars/visualizing-ripples-and-fast-ripples-in-scalp-and-intracranial-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "MR Electrodes - Review Electrode Types",
+        "url": "https://neuro-training.academy/product-training/mr-electrodes-review-electrode-types/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "MR Electrodes - Electrode Application",
+        "url": "https://neuro-training.academy/product-training/mr-electrodes-electrode-application/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "MR Electrodes - Connecting to EMU40EX Amplifier",
+        "url": "https://neuro-training.academy/product-training/mr-electrodes-connecting-to-emu40ex-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "MR Electrodes - Connecting to Brain Monitor Amplifier",
+        "url": "https://neuro-training.academy/product-training/mr-electrodes-connecting-to-brain-monitor-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "MR Electrodes - Disconnecting & Reconnecting Cables",
+        "url": "https://neuro-training.academy/product-training/mr-electrodes-disconnecting-reconnecting-cables/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Video Tutorial - NeuroWorks®/SleepWorks™ Observation Notes",
+        "url": "https://neuro-training.academy/product-training/video-tutorial-neuroworks-sleepworks-observation-notes/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Trex HD Ambulatory Setup Video",
+        "url": "https://neuro-training.academy/product-training/trex-hd-ambulatory-setup-video/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Trex HD Monitoring Patient Video",
+        "url": "https://neuro-training.academy/product-training/trex-hd-monitoring-patient-video/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Trex HD Monitoring Clinician Video",
+        "url": "https://neuro-training.academy/product-training/trex-hd-monitoring-clinician-video/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Natus Trex HD Ambulatory EEG Product Video",
+        "url": "https://neuro-training.academy/product-training/natus-trex-hd-ambulatory-eeg-product-video/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Natus® EEG/PSG Tutorial: NeuroWorks®/SleepWorks™ 9 Datashare (Spanish)",
+        "url": "https://neuro-training.academy/product-training/natus-eeg-psg-tutorial-neuroworks-sleepworks-9-datashare-spanish/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Natus® EEG Tutorial: NeuroWorks® 9 Physiological Monitoring Integration in ICU",
+        "url": "https://neuro-training.academy/product-training/natus-eeg-tutorial-neuroworks-9-physiological-monitoring-integration-in-icu/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Natus® EEG Tutorial: NeuroWorks® 9 Advanced Trending in ICU",
+        "url": "https://neuro-training.academy/product-training/natus-eeg-tutorial-neuroworks-9-advanced-trending-in-icu/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "CortiCare Webinars",
+    "source_url": "https://corticare.com/webinars/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to content",
+        "url": "https://corticare.com/webinars/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SEE HOW It Works→",
+        "url": "https://corticare.com/virtual-eeg-department/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Continuous EEG Monitoring",
+        "url": "https://corticare.com/monitored-continuous-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Ambulatory & At-Home Video EEG",
+        "url": "https://corticare.com/outpatient-and-at-home-video-eeg",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG For Clinical Trials",
+        "url": "https://corticare.com/clinical-trials/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Practices",
+        "url": "https://corticare.com/private-practice-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Intermittent EEG",
+        "url": "https://corticare.com/monitored-intermittent-eeg",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "View Full Webinar Playlist",
+        "url": "https://www.youtube.com/playlist?list=PLbc8iIZezPT_qoILCSXLqusDPmmBBG7lU",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Subscribe To Future Webinars",
+        "url": "https://forms.monday.com/forms/625d03de8886962ad7d89e34e0af6fc0?r=use1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Cortical and Non-Cortical Myoclonus Post CA",
+        "url": "https://corticare.com/webinars/cortical-and-non-cortical-myoclonus-post-ca-2/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Comparing EMU and ICU Monitoring",
+        "url": "https://corticare.com/webinars/comparing-emu-and-icu-monitoring/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neonatal EEG Think Beyond the Spike",
+        "url": "https://corticare.com/webinars/cortical-and-non-cortical-myoclonus-post-ca/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Virtual EEG Department",
+        "url": "https://corticare.com/virtual-eeg-department",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "TeleSpecialists Learning Center",
+    "source_url": "https://learning.tstelemed.com/courses",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Jump to content",
+        "url": "https://learning.tstelemed.com/courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Cart",
+        "url": "https://learning.tstelemed.com/user/login?destination=courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Register",
+        "url": "https://learning.tstelemed.com/user/register?destination=courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Facebook",
+        "url": "https://www.facebook.com/sharer.php?u=https%3A//learning.tstelemed.com/courses&t=Courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "X",
+        "url": "https://x.com/intent/post?url=https%3A//learning.tstelemed.com/courses&text=Courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "LinkedIn",
+        "url": "https://www.linkedin.com/shareArticle?mini=true&url=https%3A//learning.tstelemed.com/courses&title=Courses&summary=&source=TeleSpecialists%20Learning%20Center",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Forward",
+        "url": "https://learning.tstelemed.com/forward?path=courses",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Catalog",
+        "url": "https://learning.tstelemed.com/course-catalog-list?sort_by=field_course_event_date_value_1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Physicians",
+        "url": "https://learning.tstelemed.com/course-catalog-list?sort_by=field_course_event_date_value_1&f%5B0%5D=field_course_category%3A173",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Nurses",
+        "url": "https://learning.tstelemed.com/course-catalog-list?sort_by=field_course_event_date_value_1&f%5B0%5D=field_course_category%3A187",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Title",
+        "url": "https://learning.tstelemed.com/courses?order=title&sort=asc",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Type",
+        "url": "https://learning.tstelemed.com/courses?order=field_course_live&sort=asc",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Event date",
+        "url": "https://learning.tstelemed.com/courses?order=field_course_event_date&sort=asc",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Cost",
+        "url": "https://learning.tstelemed.com/courses?order=sell_price&sort=asc",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Stroke Program Management Basic Training",
+        "url": "https://learning.tstelemed.com/content/stroke-program-management-basic-training",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "2",
+        "url": "https://learning.tstelemed.com/courses?page=1",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Powered by the EthosCE Learning Management System, a continuing education LMS.",
+        "url": "https://www.ethosce.com",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Cadwell Education",
+    "source_url": "https://www.cadwell.com/webinars/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "cadwell.education",
+        "url": "https://www.cadwell.com/learning-opportunities/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG",
+        "url": "https://www.cadwell.com/arc-eeg-machine/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Arc Apollo+",
+        "url": "https://www.cadwell.com/apollo-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Arc Essentia",
+        "url": "https://www.cadwell.com/arc-essentia-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Cadwell Zenith",
+        "url": "https://www.cadwell.com/arc-zenith-eeg-emu/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Carts for EEG",
+        "url": "https://www.cadwell.com/eeg-carts/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Arc EEG Software",
+        "url": "https://www.cadwell.com/arc-eeg-software/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Easy III (PSG & EEG)",
+        "url": "https://www.cadwell.com/easy-3-psg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Disposable EEG Cup Electrodes",
+        "url": "https://www.cadwell.com/electrodes-accessories/disposable-eeg-cups/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG",
+        "url": "https://www.cadwell.com/eeg-clinical-solutions/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Ambulatory EEG",
+        "url": "https://www.cadwell.com/ambulatory-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Monitoring",
+        "url": "https://www.cadwell.com/epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ICU EEG",
+        "url": "https://www.cadwell.com/icu-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "NICU EEG",
+        "url": "https://www.cadwell.com/nicu-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Long Term Monitoring | cEEG",
+        "url": "https://www.cadwell.com/ltm/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Routine & Clinical EEG",
+        "url": "https://www.cadwell.com/clinical-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Videos",
+        "url": "https://www.cadwell.com/training-videos/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Events & Education",
+        "url": "https://www.cadwell.com/events/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Webinars",
+        "url": "https://www.cadwell.com/webinars/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Conventions & Conferences",
+        "url": "https://www.cadwell.com/conventions/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Other Educational Resources",
+        "url": "https://www.cadwell.com/education-other-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://sleepreviewmag.com/resource-center/webinars/medical-dental-sleep-care-partnerships/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Go to Webinar Archives",
+        "url": "https://www.cadwell.com/webinar-archives/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Persyst Grand Rounds",
+    "source_url": "https://www.persyst.com/grandrounds/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "X",
+        "url": "https://twitter.com/PersystEEG",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Electrical Source Imaging",
+        "url": "https://www.persyst.com/technology/electrical-source-imaging/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "iEEG Imaging and Analysis",
+        "url": "https://www.persyst.com/technology/ieeg-imaging-analysis/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Schedule Support & Training",
+        "url": "https://www.persyst.com/get-support/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Stuart R. Tomko, M.D., Associate Professor of Neurology, Pediatric Epilepsy at Washington University Medical Center, Saint Louis.",
+        "url": "https://neurology.wustl.edu/people/stuart-tomko-md/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Naoum Issa, M.D., Ph.D., Associate Professor of Neurology and Director of Epilepsy Research at the University of Chicago Medical Center.",
+        "url": "https://www.uchicagomedicine.org/find-a-physician/physician/naoum-p-issa",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Jiyeoun, M.D., Associate Professor of Neurology and Director of the Epilepsy Fellowship Program at the Icahn Medical School of Mount Sinai.",
+        "url": "https://profiles.mountsinai.org/ji-yeoun-yoo",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Julia Jacobs-LeVan, M.D., Ph.D., Associate Professor at the University of Calgary in the Department of Pediatrics and Clinical Neurosciences, Adjunct Profes",
+        "url": "https://cumming.ucalgary.ca/research/alberta-children-epilepsy/meet-us/julia-jacobs-levan",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Douglas R. Nordli, Jr., M.D., Professor of Pediatrics; Co-Director of the Comprehensive Epilepsy Center and Chief of Pediatric Neurology Section at the Univ",
+        "url": "https://www.uchicagomedicine.org/find-a-physician/physician/douglas-nordli",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Lawrence Hirsch, M.D., Professor of Neurology; Director of the Neurophysiology Fellowship Program; Chief of the Division of Epilepsy and EEG; Co-Director of",
+        "url": "https://medicine.yale.edu/profile/lawrence-hirsch/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Stephan Schuele, M.D., M.P.H., P rofessor of Neurology, Feinberg School of Medicine and Head of the Comprehensive Epilepsy Program, Northwestern Memorial Ho",
+        "url": "https://www.feinberg.northwestern.edu/faculty-profiles/az/profile.html?xid=16464",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Susan Herman, M.D., Director of the Epilepsy Program, Professor of Neurology, Barrow Neurological Institute",
+        "url": "https://www.barrowneuro.org/person/susan-her",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Dr. Arnold Sansevere Jr., M.D., Director of Critical Care EEG Monitoring at Children’s National.",
+        "url": "https://childrensnational.org/visit/find-a-provider/arnold-sansevere",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Yale EEG Education",
+    "source_url": "https://medicine.yale.edu/neurology/education/educationaltools/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to Main Content",
+        "url": "https://medicine.yale.edu/neurology/education/educationaltools/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Faculty and Staff",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/faculty-staff",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Clinical",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/clinical",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Research",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/research",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resources",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/resources",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "News & Events",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/news-and-events",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Past Events",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/news-and-events/past-events",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Media",
+        "url": "https://medicine.yale.edu/neurology/divisions/epilepsy/video",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education",
+        "url": "https://medicine.yale.edu/neurology/divisions/movementdisorders/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education",
+        "url": "https://medicine.yale.edu/neurology/excellence/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Visiting Elective Scholarship Program",
+        "url": "https://medicine.yale.edu/neurology/excellence/education/visiting-elective-scholarship",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education",
+        "url": "https://medicine.yale.edu/neurology/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Residency",
+        "url": "https://medicine.yale.edu/neurology/education/residency",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Clinical Experiences",
+        "url": "https://medicine.yale.edu/neurology/education/residency/clinical-experiences",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Rotations by Year",
+        "url": "https://medicine.yale.edu/neurology/education/residency/clinical-experiences/rotations-by-year",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Hospital Call",
+        "url": "https://medicine.yale.edu/neurology/education/residency/clinical-experiences/call",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Sites",
+        "url": "https://medicine.yale.edu/neurology/education/residency/clinical-experiences/training-sites",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resident Education",
+        "url": "https://medicine.yale.edu/neurology/education/residency/resident-education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Career Enrichment Pathways",
+        "url": "https://medicine.yale.edu/neurology/education/residency/tracks",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Clinician Educator Distinction (CED) Pathway",
+        "url": "https://medicine.yale.edu/neurology/education/residency/tracks/educator",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CNSTP",
+        "url": "https://medicine.yale.edu/neurology/education/residency/tracks/cnstp",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Global Neurology Distinction",
+        "url": "https://medicine.yale.edu/neurology/education/residency/tracks/globalhealth",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Health Equity, Quality Improvement and Patient Safety (HEQIPS) Distinction Pathway",
+        "url": "https://medicine.yale.edu/neurology/education/residency/tracks/healthcaremanagement",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resident Life",
+        "url": "https://medicine.yale.edu/neurology/education/residency/resident-life",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Collaborative Excellence",
+        "url": "https://medicine.yale.edu/neurology/education/residency/excellence",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Current Residents",
+        "url": "https://medicine.yale.edu/neurology/education/residency/residents",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Former Residents",
+        "url": "https://medicine.yale.edu/neurology/education/residency/residents/former-residents",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Awards",
+        "url": "https://medicine.yale.edu/neurology/education/residency/residents/awards",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Media",
+        "url": "https://medicine.yale.edu/neurology/education/residency/media",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resident Rotations",
+        "url": "https://medicine.yale.edu/neurology/education/residency/media/resrotations",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Alumni Interviews",
+        "url": "https://medicine.yale.edu/neurology/education/residency/media/alumni",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Fellowships",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Behavioral Neurology/Neuropsychiatry",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/behavioral",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy & EEG",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Alumni",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/epilepsy/alumni",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Headache Medicine",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/headache",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Movement Disorders",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/movement",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Multiple Sclerosis",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/ms",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neurocritical Care",
+        "url": "https://medicine.yale.edu/neurology/education/fellowships/neurocritical-care",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Rutgers EEG Education Directory",
+    "source_url": "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to main content",
+        "url": "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Comprehensive Epilepsy Center of New Jersey at Rutgers",
+        "url": "https://sites.rutgers.edu/ru-cecnj/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "About Us",
+        "url": "https://sites.rutgers.edu/ru-cecnj/people/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Surgeon (Neurosurgeon)",
+        "url": "https://sites.rutgers.edu/ru-cecnj/type/epilepsy-surgeons/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Adult Epileptologist (Neurologist)",
+        "url": "https://sites.rutgers.edu/ru-cecnj/type/adult-epileptologists/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Pediatric Epileptologist (Neurologist)",
+        "url": "https://sites.rutgers.edu/ru-cecnj/type/pediatric-epileptologists/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuropsychologist",
+        "url": "https://sites.rutgers.edu/ru-cecnj/type/neuropsychologists/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Researcher",
+        "url": "https://sites.rutgers.edu/ru-cecnj/type/researchers/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "What is Epilepsy",
+        "url": "https://sites.rutgers.edu/ru-cecnj/what-is-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Treatments",
+        "url": "https://sites.rutgers.edu/ru-cecnj/treatments/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Clinical Facilities",
+        "url": "https://sites.rutgers.edu/ru-cecnj/clinical-facilities/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Research",
+        "url": "https://sites.rutgers.edu/ru-cecnj/research/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Jobs",
+        "url": "https://sites.rutgers.edu/ru-cecnj/home/jobs/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education",
+        "url": "https://sites.rutgers.edu/ru-cecnj/education/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Contact",
+        "url": "https://sites.rutgers.edu/ru-cecnj/contact/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Patient Resources",
+        "url": "https://sites.rutgers.edu/ru-cecnj/patient-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Intranet",
+        "url": "https://sites.rutgers.edu/ru-cecnj/resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The Metamorphosis [example post]",
+        "url": "https://sites.rutgers.edu/ru-cecnj/the-metamorphosis-2/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Bill Nye the Science Guy [example post]",
+        "url": "https://sites.rutgers.edu/ru-cecnj/bill-nye-the-science-guy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Master",
+        "url": "https://eegmaster.com/eegmaster/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "American Epilepsy Society EEG Essentials",
+        "url": "https://learn.aesnet.org/Catalogue/Catalog",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Atlas Online",
+        "url": "https://www.eegatlas-online.com/index.php/en/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "LearningEEG.com",
+        "url": "https://www.learningeeg.com/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Modules (Jeremy Moeller, Yale)",
+        "url": "https://campuspress.yale.edu/eegmodules/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEGPlatform.com",
+        "url": "https://www.eegplatform.com/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEGucation YouTube Channel",
+        "url": "https://www.youtube.com/user/EEGucation",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ILAE / Epileptic Disorders Roadmap to EEGs",
+        "url": "https://www.ilae.org/news-and-media/news-about-ilae/epileptic-disorders-roadmap-to-eegs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "American Academy of Neurology (AAN)",
+        "url": "https://www.aan.com/education/online-learning-programs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "American Clinical Neurophysiology Society Bootcamp (ACNS)",
+        "url": "https://www.acns.org/education/acns-institutional-training-package",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The International Child Neurology Teaching Network (ICNTN)",
+        "url": "https://www.icnapedia.org/icntn-modules/modules/epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Virtual Epilepsy Academy of ILAE (VIREPA)",
+        "url": "https://www.ilae.org/education/virtual-epilepsy-academy-virepa",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEGCare",
+        "url": "https://eegcare.com/fellowship.htm",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Critical Care EEG Monitoring Research Consortium",
+        "url": "https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEGTalk",
+        "url": "https://www.eegtalk.com/about/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Pocket NeuroDiagnostics",
+    "source_url": "https://pndpocketneurodiagnostics.com/ceu-opportunities",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to Content",
+        "url": "https://pndpocketneurodiagnostics.com/ceu-opportunities",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Board Prep Practice Test",
+        "url": "https://forms.gle/45Q7PisDChvrMcRMA",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Seizure and Epilepsy Syndrome Classification Practice",
+        "url": "https://forms.gle/owL4TPJrh3bFsQ2L9",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "The Generous Genius- Gil Solano",
+        "url": "https://www.youtube.com/@GilSolanoREEGT",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "411 on all epilepsy syndromes and seizures",
+        "url": "https://www.epilepsydiagnosis.org/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ASET your official education hub",
+        "url": "https://Www.aset.org",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education from AES",
+        "url": "https://www.aesnet.org/education/education/eeg-essentials",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Atlas for all age groups",
+        "url": "https://www.ncbi.nlm.nih.gov/books/NBK390356/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Driving with epilepsy",
+        "url": "https://www.joestephenslaw.com/driving-with-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Epilepsy Centers",
+        "url": "https://naec-epilepsy.org/faq-items/what-is-an-epilepsy-center/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuroimaging for Epilepsy",
+        "url": "https://radiopaedia.org/articles/epilepsy",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG: lowdown by Salvador Beniczky and Schomer",
+        "url": "https://onlinelibrary.wiley.com/share/7QDG2GZICGNSVR2VGDGX?target=10.1684/epd.2020.1217",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "THE FABULOUS Fabio Nascemiento EEG Talk!!",
+        "url": "http://www.eegtalk.com",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Station - easy to understand YouTube Videos on various EEG Topics",
+        "url": "https://www.youtube.com/@EEGStation/videos",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Learning EEG by Dr. David Valentine",
+        "url": "https://www.learningeeg.com/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Driving with epilepsy",
+        "url": "http://chopranocerino.com/guide-to-driving-with-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Driving with epilepsy - safety and restrictions",
+        "url": "https://joestephenslaw.com/driving-with-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Board Prep",
+        "url": "https://pndpocketneurodiagnostics.com/eeg-board-prep",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Blog & Class Information",
+        "url": "https://pndpocketneurodiagnostics.com/eeg-blog-class-information",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://www.myneuropathway.com/ceus",
+        "url": "https://www.myneuropathway.com/ceus",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://stratusneuro.com/eeg-u/",
+        "url": "https://stratusneuro.com/eeg-u/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://neuro-training.academy/",
+        "url": "https://neuro-training.academy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://www.ilae.org/congresses/webinars",
+        "url": "https://www.ilae.org/congresses/webinars",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://corticare.com/corticare-webinars/",
+        "url": "https://corticare.com/corticare-webinars/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://www.cadwell.com/education-other-resources/",
+        "url": "https://www.cadwell.com/education-other-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "https://aesnet.org/education/education",
+        "url": "https://aesnet.org/education/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
   }
 ]
