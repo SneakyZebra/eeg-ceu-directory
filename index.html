@@ -2799,14 +2799,32 @@ function init(){document.querySelectorAll('.other-tab-finder').forEach(setup);}i
 
 <script id="force-provider-logos">
 (function(){
-function logoFor(h){const d=JSON.parse(document.getElementById('eeg-logo-data').textContent);return d[h]||d[h.replace(/^www\\./,'')]||d['www.'+h];}
+const library=JSON.parse(document.getElementById('eeg-logo-data').textContent);
+const aliases={'stratusneuro.zoom.us':'stratusneuro.com'};
+function logoFor(host){
+host=aliases[host]||host;
+const exact=library[host]||library[host.replace(/^www\\./,'')]||library['www.'+host];
+if(exact)return exact;
+const parts=host.split('.');
+while(parts.length>2){parts.shift();const h=parts.join('.');if(library[h]||library['www.'+h])return library[h]||library['www.'+h];}
+return '';
+}
 function apply(card){
 const link=card.querySelector('a[href^="http"]');if(!link)return;
-const host=new URL(link.href).hostname;
 const image=card.querySelector('.logo img,.eeg-video-mark img,.eeg-video-brand img,.conference-logo');if(!image)return;
-const src=logoFor(host);if(!src)return;
-if(image.getAttribute('src')!==src){image.onerror=null;image.setAttribute('src',src);image.alt=(card.querySelector('strong,h3')?.textContent||host)+' logo';}
+const host=new URL(link.href).hostname;
+if(image.dataset.providerHost===host)return;
+image.dataset.providerHost=host;
+const src=logoFor(host)||new URL('/favicon.ico',link.href).href;
+image.onerror=null;image.src=src;image.alt=(card.querySelector('strong,h3')?.textContent||host)+' logo';
 }
+document.addEventListener('error',function(e){
+const image=e.target;
+if(!(image instanceof HTMLImageElement)||!image.dataset.providerHost)return;
+e.stopImmediatePropagation();
+const box=image.closest('.logo,.eeg-video-mark,.eeg-video-brand');
+if(box)box.style.display='none';else image.style.display='none';
+},true);
 function scan(){document.querySelectorAll('.entry,.eeg-video-card,.conference-card').forEach(apply);}
 function init(){scan();new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
