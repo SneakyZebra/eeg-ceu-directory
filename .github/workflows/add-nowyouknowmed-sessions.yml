@@ -1,0 +1,51 @@
+name: Add verified NowYouKnowMed session listing
+on:
+  push:
+    paths:
+      - '.github/workflows/add-nowyouknowmed-sessions.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add sessions with accurate credit status
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          import json
+          marker='const curated='
+          start=s.index(marker)+len(marker)
+          items,length=json.JSONDecoder().raw_decode(s[start:])
+          url='https://nowyouknowmed.com/sessions/eeg-tech'
+          item={'category':'unknown','title':'NowYouKnowMed EEG Tech Live Sessions','description':'Free live EEG board review webinars; registration required. CEU credit for these sessions has not been verified. The separate subscription EEG Tech Course offers ASET credits.','url':url,'badge':'Free attendance · CEUs unverified','logo':'nyk'}
+          items=[x for x in items if x.get('url','').rstrip('/')!=url]
+          items.insert(0,item)
+          s=s[:start]+json.dumps(items,ensure_ascii=False)+s[start+length:]
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Add verified NowYouKnowMed session listing with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
