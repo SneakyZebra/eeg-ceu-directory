@@ -1,0 +1,69 @@
+name: Expand verified free EEG CEU resources
+on:
+  push:
+    paths:
+      - '.github/workflows/expand-free-eeg-ceu-resources.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add verified capped free ASET lectures and update provider conditions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          import json,re
+          marker='const curated='
+          start=s.index(marker)+len(marker)
+          items,length=json.JSONDecoder().raw_decode(s[start:])
+          additions=json.loads("[{\"category\":\"free\",\"title\":\"Neuro Pathway: The ECG and EEG Connection\",\"description\":\"Cardiac rhythms and their relationship to acute care EEG monitoring. ASET credit limited to the first 300 viewers; confirm availability and follow provider completion instructions.\",\"url\":\"https://vimeo.com/1196756320/e0509b389c\",\"badge\":\"ASET CEU · First 300 viewers\",\"logo\":\"neuro\",\"verified\":\"2026-11-05\",\"creditSource\":\"https://myneuropathway.com/ceus/\"},{\"category\":\"free\",\"title\":\"Neuro Pathway: EEG Report Writing\",\"description\":\"Technologist EEG documentation using ACNS reporting guidance. ASET credit limited to the first 300 viewers; confirm availability and follow provider completion instructions.\",\"url\":\"https://vimeo.com/1187530634/37ff5ebeb7\",\"badge\":\"ASET CEU · First 300 viewers\",\"logo\":\"neuro\",\"verified\":\"2026-11-05\",\"creditSource\":\"https://myneuropathway.com/ceus/\"},{\"category\":\"free\",\"title\":\"Neuro Pathway: From Onboarding to Excellence\",\"description\":\"Training, onboarding and competency tools for neurodiagnostic educators and technologists. ASET credit limited to the first 300 viewers; confirm availability and follow provider completion instructions.\",\"url\":\"https://vimeo.com/1177174301/e8ec8412b7\",\"badge\":\"ASET CEU · First 300 viewers\",\"logo\":\"neuro\",\"verified\":\"2026-11-05\",\"creditSource\":\"https://myneuropathway.com/ceus/\"},{\"category\":\"free\",\"title\":\"Neuro Pathway: Frontal and Temporal Lobe Epilepsies\",\"description\":\"Focal seizure semiology and EEG correlates. ASET credit limited to the first 300 viewers; confirm availability and follow provider completion instructions.\",\"url\":\"https://vimeo.com/1169044022/fb17964ac8\",\"badge\":\"ASET CEU · First 300 viewers\",\"logo\":\"neuro\",\"verified\":\"2026-11-05\",\"creditSource\":\"https://myneuropathway.com/ceus/\"}]")
+          urls={x['url'].rstrip('/') for x in additions}
+          items=[x for x in items if x.get('url','').rstrip('/') not in urls]
+          for x in items:
+              if x.get('title')=='Neuro Pathway':
+                  x['description']='Selected lectures award free ASET CEUs to the first 300 viewers. Lectures marked closed no longer award ASET credit.'
+                  x['badge']='ASET CEUs · Limited availability'
+              if x.get('title')=='Stratus EEG U':
+                  x['description']='Free monthly ASET CEU webinars. Live attendance and your individual registration link are required; recordings do not award CEUs.'
+              if x.get('title')=='NGN Gives Back':
+                  x['title']='NGN Institute / Neuro Insights'
+                  x['description']='Free CEU education for neurodiagnostic professionals. Selected on demand credits are limited to the first 199 successful registrants; check current availability.'
+                  x['badge']='Free CEUs · Registration limits'
+          natus={'category':'unknown','title':'Natus Neuro Training Academy','description':'Free neurodiagnostic education and selected credit bearing courses. Confirm the specific EEG course credit type, current dates and technologist eligibility before claiming CEUs.','url':'https://neuro-training.academy/eeg-ltm/','badge':'Free education · Course credits vary','logo':'natus'}
+          if not any(x.get('url','').rstrip('/')==natus['url'].rstrip('/') for x in items):items.append(natus)
+          items=additions+items
+          s=s[:start]+json.dumps(items,ensure_ascii=False)+s[start+length:]
+          # Keep the course provider logo when the verified lecture is hosted on Vimeo.
+          m=re.search(r'<script id="force-provider-logos">.*?</script>',s,re.S)
+          if m:
+              script=m.group(0)
+              script=script.replace("const host=new URL(link.href).hostname;","const host=card.querySelector('strong,h3')?.textContent.startsWith('Neuro Pathway:')?'myneuropathway.com':new URL(link.href).hostname;")
+              s=s[:m.start()]+script+s[m.end():]
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Expand verified free EEG CEU resources with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
