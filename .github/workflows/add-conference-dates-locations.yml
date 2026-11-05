@@ -1,0 +1,77 @@
+name: Add conference dates and locations
+on:
+  push:
+    paths:
+      - '.github/workflows/add-conference-dates-locations.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install Pillow
+      - name: Add verified public EEG videos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re
+          p=Path('index.html');s=p.read_text()
+          events=[
+          ['ACNS Annual Meeting and Courses 2027','ACNS','https://www.acns.org/meetings/annual-meeting-and-courses/2027-annual-meeting--courses','March 6 through 9, 2027','Hyatt Regency Seattle · Seattle, Washington, USA','2027-03-06','2027-03-09','Dates revised by the organizer.','https://www.acns.org/news/2027-annual-meeting--courses---new-dates'],
+          ['ASET Annual Conference 2027','ASET','https://www.aset.org/aset-conference-save-the-date/','August 5 through 7, 2027','Orlando, Florida, USA','2027-08-05','2027-08-07','','https://www.aset.org/aset-conference-save-the-date/'],
+          ['AES Annual Meeting 2026','AES','https://aesnet.org/AES-annual-meeting/','December 4 through 8, 2026','Colorado Convention Center · Denver, Colorado, USA','2026-12-04','2026-12-08','','https://aesnet.org/AES-annual-meeting/general-information/faqs'],
+          ['AAN Annual Meeting 2027','AAN','https://www.aan.com/events/annual-meeting','May 1 through 5, 2027','Walter E. Washington Convention Center · Washington, DC, USA','2027-05-01','2027-05-05','','https://s2.goeshow.com/aan/annual/2027/show_information.cfm'],
+          ['NANS Annual Meeting 2027','NANS','https://www.nans.org/overview','January 21 through 24, 2027','Caesars Palace · Las Vegas, Nevada, USA','2027-01-21','2027-01-24','','https://www.nans.org/overview'],
+          ['AANS Annual Scientific Meeting 2027','AANS','https://annualmeeting.aans.org/','April 9 through 12, 2027','San Diego Convention Center · San Diego, California, USA','2027-04-09','2027-04-12','','https://annualmeeting.aans.org/future-meetings/'],
+          ['European Congress of Clinical Neurophysiology 2027','ECCN','https://eccn.ifcn.info/','October 19 through 22, 2027','Málaga, Spain','2027-10-19','2027-10-22','','https://eccn.ifcn.info/'],
+          ['International Congress of Clinical Neurophysiology 2028','IFCN','https://ifcn.info/meetings-and-events/international-congress-of-clinical-neurophysiology','September 26 through 30, 2028','Postillion WTC Rotterdam · Rotterdam, Netherlands','2028-09-26','2028-09-30','Next announced congress. The 2026 meeting has concluded.','https://ifcn.info/meetings-and-events/international-congress-of-clinical-neurophysiology'],
+          ['ABRET Credentialing and Events','ABRET','https://abret.org/','No standalone annual conference confirmed','No standalone conference location confirmed','','','Visit ABRET for credentialing activities and announcements.','https://abret.org/'],
+          ['37th International Epilepsy Congress 2027','ILAE / IBE','https://www.ilae.org/congresses/37th-international-epilepsy-congress','August 28 through September 1, 2027','Amsterdam, Netherlands','2027-08-28','2027-09-01','','https://www.ilae.org/congresses']]
+          k='const conferenceEvents=';start=s.index(k)+len(k);old,n=json.JSONDecoder().raw_decode(s[start:]);assert len(old)==10
+          s=s[:start]+json.dumps(events,ensure_ascii=False)+s[start+n:]
+          s=s.replace("conferenceEvents.forEach(([name,org,url])=>{","conferenceEvents.forEach(([name,org,url,date,location,startDate,endDate,note])=>{",1)
+          old="card.append(label,h,link);host.append(card)"
+          new="""const meta=document.createElement('dl');meta.className='conference-details';
+          for(const [caption,value] of [['Date',date],['Location',location]]){const row=document.createElement('div');const dt=document.createElement('dt');dt.textContent=caption;const dd=document.createElement('dd');dd.textContent=value;row.append(dt,dd);meta.append(row)}
+          card.dataset.startDate=startDate||'';card.dataset.endDate=endDate||'';card.dataset.detailsChecked='2026-11-05';
+          const checked=document.createElement('p');checked.className='conference-checked';checked.textContent='Details checked November 5, 2026. Confirm updates with the organizer.';
+          card.append(label,h,meta);if(note){const explanation=document.createElement('p');explanation.className='conference-note';explanation.textContent=note;card.append(explanation)}card.append(link,checked);host.append(card)"""
+          assert old in s;s=s.replace(old,new,1)
+          # Remove the duplicate ACNS homepage card from Conferences while retaining it in other tabs.
+          s=s.replace('["general","registry-paid","conference-list"]','["general","registry-paid"]',1)
+          css='''<style id="conference-date-location">
+          #conference-list .conference-details{margin:14px 0 16px;padding:13px 15px;background:#08283d;border:1px solid #31566c;border-radius:8px;text-align:left;width:100%}
+          #conference-list .conference-details>div+div{margin-top:10px}
+          #conference-list .conference-details dt{font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:#a9c3d3;font-weight:700}
+          #conference-list .conference-details dd{margin:3px 0 0;font-size:15px;line-height:1.45;color:#f0f7fa;font-weight:600;overflow-wrap:anywhere}
+          #conference-list .conference-details>div:first-child dd{color:#a9df7c}
+          #conference-list .conference-checked{font-size:11px;line-height:1.4;color:#a9c3d3;margin:12px 0 0}
+          #conference-list .conference-note{font-size:12px;color:#c5d9e5;line-height:1.5;margin:0 0 14px}
+          </style>'''
+          s=s.replace('</head>',css+'</head>',1);p.write_text(s)
+          Path('data/conference-details.json').write_text(json.dumps({'checked':'2026-11-05','events':[dict(zip(['title','organization','url','date_label','location','start_date','end_date','note','evidence_url'],e)) for e in events],'policy':'Use the next officially announced meeting. ABRET is an organization listing without a confirmed standalone annual conference. Dates and locations do not establish CEU eligibility.'},indent=2,ensure_ascii=False))
+          print('Added dates and locations to 10 conference cards, including clearly marked ABRET status.')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html data/conference-details.json
+          git diff --cached --quiet || git commit -m 'Add conference dates and locations with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
