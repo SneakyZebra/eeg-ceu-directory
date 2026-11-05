@@ -1,0 +1,30 @@
+name: Fix racer motion
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-racer-motion.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Correct scenery perspective
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('((i*245+travel*1.0)%5000)', '(((i*245-travel)%5000+5000)%5000)')
+          s=s.replace('(i*907+travel*.8+((i*71)%139))%6200', '((i*907-travel+((i*71)%139))%6200+6200)%6200')
+          s=s.replace('const hospitalX=stage%2===0?W-96:96;', 'const hospitalSide=stage%2===0?1:-1;\n const hospitalX=W/2+hospitalSide*(half(hospitalDepth)+86*hospitalScale+18);')
+          s=s.replace('function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y));', 'function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y-59*s));')
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Fix racer scenery direction and roadside hospital placement'
+          git push
