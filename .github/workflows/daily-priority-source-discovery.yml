@@ -4,11 +4,15 @@ on:
     paths:
       - '.github/workflows/daily-priority-source-discovery.yml'
       - 'scripts/discover_priority_sources.py'
+      - 'data/discovered_providers.json'
   schedule:
     - cron: '17 13 * * *'
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: daily-priority-source-discovery
+  cancel-in-progress: false
 jobs:
   discover:
     runs-on: ubuntu-latest
@@ -17,6 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Validate discovery script
+        run: python -m py_compile scripts/discover_priority_sources.py
       - name: Find educational resource candidates
         run: python scripts/discover_priority_sources.py
       - name: Commit discovery report if changed
@@ -26,5 +32,6 @@ jobs:
           git add data/priority_source_candidates.json
           if ! git diff --cached --quiet; then
             git commit -m "Refresh EEG priority education source candidates"
+            git pull --rebase origin main
             git push
           fi
