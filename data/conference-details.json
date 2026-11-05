@@ -1,0 +1,116 @@
+{
+  "checked": "2026-11-05",
+  "events": [
+    {
+      "title": "ACNS Annual Meeting and Courses 2027",
+      "organization": "ACNS",
+      "url": "https://www.acns.org/meetings/annual-meeting-and-courses/2027-annual-meeting--courses",
+      "date_label": "March 6 through 9, 2027",
+      "location": "Hyatt Regency Seattle · Seattle, Washington, USA",
+      "start_date": "2027-03-06",
+      "end_date": "2027-03-09",
+      "note": "Dates revised by the organizer.",
+      "evidence_url": "https://www.acns.org/news/2027-annual-meeting--courses---new-dates"
+    },
+    {
+      "title": "ASET Annual Conference 2027",
+      "organization": "ASET",
+      "url": "https://www.aset.org/aset-conference-save-the-date/",
+      "date_label": "August 5 through 7, 2027",
+      "location": "Orlando, Florida, USA",
+      "start_date": "2027-08-05",
+      "end_date": "2027-08-07",
+      "note": "",
+      "evidence_url": "https://www.aset.org/aset-conference-save-the-date/"
+    },
+    {
+      "title": "AES Annual Meeting 2026",
+      "organization": "AES",
+      "url": "https://aesnet.org/AES-annual-meeting/",
+      "date_label": "December 4 through 8, 2026",
+      "location": "Colorado Convention Center · Denver, Colorado, USA",
+      "start_date": "2026-12-04",
+      "end_date": "2026-12-08",
+      "note": "",
+      "evidence_url": "https://aesnet.org/AES-annual-meeting/general-information/faqs"
+    },
+    {
+      "title": "AAN Annual Meeting 2027",
+      "organization": "AAN",
+      "url": "https://www.aan.com/events/annual-meeting",
+      "date_label": "May 1 through 5, 2027",
+      "location": "Walter E. Washington Convention Center · Washington, DC, USA",
+      "start_date": "2027-05-01",
+      "end_date": "2027-05-05",
+      "note": "",
+      "evidence_url": "https://s2.goeshow.com/aan/annual/2027/show_information.cfm"
+    },
+    {
+      "title": "NANS Annual Meeting 2027",
+      "organization": "NANS",
+      "url": "https://www.nans.org/overview",
+      "date_label": "January 21 through 24, 2027",
+      "location": "Caesars Palace · Las Vegas, Nevada, USA",
+      "start_date": "2027-01-21",
+      "end_date": "2027-01-24",
+      "note": "",
+      "evidence_url": "https://www.nans.org/overview"
+    },
+    {
+      "title": "AANS Annual Scientific Meeting 2027",
+      "organization": "AANS",
+      "url": "https://annualmeeting.aans.org/",
+      "date_label": "April 9 through 12, 2027",
+      "location": "San Diego Convention Center · San Diego, California, USA",
+      "start_date": "2027-04-09",
+      "end_date": "2027-04-12",
+      "note": "",
+      "evidence_url": "https://annualmeeting.aans.org/future-meetings/"
+    },
+    {
+      "title": "European Congress of Clinical Neurophysiology 2027",
+      "organization": "ECCN",
+      "url": "https://eccn.ifcn.info/",
+      "date_label": "October 19 through 22, 2027",
+      "location": "Málaga, Spain",
+      "start_date": "2027-10-19",
+      "end_date": "2027-10-22",
+      "note": "",
+      "evidence_url": "https://eccn.ifcn.info/"
+    },
+    {
+      "title": "International Congress of Clinical Neurophysiology 2028",
+      "organization": "IFCN",
+      "url": "https://ifcn.info/meetings-and-events/international-congress-of-clinical-neurophysiology",
+      "date_label": "September 26 through 30, 2028",
+      "location": "Postillion WTC Rotterdam · Rotterdam, Netherlands",
+      "start_date": "2028-09-26",
+      "end_date": "2028-09-30",
+      "note": "Next announced congress. The 2026 meeting has concluded.",
+      "evidence_url": "https://ifcn.info/meetings-and-events/international-congress-of-clinical-neurophysiology"
+    },
+    {
+      "title": "ABRET Credentialing and Events",
+      "organization": "ABRET",
+      "url": "https://abret.org/",
+      "date_label": "No standalone annual conference confirmed",
+      "location": "No standalone conference location confirmed",
+      "start_date": "",
+      "end_date": "",
+      "note": "Visit ABRET for credentialing activities and announcements.",
+      "evidence_url": "https://abret.org/"
+    },
+    {
+      "title": "37th International Epilepsy Congress 2027",
+      "organization": "ILAE / IBE",
+      "url": "https://www.ilae.org/congresses/37th-international-epilepsy-congress",
+      "date_label": "August 28 through September 1, 2027",
+      "location": "Amsterdam, Netherlands",
+      "start_date": "2027-08-28",
+      "end_date": "2027-09-01",
+      "note": "",
+      "evidence_url": "https://www.ilae.org/congresses"
+    }
+  ],
+  "policy": "Use the next officially announced meeting. ABRET is an organization listing without a confirmed standalone annual conference. Dates and locations do not establish CEU eligibility."
+}
