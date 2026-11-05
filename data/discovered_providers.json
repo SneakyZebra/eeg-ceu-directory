@@ -1,0 +1,4 @@
+{
+  "description": "Additional providers discovered and checked by the daily EEG resource research scan. Add records with name, url, evidence_url and checked_at; discovery does not imply free access or credit approval.",
+  "providers": []
+}
