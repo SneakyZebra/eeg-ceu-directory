@@ -1,0 +1,45 @@
+name: Update CEU enrollment notice
+on:
+  push:
+    paths:
+      - '.github/workflows/update-enrollment-notice.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  notice:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace enrollment notice
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old="Before enrolling, verify that the specific course awards continuing education accepted by ABRET for your credential, confirm any eligibility or attendance requirements, and save your certificate."
+          new="Before enrolling in a course, confirm that the continuing education credits meet ABRET requirements for your credential. Review any participation or completion requirements, and retain your certificate for future recertification."
+          assert old in s or new in s, 'Expected enrollment notice was not found'
+          p.write_text(s.replace(old,new))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Update CEU enrollment notice wording'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
