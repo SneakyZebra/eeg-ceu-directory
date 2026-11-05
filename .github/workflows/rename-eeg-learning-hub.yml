@@ -1,0 +1,51 @@
+name: Rename header EEG Learning Hub
+on:
+  push:
+    paths:
+      - '.github/workflows/rename-eeg-learning-hub.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update header and preserve Easter egg letter controls
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='<h1>EEG <em>CEU</em> DIRECTORY</h1>'
+          new='<h1>EEG <em>LEARNING</em> HUB</h1>'
+          assert old in s or new in s, 'Expected header was not found'
+          s=s.replace(old,new)
+          s=s.replace('Continuing education resources for our amazing EEG technologists','Supporting EEG technologists through education, professional development, and lifelong learning.')
+          s=s.replace('<title>EEG CEU Directory</title>','<title>EEG Learning Hub</title>')
+          s=s.replace('// Keep DIRECTORY visually compact while preserving each letter\'s touch target.','// Keep the heading compact while preserving each letter\'s touch target.')
+          s=s.replace('chars.slice(6).forEach','chars.slice(3).forEach')
+          assert "heading.addEventListener('click'" in s and "heading.addEventListener('keydown'" in s
+          p.write_text(s)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Rename header EEG Learning Hub with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
