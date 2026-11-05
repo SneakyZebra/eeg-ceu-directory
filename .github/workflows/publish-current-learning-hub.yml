@@ -1,0 +1,42 @@
+name: Publish current learning hub
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-current-learning-hub.yml'
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Clear failed stale deployment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const id='27c590410209b20ab56a727708e8fc9bfcbb66e1';
+            try {
+              const result=await github.request('GET /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}',{...context.repo,pages_deployment_id:id});
+              core.info('Prior deployment status: '+result.data.status);
+              if(!['succeed','failure','cancelled'].includes(result.data.status)){
+                await github.request('POST /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel',{...context.repo,pages_deployment_id:id});
+                core.info('Cancelled stale deployment');
+              }
+            } catch(error) {if(error.status!==404)throw error;}
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
