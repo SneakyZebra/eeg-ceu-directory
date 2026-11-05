@@ -1,0 +1,45 @@
+name: Update General Education introduction
+on:
+  push:
+    paths:
+      - '.github/workflows/update-general-education-intro.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace General Education introduction
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old="<strong>General Education, Learn Beyond CEUs</strong><p>Curated learning platforms, EEG case libraries, clinical guidelines and professional development. ASET CEU credit has not been confirmed for these linked activities. Do not count them toward recertification; some providers offer separate credit bearing courses.</p>"
+          new="<p>This section serves as a general education resource, offering EEG case studies, clinical guidelines, learning platforms, and professional development opportunities to help expand your knowledge and strengthen your skills. Some resources may offer continuing education credits; however, CEU eligibility has not been verified. Please independently confirm that any credits meet ABRET requirements for your credential before applying them toward recertification.</p>"
+          assert old in s or new in s, 'Expected General Education introduction was not found'
+          p.write_text(s.replace(old,new))
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Update General Education introduction with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
