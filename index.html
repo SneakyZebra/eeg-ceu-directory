@@ -2163,7 +2163,13 @@ function stageFinishTravel(){return (stage+1)*STAGE_LENGTH-finishContactRemainin
 function depth(z){return clamp(1-z/3200,0,1)}
 function yy(t){return horizon+Math.pow(t,1.42)*(ground-horizon)}
 function bend(z){return Math.sin((travel+z)*.00034)*105+Math.sin((travel+z)*.00013)*48}
-function center(t){return W/2+bend((1-t)*3200)*t*.88}
+function center(t){
+ // Settle into a straight finish approach before the hospital comes into view.
+ const remaining=(stage+1)*STAGE_LENGTH-travel;
+ const approach=clamp((remaining-2700)/700,0,1);
+ const curveWeight=approach*approach*(3-2*approach);
+ return W/2+bend((1-t)*3200)*t*.88*curveWeight;
+}
 function half(t){return 5+278*Math.pow(t,1.16)}
 // Draw solid asphalt in one continuous polygon. The old renderer painted
 // dozens of alternating horizontal road bands, producing unwanted stripes.
@@ -2235,12 +2241,13 @@ function roadsideFoliage(){
 }
 function scenery(){
  const entries=[],goal=(stage+1)*STAGE_LENGTH;
- // Fixed world spacing with strict left/right alternation: equal density on both sides.
- const spacing=520,first=Math.max(0,Math.floor(travel/spacing));
- for(let index=first;index<first+9;index++){
-  const world=index*spacing+260,z=world-travel;if(z<70||z>3100||world>goal-320)continue;
-  const t=depth(z),side=index%2===0?-1:1;
-  entries.push({z,draw:()=>sign(center(t)+side*(half(t)+34+34*t),yy(t),.13+t*.72,signs[index%signs.length])});
+ // Four deliberate landmarks per delivery, evenly spaced and two on each side.
+ for(let index=0;index<4;index++){
+  const world=stage*STAGE_LENGTH+STAGE_LENGTH*(.16+index*.21),z=world-travel;
+  if(z<70||z>3100)continue;
+  const t=depth(z),side=index%2===0?-1:1,scale=.18+t*.96;
+  const x=center(t)+side*(half(t)+62*scale+12);
+  entries.push({z,draw:()=>sign(x,yy(t),scale,signs[(stage*4+index)%signs.length])});
  }
  const buildingSpacing=1650,firstBuilding=Math.max(0,Math.floor(travel/buildingSpacing));
  for(let index=firstBuilding;index<firstBuilding+4;index++){
@@ -2260,10 +2267,14 @@ for(let row=0;row<2;row++)for(let k=0;k<12;k++){
 let xa=cx-hw+(2*hw)*k/12,xb=cx-hw+(2*hw)*(k+1)/12;
 shape([[xa,cy+row*thick],[xb,cy+row*thick],[xb,cy+(row+1)*thick],[xa,cy+(row+1)*thick]],(row+k)%2?'#17191c':'#fff5e3');
 }
-// A single enlarged, named hospital appears only at the destination.
-let side=stage%2===0?1:-1,scale=.5+1.25*t;
-let bx=clamp(cx+side*(hw+50*t+20),86*scale+8,W-86*scale-8);
-destinationHospital(bx,cy,scale,hospitals[(stage+1)%hospitals.length]);
+// The campus is a fixed landmark beyond the finish, with a stable horizontal
+// anchor. Its own world depth controls perspective; never clamp it onto asphalt.
+const hospitalDepth=depth(remaining+900);
+if(hospitalDepth>0){
+ const hospitalY=yy(hospitalDepth),hospitalScale=.35+hospitalDepth;
+ const hospitalX=stage%2===0?W-96:96;
+ destinationHospital(hospitalX,hospitalY,hospitalScale,hospitals[(stage+1)%hospitals.length]);
+}
 if(t>.22){text('FINISH',cx,Math.max(54,cy-35*t),Math.round(12+14*t),'#ffe17a');}
 }
 function car(x,y,s,color,player=false){g.save();g.translate(Math.round(x),Math.round(y));g.scale(s,s);
