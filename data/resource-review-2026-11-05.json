@@ -1,0 +1,53 @@
+{
+  "checked": "2026-11-05",
+  "resources": [
+    {
+      "tab": "General Education",
+      "title": "ASET Best Practices",
+      "url": "https://www.aset.org/best-practices/",
+      "checked": "2026-11-05",
+      "credit": "Not verified"
+    },
+    {
+      "tab": "General Education",
+      "title": "ASET EEG Competency Standards",
+      "url": "https://www.aset.org/resource/national-competency-skill-standards-for-performing-electroencephalography-eeg/",
+      "checked": "2026-11-05",
+      "credit": "Not verified"
+    },
+    {
+      "tab": "General Education",
+      "title": "ACNS / CCEMRC Critical Care EEG Training",
+      "url": "https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education",
+      "checked": "2026-11-05",
+      "credit": "Not verified"
+    },
+    {
+      "tab": "Registry Prep",
+      "title": "ACNS / CCEMRC Critical Care EEG Training",
+      "url": "https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education",
+      "checked": "2026-11-05",
+      "cost": "Paid"
+    },
+    {
+      "tab": "Conferences",
+      "title": "ILAE Congresses",
+      "url": "https://www.ilae.org/congresses",
+      "checked": "2026-11-05"
+    },
+    {
+      "tab": "Toolkit",
+      "title": "ABRET Recertification",
+      "url": "https://abret.org/recertification",
+      "checked": "2026-11-05",
+      "change": "Existing official guidance retained; personal storage unchanged"
+    }
+  ],
+  "notes": [
+    "Existing Neuro Pathway first 300 viewer restriction and Stratus live attendance requirement rechecked.",
+    "NGN course credit requires individual confirmation.",
+    "Ten recently verified public videos retained.",
+    "Unreviewed discovery candidates retained in research data but withheld from public listings.",
+    "Existing ASET flashcards link corrected; generic marketplace removed."
+  ]
+}
