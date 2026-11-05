@@ -2190,7 +2190,7 @@ shape([[c-h-5-9*t,y],[c-h,y],[c2-h2,y2],[c2-h2-5-9*u,y2]],curb);
 shape([[c+h,y],[c+h+5+9*t,y],[c2+h2+5+9*u,y2],[c2+h2,y2]],curb);
 }
 // Separate long dashed lane markings, not horizontal scan lines.
-for(let i=0;i<20;i++){let z=((i*245+travel*1.0)%5000);let t=depth(z),u=depth(z-100);if(t<=0||t>=1||u<=0||u>=1)continue;
+for(let i=0;i<20;i++){let z=(((i*245-travel)%5000+5000)%5000);let t=depth(z),u=depth(z-100);if(t<=0||t>=1||u<=0||u>=1)continue;
 for(let lane of [-1/3,1/3]){let c=center(t),c2=center(u),h=half(t),h2=half(u),w=1+3*t;
 shape([[c+lane*h-w,yy(t)],[c+lane*h+w,yy(t)],[c2+lane*h2+w,yy(u)],[c2+lane*h2-w,yy(u)]],'#eae7e3');}}
 }
@@ -2211,12 +2211,12 @@ function destinationHospital(x,y,s,name){
  box(-18,-31,36,31,'#285877');box(-1,-30,2,30,'#b0e2e2');box(-24,-36,48,7,'#e9f1ec');
  box(-80,-3,160,4,'#536a75');g.restore();
 }
-function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y));g.scale(s,s);box(-3,-4,6,63,'#a9a99b');box(-61,-43,122,40,'#e8e9df');box(-57,-39,114,32,'#136c49');text(name,0,-18,name.length>13?9:11,'#f9f9f4');g.restore()}
+function sign(x,y,s,name){g.save();g.translate(Math.round(x),Math.round(y-59*s));g.scale(s,s);box(-3,-4,6,63,'#a9a99b');box(-61,-43,122,40,'#e8e9df');box(-57,-39,114,32,'#136c49');text(name,0,-18,name.length>13?9:11,'#f9f9f4');g.restore()}
 // Decorative roadside foliage stays on the grass, outside both road shoulders.
 function roadsideFoliage(){
   const foliageCount=5;
   for(let i=0;i<foliageCount;i++){
-    const z=(i*907+travel*.8+((i*71)%139))%6200;
+    const z=((i*907-travel+((i*71)%139))%6200+6200)%6200;
     const t=depth(z);
     if(t<.06||t>.98)continue;
     const y=yy(t),scale=.16+t*1.28;
@@ -2272,7 +2272,8 @@ shape([[xa,cy+row*thick],[xb,cy+row*thick],[xb,cy+(row+1)*thick],[xa,cy+(row+1)*
 const hospitalDepth=depth(remaining+900);
 if(hospitalDepth>0){
  const hospitalY=yy(hospitalDepth),hospitalScale=.35+hospitalDepth;
- const hospitalX=stage%2===0?W-96:96;
+ const hospitalSide=stage%2===0?1:-1;
+ const hospitalX=W/2+hospitalSide*(half(hospitalDepth)+86*hospitalScale+18);
  destinationHospital(hospitalX,hospitalY,hospitalScale,hospitals[(stage+1)%hospitals.length]);
 }
 if(t>.22){text('FINISH',cx,Math.max(54,cy-35*t),Math.round(12+14*t),'#ffe17a');}
