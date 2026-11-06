@@ -21,10 +21,10 @@ jobs:
           s=p.read_text()
           link='<link rel="stylesheet" href="learning-hub-responsive.css?v=20261106">'
           assert '</head>' in s
-          if link not in s:
-              s=s.replace('</head>',link+'\n</head>',1)
+          s=s.replace(link,'')
+          s=s+'\n'+link+'\n'
           p.write_text(s)
-          assert s.index(link)>s.rfind('</style>',0,s.index('</head>'))
+          assert s.index(link)>s.rfind('</style>')
           print('Responsive stylesheet loaded after embedded styles')
           PY
           git config user.name 'github-actions[bot]'
