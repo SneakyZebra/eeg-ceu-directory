@@ -36,6 +36,36 @@
       "url": "https://eegteaching.org/",
       "evidence_url": "https://eegteaching.org/",
       "checked_at": "2026-11-06"
+    },
+    {
+      "name": "Neurocritical Care Society",
+      "url": "https://learning.neurocriticalcare.org/",
+      "evidence_url": "https://learning.neurocriticalcare.org/",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "ICNA / ICNTN",
+      "url": "https://www.icnapedia.org/icntn",
+      "evidence_url": "https://www.icnapedia.org/icntn",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "AES Textbook on NCBI Bookshelf",
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK390354/",
+      "evidence_url": "https://www.ncbi.nlm.nih.gov/books/NBK390354/",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "IFCN Education",
+      "url": "https://ifcn.info/education/videos/masterclass-recordings",
+      "evidence_url": "https://ifcn.info/education/videos/masterclass-recordings",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "ASNM Literature",
+      "url": "https://asnm.org/literature/",
+      "evidence_url": "https://asnm.org/literature/",
+      "checked_at": "2026-11-06"
     }
   ]
 }
