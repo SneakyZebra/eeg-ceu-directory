@@ -19,13 +19,22 @@ jobs:
           ref: main
       - name: Apply evidence reviewed resources
         run: |
-          python -m py_compile scripts/add_requested_five_sources.py
-          python scripts/add_requested_five_sources.py
-          python -m py_compile scripts/add_requested_five_sources.py
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html');s=p.read_text()
+          tag='<script src="assets/general-education-pagination.js?v=20261106"></script>'
+          assert 'id="general"' in s
+          if tag not in s:
+              assert '</body>' in s
+              s=s.replace('</body>',tag+'\n</body>',1)
+          p.write_text(s)
+          print('General Education pagination script loaded')
+          PY
+          node --check assets/general-education-pagination.js
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html data/discovered_providers.json data/requested-five-sources-2026-11-06.json
-          git diff --cached --quiet || git commit -m 'Add requested society and academic EEG learning resources'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Show ten General Education resources with five more per click'
           git pull --rebase origin main
           git push
       - name: Publish through existing hub configuration
