@@ -34,11 +34,11 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const id='27c590410209b20ab56a727708e8fc9bfcbb66e1';
+            const id='8e326a4ff89e282d556722289b40f6ec4caee6c7';
             try {
               const result=await github.request('GET /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}',{...context.repo,pages_deployment_id:id});
               core.info('Prior deployment status: '+result.data.status);
-              if(!['succeed','failure','cancelled'].includes(result.data.status)){
+              if(!['succeed','failure','cancelled','deployment_cancelled','deployment_failed'].includes(result.data.status)){
                 await github.request('POST /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel',{...context.repo,pages_deployment_id:id});
                 core.info('Cancelled stale deployment');
                 await new Promise(resolve=>setTimeout(resolve,30000));
