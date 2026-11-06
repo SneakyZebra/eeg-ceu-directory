@@ -438,6 +438,11 @@ def main():
     catalog_pages, catalog_added = discover_catalog_courses(items)
     verified_free = sync_verified_free(items)
     checked_courses, auto_verified = verify_discovered_courses(items)
+    # Editorial safety filter: search/news wrappers are research leads, never education listings.
+    for key,item in list(items.items()):
+        host=(urlparse(item.get("url","")).hostname or "").lower()
+        if host in {"news.google.com","www.merriam-webster.com","en.m.wikipedia.org","en.wikipedia.org"} or item.get("title")=="Jump to content":
+            del items[key]
     payload = {
         "last_checked": NOW.isoformat(),
         "providers_checked": checked,

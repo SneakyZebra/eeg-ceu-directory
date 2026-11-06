@@ -18,6 +18,24 @@
       "url": "https://www.acns.org/practice/guidelines",
       "evidence_url": "https://www.acns.org/practice/guidelines",
       "checked_at": "2026-11-06"
+    },
+    {
+      "name": "Neurovirtual Education",
+      "url": "https://neurovirtualeducation.com/",
+      "evidence_url": "https://neurovirtualeducation.com/courses/video-eeg/",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "NIH NCCIH",
+      "url": "https://www.nccih.nih.gov/",
+      "evidence_url": "https://www.nccih.nih.gov/training/videolectures/how-to-map-the-dynamics-of-your-brain",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "EEGTeaching / Michel van Putten",
+      "url": "https://eegteaching.org/",
+      "evidence_url": "https://eegteaching.org/",
+      "checked_at": "2026-11-06"
     }
   ]
 }

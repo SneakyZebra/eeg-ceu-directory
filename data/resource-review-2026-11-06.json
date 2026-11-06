@@ -1,0 +1,204 @@
+{
+  "checked": "2026-11-06",
+  "new_listed_providers": [
+    "Neurovirtual Education",
+    "NIH NCCIH"
+  ],
+  "new_research_provider_only": [
+    "EEGTeaching / Michel van Putten"
+  ],
+  "general_additions": [
+    {
+      "title": "Neurovirtual: Video EEG",
+      "url": "https://neurovirtualeducation.com/courses/video-eeg/",
+      "description": "Free Spanish language course by Dr. Jorge G. Burneo of Western University. Surface video EEG, SEEG, ECoG and cortical stimulation. About 45 minutes; account and enrollment required. EEG technologist CEU credit has not been verified.",
+      "badge": "Free course · Spanish · Registration"
+    },
+    {
+      "title": "NIH / NCCIH: EEG Brain Mapping and BCI",
+      "url": "https://www.nccih.nih.gov/training/videolectures/how-to-map-the-dynamics-of-your-brain",
+      "description": "Bin He, PhD presents EEG brain mapping and brain computer interfaces in a free ten chapter NIH lecture. The page mentions credit, but current EEG technologist credit eligibility and expiration have not been verified.",
+      "badge": "Free learning · CEUs unverified"
+    },
+    {
+      "title": "ACNS Critical Care EEG Terminology: Condensed Version",
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc098.pdf",
+      "description": "Public three page companion to the 2021 ACNS terminology, linked by the society. Background, rhythmic and periodic pattern reference. No CEU credit.",
+      "badge": "Free society reference PDF"
+    },
+    {
+      "title": "ACNS Critical Care EEG Examples",
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_11_20_fong_1_sdc1.pdf",
+      "description": "Public 36 page EEG example supplement linked by ACNS alongside its 2021 critical care EEG terminology. Supporting waveform reference for CLTM preparation; no CEU credit.",
+      "badge": "Free EEG examples PDF"
+    }
+  ],
+  "CLTM_reference_additions": [
+    "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc098.pdf",
+    "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_11_20_fong_1_sdc1.pdf"
+  ],
+  "handbook": {
+    "url": "https://abret.org/application/files/2917/7245/9922/CLTM_Handbook_2026.pdf",
+    "index_link_status": "Index CLTM 2026 target returned 404; alternative official 2026 PDF verified"
+  },
+  "removed_discovery_items": [
+    {
+      "title": "INTRAOPERATIVE Definition & Meaning | Merriam-Webster Medical",
+      "url": "https://www.merriam-webster.com/medical/intraoperative",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "IntraNerve Neuroscience Earns ABRET Recognition for IONM Training Program, Strengthening the Future of Surgical Neurophysiology - Yahoo Finance",
+      "url": "https://news.google.com/rss/articles/CBMitwFBVV95cUxQWXVIVlpvbDZkTHdMODlzdnJrNnFTMS14bzl0N1N5Z0k5QXRCcHA4cl9YRW56S05iMkczejJwU0xXSk85bjBxNG1DUzh6eWJ4a3h1cUVwUnRZX3FtTUszeDFjczFJVlkybFUtZWFpT",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Virtual reality-assisted prediction of adult ADHD based on eye tracking, EEG, actigraphy and behavioral indices: a machine learning analysis of independent training and test samples | Transl",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBUSG15dVozR09LcHg0SXJGRVpUZU5vYTZuSGJiZHJ0MHhqVm5RM2prVWRjWEIxM29kR09zZlk3bjBnQjlZVlhnMkljcFJtRVRCVmhJMmg3Qlo1cE9qMGRF?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "EEG and Brain Death - ILAE Eastern Mediterranean & Africa 25 February Webinar (English) - YouTube",
+      "url": "https://news.google.com/rss/articles/CBMiXEFVX3lxTE5IdHpSRXdMWmRTcU1ZQlE4aEJNUWtlN0s3MXA5WVRkaE1fbS04WWdHZFhSdzJGSi16WTBiVlpFbEtRblpuSVZNSHdtZXRzNllORGVVNlhjLUZpa0Nk?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Jump to content",
+      "url": "https://learning.tstelemed.com/content/challenginginteresting-neurology-case-submission",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Brave 11-year-old girl helps teacher during epileptic seizure in classroom - Education News",
+      "url": "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQblF4UU5VN2lnV3VfSURVdHFqVEtSQ0oydncyYzl4cXg1VTY5SGF2LXNySEp3YnljWjRXcTBKNzYxWGJyM0plblNFOUdfY2hqTmxCRTBMNEQwaGJfQ19Ta1lyVXdHVC16V0o5VWhEd",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: Epilepsy Monitoring Unit Staff Education Using a High-Fidelity Manikin - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE5IcThCV2Y3WXdNcUJLM3FtYW9CaTRsaFE5WWhsSDE3U2hRVEJ0ai1KdHJHczU2QnhWSWlXSG12a0RXQlZucVc5WjIybE5TaTBOWnVkYlZmblVzc1NhUm9GeWxHNUYtemxoNGc?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: Online EEG Learning Platforms for Resident and Fellow Education - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTFAzSVFXV3BVdXZYeTVtWnpuZmJ5cHF2MUJBX0FRTzVQRzFCejZOQzB3dXI4Wnlwb3pNekJ6VG04Y2RYVWpnRXNMX2lEcDVEY1F0SThGVU9WV1Z6dElhYU5xc1VyVS1MZm8yNGc?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "EEG-based functional connectivity patterns during boredom in an educational context | Scientific Reports - Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFBTRmtlLXVQWG1ramVWOUJtWWRJS0NURnRUdlh1ZUhjZUNxTWtyQXo2Qm84TVFPS1FyeU1MT2FkaUtGR2hoVzdIRkI3MHc3Tk1INjBCeTFjWU80dnRObTdV?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "NeuroVoices: Fabio Nascimento, MD, on Improving EEG Education in Residency Programs - NeurologyLive",
+      "url": "https://news.google.com/rss/articles/CBMitgFBVV95cUxPRE5HbF9hVW1RSGQtLUhTTjVuSlRtWDhCaUlQMkN2Zlk2bUtRRmdXa2JaS1JvaTM3bHFoZ0VNWlB6Q2ZiU0NFcjV3Z3VRYlVFMmNRRXdKSHhrbmhjWFI4cnFfRTduWnk1TTdkRmlfU",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: EEG Education in Child Neurology and Neurodevelopmental Disabilities Residencies - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9Ea2RERGVpcEI4WEFidkdvNHlidXRFb2RTUHpGSzRoME1UUjhCa3phS21ydGdjbTlEYnRjc291MXBNMk1jdFlXVHZKM0ZSaG44enpvWExCY0RTbENzRG1FbU9TNm1RMWxkemc?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Inconsistencies Identified Across EEG Neurology Education Tactics - NeurologyLive",
+      "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxOdVJ3RVBfQ1hJbFgtZGdRaHdWc1dsdDdVSHNwa1hUYWhoVWVkbEhKZGVVcWltZUtMUFJjQUZkVFZnYUZOSEVKX3cxeURsNjVvcVl3bEdEdHpsODFPNlFiLXBldU5MLUNFeS0tS1dmT",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: Development of a Workplace-Based Assessment to Enhance EEG Interpretation Skills for Medical Students - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1WTzBpLVRtZHR4N3JNa2RCUHVEdXh4bkxkOW56NHcta1VvTkFYUDRuV2NKSEZEQktfUXotTzQ0dDA5c1Q4SUVrNzFyZHNPbTdNN2FQQ1hWbzY4VGljTHZuS1ZHMHF3ZWxrMEE?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Aperiodic component of EEG power spectrum and cognitive performance are modulated by education in aging - Nature",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE5PRm5idjNUS1c5d2tMMnV1T2tfRFNiN2N4TlRRX0Zmb0RUUzBMNWxhUzdyQ1J5UjQtSng0a0R1SlBwRWJNMXZSUTVORXVHNzM0ODFXazF0TU80ejlBNlRV?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: EEG Instruction - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE93YUtlcmhmV2JmemhNSi1QVTFkdkJmNTJ5WFdFcGF3dUhpb0xuMG9oU01nRk1nb2RUMGs3TkZEUzhZMVppNFluOTNleEtXYXJoTWVyZTBNcUF0cm9KcThFbTYxcG4zTmduc2c?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Addressing Gaps in Competency-Based Medical Education in EEG Instruction, Virtual Learning, and High-Quality Peer Review in Medical Education - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE10bDFacEpBM08wSm03MVVHczdFUnNRUXdZbkMyd2h4TnJJRWVDOXR3V1BydXFfaU9KeHkyLWFQOGQtd0ZxdXFCdlM1eG8xNG9YLWstS0o0OWNNdk82ZE9fSV83M2lsNmZtNlE?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "Education Research: Shaping the Future of Epilepsy Fellowship Training in Canada - Neurology® Journals",
+      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE41SjJFeXNuX3ZGa1NRR2RUUTdZT3ZZN2JDcHc0NVVheERvUnc3SjFONlZoVWJsQ0NVQWFNVXRydTA0TWRvUVMxRnpLTUVLVHFHVEZBaTVDWFZmLXdHc1NNdVVuMzg0Q2xMSFE?oc=5",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "ASET - Wikipedia",
+      "url": "https://en.m.wikipedia.org/wiki/ASET",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    },
+    {
+      "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=aep%2F%2BGr8OlBAZ%2FnXC9Y9Wg%3D%3D",
+      "reason": "Unreviewed news/search/dictionary/navigation result or obsolete duplicate"
+    }
+  ],
+  "tabs": {
+    "CEU Directory": {
+      "new_verified_free_courses": 0,
+      "retained_verified": [
+        "AES EMU Caring: 3.5 ASET, $0, expires 2027-12-31; technologists in target audience",
+        "Neuro Pathway: first 300 viewers only for four open lectures; closed notices preserved",
+        "Stratus EEG U: live only; unique Zoom link and ASET ID; replays no credit; Elevate U no credit"
+      ],
+      "sources": [
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+        "https://myneuropathway.com/ceus/",
+        "https://www.stratusneuro.com/eeg-u",
+        "https://neuro-training.academy/eeg-ltm/",
+        "https://www.teamngn.com/ngngivesback-sponsor",
+        "https://www.cadwell.com/webinars/"
+      ]
+    },
+    "Videos": {
+      "added": 0,
+      "sources": [
+        "https://corticare.com/webinars/",
+        "https://www.persyst.com/grandrounds/",
+        "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/"
+      ],
+      "candidate": {
+        "provider": "NIH NCCIH",
+        "youtube_id": "Vknf3KelgNo",
+        "runtime": "5:43",
+        "url": "https://www.nccih.nih.gov/training/videolectures/16/1",
+        "decision": "Withheld from Videos: source identifies free lecture and runtime but public YouTube playback not independently confirmed; embed fetch throttled. General Education landing page added with no credit claim."
+      }
+    },
+    "Conferences": {
+      "changed": false,
+      "sources": [
+        "https://www.acns.org/news/2027-annual-meeting--courses---new-dates",
+        "https://www.aset.org/aset-conference-save-the-date/",
+        "https://www.ilae.org/congresses/37th-international-epilepsy-congress"
+      ],
+      "notes": "ACNS March 6 through 9, 2027 Seattle and ASET August 5 through 7, 2027 Orlando agree with current cards. No new credit claims."
+    },
+    "Registry Prep": {
+      "sources": [
+        "https://www.brainstormboardprep.com/shop",
+        "https://www.brainstormboardprep.com/terms-disclosures-and-policies",
+        "https://neurodiagnostictechnologyinstitute.com/pay-fees/",
+        "https://neurodiagnostictechnologyinstitute.com/our-program/",
+        "https://www.acns.org/practice/guidelines",
+        "https://abret.org/application/files/2917/7245/9922/CLTM_Handbook_2026.pdf"
+      ],
+      "notes": "Brainstorm EEG $250, LTM $325, CNIM $375 paid one time; access subject to policies, independent of ABRET. NTI paid 12 month EEG program; no confirmed CLTM course. Added two public ACNS reference supplements to CLTM."
+    },
+    "Toolkit": {
+      "source": "https://www.abret.org/recertification/recertification-faq",
+      "changed": false,
+      "notes": "Official recertification guidance rechecked. No tracker, favorites, local storage or progress code touched."
+    }
+  },
+  "limitations": [
+    "This is a bounded source scan, not a full HTTP audit of every existing URL.",
+    "Public YouTube playback checks limited by fetch throttling; no unverified video added.",
+    "NIH credit mentioned but EEG technologist eligibility, expiration and completion rules unverified; no free CEU claim."
+  ]
+}
