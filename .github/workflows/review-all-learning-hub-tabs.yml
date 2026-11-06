@@ -3,81 +3,33 @@ on:
   push:
     paths:
       - '.github/workflows/review-all-learning-hub-tabs.yml'
+  workflow_dispatch:
 permissions:
   contents: write
-  pages: write
-  id-token: write
+  actions: write
 concurrency:
-  group: pages
+  group: editorial-resource-review
   cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - run: python -m pip install Pillow
-      - name: Add verified public EEG videos
+        with:
+          ref: main
+      - name: Apply evidence reviewed resources
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import json,re,html
-          p=Path('index.html');s=p.read_text(); evidence=[]
-          def array(key):
-           start=s.index(key)+len(key);value,n=json.JSONDecoder().raw_decode(s[start:]);return start,n,value
-          def replace_array(key,fn):
-           global s
-           start,n,value=array(key);value=fn(value);s=s[:start]+json.dumps(value,ensure_ascii=False)+s[start+n:]
-          general=[
-           ('ASET Best Practices','https://www.aset.org/best-practices/','Professional practice references covering neurodiagnostic safety, monitoring and technical care.'),
-           ('ASET EEG Competency Standards','https://www.aset.org/resource/national-competency-skill-standards-for-performing-electroencephalography-eeg/','National criteria for EEG knowledge, patient interaction and technical performance. Published March 2021.'),
-           ('ACNS / CCEMRC Critical Care EEG Training','https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education','2021 critical care EEG terminology training modules and a self assessment. Completion is not professional certification; CEU credit has not been verified.')]
-          def education(rows):
-           for title,url,desc in general:
-            if not any(x['url'].rstrip('/')==url.rstrip('/') for x in rows): rows.insert(0,dict(category='general',title=title,url=url,description=desc,badge='Professional society resource',verified='2026-11-05',logo='?'))
-           return rows
-          replace_array('const curatedEducation=',education)
-          # Keep unreviewed search discoveries in the research data, outside the published directory.
-          old='for(const x of d.items||[]){if(known.has('
-          new="for(const x of d.items||[]){if(x.status!=='Verified free credit'&&x.editorial_reviewed!==true)continue;if(known.has("
-          assert old in s;s=s.replace(old,new,1)
-          # Improve an existing paid resource instead of adding a duplicate.
-          s=re.sub(r'(<article class="entry">(?:(?!</article>).)*?<strong>EEG Flashcards</strong>)(.*?)(</article>)',lambda m:m[1]+m[2].replace('https://www.aset.org/','https://www.aset.org/product/q-a-flashcard-study-system-for-eeg-fourth-edition-digital-flashcards/').replace('Registry-focused EEG flashcard study system with paid access.','ASET Fourth Edition digital EEG flashcards with six months of paid access. Check current pricing.')+m[3],s,flags=re.S)
-          # A generic marketplace homepage does not identify vetted registry preparation.
-          s=re.sub(r'<article class="entry">(?:(?!</article>).)*?<strong>EEG and Neurodiagnostic Courses</strong>.*?</article>','',s,flags=re.S)
-          logos=json.loads(re.search(r'<script id="eeg-logo-data" type="application/json">(.*?)</script>',s,re.S)[1])
-          url='https://abret.org/asap';title='ABRET Self Assessment Program (ASAP)'
-          if url not in s:
-           logo=logos.get('abret.org') or logos.get('www.abret.org') or 'https://abret.org/favicon.ico'
-           card='<article class="entry" data-reviewed="2026-11-05"><div class="logo"><img src="'+html.escape(logo,quote=True)+'" alt="ABRET logo" loading="lazy"></div><div class="info"><strong>'+title+'</strong><p>Paid practice assessments created by ABRET for EEG and other neurodiagnostic credentials. One or three month access; use alongside other study materials.</p><span class="tag">Paid official self assessment</span></div><a class="visit" href="'+url+'" target="_blank" rel="noopener noreferrer">Visit Site</a></article>'
-           marker='id="registry-paid">';assert marker in s;s=s.replace(marker,marker+card,1)
-          replace_array('const conferenceEvents=',lambda rows:rows+([] if any('ilae.org/congresses' in x[2] for x in rows) else [['ILAE Congresses and Educational Meetings','ILAE','https://www.ilae.org/congresses']]))
-          # Provider evidence currently describes education but does not establish specific active credit.
-          def ceus(rows):
-           for x in rows:
-            if x['title']=='NGN Institute / Neuro Insights':
-             x.update(category='unknown',description='Free neurodiagnostic education and board preparation topics. Contact NGN or check the individual course for current credit approval, eligibility and availability.',badge='Free education · Confirm course credit',verified='2026-11-05')
-           return rows
-          replace_array('const curated=',ceus)
-          p.write_text(s)
-          for title,url,desc in general:evidence.append(dict(tab='General Education',title=title,url=url,checked='2026-11-05',credit='Not verified'))
-          evidence.extend([dict(tab='Registry Prep',title=title,url=url,checked='2026-11-05',cost='Paid'),dict(tab='Conferences',title='ILAE Congresses',url='https://www.ilae.org/congresses',checked='2026-11-05'),dict(tab='Toolkit',title='ABRET Recertification',url='https://abret.org/recertification',checked='2026-11-05',change='Existing official guidance retained; personal storage unchanged')])
-          Path('data/resource-review-2026-11-05.json').write_text(json.dumps(dict(checked='2026-11-05',resources=evidence,notes=['Existing Neuro Pathway first 300 viewer restriction and Stratus live attendance requirement rechecked.','NGN course credit requires individual confirmation.','Ten recently verified public videos retained.','Unreviewed discovery candidates retained in research data but withheld from public listings.','Existing ASET flashcards link corrected; generic marketplace removed.']),indent=2))
-          print('Updated General Education, Registry Prep, Conferences and CEU editorial controls; retained Videos and Toolkit.')
-          PY
+          python -m py_compile scripts/review_resources_2026_11_06.py
+          python scripts/review_resources_2026_11_06.py
+          python -m py_compile update_ceus.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html data/resource-review-2026-11-05.json
-          git diff --cached --quiet || git commit -m 'Review all EEG Learning Hub tabs with requested paragraph'
+          git add index.html ceu-offerings.json update_ceus.py data/discovered_providers.json data/registry-credential-resources.json data/resource-review-2026-11-06.json
+          git diff --cached --quiet || git commit -m 'Review EEG resources November 6 and clean discovery data'
+          git pull --rebase origin main
           git push
-      - name: Prepare public site
-        run: |
-          mkdir _site
-          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
-      - uses: actions/upload-pages-artifact@v3
+      - name: Publish through existing hub configuration
+        uses: actions/github-script@v7
         with:
-          path: _site
-      - id: deployment
-        uses: actions/deploy-pages@v4
+          script: |
+            await github.rest.actions.createWorkflowDispatch({...context.repo,workflow_id:'publish-current-learning-hub.yml',ref:'main'});
