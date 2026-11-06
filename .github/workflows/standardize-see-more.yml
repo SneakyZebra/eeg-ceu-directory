@@ -1,0 +1,39 @@
+name: Standardize resource expansion buttons
+on:
+  push:
+    paths:
+      - '.github/workflows/standardize-see-more.yml'
+permissions:
+  contents: write
+  actions: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Keep six resource increments with a See More label
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('index.html');s=p.read_text();changed=0
+          pattern=r"button\.textContent=remaining\s*\?\s*'Show 6 More \('\+remaining\+' remaining\)'\s*:\s*'Show Less';"
+          s,n=re.subn(pattern,"button.textContent='See More';",s);changed+=n
+          assert n>=2, 'Expected registry and CEU expansion controls'
+          s=s.replace("button.style.display=cards.length>limit?'block':'none';","button.style.display=remaining>0?'block':'none';")
+          s=s.replace('visible=visible>=count?limit:Math.min(count,visible+limit);','visible=Math.min(count,visible+limit);')
+          assert 'Show 6 More' not in s
+          p.write_text(s);print('Updated expansion controls:',changed)
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet || git commit -m 'Use See More for six resource expansion increments'
+          git push
+      - name: Publish through the existing learning hub publisher
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.actions.createWorkflowDispatch({...context.repo,workflow_id:'publish-current-learning-hub.yml',ref:'main'});
