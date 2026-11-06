@@ -1,0 +1,29 @@
+name: Recover queued neuro resource publication
+on:
+  push:
+    paths:
+      - '.github/workflows/recover-queued-neuro-publication.yml'
+permissions:
+  actions: write
+  pages: write
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const runId=42234542454;
+            const run=await github.rest.actions.getWorkflowRun({...context.repo,run_id:runId});
+            if(run.data.status!=='completed'){
+              await github.request('POST /repos/{owner}/{repo}/actions/runs/{run_id}/force-cancel',{...context.repo,run_id:runId});
+              core.info('Stopped the queued publication retry; source changes are already committed.');
+            }
+            try{
+              const id='8e326a4ff89e282d556722289b40f6ec4caee6c7';
+              const d=await github.request('GET /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}',{...context.repo,pages_deployment_id:id});
+              core.info('Pages state: '+d.data.status);
+              if(!['succeed','failure','cancelled','deployment_cancelled','deployment_failed'].includes(d.data.status)){
+                await github.request('POST /repos/{owner}/{repo}/pages/deployments/{pages_deployment_id}/cancel',{...context.repo,pages_deployment_id:id});
+              }
+            }catch(error){if(error.status!==404&&error.status!==409)throw error;}
