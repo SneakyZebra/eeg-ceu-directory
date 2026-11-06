@@ -1,0 +1,81 @@
+/* Consistent resource spacing and fluid layouts across the Learning Hub. */
+html {scroll-padding-top:16px}
+body {min-width:0}
+main,.ceu-view,.tools-shell {min-width:0;width:100%}
+.head,.brand,.brand>div,.info,.eeg-video-info,.scf-summary {min-width:0}
+h2,h3,p,dd,.tag,.info strong,.tool-item {overflow-wrap:anywhere}
+img {max-width:100%}
+.edu-tabs,.ceu-tabs {display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.edu-tab,.ceu-tab {min-width:0;min-height:44px;padding:12px 8px;white-space:normal;line-height:1.35}
+.entry,.eeg-video-card,.tool-item {min-width:0}
+.visit,.favorite-btn,.submit-btn,.tool-btn,.dialog-close,.ceu-show-toggle {min-height:44px}
+.favorite-btn {min-width:44px}
+.conference-grid {gap:20px;align-items:stretch}
+#conference-list .conference-card {display:flex;flex-direction:column;gap:12px;padding:22px;min-width:0}
+#conference-list .conference-logo {margin:0;width:72px;height:72px;flex-shrink:0}
+#conference-list .conference-card>small {font-size:13px;line-height:1.4}
+#conference-list .conference-card h3 {margin:0;font-size:19px;line-height:1.4}
+#conference-list .conference-details {margin:0;padding:14px;min-width:0}
+#conference-list .conference-details dd {font-size:15px;line-height:1.5}
+#conference-list .conference-note {margin:0;font-size:12px;line-height:1.5}
+#conference-list .conference-card>a {margin-top:auto;min-height:44px;display:flex;align-items:center;line-height:1.5}
+#conference-list .conference-checked {margin:0;line-height:1.5}
+@supports (grid-template-rows:subgrid) {
+  #conference-list .conference-card {display:grid;grid-row:span 7;grid-template-rows:subgrid;row-gap:12px}
+  #conference-list .conference-logo {grid-row:1}
+  #conference-list .conference-card>small {grid-row:2}
+  #conference-list .conference-card h3 {grid-row:3}
+  #conference-list .conference-details {grid-row:4;align-self:stretch}
+  #conference-list .conference-note {grid-row:5}
+  #conference-list .conference-card>a {grid-row:6;margin-top:0}
+  #conference-list .conference-checked {grid-row:7}
+}
+@media (max-width:1000px) {
+  .edu-tabs,.ceu-tabs {grid-template-columns:repeat(3,minmax(0,1fr))}
+  .eeg-video-grid {grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:740px) {
+  .conference-grid {grid-template-columns:minmax(0,1fr)}
+  #conference-list .conference-card {display:flex;gap:12px;padding:18px}
+  #conference-list .conference-card>a {margin-top:0}
+  .head {align-items:flex-start;gap:14px}
+  .brand {flex:1}
+  header .sub {line-height:1.5}
+  .grid,.tools-grid {grid-template-columns:minmax(0,1fr)}
+  .entry {flex-wrap:wrap}
+  .entry .info {flex:1 1 180px}
+  .tag {max-width:100%;white-space:normal}
+  .scf-controls {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:600px) {
+  header {padding:18px 14px}
+  main,#registry-prep-view,#videos-view {padding:18px 12px 36px}
+  .edu-tabs,.ceu-tabs {padding-left:12px;padding-right:12px}
+  .entry,#registry-prep-view .entry {display:grid;grid-template-columns:56px minmax(0,1fr);gap:10px;align-items:start;text-align:left}
+  .entry .logo,#registry-prep-view .entry .logo {grid-column:1;grid-row:1;width:56px!important;height:56px!important;min-width:56px!important;flex-basis:56px!important}
+  .entry .info,#registry-prep-view .entry .info {grid-column:2;grid-row:1;align-items:flex-start;width:100%;min-width:0}
+  .entry .visit,#registry-prep-view .entry .visit {grid-column:2;margin:0;width:fit-content;max-width:100%;white-space:normal;font-size:12px}
+  .entry .favorite-btn {grid-column:1;grid-row:2;margin:0;justify-self:center}
+  .entry .info strong,#registry-prep-view .entry .info strong {font-size:14px;line-height:1.4}
+  .entry .info p,#registry-prep-view .entry .info p {font-size:12px;line-height:1.55}
+  .eeg-video-card {gap:12px;padding:16px}
+  .eeg-video-info h3 {font-size:17px}
+  .eeg-video-info p {font-size:13px}
+  .tool-item {flex-wrap:wrap;align-items:flex-start}
+  .tool-item>div {min-width:0;flex:1 1 180px}
+  .track-fields,.scf-controls,.scf-results {grid-template-columns:minmax(0,1fr)}
+  .ceu-form {grid-template-columns:minmax(0,1fr)}
+  input,select,textarea {min-width:0;max-width:100%;font-size:16px!important}
+  .tool-panel,.accordion-body {min-width:0}
+  .registry-credential-nav button {min-height:44px;flex:1}
+}
+@media (max-width:380px) {
+  .edu-tabs,.ceu-tabs {grid-template-columns:repeat(2,minmax(0,1fr))}
+  .head {flex-wrap:wrap}
+  header .baby {width:68px;height:65px;flex-basis:68px}
+  .eeg-video-card {flex-direction:column}
+  .scf-action-buttons {grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce) {
+  html {scroll-behavior:auto}
+}
