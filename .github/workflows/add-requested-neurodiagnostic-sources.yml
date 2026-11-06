@@ -1,0 +1,96 @@
+name: Add requested neurodiagnostic study sources
+on:
+  push:
+    paths:
+      - '.github/workflows/add-requested-neurodiagnostic-sources.yml'
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: python -m pip install Pillow
+      - name: Add verified public EEG videos
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json,re,html,urllib.request,base64
+          from urllib.parse import urlparse,urljoin
+          p=Path('index.html');s=p.read_text();checked='2026-11-06'
+          m=re.search(r'(<script id="eeg-logo-data" type="application/json">)(.*?)(</script>)',s,re.S);logos=json.loads(m[2])
+          for host in ['www.brainstormboardprep.com','neurodiagnostictechnologyinstitute.com']:
+           if host in logos:continue
+           try:
+            base='https://'+host
+            raw=urllib.request.urlopen(urllib.request.Request(base,headers={'User-Agent':'Mozilla/5.0'}),timeout=12).read().decode(errors='ignore')
+            icons=[]
+            for tag in re.findall(r'<link\b[^>]+>',raw,re.I):
+             if re.search(r'rel=[\"\'][^\"\']*(?:apple-touch-icon|icon)',tag,re.I):
+              v=re.search(r'href=[\"\']([^\"\']+)',tag,re.I)
+              if v:icons.append(urljoin(base,html.unescape(v[1])))
+            for url in icons[::-1]+[base+'/favicon.ico']:
+             try:
+              r=urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'Mozilla/5.0'}),timeout=8);b=r.read();mime=r.headers.get_content_type()
+              if mime.startswith('image/') and len(b)<200000:
+               logos[host]='data:'+mime+';base64,'+base64.b64encode(b).decode();logos[host.removeprefix('www.')]=logos[host];break
+             except Exception:pass
+           except Exception as e:print('Provider icon unavailable',host,type(e).__name__)
+          s=s[:m.start(2)]+json.dumps(logos,separators=(',',':'))+s[m.end(2):]
+          shop='https://www.brainstormboardprep.com/shop';nti='https://neurodiagnostictechnologyinstitute.com/our-program/';guidelines='https://www.acns.org/practice/guidelines';chart='https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf'
+          entries=[
+          ('registry-cltm-paid','brainstorm-cltm','Brainstorm CLTM / LTM Prep Course',shop,'Eight week or longer study plan with lectures, printable outlines, flashcards, quizzes and individual tutoring. Listed at $325 for a one time purchase; confirm current terms. Independent of ABRET.','Paid CLTM exam prep','www.brainstormboardprep.com'),
+          ('registry-paid','brainstorm-eeg','Brainstorm R. EEG T. Prep Course',shop,'Structured EEG review with lesson recordings, outlines, flashcards, quizzes, practice exams and tutoring. Listed at $250 for a one time purchase; confirm current terms. Independent of ABRET.','Paid EEG exam prep','www.brainstormboardprep.com'),
+          ('registry-cnim-paid','brainstorm-cnim','Brainstorm CNIM / IONM Board Prep Course',shop,'IONM review including anatomy, modalities, instrumentation, anesthesia and troubleshooting workshops. Listed at $375 for a one time purchase; confirm current terms. Independent of ABRET.','Paid CNIM exam prep','www.brainstormboardprep.com'),
+          ('registry-paid','nti-eeg-program','NTI Neurodiagnostic Technology Program',nti,'Twelve month EEG training with online instruction and supervised clinical externships. Tuition and admissions requirements apply. A full education program for EEG registry preparation, not a standalone CLTM course.','Paid EEG training program','neurodiagnostictechnologyinstitute.com'),
+          ('registry-cltm-free','acns-cltm-guidelines','ACNS Long Term and Continuous EEG Guidelines',guidelines,'Study reference index for Guideline 12 on epilepsy monitoring, Guideline 14 on critical care terminology, adult and pediatric continuous EEG consensus statements, and neonatal monitoring guidance. Individual publisher access varies.','Free guideline index · Study reference','www.acns.org'),
+          ('registry-cltm-free','acns-terminology-chart','ACNS Critical Care EEG Terminology Reference Chart',chart,'Public two page reference chart accompanying the 2021 ACNS terminology. Review EEG background, rhythmic and periodic patterns, and seizure terminology alongside the full training materials. No CEU credit established.','Free reference PDF · CLTM study aid','www.acns.org'),
+          ('registry-cnim-free','acns-cnim-guidelines','ACNS IONM and Evoked Potential Guidelines',guidelines,'Study reference index for evoked potentials, intraoperative monitoring standards and spinal monitoring guidance. Select the relevant documents for CNIM preparation; individual publisher access varies.','Free guideline index · Study reference','www.acns.org')]
+          def card(key,title,url,desc,badge,brand):
+           esc=html.escape;image=logos.get(brand) or logos.get(brand.removeprefix('www.'));host=urlparse(url).hostname
+           mark=('<img data-provider-host="'+host+'" src="'+esc(image,quote=True)+'" alt="'+esc(brand)+' logo" loading="lazy">') if image else '<span>'+('NTI' if 'technologyinstitute' in brand else 'Brainstorm')+'</span>'
+           return '<article class="entry" data-requested-source="'+key+'" data-reviewed="'+checked+'"><div class="logo">'+mark+'</div><div class="info"><strong>'+esc(title)+'</strong><p>'+esc(desc)+'</p><span class="tag">'+esc(badge)+'</span></div><a class="visit" href="'+esc(url,quote=True)+'" target="_blank" rel="noopener noreferrer">Visit Site</a></article>'
+          for target,key,title,url,desc,badge,brand in reversed(entries):
+           if 'data-requested-source="'+key+'"' in s:continue
+           marker='id="'+target+'">';assert marker in s;s=s.replace(marker,marker+card(key,title,url,desc,badge,brand),1)
+          k='const curatedEducation=';start=s.index(k)+len(k);rows,n=json.JSONDecoder().raw_decode(s[start:])
+          for title,url,desc,badge in [
+          ('NTI Neurodiagnostic Education Program',nti,'Program information for paid online EEG education with clinical externships. Intended for prospective EEG technologists; tuition and admission requirements apply.','Paid training · Program information'),
+          ('ACNS Critical Care EEG Terminology Reference Chart',chart,'Public 2021 critical care EEG terminology reference chart. A learning aid for background, rhythmic and periodic EEG patterns. No CEU credit established.','Free reference PDF')]:
+           if not any(x['url'].rstrip('/')==url.rstrip('/') for x in rows):rows.insert(0,dict(category='general',title=title,url=url,description=desc,badge=badge,verified=checked,logo='?'))
+          s=s[:start]+json.dumps(rows,ensure_ascii=False)+s[start+n:]
+          # Ensure the chart uses ACNS branding even though the publisher hosts the PDF.
+          logos['cdn-links.lww.com']=logos.get('www.acns.org') or logos.get('acns.org') or ''
+          m=re.search(r'(<script id="eeg-logo-data" type="application/json">)(.*?)(</script>)',s,re.S);s=s[:m.start(2)]+json.dumps(logos,separators=(',',':'))+s[m.end(2):]
+          p.write_text(s)
+          registry=Path('data/discovered_providers.json');data=json.loads(registry.read_text()) if registry.exists() else {'providers':[]}
+          for name,url,evidence in [('Neurodiagnostic Technology Institute','https://neurodiagnostictechnologyinstitute.com/',nti),('Brainstorm Board Prep','https://www.brainstormboardprep.com/',shop),('ACNS Guidelines','https://www.acns.org/practice/guidelines',guidelines)]:
+           item=dict(name=name,url=url,evidence_url=evidence,checked_at=checked);prior=next((x for x in data['providers'] if x['url'].rstrip('/')==url.rstrip('/')),None)
+           if prior:prior.update(item)
+           else:data['providers'].append(item)
+          registry.write_text(json.dumps(data,indent=2))
+          Path('data/requested-neuro-sources-2026-11-06.json').write_text(json.dumps({'checked':checked,'placements':[dict(zip(['target','key','title','url','description','badge','brand'],e)) for e in entries],'additional_general_resources':[nti,chart],'credit_note':'No CEU credit verified for these board preparation or reference resources.','evidence_urls':[shop,nti,'https://neurodiagnostictechnologyinstitute.com/pay-fees/',guidelines,chart]},indent=2))
+          print('Added requested providers to registry preparation, general education and discovery seeds.')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html data/discovered_providers.json data/requested-neuro-sources-2026-11-06.json
+          git diff --cached --quiet || git commit -m 'Add requested neurodiagnostic study sources with requested paragraph'
+          git push
+      - name: Prepare public site
+        run: |
+          mkdir _site
+          rsync -a --exclude='.git' --exclude='.github' --exclude='_site' ./ _site/
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
