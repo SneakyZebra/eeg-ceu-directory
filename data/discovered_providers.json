@@ -1,4 +1,23 @@
 {
   "description": "Additional providers discovered and checked by the daily EEG resource research scan. Add records with name, url, evidence_url and checked_at; discovery does not imply free access or credit approval.",
-  "providers": []
+  "providers": [
+    {
+      "name": "Neurodiagnostic Technology Institute",
+      "url": "https://neurodiagnostictechnologyinstitute.com/",
+      "evidence_url": "https://neurodiagnostictechnologyinstitute.com/our-program/",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "Brainstorm Board Prep",
+      "url": "https://www.brainstormboardprep.com/",
+      "evidence_url": "https://www.brainstormboardprep.com/shop",
+      "checked_at": "2026-11-06"
+    },
+    {
+      "name": "ACNS Guidelines",
+      "url": "https://www.acns.org/practice/guidelines",
+      "evidence_url": "https://www.acns.org/practice/guidelines",
+      "checked_at": "2026-11-06"
+    }
+  ]
 }

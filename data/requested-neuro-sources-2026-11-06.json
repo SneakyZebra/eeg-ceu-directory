@@ -1,0 +1,80 @@
+{
+  "checked": "2026-11-06",
+  "placements": [
+    {
+      "target": "registry-cltm-paid",
+      "key": "brainstorm-cltm",
+      "title": "Brainstorm CLTM / LTM Prep Course",
+      "url": "https://www.brainstormboardprep.com/shop",
+      "description": "Eight week or longer study plan with lectures, printable outlines, flashcards, quizzes and individual tutoring. Listed at $325 for a one time purchase; confirm current terms. Independent of ABRET.",
+      "badge": "Paid CLTM exam prep",
+      "brand": "www.brainstormboardprep.com"
+    },
+    {
+      "target": "registry-paid",
+      "key": "brainstorm-eeg",
+      "title": "Brainstorm R. EEG T. Prep Course",
+      "url": "https://www.brainstormboardprep.com/shop",
+      "description": "Structured EEG review with lesson recordings, outlines, flashcards, quizzes, practice exams and tutoring. Listed at $250 for a one time purchase; confirm current terms. Independent of ABRET.",
+      "badge": "Paid EEG exam prep",
+      "brand": "www.brainstormboardprep.com"
+    },
+    {
+      "target": "registry-cnim-paid",
+      "key": "brainstorm-cnim",
+      "title": "Brainstorm CNIM / IONM Board Prep Course",
+      "url": "https://www.brainstormboardprep.com/shop",
+      "description": "IONM review including anatomy, modalities, instrumentation, anesthesia and troubleshooting workshops. Listed at $375 for a one time purchase; confirm current terms. Independent of ABRET.",
+      "badge": "Paid CNIM exam prep",
+      "brand": "www.brainstormboardprep.com"
+    },
+    {
+      "target": "registry-paid",
+      "key": "nti-eeg-program",
+      "title": "NTI Neurodiagnostic Technology Program",
+      "url": "https://neurodiagnostictechnologyinstitute.com/our-program/",
+      "description": "Twelve month EEG training with online instruction and supervised clinical externships. Tuition and admissions requirements apply. A full education program for EEG registry preparation, not a standalone CLTM course.",
+      "badge": "Paid EEG training program",
+      "brand": "neurodiagnostictechnologyinstitute.com"
+    },
+    {
+      "target": "registry-cltm-free",
+      "key": "acns-cltm-guidelines",
+      "title": "ACNS Long Term and Continuous EEG Guidelines",
+      "url": "https://www.acns.org/practice/guidelines",
+      "description": "Study reference index for Guideline 12 on epilepsy monitoring, Guideline 14 on critical care terminology, adult and pediatric continuous EEG consensus statements, and neonatal monitoring guidance. Individual publisher access varies.",
+      "badge": "Free guideline index \u00b7 Study reference",
+      "brand": "www.acns.org"
+    },
+    {
+      "target": "registry-cltm-free",
+      "key": "acns-terminology-chart",
+      "title": "ACNS Critical Care EEG Terminology Reference Chart",
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf",
+      "description": "Public two page reference chart accompanying the 2021 ACNS terminology. Review EEG background, rhythmic and periodic patterns, and seizure terminology alongside the full training materials. No CEU credit established.",
+      "badge": "Free reference PDF \u00b7 CLTM study aid",
+      "brand": "www.acns.org"
+    },
+    {
+      "target": "registry-cnim-free",
+      "key": "acns-cnim-guidelines",
+      "title": "ACNS IONM and Evoked Potential Guidelines",
+      "url": "https://www.acns.org/practice/guidelines",
+      "description": "Study reference index for evoked potentials, intraoperative monitoring standards and spinal monitoring guidance. Select the relevant documents for CNIM preparation; individual publisher access varies.",
+      "badge": "Free guideline index \u00b7 Study reference",
+      "brand": "www.acns.org"
+    }
+  ],
+  "additional_general_resources": [
+    "https://neurodiagnostictechnologyinstitute.com/our-program/",
+    "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf"
+  ],
+  "credit_note": "No CEU credit verified for these board preparation or reference resources.",
+  "evidence_urls": [
+    "https://www.brainstormboardprep.com/shop",
+    "https://neurodiagnostictechnologyinstitute.com/our-program/",
+    "https://neurodiagnostictechnologyinstitute.com/pay-fees/",
+    "https://www.acns.org/practice/guidelines",
+    "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf"
+  ]
+}
