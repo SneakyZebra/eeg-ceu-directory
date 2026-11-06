@@ -690,13 +690,13 @@ card.append(label,h,meta);if(note){const explanation=document.createElement('p')
      const cards=[...host.children].filter(el=>el.classList.contains('entry'));
      cards.forEach((card,i)=>card.style.display=i<visible?'':'none');
      const remaining=Math.max(0,cards.length-visible);
-     button.style.display=cards.length>limit?'block':'none';
-     button.textContent=remaining?'Show 6 More ('+remaining+' remaining)':'Show Less';
+     button.style.display=remaining>0?'block':'none';
+     button.textContent='See More';
      button.setAttribute('aria-expanded',String(visible>limit));
    }
    button.addEventListener('click',()=>{
      const count=[...host.children].filter(el=>el.classList.contains('entry')).length;
-     visible=visible>=count?limit:Math.min(count,visible+limit);update();
+     visible=Math.min(count,visible+limit);update();
    });update();
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{setup('registry-free');setup('registry-paid');setup('registry-cltm-free');setup('registry-cltm-paid');setup('registry-cnim-free');setup('registry-cnim-paid')});
@@ -2828,17 +2828,15 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
         card.style.display=i<visible?'':'none';
       });
       const remaining=Math.max(0,cards.length-visible);
-      button.style.display=cards.length>limit?'block':'none';
-      button.textContent=remaining
-        ? 'Show 6 More ('+remaining+' remaining)'
-        : 'Show Less';
+      button.style.display=remaining>0?'block':'none';
+      button.textContent='See More';
       button.setAttribute('aria-expanded',String(visible>limit));
     }
 
     button.addEventListener('click',()=>{
       const count=Array.from(host.children)
         .filter(el=>el.classList.contains('entry')).length;
-      visible=visible>=count?limit:Math.min(count,visible+limit);
+      visible=Math.min(count,visible+limit);
       update();
     });
 
