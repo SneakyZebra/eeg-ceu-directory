@@ -76,7 +76,7 @@
    out.append(grid);
    if(!state.loading&&!state.error&&state.total===0)out.append(el('p','els-note','No matching articles. Try a broader topic or switch to Keywords.'));
    if(state.next&&state.items.length<state.total){
-    const more=el('button','els-more','See More ('+Math.max(0,state.total-state.items.length).toLocaleString()+' remaining)');more.type='button';more.disabled=state.loading;more.addEventListener('click',()=>search(state.term,true,state.mode));out.append(more);
+    const more=el('button','els-more','Show More ('+Math.max(0,state.total-state.items.length).toLocaleString()+' remaining)');more.type='button';more.disabled=state.loading;more.addEventListener('click',()=>search(state.term,true,state.mode));out.append(more);
    }
   }
   async function search(term,append,mode){

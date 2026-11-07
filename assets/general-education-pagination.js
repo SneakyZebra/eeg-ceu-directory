@@ -17,7 +17,7 @@
       const entries=cards();
       entries.forEach((card,index)=>{card.style.display=index<visible?'':'none';});
       const remaining=Math.max(0,entries.length-visible);
-      button.textContent='See More ('+remaining.toLocaleString()+' remaining)';
+      button.textContent='Show More ('+remaining.toLocaleString()+' remaining)';
       button.style.display=remaining>0?'block':'none';
       button.setAttribute('aria-expanded',String(visible>initial));
     }
