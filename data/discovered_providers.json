@@ -147,6 +147,27 @@
       "evidence_url": "https://ampsczeeg.ucsf.edu/eeg-tips-tricks",
       "status": "Research only: institution-owned research EEG technical resource; no CEU approval verified.",
       "checked_at": "2026-11-07"
+    },
+    {
+      "name": "American Society of Anesthesia Technologists and Technicians (ASATT)",
+      "url": "https://www.asatt.org/",
+      "evidence_url": "https://www.asatt.org/sensor-quiz",
+      "checked_at": "2026-11-07",
+      "status": "Published EEG article quiz: 1 ASATT credit, 80% passing, $10 members/$20 nonmembers. ABRET applicability and expiration unverified; published under Verify."
+    },
+    {
+      "name": "International QEEG Certification Board (IQCB)",
+      "url": "https://iqcb.org/",
+      "evidence_url": "https://iqcb.org/resources/",
+      "checked_at": "2026-11-07",
+      "status": "Article CEs free only for existing IQCB certified Diplomates/Technologists; 1 hour each, maximum 5/year toward QEEG recertification. ABRET applicability unverified; published under Verify."
+    },
+    {
+      "name": "American Academy of Neurology: Neurology journal CME",
+      "url": "https://www.aan.com/",
+      "evidence_url": "https://www.neurology.org/cme/about",
+      "checked_at": "2026-11-07",
+      "status": "New journal offering by provider already represented in Conferences. Selected quizzes offer 0.75 AMA physician CME; AAN login, fees, nonphysician and ABRET eligibility require confirmation. Published under Verify."
     }
   ]
 }
