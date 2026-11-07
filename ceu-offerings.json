@@ -1,5 +1,5 @@
 {
-  "last_checked": "2026-11-05T20:38:20.056974+00:00",
+  "last_checked": "2026-11-07T18:00:56.454391+00:00",
   "providers_checked": [
     "Stratus EEG U",
     "Neuro Pathway",
@@ -15,30 +15,6 @@
   ],
   "discovery_searches": [
     {
-      "query": "epilepsy EEG webinar",
-      "engine": "bing",
-      "results": 7,
-      "relevant": 0
-    },
-    {
-      "query": "epilepsy EEG webinar",
-      "engine": "google_news",
-      "results": 5,
-      "relevant": 0
-    },
-    {
-      "query": "clinical neurophysiology webinar",
-      "engine": "bing",
-      "results": 10,
-      "relevant": 0
-    },
-    {
-      "query": "clinical neurophysiology webinar",
-      "engine": "google_news",
-      "results": 5,
-      "relevant": 0
-    },
-    {
       "query": "critical care EEG webinar",
       "engine": "bing",
       "results": 10,
@@ -47,7 +23,7 @@
     {
       "query": "critical care EEG webinar",
       "engine": "google_news",
-      "results": 0,
+      "results": 1,
       "relevant": 0
     },
     {
@@ -65,7 +41,7 @@
     {
       "query": "evoked potentials CEU",
       "engine": "bing",
-      "results": 7,
+      "results": 10,
       "relevant": 0
     },
     {
@@ -83,14 +59,47 @@
     {
       "query": "long term EEG monitoring webinar",
       "engine": "google_news",
-      "results": 5,
+      "results": 7,
+      "relevant": 0
+    },
+    {
+      "query": "EEG free online course",
+      "engine": "bing",
+      "results": 9,
+      "relevant": 0
+    },
+    {
+      "query": "EEG free online course",
+      "engine": "google_news",
+      "results": 8,
+      "relevant": 3
+    },
+    {
+      "query": "neurodiagnostic training webinar",
+      "engine": "bing",
+      "results": 10,
+      "relevant": 1
+    },
+    {
+      "query": "neurodiagnostic training webinar",
+      "engine": "google_news",
+      "results": 2,
       "relevant": 0
     }
   ],
-  "discovery_candidates_added": 0,
+  "discovery_candidates_added": 4,
   "catalog_pages_scanned": 65,
-  "catalog_candidates_added": 0,
+  "catalog_candidates_added": 1,
   "items": [
+    {
+      "title": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+      "provider": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/Public/Catalog/Details.aspx?id=aep%2F%2BGr8OlBAZ%2FnXC9Y9Wg%3D%3D",
+      "category": "unknown",
+      "status": "Needs verification",
+      "date_added": "2026-11-07",
+      "discovery_source": "Deep catalog discovery"
+    },
     {
       "title": "Recertification - ABRET",
       "provider": "abret.org",
