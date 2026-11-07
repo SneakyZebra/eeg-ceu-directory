@@ -29,6 +29,10 @@ jobs:
           s=s.replace(old,new)
           s=s.replace('assets/general-education-pagination.js?v=20261106','assets/general-education-pagination.js?v=20261107-counts')
           s=s.replace('assets/eeg-literature-search.js?v=20261107"','assets/eeg-literature-search.js?v=20261107-counts"')
+          old_tail="visible=Math.min(count,visible+limit);update();\n   });update();"
+          new_tail="visible=Math.min(count,visible+limit);update();\n   });\n   new MutationObserver(update).observe(host,{childList:true});\n   update();"
+          assert old_tail in s or new_tail in s, 'Registry pagination shape changed'
+          s=s.replace(old_tail,new_tail)
           p.write_text(s)
           
           p=Path('assets/general-education-pagination.js');s=p.read_text()
