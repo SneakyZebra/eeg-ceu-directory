@@ -701,7 +701,9 @@ card.append(label,h,meta);if(note){const explanation=document.createElement('p')
    button.addEventListener('click',()=>{
      const count=[...host.children].filter(el=>el.classList.contains('entry')).length;
      visible=Math.min(count,visible+limit);update();
-   });update();
+   });
+   new MutationObserver(update).observe(host,{childList:true});
+   update();
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{setup('registry-free');setup('registry-paid');setup('registry-cltm-free');setup('registry-cltm-paid');setup('registry-cnim-free');setup('registry-cnim-paid')});
  else{setup('registry-free');setup('registry-paid');setup('registry-cltm-free');setup('registry-cltm-paid');setup('registry-cnim-free');setup('registry-cnim-paid')}
