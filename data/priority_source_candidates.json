@@ -3839,5 +3839,1264 @@
     "status": "fetch_error",
     "candidates": [],
     "error": "Remote end closed connection without response"
+  },
+  {
+    "source": "Rhythmlink",
+    "source_url": "https://rhythmlink.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Education",
+        "url": "https://rhythmlink.com/education-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "View Event",
+        "url": "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "British Society for Clinical Neurophysiology / ANS",
+    "source_url": "https://bscn.org.uk/",
+    "status": "ok",
+    "candidates": []
+  },
+  {
+    "source": "University Hospitals Cleveland EEG/Epilepsy Course",
+    "source_url": "https://www.uhhospitals.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Medical Learners",
+        "url": "https://www.uhhospitals.org/research-and-education/medical-learners",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Explore our Institute",
+        "url": "https://www.uhhospitals.org/research-and-education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Listen Now",
+        "url": "https://www.uhhospitals.org/research-and-education/news-and-events/science-at-uh-podcast",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Neuro Pathway",
+    "source_url": "https://myneuropathway.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "CEUs",
+        "url": "https://myneuropathway.com/ceus/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Free Prep Courses",
+        "url": "https://myneuropathway.com/cltm-prep-courses/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Fun Facts",
+        "url": "https://myneuropathway.com/fun-fact-friday/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://myneuropathway.com/blog/the-essential-guide-to-eeg-and-ionm-career-opportunities/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://myneuropathway.com/blog/eeg-artifact-identification-whats-real-vs-error/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Positions",
+        "url": "https://jobs.myneuropathway.com/job-listings?category=eeg&hsLang=en",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Locations",
+        "url": "https://myneuropathway.com/where-we-place-professional-technologists/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Nihon Kohden University",
+    "source_url": "https://nkuniversity.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Take A Course",
+        "url": "https://nkuniversity.org/take-a-course/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Technical Services & Clinical Courses",
+        "url": "https://nkuniversity.org/take-a-course/on-site-training/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neurology",
+        "url": "https://nkuniversity.org/take-a-course/neurology/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Patient Monitoring",
+        "url": "https://nkuniversity.org/take-a-course/patient-monitoring/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Ventilation",
+        "url": "https://nkuniversity.org/take-a-course/ventilation/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Watch A Video",
+        "url": "https://nkuniversity.org/nihon-kohden-university-videos/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Technical Training Videos",
+        "url": "https://nkuniversity.org/technical-training-videos/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Ventilation",
+        "url": "https://nkuniversity.org/technical-training-videos/ventilation/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Lifelines Neuro",
+    "source_url": "https://lifelinesneuro.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "About Us",
+        "url": "https://lifelinesneuro.com/eeg-company/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Customer Tech Support Hub",
+        "url": "https://lifelinesneuro.com/eeg-customer-support/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resources",
+        "url": "https://info.lifelinesneuro.com/access-eeg-resources",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "FAQs",
+        "url": "https://lifelinesneuro.com/eeg-faq/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG SOLUTIONS",
+        "url": "https://lifelinesneuro.com/eeg-machine/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "IN-HOME AMBULATORY EEG PROVIDERS",
+        "url": "https://lifelinesneuro.com/mobile-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "HOSPITALS & HEALTHCARE SYSTEMS",
+        "url": "https://lifelinesneuro.com/eeg-hospital/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CLINICAL TRIAL SPONSORS & CROs",
+        "url": "https://lifelinesneuro.com/clinical-trial-services-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "NEUROLOGY PRACTICES",
+        "url": "https://lifelinesneuro.com/eeg-neurology/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG PRODUCTS",
+        "url": "https://lifelinesneuro.com/eeg-equipment/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "AMBULATORY EEG",
+        "url": "https://lifelinesneuro.com/ambulatory-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "AMBULATORY EEG AMPLIFIERS",
+        "url": "https://lifelinesneuro.com/ambulatory-eeg-amplifiers/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "R40 EEG AMPLIFIER",
+        "url": "https://lifelinesneuro.com/r40-routine-eeg-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG CLOUD SOFTWARE",
+        "url": "https://lifelinesneuro.com/eeg-cloud-software/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "iEEG Software",
+        "url": "https://lifelinesneuro.com/eeg-cloud-software/ieeg-software/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Trackit Plus Software",
+        "url": "https://lifelinesneuro.com/eeg-cloud-software/trackit-plus-software/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "OTHER EEG PRODUCTS",
+        "url": "https://lifelinesneuro.com/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Incereb Neon",
+        "url": "https://lifelinesneuro.com/eeg-incereb/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Photic Stimulation EEG",
+        "url": "https://lifelinesneuro.com/photic-stimulator/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Cameras",
+        "url": "https://lifelinesneuro.com/eeg-camera/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "VIDEO EEG SYSTEMS",
+        "url": "https://lifelinesneuro.com/video-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "TRACKIT F",
+        "url": "https://lifelinesneuro.com/home-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "TRACKIT V",
+        "url": "https://lifelinesneuro.com/take-home-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "HOSPITAL EEG",
+        "url": "https://lifelinesneuro.com/video-eeg/hospital-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CONTACT US",
+        "url": "https://lifelinesneuro.com/eeg-manufacturer/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CAREERS",
+        "url": "https://info.lifelinesneuro.com/eeg-jobs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ambulatory EEG",
+        "url": "https://www.lifelinesneuro.com/ambulatory-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "exceptional EEG devices",
+        "url": "https://www.lifelinesneuro.com/eeg-equipment/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "education on CPT code reimbursement",
+        "url": "https://info.lifelinesneuro.com/download-2021-eeg-cpt-code-guide",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG knowledgeable staff",
+        "url": "https://www.lifelinesneuro.com/eeg-manufacturer/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "continuing education on our products and services",
+        "url": "https://www.lifelinesneuro.com/eeg-customer-support/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "English",
+        "url": "https://lifelinesneuro.com/wp-content/uploads/2023/03/51305-006-T4A-EEG-Amplifier-User-Manual-Iss-2.2-v4.pdf",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Compumedics Neuroscan",
+    "source_url": "https://compumedicsneuroscan.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "EEG Amplifiers",
+        "url": "https://compumedicsneuroscan.com/products/amplifiers/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Recording",
+        "url": "https://compumedicsneuroscan.com/products/recording/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Caps",
+        "url": "https://compumedicsneuroscan.com/products/caps/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Learn More",
+        "url": "https://compumedicsneuroscan.com/product/micro-maglink-rt-eeg-fmri-eeg-meg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SynAmps RT 64-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/synamps-rt-64-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuvo 64-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/neuvo-64-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Siesta Wireless EEG Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/siesta-wireless-eeg-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Grael 4K EEG Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/grael-4k-eeg-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Virtual Epilepsy Clinical CURRY Workshop 2026",
+        "url": "https://compumedicsneuroscan.com/event/virtual-epilepsy-clinical-curry-workshop-2026/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CURRY NeuroTalks Webinar",
+        "url": "https://www.youtube.com/playlist?list=PLcqwKrVB18VpeV2fls9c4c0UkaBha2fOd",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CURRY for epilepsy evaluation",
+        "url": "http://compumedicsneuroscan.com/curry-epilepsy-evaluation/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "video",
+        "url": "http://compumedicsneuroscan.com/curry-neuroimaging-suite-the-new-standard-of-care-for-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Videos",
+        "url": "https://compumedicsneuroscan.com/category/video",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SynAmps RT 128-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/synamps-rt-128-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SynAmps RT 256-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/synamps-rt-256-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuvo 128-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/neuvo-128-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Neuvo 256-channel Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/neuvo-256-channel-eeg-erp-ep-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Grael 4K PSG:EEG Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/grael-4k-psg-eeg-erp-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Grael LT EEG Amplifier",
+        "url": "https://compumedicsneuroscan.com/product/grael-lt-eeg-amplifier/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "NeuroPace",
+    "source_url": "https://neuropace.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Drug-Resistant Epilepsy",
+        "url": "https://neuropace.com/patients/drug-resistant-epilepsy/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Find a Center",
+        "url": "https://neuropace.com/patients/find-epilepsy-center/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "How Data Helped",
+        "url": "https://neuropace.com/patients/epilepsy-insights/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Resources",
+        "url": "https://neuropace.com/patients/epilepsy-resources/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "How-to Videos",
+        "url": "https://neuropace.com/patients/current-rns-system-patients/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Actionable Insights",
+        "url": "https://www.neuropace.com/providers/epilepsy-data/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Actionable Insights",
+        "url": "https://neuropace.com/providers/epilepsy-data/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education & Training",
+        "url": "https://neuropace.com/providers/physician-education/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "Zeto",
+    "source_url": "https://zeto-inc.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "New Wave | For Outpatient EEG",
+        "url": "https://zeto-inc.com/device/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG for Research",
+        "url": "https://zeto-inc.com/eeg-for-research-and-clinical-trials/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Sponsorship Program 2026",
+        "url": "https://zeto-inc.com/zeto-annual-eeg-clinical-trials-sponsorship-2026/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "POC EEG Neurodiagnostic Program",
+        "url": "https://zeto-inc.com/poc-eeg-neurodiagnostic-education-program/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Videos",
+        "url": "https://zeto-inc.com/videos/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Learn more",
+        "url": "https://zeto-inc.com/news/zeto-unveils-neuropulse-the-first-ai-powered-status-epilepticus-software-using-full-10-20-eeg-in-collaboration-with-encevis/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Upgrade Your Existing EEG with New Wave™!",
+        "url": "https://zeto-inc.com/upgrade-my-existing-eeg/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Read More",
+        "url": "https://zeto-inc.com/case-study/huntsville-memorial-hospital-reduces-patient-transfers-and-enhances-local-care-with-onsite-eeg-program/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "More Videos",
+        "url": "https://zeto-inc.com/videos",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://www.facebook.com/ZetoEEG/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "AANEM",
+    "source_url": "https://www.aanem.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Education",
+        "url": "https://www.aanem.org/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Learning Center",
+        "url": "https://www.aanem.org/education/learning-center",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Suggested Reference List",
+        "url": "https://www.aanem.org/education/learning-center/suggested-reference-list",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education for Technologists",
+        "url": "https://www.aanem.org/education/learning-center/education-for-technologists",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Program Resources",
+        "url": "https://www.aanem.org/education/training",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Program Partnership",
+        "url": "https://www.aanem.org/education/training/training-program-partnership",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SAEs for Training Programs",
+        "url": "https://www.aanem.org/education/training/saes-for-training-programs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Fellowship Match Portal",
+        "url": "https://www.aanem.org/education/training/fellowship-match-portal",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Fellowship Recognition",
+        "url": "https://www.aanem.org/education/training/fellowship-recognition",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Find a Recognized Fellowship",
+        "url": "https://www.aanem.org/education/training/fellowship-recognition/find-a-recognized-fellowship",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "My CME/CEU Transcript",
+        "url": "https://www.aanem.org/education/transcript",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Accreditation & ABEM Certification",
+        "url": "https://www.aanem.org/certification-accreditation",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ABEM Physician Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-physician-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ABEM Certification Exam",
+        "url": "https://www.aanem.org/certification-accreditation/abem-physician-certification/initial-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Continuous Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-physician-certification/continuous-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "NMUS Certificate of Added Qualification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-physician-certification/nmus-caq",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Verify Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-physician-certification/verify-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "ABEM Technologist Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-technologist-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CNCT Examination",
+        "url": "https://www.aanem.org/certification-accreditation/abem-technologist-certification/initial-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Maintain Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-technologist-certification/maintain-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Verify Certification",
+        "url": "https://www.aanem.org/certification-accreditation/abem-technologist-certification/verify-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Lab Accreditation",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "My Accreditation Dashboard",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/my-accreditation-dashboard",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Process & Pricing",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/process-pricing",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "FAQs",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/faqs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Find an Accredited Lab",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/find-an-accredited-lab",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Featured Labs",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/featured-labs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Complaint Form",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/complaint-form",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "IHHC/PIP Credit",
+        "url": "https://www.aanem.org/certification-accreditation/edx-laboratory-accreditation/qi-pip-credit",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Physicians in Training",
+        "url": "https://www.aanem.org/membership/residents-fellows",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Program Partnership",
+        "url": "https://www.aanem.org/membership/residents-fellows/training-program-partnership",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://education.aanem.org/Public/Catalog/Home.aspx?Criteria=35&tab=2",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "NMUS CAQ Exam Results Notification November 30, 2026",
+        "url": "https://www.aanem.org/abem/home/physician-certification/neuromuscular-ultrasound-certificate-of-added-qualification/results",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "MUSC Health Clinical Neurophysiology Education",
+    "source_url": "https://muschealth.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Education",
+        "url": "https://education.musc.edu/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education & Training arrow_forward",
+        "url": "https://muschealth.org/health-professionals/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "UCSF AMP-SCZ EEG",
+    "source_url": "https://ampsczeeg.ucsf.edu/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Skip to main content",
+        "url": "https://ampsczeeg.ucsf.edu/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Home",
+        "url": "https://ampsczeeg.ucsf.edu/home",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Email List",
+        "url": "https://ampsczeeg.ucsf.edu/eeg-email-list",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "SOPs",
+        "url": "https://ampsczeeg.ucsf.edu/sops-documents",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Setup",
+        "url": "https://ampsczeeg.ucsf.edu/setup",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Supplies",
+        "url": "https://ampsczeeg.ucsf.edu/supplies",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Room Diagrams",
+        "url": "https://ampsczeeg.ucsf.edu/room-diagrams",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Training Videos",
+        "url": "https://ampsczeeg.ucsf.edu/training-videos",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Zoom Recordings",
+        "url": "https://ampsczeeg.ucsf.edu/zoom-recordings",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "EEG Tips & Tricks",
+        "url": "https://ampsczeeg.ucsf.edu/eeg-tips-tricks",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Site Photos",
+        "url": "https://ampsczeeg.ucsf.edu/site-photos",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "szAMPexperiment",
+        "url": "https://ampsczeeg.ucsf.edu/szampexperiment",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Data Upload",
+        "url": "https://ampsczeeg.ucsf.edu/data-upload",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Site Certification",
+        "url": "https://ampsczeeg.ucsf.edu/site-certification",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Processing Scripts",
+        "url": "https://ampsczeeg.ucsf.edu/processing-scripts",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Order of Components",
+        "url": "https://ampsczeeg.ucsf.edu/order-components",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Contact Us",
+        "url": "https://ampsczeeg.ucsf.edu/cdn-cgi/l/email-protection",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "American Society of Anesthesia Technologists and Technicians (ASATT)",
+    "source_url": "https://www.asatt.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Continuing Education",
+        "url": "https://www.asatt.org/continuing-education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Continuing Education Center",
+        "url": "https://asatt.mclms.net/en/connect/memberclicks",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Meetings / Events / Webinars",
+        "url": "https://www.asatt.org/meetings-events-webinars",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Future and Past Conferences",
+        "url": "https://www.asatt.org/future-and-past-conferences",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Continuing Education Credit Tracking",
+        "url": "https://www.asatt.org/continuing-education-credit-tracking",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Webinars",
+        "url": "https://www.asatt.org/webinars",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "2026 Q4 Webinar",
+        "url": "https://www.asatt.org/index.php?option=com_jevents&task=icalrepeat.detail&evid=36&Itemid=115&year=2026&month=12&day=12&title=2026-q4-webinar&uid=8da00227be48d2d96f02b5f1b9846f85",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "International QEEG Certification Board (IQCB)",
+    "source_url": "https://iqcb.org/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "International QEEG Certification Board",
+        "url": "https://iqcb.org",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Find a Course",
+        "url": "https://iqcb.org/course-providers/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "For Didactics",
+        "url": "https://iqcb.org/didactic-course-providers/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Certemy account",
+        "url": "https://iqcb.certemy.com/entry/self-enrollments/QEEG-Candidate/595d6334-756e-4d28-9ded-9a0ef477af71",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
+  },
+  {
+    "source": "American Academy of Neurology: Neurology journal CME",
+    "source_url": "https://www.aan.com/",
+    "status": "ok",
+    "candidates": [
+      {
+        "title": "Review resource",
+        "url": "https://www.aan.com/education/neurology-podcast",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Review resource",
+        "url": "https://www.aan.com/education/neurology-minute-podcast",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Join The AAN",
+        "url": "https://www.aan.com/conferences-community/member-engagement/",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education",
+        "url": "https://www.aan.com/education",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "CME Opportunities",
+        "url": "https://www.aan.com/education/cme-opportunities",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Leadership Programs",
+        "url": "https://www.aan.com/education/leadership-programs",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education Awards & Scholarships",
+        "url": "https://www.aan.com/research/awards-scholarships",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Podcasts",
+        "url": "https://www.aan.com/education/podcasts",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Palatucci Advocacy Leadership Forum",
+        "url": "https://www.aan.com/education/palatucci-advocacy-leadership-forum",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Fall Conference",
+        "url": "https://www.aan.com/events/fall-conference",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Autoimmune Neurology Conference",
+        "url": "https://www.aan.com/events/autoimmune-neurology-conference",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "New Industry Therapeutic Update Johnson & Johnson–Bristol Myers Squibb Alliance update on stroke prevention, FXI(a) inhibition, and anticoagulant research",
+        "url": "https://learning.aan.com/courses/338264",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      },
+      {
+        "title": "Education UCNS maintains certification practice track pathway",
+        "url": "https://www.aan.com/news/ucns-maintains-certification-practice-track-pathway",
+        "suggested_tab": "Review for CEU Directory, General Education, Registry Prep, Conferences or Videos",
+        "credit_status": "Unverified",
+        "price_status": "Unverified"
+      }
+    ]
   }
 ]
