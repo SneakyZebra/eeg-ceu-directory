@@ -1,0 +1,664 @@
+{
+  "checked": "2026-11-07",
+  "new_listed_providers": [
+    "Rhythmlink",
+    "British Society for Clinical Neurophysiology / ANS"
+  ],
+  "new_research_provider_only": [
+    "University Hospitals Cleveland EEG/Epilepsy Course"
+  ],
+  "changes": {
+    "ceu": [
+      {
+        "category": "free",
+        "title": "Neuro Pathway: Causation is Not Always Correlation",
+        "url": "https://vimeo.com/1240965301/e1ebbcfb3f",
+        "description": "Petra N. Davidson, BS, R. EEG/EP T., CLTM reviews causation and correlation in neurodiagnostics. Free ASET credit for the first 300 viewers only. Register, watch the lecture and complete the survey after viewing. No calendar expiration is published; confirm that the credit cap is still open.",
+        "badge": "ASET CEU · First 300 viewers · Checked November 7, 2026",
+        "logo": "neuro",
+        "verified": "2026-11-07",
+        "creditSource": "https://myneuropathway.com/ceus/"
+      },
+      {
+        "category": "unknown",
+        "title": "Rhythmlink: Pediatric Patients, Sports and Epilepsy",
+        "url": "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+        "description": "Live online November 11, 2026, noon to 1 PM Eastern. Provider lists 1 ASET CEU. Supply a valid ASET ID at registration, attend and submit the survey within 24 hours. Membership is not required. Access and credit fees are not explicitly stated; confirm both before registering. No replay credit verified.",
+        "badge": "1 ASET CEU · Verify cost · Checked November 7, 2026",
+        "logo": "rhythmlink",
+        "verified": "2026-11-07",
+        "creditSource": "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/"
+      },
+      {
+        "category": "free",
+        "title": "AES EMU Caring: Safety in the Epilepsy Monitoring Unit",
+        "url": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+        "description": "Free access and credit for EEG technologists: 3.5 ASET credits, available through December 31, 2027. Registration required. Read the activity disclosures, study the modules, satisfactorily complete the pre and post assessments, and submit the evaluation.",
+        "badge": "Free 3.5 ASET credits · Expires December 31, 2027",
+        "logo": "aes",
+        "verified": "2026-11-07",
+        "creditSource": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333"
+      }
+    ],
+    "general": [
+      {
+        "title": "BSCN / ANS Clinical Neurophysiology Practice Guidelines",
+        "url": "https://bscn.org.uk/content_wide.aspx?Group=guidelines&Page=guidelines_home",
+        "description": "Public society guidance for EEG, evoked potentials, monitoring and clinical neurophysiology services in the United Kingdom. The linked 26 page minimum standards document is Version 14, dated January 31, 2024. Documents are under review; read their revision dates and apply local policies. No CEU credit.",
+        "badge": "Free society references · UK guidance",
+        "category": "general",
+        "provider": "British Society for Clinical Neurophysiology / ANS",
+        "verified": "2026-11-07",
+        "logo": "bscn"
+      },
+      {
+        "title": "BSCN / ANS Neurophysiology Referral Guidance",
+        "url": "https://bscn.org.uk//data/files/Guidelines/ANS-BSCN%20referal%20guidance%20V2%20final%202025%20x.pdf",
+        "description": "Public 2025 society reference on appropriate and inappropriate referrals for neurophysiological testing. Three page clinical practice reference from the British Society for Clinical Neurophysiology and Association of Neurophysiological Scientists. Supporting education, without CEU credit.",
+        "badge": "Free PDF · Published 2025",
+        "category": "general",
+        "provider": "British Society for Clinical Neurophysiology / ANS",
+        "verified": "2026-11-07",
+        "logo": "bscn"
+      }
+    ],
+    "registry": [
+      {
+        "section": "registry-cltm-free",
+        "match": "Neuro Pathway CLTM Prep Classes",
+        "title": "Neuro Pathway CLTM Prep: Pediatric and Adult Pattern Recognition",
+        "url": "https://myneuropathway.com/cltm-prep-courses/cltm/",
+        "description": "Free live CLTM preparation on November 24, 2026 at 7 PM Eastern with Danielle Reysen, MBA, R. EEG T., CLTM, RPSGT, RST, CCSH. Limited space; registration required. Independent course, not endorsed or reviewed by ABRET. No CEU credit verified.",
+        "badge": "Free CLTM class · Limited seats"
+      },
+      {
+        "section": "registry-cnim-free",
+        "match": "Neuro Pathway CNIM Prep Classes",
+        "title": "Neuro Pathway CNIM Prep: EMG and TOF",
+        "url": "https://myneuropathway.com/cltm-prep-courses/ionm/",
+        "description": "Free live CNIM preparation on November 16, 2026 at 7 PM Eastern with Shannon H. Greene, R. EEG T., CLTM, CNIM. Limited space; registration required. Independent course, not endorsed or reviewed by ABRET. No CEU credit verified.",
+        "badge": "Free CNIM class · Limited seats"
+      },
+      {
+        "section": "registry-free",
+        "title": "Neuro Pathway EEG Prep: Ethics and Professional Issues",
+        "url": "https://myneuropathway.com/cltm-prep-courses/eeg/",
+        "description": "The provider schedule lists a free live R. EEG T. preparation session on November 24, 2026 at 7 PM Eastern with Petra N. Davidson, BS, R. EEG/EP T., CLTM. Limited space; check the current registration schedule. Independent of ABRET. No CEU credit verified.",
+        "badge": "Free EEG class · Limited seats"
+      }
+    ],
+    "existing_free_rechecked": [
+      "Stratus EEG U: live only, ASET ID, unique Zoom link, overwhelming majority attendance; recordings and Elevate U do not award credits",
+      "Neuro Pathway: four earlier open lectures retained; first 300 cap and closed credit notices retained",
+      "AES EMU Caring: $0 access and credit, 3.5 ASET, expires 2027-12-31; completion rules now shown in curated card"
+    ]
+  },
+  "evidence": [
+    {
+      "provider": "Neuro Pathway",
+      "sources": [
+        "https://myneuropathway.com/ceus/",
+        "https://vimeo.com/1240965301/e1ebbcfb3f"
+      ],
+      "facts": {
+        "access_cost": 0,
+        "credit_cost": 0,
+        "approval": "ASET CEU as explicitly stated by provider",
+        "audience": "Neurodiagnostic professionals",
+        "credit_cap": "First 300 viewers; remaining seats not exposed",
+        "expiration": "No calendar expiration published; cap limited",
+        "completion": "Vimeo registration form explicitly requires survey AFTER the lecture; form step 1 of 5 observed without submitting personal data",
+        "faculty": "Petra N. Davidson, BS, R. EEG/EP T., CLTM"
+      },
+      "decision": "Free CEU with cap and survey restrictions; registration required. Not added to Videos because ungated playback not verified."
+    },
+    {
+      "provider": "Rhythmlink",
+      "sources": [
+        "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+        "https://events.zoom.us/ev/AmgkSdG6k01-IsG6IqaSQBmFe-Il_o1sEEmHsvfYCIkG5utJPu1V~AgmIzNYyDx7S_fyl_-bCDJZpnGeoRgIbVoCK20r95pLjxDEvr8WnNyd5tg"
+      ],
+      "facts": {
+        "approval": "1 ASET CEU",
+        "membership": "ASET membership not required, valid ASET ID required at registration",
+        "date": "2026-11-11 12:00 to 13:00 Eastern; Zoom renders 09:00 to 10:00 Pacific",
+        "completion": "Attend live; survey within 24 hours after conclusion",
+        "cost": "Registration form shows email field and Register button, no payment fields, but explicit zero access and credit fees not published; not inferred as free",
+        "faculty": [
+          "Syndi Seinfeld, DO, MS, FAAN, FAES; Director of Epilepsy, Joe DiMaggio Children's Hospital",
+          "Sara Batson, R. EEG/EP T., CLTM, CNIM"
+        ]
+      },
+      "decision": "Verify Cost and Credit, not Free CEU"
+    },
+    {
+      "provider": "AES",
+      "sources": [
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333"
+      ],
+      "facts": {
+        "access_cost": 0,
+        "credit_cost": 0,
+        "credits": 3.5,
+        "credit_type": "ASET",
+        "expires": "2027-12-31",
+        "audience": "Electroneurodiagnostic technologists explicitly included",
+        "completion": "Registration, disclosures, educational content, satisfactorily complete all pre and post assessment questions, evaluation"
+      },
+      "decision": "Existing course retained; add complete curated description, dynamic duplicate skipped"
+    },
+    {
+      "provider": "BSCN / ANS",
+      "sources": [
+        "https://bscn.org.uk/content_wide.aspx?Group=guidelines&Page=guidelines_home",
+        "https://bscn.org.uk//data/files/Guidelines/ANS%20BSCN%20%20Neurophys%20Guidelines%20V14%20final%202026.pdf",
+        "https://bscn.org.uk//data/files/Guidelines/ANS-BSCN%20referal%20guidance%20V2%20final%202025%20x.pdf"
+      ],
+      "facts": {
+        "authorship": "Official UK professional society recommendations",
+        "access": "Public HTML and full PDF without login",
+        "revision": "Minimum standards document internally dated 2024-01-31 despite 2026 filename; referral PDF identified as 2025 on official index",
+        "credit": "No CEU claim"
+      },
+      "decision": "General Education"
+    },
+    {
+      "provider": "Neuro Pathway Registry Prep",
+      "sources": [
+        "https://myneuropathway.com/cltm-prep-courses/",
+        "https://myneuropathway.com/cltm-prep-courses/cltm/",
+        "https://myneuropathway.com/cltm-prep-courses/ionm/"
+      ],
+      "facts": {
+        "CLTM": "November 24, 2026 7 PM ET, pediatric/adult pattern recognition, Danielle Reysen credentialed faculty",
+        "CNIM": "November 16, 2026 7 PM ET, EMG and TOF, Shannon H. Greene credentialed faculty",
+        "EEG": "November 24, 2026 7 PM ET, Ethics and Professional Issues, Petra Davidson, current schedule",
+        "cost": "All free; limited space; registration required",
+        "disclaimer": "ABRET does not endorse or participate in development/review; no CEU approval claimed",
+        "EEG_detail": "Detail page older crawl said Post Study Procedures; refresh hit 429, so current hub schedule used explicitly and registration topic should be checked"
+      },
+      "decision": "Update existing CLTM/CNIM cards, add EEG session once within EEG subsection"
+    },
+    {
+      "provider": "Brainstorm Board Prep",
+      "sources": [
+        "https://www.brainstormboardprep.com/shop",
+        "https://www.brainstormboardprep.com/about",
+        "https://www.brainstormboardprep.com/terms-disclosures-and-policies"
+      ],
+      "facts": {
+        "prices": {
+          "EEG": 250,
+          "CLTM_LTM": 325,
+          "CNIM_IONM": 375
+        },
+        "payment": "One time",
+        "faculty": "Shannon Greene, R. EEG T., CLTM, CNIM",
+        "terms": "Shop advertises access until passing the respective exam; terms allow changes/discontinuation and mentorship subject to scheduling; policy effective 2026-05-26",
+        "disclaimer": "Independent, not ABRET endorsed or sanctioned; no passing guarantee"
+      },
+      "decision": "Retain Paid Registry Prep; no separate CEU evidence"
+    },
+    {
+      "provider": "Neurodiagnostic Technology Institute",
+      "sources": [
+        "https://neurodiagnostictechnologyinstitute.com/our-program/",
+        "https://neurodiagnostictechnologyinstitute.com/program-overview/",
+        "https://neurodiagnostictechnologyinstitute.com/pay-fees/"
+      ],
+      "facts": {
+        "offering": "Paid twelve month EEG training and clinical externships, not confirmed CLTM",
+        "current_tuition": 12000,
+        "current_total_estimate": "13057 to 13115",
+        "conflict": "Search snippet and old 2024 catalog quoted 9500; current opened tuition page says 12000. Catalog not treated as current pricing.",
+        "identity": "Distinct from Neurotech EEG Institute and Trusted Neurodiagnostics Academy"
+      },
+      "decision": "Retain paid EEG training, no Free CEU placement"
+    },
+    {
+      "provider": "University Hospitals Cleveland",
+      "sources": [
+        "https://www.uhhospitals.org/for-clinicians/specialties/neurology-and-neurological-surgery/medical-education/eeg-epilepsy-course"
+      ],
+      "facts": {
+        "format": "In person, twice yearly, no course fee; lodging/travel learner responsibility",
+        "eligibility": "EEG technologist eligibility not independently established",
+        "credit": "Certificate of completion, no applicable current CEU approval confirmed"
+      },
+      "decision": "Research seed only; not listed as free CEU"
+    }
+  ],
+  "tabs": {
+    "CEU Directory": {
+      "sources": [
+        "https://www.stratusneuro.com/eeg-u",
+        "https://myneuropathway.com/ceus/",
+        "https://www.teamngn.com/ngngivesback-sponsor",
+        "https://neuro-training.academy/eeg-ltm/",
+        "https://www.cadwell.com/learning-opportunities/",
+        "https://learning.tstelemed.com/",
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333"
+      ],
+      "notes": "NGN free education without current course-specific credit evidence remains Verify. Natus EEG/LTM current seminars found, account required and course credit not established. Cadwell workshops paid; 2027 clinical schedule pending. No TeleSpecialists course newly qualified."
+    },
+    "General Education": {
+      "added": [
+        "https://bscn.org.uk/content_wide.aspx?Group=guidelines&Page=guidelines_home",
+        "https://bscn.org.uk//data/files/Guidelines/ANS-BSCN%20referal%20guidance%20V2%20final%202025%20x.pdf"
+      ],
+      "discovery_sources": [
+        "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/",
+        "https://www.uhhospitals.org/for-clinicians/specialties/neurology-and-neurological-surgery/medical-education/eeg-epilepsy-course",
+        "https://bscn.org.uk/content_wide.aspx?Group=guidelines&Page=guidelines_home"
+      ]
+    },
+    "Videos": {
+      "added": 0,
+      "sources": [
+        "https://corticare.com/webinars/",
+        "https://www.persyst.com/grandrounds/",
+        "https://www.youtube.com/watch?v=nDlDR-HdYhs"
+      ],
+      "candidate": {
+        "title": "EEG Source Imaging of Epileptic Spikes and Effect of Sleep Stage",
+        "provider": "Persyst",
+        "faculty": "Christophe Grova, PhD, Concordia / McGill",
+        "runtime": "1:03:16",
+        "video_id": "nDlDR-HdYhs",
+        "authenticity": "Official Persyst Grand Rounds page directly links recording on @persyst8851",
+        "playback": "Signed out YouTube player reported duration 3796 seconds but readyState 0 and currentTime 0 after automatic and manual play; public playback could not be independently confirmed",
+        "decision": "Withheld; no CEU claim"
+      }
+    },
+    "Conferences": {
+      "changed": false,
+      "sources": [
+        "https://www.acns.org/news/2027-annual-meeting--courses---new-dates",
+        "https://www.aset.org/aset-conference-save-the-date/",
+        "https://aesnet.org/AES-annual-meeting/general-information/faqs",
+        "https://www.nans.org/overview",
+        "https://annualmeeting.aans.org/future-meetings/",
+        "https://eccn.ifcn.info/",
+        "https://ifcn.info/meetings-and-events/international-congress-of-clinical-neurophysiology",
+        "https://www.ilae.org/congresses"
+      ],
+      "notes": "ACNS March 6-9 2027 Seattle, ASET August 5-7 2027 Orlando, AES December 4-8 2026 Denver, NANS January 21-24 2027 Vegas, AANS April 9-12 2027 San Diego, ECCN October 19-22 2027 Malaga, ILAE August 28-September 1 2027 Amsterdam match current cards. AAN page restricted by research tool; retain previously verified dates without marking freshly verified. Credit claims not inferred from meeting dates or cost."
+    },
+    "Registry Prep": {
+      "notes": "All three priority providers followed through program/shop/guideline pages; upcoming Neuro Pathway sessions updated. Official ABRET handbooks index still lists 2026, no new year inferred.",
+      "sources": [
+        "https://www.abret.org/resources/handbooks",
+        "https://www.acns.org/practice/guidelines",
+        "https://www.brainstormboardprep.com/shop",
+        "https://neurodiagnostictechnologyinstitute.com/our-program/"
+      ]
+    },
+    "Toolkit": {
+      "changed": false,
+      "sources": [
+        "https://www.abret.org/recertification/recertification-faq",
+        "https://abret.org/recertification/acceptable-continuing-education"
+      ],
+      "notes": "R EEG T 30, CLTM and CNIM 50 hours per official guidance match calculator. ASET transcript must be supplied by technologist; no automatic submission to ABRET. No tracker, favorites or saved progress code touched."
+    }
+  },
+  "limitations": [
+    "Bounded discovery scan; no exhaustive assessment of every course inside provider accounts.",
+    "71 public listing URLs HTTP checked separately; five returned 406 or 503 and were not removed as proven dead links.",
+    "No new video passed independent public playback verification in this browser.",
+    "Rhythmlink zero cost not explicit; kept out of verified free CEUs.",
+    "Neuro Pathway remaining first-viewer allocation and calendar expiration are not exposed."
+  ],
+  "http_audit": [
+    {
+      "url": "https://abret.org/",
+      "status": 200,
+      "final": "https://abret.org/"
+    },
+    {
+      "url": "https://abret.org/application/files/2917/7245/9922/CLTM_Handbook_2026.pdf",
+      "status": 200,
+      "final": "https://abret.org/application/files/2917/7245/9922/CLTM_Handbook_2026.pdf"
+    },
+    {
+      "url": "https://abret.org/asap",
+      "status": 200,
+      "final": "https://abret.org/asap"
+    },
+    {
+      "url": "https://abret.org/recertification",
+      "status": 200,
+      "final": "https://abret.org/recertification"
+    },
+    {
+      "url": "https://abret.org/resources/handbooks",
+      "status": 200,
+      "final": "https://abret.org/resources/handbooks"
+    },
+    {
+      "url": "https://asetfoundation.org/scholarships/",
+      "status": 200,
+      "final": "https://asetfoundation.org/scholarships/"
+    },
+    {
+      "url": "https://asnm.org/literature/",
+      "status": 200,
+      "final": "https://asnm.org/literature/"
+    },
+    {
+      "url": "https://asnm.org/upcoming-webinars/",
+      "status": 200,
+      "final": "https://asnm.org/upcoming-webinars/"
+    },
+    {
+      "url": "https://campuspress.yale.edu/eegmodules/",
+      "status": 200,
+      "final": "https://campuspress.yale.edu/eegmodules/"
+    },
+    {
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_11_20_fong_1_sdc1.pdf",
+      "status": 200,
+      "final": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_11_20_fong_1_sdc1.pdf"
+    },
+    {
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc098.pdf",
+      "status": 200,
+      "final": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc098.pdf"
+    },
+    {
+      "url": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf",
+      "status": 200,
+      "final": "https://cdn-links.lww.com/permalink/jcnp/a/jcnp_2020_12_21_fong_00313_sdc099.pdf"
+    },
+    {
+      "url": "https://eegatlas-online.com/index.php/en/",
+      "status": 200,
+      "final": "https://eegatlas-online.com/index.php/en/"
+    },
+    {
+      "url": "https://eegmaster.com/",
+      "status": 406
+    },
+    {
+      "url": "https://eegpedia.org/index.php?title=Main_Page",
+      "status": 503
+    },
+    {
+      "url": "https://eegplatform.com/",
+      "status": 406
+    },
+    {
+      "url": "https://epi-care.eu/webinars/",
+      "status": 200,
+      "final": "https://epi-care.eu/webinars/"
+    },
+    {
+      "url": "https://ifcn.info/education/videos/masterclass-recordings",
+      "status": 200,
+      "final": "https://ifcn.info/education/videos/masterclass-recordings"
+    },
+    {
+      "url": "https://learn.aesnet.org/",
+      "status": 200,
+      "final": "https://learn.aesnet.org/Catalogue/Catalog"
+    },
+    {
+      "url": "https://learn.aesnet.org/Listing/AES-Core-Curriculum-EEG-11586",
+      "status": 200,
+      "final": "https://learn.aesnet.org/Listing/AES-Core-Curriculum-EEG-11586"
+    },
+    {
+      "url": "https://learn.aesnet.org/Listing/EEG-Essentials-Fundamental-Curriculum-10793",
+      "status": 200,
+      "final": "https://learn.aesnet.org/Listing/EEG-Essentials-Fundamental-Curriculum-10793"
+    },
+    {
+      "url": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+      "status": 200,
+      "final": "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333"
+    },
+    {
+      "url": "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?Criteria=167&Option=587&SearchMode=1",
+      "status": 200,
+      "final": "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?Criteria=167&Option=587&SearchMode=1"
+    },
+    {
+      "url": "https://learning.neurocriticalcare.org/",
+      "status": 200,
+      "final": "https://learning.neurocriticalcare.org/"
+    },
+    {
+      "url": "https://learning.neurocriticalcare.org/products/brain-death-determination-toolkit",
+      "status": 200,
+      "final": "https://learning.neurocriticalcare.org/products/brain-death-determination-toolkit"
+    },
+    {
+      "url": "https://learningeeg.com/",
+      "status": 200,
+      "final": "https://learningeeg.com/"
+    },
+    {
+      "url": "https://medicine.yale.edu/neurology/education/educationaltools/#eeg-teaching-videos",
+      "status": 200,
+      "final": "https://medicine.yale.edu/neurology/education/educationaltools/#eeg-teaching-videos"
+    },
+    {
+      "url": "https://myneuropathway.com/ceus/",
+      "status": 200,
+      "final": "https://myneuropathway.com/ceus/"
+    },
+    {
+      "url": "https://myneuropathway.com/cltm-prep-courses/",
+      "status": 200,
+      "final": "https://myneuropathway.com/cltm-prep-courses/"
+    },
+    {
+      "url": "https://naec-epilepsy.org/neurodiagnostic-workforce-resources",
+      "status": 200,
+      "final": "https://naec-epilepsy.org/neurodiagnostic-workforce-resources"
+    },
+    {
+      "url": "https://neuro-training.academy/eeg-ltm/",
+      "status": 200,
+      "final": "https://neuro-training.academy/eeg-ltm/"
+    },
+    {
+      "url": "https://neurodiagnostictechnologyinstitute.com/our-program/",
+      "status": 200,
+      "final": "https://neurodiagnostictechnologyinstitute.com/our-program/"
+    },
+    {
+      "url": "https://neuroenlight.com/",
+      "status": 200,
+      "final": "https://www.neuroenlight.com/"
+    },
+    {
+      "url": "https://neurovirtualeducation.com/courses/video-eeg/",
+      "status": 503
+    },
+    {
+      "url": "https://nowyouknowmed.com/",
+      "status": 200,
+      "final": "https://nowyouknowmed.com/"
+    },
+    {
+      "url": "https://nowyouknowmed.com/eeg-tech",
+      "status": 200,
+      "final": "https://nowyouknowmed.com/eeg-tech"
+    },
+    {
+      "url": "https://nowyouknowmed.com/sessions/eeg-tech",
+      "status": 200,
+      "final": "https://nowyouknowmed.com/sessions/eeg-tech"
+    },
+    {
+      "url": "https://pocketneurodiagnostics.com/",
+      "status": 503
+    },
+    {
+      "url": "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/",
+      "status": 200,
+      "final": "https://sites.rutgers.edu/ru-cecnj/education/online-eeg-education-resources/"
+    },
+    {
+      "url": "https://studyeegonline.com/",
+      "status": 200,
+      "final": "https://studyeegonline.com/"
+    },
+    {
+      "url": "https://tstelemed.com/",
+      "status": 200,
+      "final": "https://tstelemed.com/"
+    },
+    {
+      "url": "https://www.abret.org/resources/handbooks",
+      "status": 200,
+      "final": "https://www.abret.org/resources/handbooks"
+    },
+    {
+      "url": "https://www.acns.org/",
+      "status": 200,
+      "final": "https://www.acns.org/"
+    },
+    {
+      "url": "https://www.acns.org/education",
+      "status": 200,
+      "final": "https://www.acns.org/education"
+    },
+    {
+      "url": "https://www.acns.org/practice/guidelines",
+      "status": 200,
+      "final": "https://www.acns.org/practice/guidelines"
+    },
+    {
+      "url": "https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education",
+      "status": 200,
+      "final": "https://www.acns.org/research/critical-care-eeg-monitoring-research-consortium-ccemrc/education"
+    },
+    {
+      "url": "https://www.aset.org/aset-student-hub/",
+      "status": 200,
+      "final": "https://www.aset.org/aset-student-hub/"
+    },
+    {
+      "url": "https://www.aset.org/best-practices/",
+      "status": 200,
+      "final": "https://www.aset.org/best-practices/"
+    },
+    {
+      "url": "https://www.aset.org/core-eeg-curriculum/",
+      "status": 200,
+      "final": "https://www.aset.org/core-eeg-curriculum/"
+    },
+    {
+      "url": "https://www.aset.org/education/",
+      "status": 200,
+      "final": "https://www.aset.org/education/"
+    },
+    {
+      "url": "https://www.aset.org/eeg-study-guide/",
+      "status": 200,
+      "final": "https://www.aset.org/eeg-study-guide/"
+    },
+    {
+      "url": "https://www.aset.org/flashcards/",
+      "status": 200,
+      "final": "https://www.aset.org/flashcards/"
+    },
+    {
+      "url": "https://www.aset.org/free-and-exclusive-member-resources/",
+      "status": 200,
+      "final": "https://www.aset.org/free-and-exclusive-member-resources/"
+    },
+    {
+      "url": "https://www.aset.org/membership/",
+      "status": 200,
+      "final": "https://www.aset.org/membership/"
+    },
+    {
+      "url": "https://www.aset.org/national-competency-skill-standards/",
+      "status": 200,
+      "final": "https://www.aset.org/national-competency-skill-standards/"
+    },
+    {
+      "url": "https://www.aset.org/product/q-a-flashcard-study-system-for-eeg-fourth-edition-digital-flashcards/",
+      "status": 200,
+      "final": "https://www.aset.org/product/q-a-flashcard-study-system-for-eeg-fourth-edition-digital-flashcards/"
+    },
+    {
+      "url": "https://www.aset.org/product/qa-flashcard-study-system-for-long-term-monitoring-in-epilepsy-and-neurocritical-care-5th-edition-digital-flashcards/",
+      "status": 200,
+      "final": "https://www.aset.org/product/qa-flashcard-study-system-for-long-term-monitoring-in-epilepsy-and-neurocritical-care-5th-edition-digital-flashcards/"
+    },
+    {
+      "url": "https://www.aset.org/resource/national-competency-skill-standards-for-performing-electroencephalography-eeg/",
+      "status": 200,
+      "final": "https://www.aset.org/resource/national-competency-skill-standards-for-performing-electroencephalography-eeg/"
+    },
+    {
+      "url": "https://www.brainstormboardprep.com/shop",
+      "status": 200,
+      "final": "https://www.brainstormboardprep.com/shop"
+    },
+    {
+      "url": "https://www.cadwell.com/",
+      "status": 200,
+      "final": "https://www.cadwell.com/"
+    },
+    {
+      "url": "https://www.holbergeeg.com/score-eeg-academy",
+      "status": 200,
+      "final": "https://www.holbergeeg.com/score-eeg-academy"
+    },
+    {
+      "url": "https://www.icnapedia.org/icntn",
+      "status": 200,
+      "final": "https://www.icnapedia.org/icntn"
+    },
+    {
+      "url": "https://www.ilae.org/education",
+      "status": 200,
+      "final": "https://www.ilae.org/education"
+    },
+    {
+      "url": "https://www.ilae.org/education/virtual-epilepsy-academy-virepa",
+      "status": 200,
+      "final": "https://www.ilae.org/education/virtual-epilepsy-academy-virepa"
+    },
+    {
+      "url": "https://www.ilae.org/news-and-media/news-about-ilae/epileptic-disorders-roadmap-to-eegs",
+      "status": 200,
+      "final": "https://www.ilae.org/news-and-media/news-about-ilae/epileptic-disorders-roadmap-to-eegs"
+    },
+    {
+      "url": "https://www.learningeeg.com/",
+      "status": 200,
+      "final": "https://www.learningeeg.com/"
+    },
+    {
+      "url": "https://www.ncbi.nlm.nih.gov/books/NBK390354/",
+      "status": 200,
+      "final": "https://www.ncbi.nlm.nih.gov/books/NBK390354/"
+    },
+    {
+      "url": "https://www.nccih.nih.gov/training/videolectures/how-to-map-the-dynamics-of-your-brain",
+      "status": 200,
+      "final": "https://www.nccih.nih.gov/training/videolectures/how-to-map-the-dynamics-of-your-brain"
+    },
+    {
+      "url": "https://www.stratusneuro.com/eeg-u",
+      "status": 200,
+      "final": "https://www.stratusneuro.com/eeg-u"
+    },
+    {
+      "url": "https://www.stratusneuro.com/eeg-u#video-library",
+      "status": 200,
+      "final": "https://www.stratusneuro.com/eeg-u#video-library"
+    },
+    {
+      "url": "https://www.teamngn.com/ngngivesback-sponsor",
+      "status": 200,
+      "final": "https://www.teamngn.com/ngngivesback-sponsor"
+    }
+  ]
+}

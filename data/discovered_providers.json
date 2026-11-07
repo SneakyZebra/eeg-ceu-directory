@@ -5,19 +5,19 @@
       "name": "Neurodiagnostic Technology Institute",
       "url": "https://neurodiagnostictechnologyinstitute.com/",
       "evidence_url": "https://neurodiagnostictechnologyinstitute.com/our-program/",
-      "checked_at": "2026-11-06"
+      "checked_at": "2026-11-07"
     },
     {
       "name": "Brainstorm Board Prep",
       "url": "https://www.brainstormboardprep.com/",
       "evidence_url": "https://www.brainstormboardprep.com/shop",
-      "checked_at": "2026-11-06"
+      "checked_at": "2026-11-07"
     },
     {
       "name": "ACNS Guidelines",
       "url": "https://www.acns.org/practice/guidelines",
       "evidence_url": "https://www.acns.org/practice/guidelines",
-      "checked_at": "2026-11-06"
+      "checked_at": "2026-11-07"
     },
     {
       "name": "Neurovirtual Education",
@@ -66,6 +66,31 @@
       "url": "https://asnm.org/literature/",
       "evidence_url": "https://asnm.org/literature/",
       "checked_at": "2026-11-06"
+    },
+    {
+      "name": "Rhythmlink",
+      "url": "https://rhythmlink.com/",
+      "evidence_url": "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "British Society for Clinical Neurophysiology / ANS",
+      "url": "https://bscn.org.uk/",
+      "evidence_url": "https://bscn.org.uk/content_wide.aspx?Group=guidelines&Page=guidelines_home",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "University Hospitals Cleveland EEG/Epilepsy Course",
+      "url": "https://www.uhhospitals.org/",
+      "evidence_url": "https://www.uhhospitals.org/for-clinicians/specialties/neurology-and-neurological-surgery/medical-education/eeg-epilepsy-course",
+      "checked_at": "2026-11-07",
+      "status": "Research seed only; EEG technologist eligibility and applicable CEU approval unconfirmed"
+    },
+    {
+      "name": "Neuro Pathway",
+      "url": "https://myneuropathway.com/",
+      "evidence_url": "https://myneuropathway.com/ceus/",
+      "checked_at": "2026-11-07"
     }
   ]
 }
