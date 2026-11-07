@@ -1,0 +1,279 @@
+{
+  "checked": "2026-11-07",
+  "scope": "Supplemental user requested broad free EEG CEU search; existing providers plus new organizations. Not a repeat of the earlier all-tab daily scan.",
+  "new_verified_free_courses": 1,
+  "new_verified_free_providers": 0,
+  "existing_provider_offerings": [
+    {
+      "category": "free",
+      "title": "Stratus EEG U: Neonatal EEG, November 12, 2026",
+      "url": "https://stratusneuro.zoom.us/webinar/register/WN_uCIu9F4SQUeOJJZ-Avzr1w",
+      "description": "Free live webinar with Muhammad Zafar, MD, FACNS, FAES on November 12, 2026 at noon Pacific, 3 PM Eastern. Earn 1 ASET CEU by selecting credit at registration, matching your ASET account details and ID, and attending the overwhelming majority through your individual Zoom link. Credit processing takes 5 to 7 weeks. Recordings do not award credit; Stratus does not issue attendance certificates.",
+      "badge": "Free 1 ASET CEU · Live November 12 · Checked November 7, 2026",
+      "logo": "stratus",
+      "verified": "2026-11-07",
+      "creditSource": "https://www.stratusneuro.com/eeg-u",
+      "eventDate": "2026-11-12",
+      "eventStart": "2026-11-12T12:00:00-08:00",
+      "expires": "2026-11-12",
+      "creditAvailability": "Live attendance only; replay credit not offered"
+    },
+    {
+      "category": "unknown",
+      "title": "TeleSpecialists: Tech Troubleshooting, Making EEG Artifacts a Thing of the Past",
+      "url": "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past",
+      "description": "Live December 3, 2026, noon to 1 PM Eastern with Michelle Heim, MS, R. EEG T. The current course page lists EEG technologists as its audience and 1 ASET CEU, with a January 2, 2027 course expiration. Course access and credit fees, required attendance or assessments, and replay credit are not fully stated. Confirm these with the provider before enrolling.",
+      "badge": "1 ASET CEU listed · Verify cost and completion rules",
+      "logo": "ts",
+      "verified": "2026-11-07",
+      "creditSource": "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past"
+    },
+    {
+      "category": "unknown",
+      "title": "Natus: Nonconvulsive Seizures",
+      "url": "https://neuro-training.academy/online-courses/nonconvulsive-seizures/",
+      "description": "Free course access with registration. Covers EEG, seizure burden and nonconvulsive seizures in critical care. The provider lists 1.5 nursing contact hours through California BRN provider 16614, followed by course completion and a validation survey. This is not verified ASET credit. EEG technologist eligibility, ABRET acceptance, credit fees and expiration remain unconfirmed.",
+      "badge": "Free access · Nursing credit · Verify EEG eligibility",
+      "logo": "natus",
+      "verified": "2026-11-07",
+      "creditSource": "https://neuro-training.academy/online-courses/nonconvulsive-seizures/"
+    }
+  ],
+  "new_research_providers": [
+    {
+      "name": "Nihon Kohden University",
+      "url": "https://nkuniversity.org/",
+      "evidence_url": "https://nkuniversity.org/webcast/recorded-eeg-1260-acquisition-recording-a-study-with-new-features-v0650/",
+      "status": "Research only: no fee for registered product training webcast; current applicable EEG technologist CEU approval and expiration unverified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Lifelines Neuro",
+      "url": "https://lifelinesneuro.com/",
+      "evidence_url": "https://info.lifelinesneuro.com/news",
+      "status": "Research only: manufacturer education and EEG tips found; no current specific free credit-bearing course verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Compumedics Neuroscan",
+      "url": "https://compumedicsneuroscan.com/",
+      "evidence_url": "https://compumedicsneuroscan.com/events/list/?eventDisplay=past",
+      "status": "Research only: NeuroTalks and workshops; archives include paid workshops, no current free ASET credit verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "NeuroPace",
+      "url": "https://neuropace.com/",
+      "evidence_url": "https://neuropace.com/provider-education/webinars-on-demand/",
+      "status": "Research only: official RNS education webinars; no current applicable free technologist CEU approval verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Zeto",
+      "url": "https://zeto-inc.com/",
+      "evidence_url": "https://www.neurocriticalcare.org/NCS-Learning-Center/Access-My-Education/Industry-Sponsored-Webinars",
+      "status": "Research only: complimentary Point-of-Care EEG in the ICU recording, June 25, 2026; no verified applicable EEG CEU credit.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "AANEM",
+      "url": "https://www.aanem.org/",
+      "evidence_url": "https://education.aanem.org/Public/Catalog/StackHome.aspx?Criteria=15&Option=402&SearchMode=1",
+      "status": "Research only: member-only free education and mixed credit/no-credit catalog; no new universally free EEG credit course qualified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "MUSC Health Clinical Neurophysiology Education",
+      "url": "https://muschealth.org/",
+      "evidence_url": "https://muschealth.org/health-professionals/education/clinical-neurophysiology-education-training-program",
+      "status": "Research only: hospital EEG/IONM microcredential training; no free CEU claim.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "UCSF AMP-SCZ EEG",
+      "url": "https://ampsczeeg.ucsf.edu/",
+      "evidence_url": "https://ampsczeeg.ucsf.edu/eeg-tips-tricks",
+      "status": "Research only: institution-owned research EEG technical resource; no CEU approval verified.",
+      "checked_at": "2026-11-07"
+    }
+  ],
+  "course_evidence": [
+    {
+      "provider": "Stratus",
+      "title": "Stratus EEG U: Neonatal EEG, November 12, 2026",
+      "sources": [
+        "https://stratusneuro.zoom.us/webinar/register/WN_uCIu9F4SQUeOJJZ-Avzr1w",
+        "https://www.stratusneuro.com/eeg-u",
+        "https://cdn.prod.website-files.com/68c1acd17afe38ecf1bc802a/6ad630cc71c7fd0382b2c3e4_EEG%20U%20Speaker%20Image_Nov_Zafar.png"
+      ],
+      "verification": "Public Zoom registration page read in browser; no registration submitted",
+      "facts": {
+        "access_cost": 0,
+        "credit_cost": 0,
+        "public_access": "Registration description explicitly says the CEU lecture series is free and open to public neurodiagnostic professionals",
+        "credits": 1,
+        "credit_type": "ASET CEU; current registration asks whether learner seeks one ASET CEU",
+        "eligibility": "Neurodiagnostic professionals explicitly invited; must match name, address, email and ASET ID to account",
+        "date_time": "November 12, 2026 at 12:00 PM Pacific; verified current Zoom date and time zone",
+        "faculty": "Muhammad Zafar, MD, FACNS, FAES, named on provider November image",
+        "completion": "Attend overwhelming majority live through individual registration link; select credit and provide matching ASET account details",
+        "processing": "Allow 5 to 7 weeks for ASET posting; provider issues no attendance certificate; automated Zoom attendance email sent next day",
+        "expiration": "One live session November 12, 2026; recordings do not award CEUs",
+        "cap": "No first-viewer or numerical seat cap published"
+      },
+      "decision": "Add specific course under Free CEU Resources; existing provider, new course. Canonical Zoom URL already in unreviewed discovery leads, so curated known-URL suppression prevents duplicate rendering."
+    },
+    {
+      "provider": "TeleSpecialists",
+      "sources": [
+        "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past",
+        "https://tstelemed.com/telepedia/cme/",
+        "https://learning.tstelemed.com/content/about-us"
+      ],
+      "verification": "Current direct course page HTTP 200 retrieved as primary provider HTML; search engine could not retrieve it",
+      "facts": {
+        "audience": "EEG technologists",
+        "credits": 1,
+        "approval": "ASET CEU, stated as approved by American Society of Electroneurodiagnostic Technologists",
+        "opens": "2026-10-28",
+        "event": "2026-12-03 12:00 to 13:00 EST",
+        "expires": "2027-01-02",
+        "faculty": "Michelle Heim, MS, R.EEG T.",
+        "access_credit_cost": "General corporate TelePedia describes complimentary education, but current course-specific fee and credit-fee statement not explicit",
+        "completion": "Logged-out page requires login/register and does not fully state attendance, assessments or replay credit"
+      },
+      "decision": "Add reviewed course to Verify Cost and Credit, not verified Free CEUs. Existing unreviewed dynamic catalog lead is not a new discovery or new provider."
+    },
+    {
+      "provider": "Natus",
+      "sources": [
+        "https://neuro-training.academy/online-courses/nonconvulsive-seizures/",
+        "https://neuro-training.academy/online-courses/",
+        "https://neuro-training.academy/eeg-ltm/"
+      ],
+      "facts": {
+        "access": "Free access explicitly stated, registration required",
+        "credit": "1.5 California Board of Registered Nursing contact hours, provider 16614; not ASET approval",
+        "completion": "Complete course, use CEU Validation survey link, certificate emailed",
+        "eligibility_expiration_cost": "Nursing approval is explicit; EEG technologist eligibility, ABRET acceptance, certificate fee and expiration not verified"
+      },
+      "decision": "Add to Verify Cost and Credit with nursing scope. No claim of verified free EEG CEUs."
+    }
+  ],
+  "existing_provider_rechecks": [
+    {
+      "provider": "AES",
+      "sources": [
+        "https://learn.aesnet.org/Public/Catalog/StackHome.aspx?Criteria=166&Option=585&SearchMode=1",
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+        "https://learn.aesnet.org/Listing/EEG-Essentials-Fundamental-Curriculum-10793"
+      ],
+      "outcome": "ASET-filtered catalog yielded EMU Caring already listed. Retains 3.5 ASET credits, free activity and credit, expires 2027-12-31, technologists eligible. EEG Essentials $0 access but explicitly no CME/CEU, not added to Free CEUs."
+    },
+    {
+      "provider": "Neuro Pathway",
+      "sources": [
+        "https://myneuropathway.com/ceus/"
+      ],
+      "outcome": "Five currently open first-300 courses already listed; older closed ASET notices retained. No additional qualifying course beyond earlier scan."
+    },
+    {
+      "provider": "ASET",
+      "sources": [
+        "https://www.aset.org/free-and-exclusive-member-resources/",
+        "https://www.aset.org/eeg-study-guide/",
+        "https://www.aset.org/events/",
+        "https://asetfoundation.org/scholarships/"
+      ],
+      "outcome": "Membership-based freebies remain Paid/Membership. November 18 seminar paid. Scholarships conditional awards, not universally free CEU courses."
+    },
+    {
+      "provider": "NGN Institute",
+      "sources": [
+        "https://www.teamngn.com/ngngivesback-sponsor",
+        "https://www.teamngn.com/philanthropy"
+      ],
+      "outcome": "Free education and sponsor-series claims found; current per-course approval, enrollment and completion evidence not available. Retain Verify."
+    },
+    {
+      "provider": "Cadwell",
+      "sources": [
+        "https://www.cadwell.com/webinars/",
+        "https://www.cadwell.com/learning-opportunities/"
+      ],
+      "outcome": "Archive is free learning. Upcoming December 1 sleep collaboration webinar lists CSTE, not a verified EEG ASET course. Clinical workshops paid; no new free EEG CEU qualified."
+    },
+    {
+      "provider": "CortiCare",
+      "sources": [
+        "https://corticare.com/webinars/"
+      ],
+      "outcome": "Current official recordings and older live-credit promotions found; no new current replay credit verified."
+    },
+    {
+      "provider": "Persyst",
+      "sources": [
+        "https://www.persyst.com/grandrounds/"
+      ],
+      "outcome": "Educational recording archive reviewed; no current explicit credit approval/zero-cost credit claim, no Free CEU addition."
+    },
+    {
+      "provider": "NowYouKnowMed",
+      "sources": [
+        "https://nowyouknowmed.com/sessions/eeg-tech"
+      ],
+      "outcome": "November 9 and 12 free exam review attendance; applicable credit not verified. Paid separate product remains distinct."
+    },
+    {
+      "provider": "Pocket NeuroDiagnostics",
+      "sources": [
+        "https://pndpocketneurodiagnostics.com/ceu-opportunities",
+        "https://pndpocketneurodiagnostics.com/class-details"
+      ],
+      "outcome": "Paid board classes with live 90-minute attendance and ASET ID for 1.5 credits; free Zoom registration does not make underlying paid class free. Use current official class details link."
+    },
+    {
+      "provider": "ASNM",
+      "sources": [
+        "https://asnm.org/upcoming-webinars/",
+        "https://asnm.org/purchase-past-webinars/"
+      ],
+      "outcome": "Member benefit or paid access; not universally free."
+    },
+    {
+      "provider": "ILAE / EpiCARE",
+      "sources": [
+        "https://www.ilae.org/congresses/webinars",
+        "https://epi-care.eu/webinars/"
+      ],
+      "outcome": "Current educational webinars found; no new applicable EEG technologist credit with complete zero-cost and completion proof."
+    },
+    {
+      "provider": "NeuroEnlight",
+      "sources": [
+        "https://www.neuroenlight.com/"
+      ],
+      "outcome": "Claims free 0.5 CEU activity but disclaimer says no guarantee credentialing organizations honor credits. Not promoted to verified Free CEUs."
+    },
+    {
+      "provider": "Priority training and reference sources",
+      "sources": [
+        "https://www.brainstormboardprep.com/shop",
+        "https://www.brainstormboardprep.com/resources",
+        "https://neurodiagnostictechnologyinstitute.com/pay-fees/",
+        "https://www.acns.org/practice/guidelines",
+        "https://www.acns.org/education/cnp-discovery",
+        "https://www.neurotecheeginstitute.com/"
+      ],
+      "outcome": "Brainstorm paid board prep, NTI paid EEG program, ACNS references without independent CEUs. CNP Discovery targets students/residents with meeting context, not new free technologist CEU. Neurotech EEG Institute is distinct from NTI; paid/enrollment programs not relabeled as free."
+    }
+  ],
+  "deduplication": "Compare canonical URLs against current curated resources, General Education arrays, video and registry HTML and ceu-offerings.json. TeleSpecialists and Stratus URLs were already unreviewed dynamic leads; they are reviewed existing leads, not new providers. New curated URLs suppress duplicate dynamic rendering.",
+  "limitations": [
+    "This is a broad bounded search, not proof that no other provider exists.",
+    "No user accounts were created or courses taken; login-only details left unverified.",
+    "No outreach messages sent to providers.",
+    "No additional provider met the full verified free EEG CEU standard; newly researched provider seeds saved for future scans.",
+    "No changes to scripts controlling games, audio, favorites, tracker, pagination or article search."
+  ]
+}
