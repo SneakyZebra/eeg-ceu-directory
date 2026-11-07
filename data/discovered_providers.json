@@ -91,6 +91,62 @@
       "url": "https://myneuropathway.com/",
       "evidence_url": "https://myneuropathway.com/ceus/",
       "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Nihon Kohden University",
+      "url": "https://nkuniversity.org/",
+      "evidence_url": "https://nkuniversity.org/webcast/recorded-eeg-1260-acquisition-recording-a-study-with-new-features-v0650/",
+      "status": "Research only: no fee for registered product training webcast; current applicable EEG technologist CEU approval and expiration unverified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Lifelines Neuro",
+      "url": "https://lifelinesneuro.com/",
+      "evidence_url": "https://info.lifelinesneuro.com/news",
+      "status": "Research only: manufacturer education and EEG tips found; no current specific free credit-bearing course verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Compumedics Neuroscan",
+      "url": "https://compumedicsneuroscan.com/",
+      "evidence_url": "https://compumedicsneuroscan.com/events/list/?eventDisplay=past",
+      "status": "Research only: NeuroTalks and workshops; archives include paid workshops, no current free ASET credit verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "NeuroPace",
+      "url": "https://neuropace.com/",
+      "evidence_url": "https://neuropace.com/provider-education/webinars-on-demand/",
+      "status": "Research only: official RNS education webinars; no current applicable free technologist CEU approval verified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "Zeto",
+      "url": "https://zeto-inc.com/",
+      "evidence_url": "https://www.neurocriticalcare.org/NCS-Learning-Center/Access-My-Education/Industry-Sponsored-Webinars",
+      "status": "Research only: complimentary Point-of-Care EEG in the ICU recording, June 25, 2026; no verified applicable EEG CEU credit.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "AANEM",
+      "url": "https://www.aanem.org/",
+      "evidence_url": "https://education.aanem.org/Public/Catalog/StackHome.aspx?Criteria=15&Option=402&SearchMode=1",
+      "status": "Research only: member-only free education and mixed credit/no-credit catalog; no new universally free EEG credit course qualified.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "MUSC Health Clinical Neurophysiology Education",
+      "url": "https://muschealth.org/",
+      "evidence_url": "https://muschealth.org/health-professionals/education/clinical-neurophysiology-education-training-program",
+      "status": "Research only: hospital EEG/IONM microcredential training; no free CEU claim.",
+      "checked_at": "2026-11-07"
+    },
+    {
+      "name": "UCSF AMP-SCZ EEG",
+      "url": "https://ampsczeeg.ucsf.edu/",
+      "evidence_url": "https://ampsczeeg.ucsf.edu/eeg-tips-tricks",
+      "status": "Research only: institution-owned research EEG technical resource; no CEU approval verified.",
+      "checked_at": "2026-11-07"
     }
   ]
 }
