@@ -17,44 +17,31 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Show the remaining resource count on all See More buttons
+      - name: Use Show More with remaining counts
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          p=Path('index.html');s=p.read_text()
-          old="button.textContent='See More';"
-          new="button.textContent='See More ('+remaining.toLocaleString()+' remaining)';"
-          assert s.count(old)+s.count(new)==1, 'Expected one shared registry expansion label'
-          s=s.replace(old,new)
-          s=s.replace('assets/general-education-pagination.js?v=20261106','assets/general-education-pagination.js?v=20261107-counts')
-          s=s.replace('assets/eeg-literature-search.js?v=20261107"','assets/eeg-literature-search.js?v=20261107-counts"')
-          old_tail="visible=Math.min(count,visible+limit);update();\n   });update();"
-          new_tail="visible=Math.min(count,visible+limit);update();\n   });\n   new MutationObserver(update).observe(host,{childList:true});\n   update();"
-          assert old_tail in s or new_tail in s, 'Registry pagination shape changed'
-          s=s.replace(old_tail,new_tail)
-          p.write_text(s)
-          
-          p=Path('assets/general-education-pagination.js');s=p.read_text()
-          old="button.style.display=entries.length>visible?'block':'none';"
-          new="const remaining=Math.max(0,entries.length-visible);\n      button.textContent='See More ('+remaining.toLocaleString()+' remaining)';\n      button.style.display=remaining>0?'block':'none';"
-          assert old in s or new in s, 'General Education pagination shape changed'
-          s=s.replace(old,new).replace("    button.textContent='See More';\n","")
-          p.write_text(s)
-          
-          p=Path('assets/eeg-literature-search.js');s=p.read_text()
-          old="const more=el('button','els-more','See More');"
-          new="const more=el('button','els-more','See More ('+Math.max(0,state.total-state.items.length).toLocaleString()+' remaining)');"
-          assert old in s or new in s, 'Article search pagination shape changed'
-          p.write_text(s.replace(old,new))
-          print('Added remaining counts to every shared registry, General Education and article search expansion button.')
+          paths=['index.html','assets/general-education-pagination.js','assets/eeg-literature-search.js']
+          for name in paths:
+              p=Path(name);s=p.read_text()
+              assert any(label in s for label in ['See More (','Show 6 More (','Show More (']), 'Missing expansion label: '+name
+              s=s.replace('See More (','Show More (').replace('Show 6 More (','Show More (')
+              if name=='index.html':
+                  for asset in ['general-education-pagination','eeg-literature-search']:
+                      pattern=r'assets/'+asset+r'\.js\?v=[^\x22]+'
+                      s,n=re.subn(pattern,'assets/'+asset+'.js?v=20261107-show-more',s)
+                      assert n==1,(asset,n)
+              assert 'See More (' not in s and 'Show 6 More (' not in s
+              p.write_text(s)
+          print('All expansion labels now read Show More followed by the remaining count.')
           PY
           node --check assets/general-education-pagination.js
           node --check assets/eeg-literature-search.js
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html assets/general-education-pagination.js assets/eeg-literature-search.js
-          git diff --cached --quiet || git commit -m 'Show remaining resource counts on all See More buttons'
+          git diff --cached --quiet || git commit -m 'Use Show More labels with remaining counts'
           git pull --rebase origin main
           git push
       - name: Publish through the existing learning hub publisher
