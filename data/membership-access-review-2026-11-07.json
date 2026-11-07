@@ -1,0 +1,137 @@
+{
+  "checked": "2026-11-07",
+  "scope": "Existing CEU Directory listings: free accounts and registration versus paid professional membership",
+  "new_providers": [],
+  "new_qualifying_free_courses": [],
+  "reclassified_resources": [],
+  "reviewed_listings": [
+    "Stratus EEG U: Neonatal EEG, November 12, 2026",
+    "Natus: Nonconvulsive Seizures",
+    "Neuro Pathway: Causation is Not Always Correlation",
+    "AES EMU Caring: Safety in the Epilepsy Monitoring Unit",
+    "Neuro Pathway: The ECG and EEG Connection",
+    "Neuro Pathway: EEG Report Writing",
+    "Neuro Pathway: From Onboarding to Excellence",
+    "Neuro Pathway: Frontal and Temporal Lobe Epilepsies",
+    "Stratus EEG U",
+    "Neuro Pathway",
+    "ASET Member Resources",
+    "ASET Membership",
+    "Natus Neuro Training Academy"
+  ],
+  "summary": "No existing paid membership listing qualified for reclassification based on generally available free membership. Clarified nine existing free listings and four account or membership listings.",
+  "verified_free_access": [
+    {
+      "provider": "American Epilepsy Society",
+      "offering": "EMU Caring: Safety in the Epilepsy Monitoring Unit",
+      "account_or_membership": "Free myAES account plus activity registration; paid AES membership is not required",
+      "access_cost_usd": 0,
+      "credit_cost_usd": 0,
+      "credit": "3.5 ASET credits",
+      "expires": "2027-12-31",
+      "audience": "Electroneurodiagnostic technologists explicitly included",
+      "completion": "Read disclosures, study modules, satisfactorily complete pre and post assessments and submit evaluation",
+      "sources": [
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333",
+        "https://aesnet.org/AES-annual-meeting/general-information/faqs"
+      ]
+    },
+    {
+      "provider": "Stratus",
+      "offering": "EEG U, including Neonatal EEG on November 12, 2026",
+      "account_or_membership": "Free individual webinar registration and accurate ASET account details and ID; paid professional membership is not required",
+      "access_cost_usd": 0,
+      "credit_cost_usd": 0,
+      "credit": "ASET CEUs; Neonatal EEG awards 1",
+      "availability": "Registration open; Neonatal EEG live November 12, 2026 at noon Pacific / 3 PM Eastern",
+      "completion": "Select credit at registration; attend overwhelming majority live using individual Zoom link; allow 5 to 7 weeks for posting",
+      "restrictions": [
+        "No replay credit",
+        "Elevate U does not award CEUs",
+        "No attendance certificates issued"
+      ],
+      "documentation_fee_note": "ASET charges nonmembers $30 for an individually purchased transcript, separate from earning credit. Do not imply a Zoom email is necessarily sufficient for ABRET.",
+      "sources": [
+        "https://www.stratusneuro.com/eeg-u",
+        "https://stratusneuro.zoom.us/webinar/register/WN_uCIu9F4SQUeOJJZ-Avzr1w",
+        "https://www.aset.org/faq/"
+      ]
+    },
+    {
+      "provider": "Neuro Pathway",
+      "offering": "Five current ASET credit lectures",
+      "account_or_membership": "Free registration; no paid membership required",
+      "access_cost_usd": 0,
+      "credit_cost_usd": 0,
+      "credit": "ASET CEU",
+      "availability": "Each current lecture limited to first 300 viewers; remaining places not exposed; no calendar expiration published",
+      "completion": "Register, watch lecture and follow postlecture survey instructions",
+      "current_titles": [
+        "Causation is Not Always Correlation",
+        "The ECG and EEG Connection",
+        "EEG Report Writing",
+        "From Onboarding to Excellence",
+        "Frontal and Temporal Lobe Epilepsies"
+      ],
+      "restrictions": [
+        "Preserve first 300 viewers cap",
+        "Lectures marked closed no longer award ASET credit"
+      ],
+      "sources": [
+        "https://myneuropathway.com/ceus/"
+      ]
+    }
+  ],
+  "paid_membership_checks": [
+    {
+      "provider": "ASET",
+      "finding": "Standard membership has dues. A free account/ASET ID for credit tracking is distinct from paid member benefits. Nonmember individual transcript costs $30.",
+      "sources": [
+        "https://www.aset.org/membership/",
+        "https://www.aset.org/faq/"
+      ]
+    },
+    {
+      "provider": "ACNS",
+      "finding": "Standard membership has dues. Complimentary emeritus membership is restricted and requires approval; it is not a general free enrollment route.",
+      "sources": [
+        "https://www.acns.org/membership/member-types"
+      ]
+    },
+    {
+      "provider": "ASNM",
+      "finding": "Webinar benefits are included with paid membership; nonmembers purchase access. No general free membership verified.",
+      "sources": [
+        "https://asnm.org/member-benefits/",
+        "https://asnm.org/upcoming-webinars/"
+      ]
+    },
+    {
+      "provider": "American Epilepsy Society",
+      "finding": "Free myAES account differs from paid professional membership. Restricted senior membership is not a general free enrollment route.",
+      "sources": [
+        "https://aesnet.org/aes-membership/become-a-member/dues",
+        "https://aesnet.org/AES-annual-meeting/general-information/faqs"
+      ]
+    }
+  ],
+  "free_account_not_sufficient": [
+    {
+      "provider": "Natus Neuro Training Academy",
+      "offering": "Nonconvulsive Seizures",
+      "finding": "Free account and course access. Listed 1.5 contact hours are California BRN nursing credit, provider 16614. EEG technologist eligibility, ABRET acceptance, separate credit fees and expiration are unconfirmed. Retain Verify Cost and Credit.",
+      "sources": [
+        "https://neuro-training.academy/about/",
+        "https://neuro-training.academy/online-courses/nonconvulsive-seizures/"
+      ]
+    },
+    {
+      "provider": "Rhythmlink",
+      "finding": "An ASET ID does not require ASET membership, but that does not establish that the event and credit are free. Preserve Verify Cost and Credit pending explicit fee evidence.",
+      "sources": [
+        "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/"
+      ]
+    }
+  ],
+  "future_scan_rule": "Treat generally available free membership like free account registration only when both course access and applicable EEG technologist credit are independently verified at no charge. Check certificate/transcript charges separately; retain viewer caps, live-only rules and expiration."
+}
