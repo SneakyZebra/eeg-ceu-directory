@@ -19,25 +19,11 @@ jobs:
           ref: main
       - name: Apply evidence reviewed resources
         run: |
-          python - <<'PY'
-          from pathlib import Path
-          import re
-          p=Path('index.html');s=p.read_text()
-          pattern=r'<details[^>]*data-finder="general-education"[^>]*>.*?</details>'
-          s,n=re.subn(pattern,'<section id="eeg-literature-search" aria-label="EEG literature search"></section>',s,flags=re.S)
-          assert n==1,('Expected one General Education Finder',n)
-          tag='<script src="assets/eeg-literature-search.js?v=20261107"></script>'
-          if tag not in s:s=s.replace('</body>',tag+'\n</body>',1)
-          assert 'General Education Finder' not in s
-          assert 'assets/general-education-pagination.js' in s
-          p.write_text(s)
-          print('Replaced General Education Finder with EEG literature search')
-          PY
-          node --check assets/eeg-literature-search.js
+          python scripts/review_resources_2026_11_07.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html
-          git diff --cached --quiet || git commit -m 'Replace General Education Finder with EEG keyword and subject search'
+          git add index.html data/discovered_providers.json data/resource-review-2026-11-07.json
+          git diff --cached --quiet || git commit -m 'Review all tabs and add November 7 verified EEG education resources'
           git pull --rebase origin main
           git push
       - name: Publish through existing hub configuration
