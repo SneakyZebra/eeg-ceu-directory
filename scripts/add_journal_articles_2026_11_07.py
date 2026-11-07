@@ -1,0 +1,101 @@
+"""Add reviewed journal programs without changing application or saved-data behavior."""
+from pathlib import Path
+from urllib.parse import urlsplit
+import json,re,hashlib
+
+root=Path(__file__).resolve().parents[1]
+p=root/'index.html'
+s=original=p.read_text()
+key='const curated=';start=s.index(key)+len(key)
+rows,n=json.JSONDecoder().raw_decode(s[start:])
+additions=[
+ {'category':'unknown','title':'ASATT Sensor: EEG Monitoring Article and Quiz',
+  'url':'https://www.asatt.org/sensor-quiz',
+  'description':'The Summer 2025 EEG monitoring article by Elizabeth Fumicello, Cer. A.T.T., and Nelson J. Aquino, DNP, MS, CRNA, FAANA includes a quiz awarding 1 ASATT continuing education credit with an 80% passing score. Published quiz fees are $10 for members and $20 for nonmembers; reading the PDF is free. This is anesthesia technologist credit, not verified ASET credit. Confirm ABRET eligibility, current processing terms and expiration before purchasing.',
+  'badge':'1 ASATT credit · Paid quiz · Verify EEG eligibility','logo':'asatt','verified':'2026-11-07',
+  'creditSource':'https://www.asatt.org/assets/25_Sensor/25_ASATT_Sensor_Q2_Quiz1.pdf',
+  'accessRequirement':'Free article PDF; paid quiz, $10 member / $20 nonmember',
+  'creditEligibility':'ASATT credit; ABRET applicability unverified'},
+ {'category':'unknown','title':'Neurology Journal Article CME',
+  'url':'https://www.neurology.org/cme/about',
+  'description':'American Academy of Neurology journal articles have companion quizzes offering up to 0.75 AMA PRA Category 1 Credit per designated quiz. Current topics include epilepsy and status epilepticus. Read the designated article and complete its quiz and evaluation through AAN Online Learning using an AAN membership login. Confirm actual access fees, activity expiration, nonphysician eligibility and ABRET applicability. These are physician CME activities, not verified ASET CEUs.',
+  'badge':'0.75 physician CME per quiz · Verify EEG eligibility','logo':'aan','verified':'2026-11-07',
+  'creditSource':'https://www.neurology.org/cme/faq',
+  'accessRequirement':'AAN membership login; specific fees and nonphysician eligibility require confirmation',
+  'creditEligibility':'AMA physician CME; EEG technologist and ABRET applicability unverified'},
+ {'category':'unknown','title':'IQCB Continuing Education Articles',
+  'url':'https://iqcb.org/resources/',
+  'description':'The International QEEG Certification Board offers existing IQCB certified Diplomates and Technologists free article questionnaires worth 1 CE hour each, with a maximum of 5 articles per year toward QEEG recertification. Certificant login is required. This is a restricted certification benefit, not a generally available free membership. Individual article dates are behind login. ABRET acceptance and ASET approval have not been verified.',
+  'badge':'IQCB certificants only · Verify ABRET eligibility','logo':'iqcb','verified':'2026-11-07',
+  'creditSource':'https://iqcb.org/resources/',
+  'accessRequirement':'Existing IQCB certified Diplomate or Technologist login; not general free membership',
+  'creditEligibility':'IQCB QEEG recertification; ABRET applicability unverified'}
+]
+def canonical(url):
+ u=urlsplit(url);return (u.hostname or '').removeprefix('www.')+u.path.rstrip('/')
+for row in reversed(additions):
+ match=next((i for i,x in enumerate(rows) if canonical(x['url'])==canonical(row['url']) or x['title'].casefold()==row['title'].casefold()),None)
+ if match is None:rows.insert(0,row)
+ else:rows[match]=row
+assert len({canonical(x['url']) for x in rows})==len(rows)
+assert all(x['category']=='unknown' for x in additions)
+s=s[:start]+json.dumps(rows,ensure_ascii=False)+s[start+n:]
+m=re.search(r'(<script[^>]*id="eeg-logo-data"[^>]*>)(.*?)(</script>)',s,re.S)
+logos=json.loads(m[2])
+for host in ['asatt.org','www.asatt.org']:
+ logos[host]='https://www.asatt.org/assets/site/logo.png'
+for host in ['iqcb.org','www.iqcb.org']:
+ logos[host]='https://iqcb.org/wp-content/uploads/2026/09/Seal-Transperant-background-small-768x755.png'
+aan=next((logos[h] for h in ['www.aan.com','aan.com'] if logos.get(h)),None)
+assert aan,'Existing AAN branding required'
+for host in ['neurology.org','www.neurology.org','learning.aan.com']:logos[host]=aan
+s=s[:m.start(2)]+json.dumps(logos,ensure_ascii=False)+s[m.end(2):]
+def scripts(doc):
+ result=[]
+ for block in re.findall(r'<script\b[^>]*>.*?</script>',doc,re.S):
+  if 'id="eeg-logo-data"' in block:continue
+  if key in block:
+   i=block.index(key)+len(key);_,length=json.JSONDecoder().raw_decode(block[i:])
+   block=block[:i]+'[]'+block[i+length:]
+  result.append(hashlib.sha256(block.encode()).hexdigest())
+ return result
+assert scripts(s)==scripts(original),'Unexpected application behavior change'
+assert 'Show More (' in s
+p.write_text(s)
+
+new_providers=[
+ {'name':'American Society of Anesthesia Technologists and Technicians (ASATT)','url':'https://www.asatt.org/','evidence_url':'https://www.asatt.org/sensor-quiz','checked_at':'2026-11-07','status':'Published EEG article quiz: 1 ASATT credit, 80% passing, $10 members/$20 nonmembers. ABRET applicability and expiration unverified; published under Verify.'},
+ {'name':'International QEEG Certification Board (IQCB)','url':'https://iqcb.org/','evidence_url':'https://iqcb.org/resources/','checked_at':'2026-11-07','status':'Article CEs free only for existing IQCB certified Diplomates/Technologists; 1 hour each, maximum 5/year toward QEEG recertification. ABRET applicability unverified; published under Verify.'}
+]
+existing_provider_offering={'name':'American Academy of Neurology: Neurology journal CME','url':'https://www.aan.com/','evidence_url':'https://www.neurology.org/cme/about','checked_at':'2026-11-07','status':'New journal offering by provider already represented in Conferences. Selected quizzes offer 0.75 AMA physician CME; AAN login, fees, nonphysician and ABRET eligibility require confirmation. Published under Verify.'}
+seeds_path=root/'data/discovered_providers.json'
+seeds=json.loads(seeds_path.read_text())
+for row in new_providers+[existing_provider_offering]:
+ match=next((x for x in seeds['providers'] if x['name']==row['name']),None)
+ if match is None:seeds['providers'].append(row)
+ else:match.update(row)
+seeds_path.write_text(json.dumps(seeds,indent=2,ensure_ascii=False)+'\n')
+report={
+ 'checked':'2026-11-07',
+ 'scope':'User requested publication of three journal/article credit programs and inclusion in existing daily research task.',
+ 'added_listings':additions,'new_providers':new_providers,
+ 'new_offerings_existing_providers':[existing_provider_offering],
+ 'free_ceu_additions':0,
+ 'placement':'All three under Verify Cost and Credit because applicable EEG technologist/ABRET credit has not been established. No implication of ABRET endorsement.',
+ 'evidence':[
+  {'provider':'ASATT','source':'https://www.asatt.org/assets/25_Sensor/25_ASATT_Sensor_Q2_Quiz1.pdf',
+   'facts':'Official Summer 2025 Sensor EEG article, named credentialed authors, 10 question quiz, 80% passing, 1 continuing education credit, fee $10 members/$20 nonmembers. Current official index still links article and quiz.',
+   'uncertainty':'ABRET/ASET eligibility and activity expiry unverified; use current online instructions because the PDF mailing address differs from the updated official index.'},
+  {'provider':'American Academy of Neurology','sources':['https://www.neurology.org/cme/about','https://www.neurology.org/cme/faq','https://learning.aan.com/crn/courses'],
+   'facts':'Official journal CME programme uses designated articles, companion quizzes and evaluations in AAN Online Learning. Physician designation 0.75 AMA PRA Category 1 Credit per quiz. Catalog includes SUPER-CAT status epilepticus study and ICTAL registry status epilepticus article quizzes.',
+   'uncertainty':'Course price, expiry, nonphysician eligibility and ABRET applicability require verification. Do not label physician CME as verified free EEG CEUs.'},
+  {'provider':'IQCB','source':'https://iqcb.org/resources/',
+   'facts':'Official board resources allow existing certified Diplomates and Technologists access to article CEs. Free 1 hour per article with questionnaire; maximum 5/year toward IQCB QEEG recertification.',
+   'uncertainty':'Restricted certificant benefit; no generally free membership claim. Individual articles and dates require login; ABRET applicability unverified.'}
+ ],
+ 'daily_search':'Existing EEG resource discovery automation prompt expanded to include these providers, article quizzes and new journal discovery. Same schedule; no second automation.',
+ 'deduplication':'Canonical URL and title checked against curated CEU resources and current live index/dynamic listings. AAN is an existing provider; ASATT and IQCB are new providers.',
+ 'preserved':'All application scripts, games, audio, header Easter eggs, saved trackers, favorites, progress and Show More behavior unchanged.'
+}
+(root/'data/journal-article-review-2026-11-07.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
+print('Added 3 Verify listings; 2 new providers and 1 new offering by an existing provider. No Free CEU additions.')
