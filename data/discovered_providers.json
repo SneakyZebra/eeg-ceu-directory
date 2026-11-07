@@ -168,6 +168,13 @@
       "evidence_url": "https://www.neurology.org/cme/about",
       "checked_at": "2026-11-07",
       "status": "New journal offering by provider already represented in Conferences. Selected quizzes offer 0.75 AMA physician CME; AAN login, fees, nonphysician and ABRET eligibility require confirmation. Published under Verify."
+    },
+    {
+      "name": "MedAll",
+      "url": "https://app.medall.org/",
+      "evidence_url": "https://app.medall.org/c/medall-neurology",
+      "checked_at": "2026-11-07",
+      "status": "MedAll is a multi-organizer education platform. Selected neurology activities labeled CME/CPD; EEG technologist ASET/ABRET eligibility unverified. Neurology catalog under Verify; named consultant processed EEG lecture under General Education. No verified Free EEG CEU addition."
     }
   ]
 }
