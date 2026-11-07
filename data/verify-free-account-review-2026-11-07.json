@@ -1,0 +1,143 @@
+{
+  "checked": "2026-11-07",
+  "scope": "User requested recheck of every existing Verify Cost and Credit listing for free login or membership and qualifying free EEG technologist CEUs",
+  "verify_listings_reviewed": 12,
+  "moved_to_free": 0,
+  "new_providers": 0,
+  "new_courses": 0,
+  "category_counts_before": {
+    "free": 9,
+    "paid": 9,
+    "unknown": 12
+  },
+  "category_counts_after": {
+    "free": 9,
+    "paid": 9,
+    "unknown": 12
+  },
+  "result": "No additional listing met current evidence requirements for both no-charge access and applicable EEG technologist credit. Free registration itself is not a disqualifier. Existing verified AES EMU Caring, Stratus and Neuro Pathway listings remain Free.",
+  "dynamic_listings": {
+    "source": "ceu-offerings.json",
+    "items_reviewed": 100,
+    "renderable_verified_free": "AES EMU Caring only; already curated and deduplicated by URL",
+    "note": "Unreviewed discovery leads are not automatically published or treated as verified free CEUs."
+  },
+  "reviews": [
+    {
+      "title": "TeleSpecialists: Tech Troubleshooting, Making EEG Artifacts a Thing of the Past",
+      "url": "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past",
+      "facts": "Direct course page confirms EEG technologist audience, 1 ASET CEU, December 3, 2026 noon to 1 PM Eastern, course expiration January 2, 2027, and login/registration requirement. Corporate TelePedia calls its education complimentary. Course-specific price and credit fee not confirmed.",
+      "decision": "Keep Verify. Catalog and account registration details remain inaccessible; do not infer course-specific zero cost from other catalog rows.",
+      "blocker": "Cloudflare temporarily banned this browser from learning.tstelemed.com after catalog navigation; Error 1015 observed. One reload performed, then stopped without bypass or alternate route probing.",
+      "sources": [
+        "https://learning.tstelemed.com/content/tech-troubleshooting-making-eeg-artifacts-thing-past",
+        "https://tstelemed.com/telepedia/cme/",
+        "https://learning.tstelemed.com/course-catalog-list?sort_by=field_course_event_date_value_1"
+      ]
+    },
+    {
+      "title": "Rhythmlink: Pediatric Patients, Sports and Epilepsy",
+      "url": "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+      "facts": "Official organizer event and linked Zoom event confirm November 11, 2026 9 to 10 AM Pacific, 1 ASET CEU, valid ASET ID at registration, attendance and survey within 24 hours. Paid ASET membership not required. Public Zoom registration form asks for email but does not explicitly display a zero-cost ticket or credit fee statement.",
+      "decision": "Keep Verify pending explicit access and credit cost evidence; no registration submitted. No replay credit verified.",
+      "sources": [
+        "https://rhythmlink.com/events/pediatric-patients-sports-epilepsy-webinar/",
+        "https://events.zoom.us/ev/AmgkSdG6k01-IsG6IqaSQBmFe-Il_o1sEEmHsvfYCIkG5utJPu1V~AgmIzNYyDx7S_fyl_-bCDJZpnGeoRgIbVoCK20r95pLjxDEvr8WnNyd5tg"
+      ]
+    },
+    {
+      "title": "Natus: Nonconvulsive Seizures",
+      "url": "https://neuro-training.academy/online-courses/nonconvulsive-seizures/",
+      "facts": "Free account and course access. Listed 1.5 contact hours are California Board of Registered Nursing, provider 16614. Complete course and validation survey for emailed certificate.",
+      "decision": "Keep Verify. EEG technologist eligibility/ABRET acceptance, separate credit fee and expiration unverified. Nursing approval is not evidence of ASET approval.",
+      "sources": [
+        "https://neuro-training.academy/about/",
+        "https://neuro-training.academy/online-courses/nonconvulsive-seizures/"
+      ]
+    },
+    {
+      "title": "Natus Neuro Training Academy",
+      "url": "https://neuro-training.academy/eeg-ltm/",
+      "decision": "Keep Verify: free membership/account established; current eligible EEG course credit and zero-cost certificate terms must be verified separately. Historical 2025 ASET live events do not establish current replay credit.",
+      "sources": [
+        "https://neuro-training.academy/about/",
+        "https://neuro-training.academy/eeg-ltm/",
+        "https://neuro-training.academy/events/ai-powered-eeg-interpretation-from-score-ai-to-autoscore/"
+      ]
+    },
+    {
+      "title": "NGN Institute / Neuro Insights",
+      "url": "https://www.teamngn.com/ngngivesback-sponsor",
+      "facts": "Official site advertises free education/CEUs and email signup. Existing provider social account advertises on-demand and earlier July 2026 live offerings.",
+      "decision": "Keep Verify: no current specific course approval, expiration, credit eligibility and completion evidence obtained. Do not enroll by email or send messages without authorization.",
+      "sources": [
+        "https://www.teamngn.com/ngngivesback-sponsor",
+        "https://www.teamngn.com/philanthropy",
+        "https://www.linkedin.com/company/next-gen-neuro"
+      ]
+    },
+    {
+      "title": "American Epilepsy Society",
+      "url": "https://learn.aesnet.org/",
+      "decision": "Keep mixed catalog in Verify. Specific no-charge 3.5 ASET EMU Caring activity, expiration December 31, 2027, is already in Free. Moving the mixed catalog would imply broader free credit availability and duplicate the qualified activity.",
+      "sources": [
+        "https://learn.aesnet.org/",
+        "https://learn.aesnet.org/Listing/EMU-Caring-Safety-in-the-Epilepsy-Monitoring-Unit-11333"
+      ]
+    },
+    {
+      "title": "TeleSpecialists",
+      "url": "https://learning.tstelemed.com/",
+      "decision": "Keep mixed provider catalog in Verify; specific EEG course fee/completion evidence unresolved. Other $0 nursing/CME catalog entries do not independently establish applicable EEG technologist credit.",
+      "sources": [
+        "https://learning.tstelemed.com/",
+        "https://tstelemed.com/telepedia/cme/"
+      ]
+    },
+    {
+      "title": "Cadwell Learning",
+      "url": "https://www.cadwell.com/webinars/",
+      "decision": "Keep Verify. Free archives are educational; no current eligible EEG ASET replay credit verified. December 1, 2026 sleep collaboration webinar lists 1 CSTE, not verified EEG ASET credit.",
+      "sources": [
+        "https://www.cadwell.com/webinars/"
+      ]
+    },
+    {
+      "title": "NowYouKnowMed EEG Tech Live Sessions",
+      "url": "https://nowyouknowmed.com/sessions/eeg-tech",
+      "facts": "November 9 and November 12, 2026 sessions are free; no account, subscription or credit card required. Named qualified faculty and free registration form verified.",
+      "decision": "Keep Verify for CEUs: activity page does not establish credit for these free sessions. Separate paid course credit is not evidence of free-session credit.",
+      "sources": [
+        "https://nowyouknowmed.com/sessions/eeg-tech"
+      ]
+    },
+    {
+      "title": "NeuroEnlight",
+      "url": "https://neuroenlight.com/",
+      "decision": "Keep Verify. Free CEU claims are accompanied by explicit disclaimer that credentialing acceptance is not guaranteed; no applicable accreditor approval verified. Page contains mixed availability notices.",
+      "sources": [
+        "https://www.neuroenlight.com/"
+      ]
+    },
+    {
+      "title": "EpiCARE Webinars",
+      "url": "https://epi-care.eu/webinars/",
+      "facts": "Free worldwide webinars with preregistration and attendance certificates. Next listed session November 19, 2026.",
+      "decision": "Keep Verify: certificate of attendance does not independently establish applicable accredited EEG technologist CEUs.",
+      "sources": [
+        "https://epi-care.eu/webinars/"
+      ]
+    },
+    {
+      "title": "ILAE Education",
+      "url": "https://www.ilae.org/education",
+      "facts": "Official education page reports academy scheduled maintenance/system upgrades; links free teaching references as well as structured paid courses.",
+      "decision": "Keep Verify: no additional specific no-charge EEG technologist credit activity qualified. Free access/account is insufficient to characterize all courses as Free CEUs.",
+      "sources": [
+        "https://www.ilae.org/education"
+      ]
+    }
+  ],
+  "safeguards": "No accounts created, registrations submitted, provider messages sent, user data changed, or resources moved without credit and fee evidence. Existing games/audio/logos/layout/trackers/favorites unchanged.",
+  "future_scan_rule": "A free login or genuinely free membership is allowed in Free CEU Resources when access and applicable EEG technologist credit are both independently verified at no charge. Clearly state the free signup requirement and retain live-only rules, caps, expiration and documentation fees."
+}
