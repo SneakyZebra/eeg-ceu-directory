@@ -10,14 +10,15 @@
     button.type='button';
     button.className='ceu-show-toggle';
     button.id='general-see-more';
-    button.textContent='See More';
     button.setAttribute('aria-controls','general');
     host.after(button);
     function cards(){return Array.from(host.children).filter(card=>card.classList.contains('entry'));}
     function update(){
       const entries=cards();
       entries.forEach((card,index)=>{card.style.display=index<visible?'':'none';});
-      button.style.display=entries.length>visible?'block':'none';
+      const remaining=Math.max(0,entries.length-visible);
+      button.textContent='See More ('+remaining.toLocaleString()+' remaining)';
+      button.style.display=remaining>0?'block':'none';
       button.setAttribute('aria-expanded',String(visible>initial));
     }
     button.addEventListener('click',()=>{

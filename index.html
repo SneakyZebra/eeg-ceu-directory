@@ -695,7 +695,7 @@ card.append(label,h,meta);if(note){const explanation=document.createElement('p')
      cards.forEach((card,i)=>card.style.display=i<visible?'':'none');
      const remaining=Math.max(0,cards.length-visible);
      button.style.display=remaining>0?'block':'none';
-     button.textContent='See More';
+     button.textContent='See More ('+remaining.toLocaleString()+' remaining)';
      button.setAttribute('aria-expanded',String(visible>limit));
    }
    button.addEventListener('click',()=>{
@@ -2870,8 +2870,8 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </script>
 <!-- CEU SIX CARD LIMIT END -->
 
-<script src="assets/general-education-pagination.js?v=20261106"></script>
-<script src="assets/eeg-literature-search.js?v=20261107"></script>
+<script src="assets/general-education-pagination.js?v=20261107-counts"></script>
+<script src="assets/eeg-literature-search.js?v=20261107-counts"></script>
 </body></html>
 <style id="arcade-rad-close-hotfix">
 #rad-eeg-head{position:relative;z-index:30;flex-shrink:0}
