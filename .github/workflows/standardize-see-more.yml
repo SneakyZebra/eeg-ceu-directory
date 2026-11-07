@@ -3,9 +3,13 @@ on:
   push:
     paths:
       - '.github/workflows/standardize-see-more.yml'
+  workflow_dispatch:
 permissions:
   contents: write
   actions: write
+concurrency:
+  group: editorial-resource-review
+  cancel-in-progress: false
 jobs:
   update:
     runs-on: ubuntu-latest
@@ -13,24 +17,41 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-      - name: Keep six resource increments with a See More label
+      - name: Show the remaining resource count on all See More buttons
         run: |
           python - <<'PY'
           from pathlib import Path
           import re
-          p=Path('index.html');s=p.read_text();changed=0
-          pattern=r"button\.textContent=remaining\s*\?\s*'Show 6 More \('\+remaining\+' remaining\)'\s*:\s*'Show Less';"
-          s,n=re.subn(pattern,"button.textContent='See More';",s);changed+=n
-          assert n>=2, 'Expected registry and CEU expansion controls'
-          s=s.replace("button.style.display=cards.length>limit?'block':'none';","button.style.display=remaining>0?'block':'none';")
-          s=s.replace('visible=visible>=count?limit:Math.min(count,visible+limit);','visible=Math.min(count,visible+limit);')
-          assert 'Show 6 More' not in s
-          p.write_text(s);print('Updated expansion controls:',changed)
+          p=Path('index.html');s=p.read_text()
+          old="button.textContent='See More';"
+          new="button.textContent='See More ('+remaining.toLocaleString()+' remaining)';"
+          assert s.count(old)+s.count(new)==1, 'Expected one shared registry expansion label'
+          s=s.replace(old,new)
+          s=s.replace('assets/general-education-pagination.js?v=20261106','assets/general-education-pagination.js?v=20261107-counts')
+          s=s.replace('assets/eeg-literature-search.js?v=20261107"','assets/eeg-literature-search.js?v=20261107-counts"')
+          p.write_text(s)
+          
+          p=Path('assets/general-education-pagination.js');s=p.read_text()
+          old="button.style.display=entries.length>visible?'block':'none';"
+          new="const remaining=Math.max(0,entries.length-visible);\n      button.textContent='See More ('+remaining.toLocaleString()+' remaining)';\n      button.style.display=remaining>0?'block':'none';"
+          assert old in s or new in s, 'General Education pagination shape changed'
+          s=s.replace(old,new).replace("    button.textContent='See More';\n","")
+          p.write_text(s)
+          
+          p=Path('assets/eeg-literature-search.js');s=p.read_text()
+          old="const more=el('button','els-more','See More');"
+          new="const more=el('button','els-more','See More ('+Math.max(0,state.total-state.items.length).toLocaleString()+' remaining)');"
+          assert old in s or new in s, 'Article search pagination shape changed'
+          p.write_text(s.replace(old,new))
+          print('Added remaining counts to every shared registry, General Education and article search expansion button.')
           PY
+          node --check assets/general-education-pagination.js
+          node --check assets/eeg-literature-search.js
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html
-          git diff --cached --quiet || git commit -m 'Use See More for six resource expansion increments'
+          git add index.html assets/general-education-pagination.js assets/eeg-literature-search.js
+          git diff --cached --quiet || git commit -m 'Show remaining resource counts on all See More buttons'
+          git pull --rebase origin main
           git push
       - name: Publish through the existing learning hub publisher
         uses: actions/github-script@v7
