@@ -19,11 +19,11 @@ jobs:
           ref: main
       - name: Apply evidence reviewed resources
         run: |
-          python scripts/review_membership_access_2026_11_07.py
+          python scripts/add_journal_articles_2026_11_07.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html data/membership-access-review-2026-11-07.json
-          git diff --cached --quiet || git commit -m 'Clarify free CEU account requirements and paid membership benefits'
+          git add index.html data/discovered_providers.json data/journal-article-review-2026-11-07.json
+          git diff --cached --quiet || git commit -m 'Add reviewed journal article credit programs with eligibility restrictions'
           git pull --rebase origin main
           git push
       - name: Publish through existing hub configuration
