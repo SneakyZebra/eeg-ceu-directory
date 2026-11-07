@@ -19,11 +19,11 @@ jobs:
           ref: main
       - name: Apply evidence reviewed resources
         run: |
-          python scripts/review_resources_2026_11_07.py
+          python scripts/review_free_ceus_2026_11_07.py
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add index.html data/discovered_providers.json data/resource-review-2026-11-07.json
-          git diff --cached --quiet || git commit -m 'Review all tabs and add November 7 verified EEG education resources'
+          git add index.html data/discovered_providers.json data/free-ceu-review-2026-11-07.json
+          git diff --cached --quiet || git commit -m 'Add verified free neonatal EEG webinar and reviewed CEU leads'
           git pull --rebase origin main
           git push
       - name: Publish through existing hub configuration
